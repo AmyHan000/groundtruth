@@ -1,0 +1,149 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_LOCATION_PERMISSION_REQUEST",
+      "data_type": "Location Service Authorization Status",
+      "description": "Onboarding presents location permission request. CLLocationManager requests 'Always Allow' for background zones and iBeacons.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "LocationPermissionView",
+          "file": "Sources/App/Onboarding/Steps/Permissions/Steps/Location/LocationPermissionView.swift",
+          "line": 1,
+          "code": "struct LocationPermissionView: View",
+          "details": "Onboarding screen explains location use and requests permission."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "CLLocationManager.requestAlwaysAuthorization",
+          "file": "Sources/App/ZoneManager/ZoneManager.swift",
+          "line": 53,
+          "code": "private func updateLocationManager(isInitial:) { locationManager.allowsBackgroundLocationUpdates = true }",
+          "details": "CLLocationManager configured for always-on background location with significant change monitoring."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_MOTION_PERMISSION_REQUEST",
+      "data_type": "Motion & Fitness Authorization Status",
+      "description": "Onboarding requests motion permission for activity and pedometer sensors.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "OnboardingPermissionsNavigationView",
+          "file": "Sources/App/Onboarding/Steps/Permissions/OnboardingPermissionsNavigationView.swift",
+          "line": 1,
+          "code": "struct OnboardingPermissionsNavigationView: View",
+          "details": "Onboarding multi-permission screen includes motion/fitness permission."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "CMMotionActivityManager / CMPedometer",
+          "file": "Sources/Shared/API/Webhook/Sensors/ActivitySensor.swift",
+          "line": 17,
+          "code": "public func sensors() -> Promise<[WebhookSensor]> { Self.latestMotionActivity() }",
+          "details": "MotionActivity sensor queries CoreMotion for activity type and confidence."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_CAMERA_PERMISSION_REQUEST",
+      "data_type": "Camera Authorization Status",
+      "description": "Onboarding or first barcode scan triggers camera permission request via AVCaptureDevice.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "BarcodeScannerCamera.checkAuthorization",
+          "file": "Sources/App/BarcodeScanner/Camera/BarcodeScannerCamera.swift",
+          "line": 143,
+          "code": "private func checkAuthorization() async -> Bool { AVCaptureDevice.requestAccess(for: .video) }",
+          "details": "First camera access triggers system permission dialog for NSCameraUsageDescription."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_MICROPHONE_PERMISSION_REQUEST",
+      "data_type": "Microphone Authorization Status",
+      "description": "Voice recording or on-device speech triggers microphone permission request via AVAudioSession.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "SpeechTranscriber.requestPermission",
+          "file": "Sources/App/Assist/Local/SpeechTranscriber.swift",
+          "line": 213,
+          "code": "public func requestPermission() async throws { AVAudioApplication.requestRecordPermission { ... } }",
+          "details": "First audio recording triggers system microphone permission dialog."
+        },
+        {
+          "step": "Trigger",
+          "function": "AudioRecorder.setupAudioRecorder",
+          "file": "Sources/App/Assist/Audio/AudioRecorder.swift",
+          "line": 59,
+          "code": "private func setupAudioRecorder() { let audioSession = AVAudioSession.sharedInstance(); try audioSession.setCategory(.record) }",
+          "details": "AVCaptureSession configured with microphone input for Assist voice recording."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_NOTIFICATION_PERMISSION_REQUEST",
+      "data_type": "Notification Authorization Status (APNs)",
+      "description": "App registers for remote notifications and requests alert/sound/badge permissions via UNUserNotificationCenter.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "NotificationManager.setupFirebase",
+          "file": "Sources/App/Notifications/NotificationManager.swift",
+          "line": 261,
+          "code": "func setupFirebase() { UIApplication.shared.registerForRemoteNotifications() }",
+          "details": "App registers for remote notifications via APNs."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "NotificationManager.didRegisterForRemoteNotifications",
+          "file": "Sources/App/Notifications/NotificationManager.swift",
+          "line": 285,
+          "code": "func didRegisterForRemoteNotifications(deviceToken:) { Messaging.messaging().setAPNSToken(deviceToken, type: tokenType) }",
+          "details": "APNs device token forwarded to Firebase Messaging for push notification delivery."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_SPEECH_RECOGNITION_PERMISSION_REQUEST",
+      "data_type": "Speech Recognition Authorization Status",
+      "description": "On-device speech transcription triggers SFSpeechRecognizer authorization request.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "SpeechTranscriber.requestPermission",
+          "file": "Sources/App/Assist/Local/SpeechTranscriber.swift",
+          "line": 221,
+          "code": "public func requestPermission() async throws { SFSpeechRecognizer.requestAuthorization { ... } }",
+          "details": "Speech recognition permission requested for on-device STT."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_BLUETOOTH_PERMISSION_REQUEST",
+      "data_type": "Bluetooth Authorization Status",
+      "description": "Improv device provisioning triggers Bluetooth permission request via CBCentralManager.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "BluetoothPermissionViewModel.requestAuthorization",
+          "file": "Sources/App/PermissionScreen/Bluetooth/BluetoothPermissionViewModel.swift",
+          "line": 17,
+          "code": "func requestAuthorization() { cbManager = CBCentralManager(delegate: self, queue: nil) }",
+          "details": "CBCentralManager initialization triggers system Bluetooth permission dialog."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "ImprovDiscoverView",
+          "file": "Sources/Improv/ImprovDiscoverView.swift",
+          "line": 1,
+          "code": "struct ImprovDiscoverView<Manager>: View where Manager: ImprovManagerProtocol",
+          "details": "BLE scanning for Improv-compatible devices on local network."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "id": "ONBOARDING_LOCATION_PERMISSION",
+  "feature_name": "引导权限请求",
+  "data": [
+    {
+      "scene": "用户首次进入应用引导流程",
+      "purpose": "逐一请求必要的系统权限，确保应用功能正常运行",
+      "source": "系统弹窗交互",
+      "item": "定位权限授权状态、运动权限授权状态、相机权限授权状态、麦克风权限授权状态、通知权限授权状态、语音识别权限授权状态、蓝牙权限授权状态",
+      "frequency": "首次启动时一次性请求",
+      "processing": "系统级授权交互",
+      "storage": "仅存储授权状态",
+      "recipient": "设备本地（授权状态存储在系统）",
+      "thirdparty": "无第三方",
+      "switchpath": "系统设置 -> 隐私与安全性"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "NSLocationAlwaysAndWhenInUseUsageDescription",
+      "scene": "用户进入位置权限请求页面时",
+      "authorization": "运行时",
+      "purpose": "允许应用在后台获取位置信息，用于地理围栏和存在检测",
+      "impact": "如果拒绝，位置自动化功能将不可用"
+    },
+    {
+      "name": "NSMotionUsageDescription",
+      "scene": "用户进入运动权限请求页面时",
+      "authorization": "运行时",
+      "purpose": "访问活动识别和计步器数据",
+      "impact": "如果拒绝，活动和步数传感器不可用"
+    },
+    {
+      "name": "NSCameraUsageDescription",
+      "scene": "用户首次使用条码扫描功能时",
+      "authorization": "运行时",
+      "purpose": "使用相机进行二维码/条码扫描",
+      "impact": "如果拒绝，条码扫描功能不可用"
+    },
+    {
+      "name": "NSMicrophoneUsageDescription",
+      "scene": "用户首次使用语音助手时",
+      "authorization": "运行时",
+      "purpose": "录制语音命令",
+      "impact": "如果拒绝，文字输入方式仍可使用"
+    },
+    {
+      "name": "NSSpeechRecognitionUsageDescription",
+      "scene": "用户首次使用设备端语音转文字时",
+      "authorization": "运行时",
+      "purpose": "在设备端本地进行语音识别",
+      "impact": "如果拒绝，将回退使用服务器端语音识别"
+    },
+    {
+      "name": "NSBluetoothAlwaysUsageDescription",
+      "scene": "用户首次使用 Improv 蓝牙配网时",
+      "authorization": "运行时",
+      "purpose": "扫描并连接 Improv 蓝牙设备以配置 Wi-Fi",
+      "impact": "如果拒绝，Improv 蓝牙配网不可用"
+    }
+  ]
+}

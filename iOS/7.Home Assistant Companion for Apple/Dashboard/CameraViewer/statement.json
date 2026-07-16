@@ -1,0 +1,31 @@
+{
+  "id": "DASHBOARD_CAMERA",
+  "feature_name": "摄像头查看器",
+  "data": [
+    {
+      "scene": "用户点击摄像头实体查看实时画面",
+      "purpose": "通过 WebRTC/HLS/MJPEG 协议播放来自 Home Assistant 服务器的摄像头直播流",
+      "source": "Home Assistant 服务器（WebRTC ICE/TURN、HLS、MJPEG）",
+      "item": "视频流、音频流（播放专用）",
+      "frequency": "用户按需查看",
+      "processing": "仅本地渲染播放",
+      "storage": "不存储",
+      "recipient": "设备本地",
+      "thirdparty": "无第三方",
+      "switchpath": "不适用"
+    },
+    {
+      "scene": "WebRTC 建立连接",
+      "purpose": "通过 ICE/TURN 服务器建立 P2P 连接以接收摄像头流",
+      "source": "HA 服务器（信令服务器和 ICE/TURN）",
+      "item": "ICE 候选地址、SDP 描述信息",
+      "frequency": "每次打开摄像头时",
+      "processing": "仅用于建立连接，连接建立后不再使用",
+      "storage": "不存储",
+      "recipient": "HA 服务器（自托管）",
+      "thirdparty": "TURN 服务器（如配置）在连接过程中中转数据",
+      "switchpath": "不适用"
+    }
+  ],
+  "permissions": []
+}

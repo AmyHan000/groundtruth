@@ -1,0 +1,89 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_USER_AUTH_TOKEN",
+      "data_type": "Bearer Token / Refresh Token (Credentials)",
+      "description": "OAuth2 authorization code flow. Auth code exchanged for bearer/refresh tokens via HTTPS. Tokens stored in iOS Keychain.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "OnboardingAuthLoginViewControllerImpl.viewDidLoad",
+          "file": "Sources/App/Onboarding/API/OnboardingAuthLoginViewController.swift",
+          "line": 64,
+          "code": "override func viewDidLoad() { webView.load(.init(url: authDetails.url)) }",
+          "details": "WKWebView loads OAuth2 authorization page for user login."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "OnboardingAuthLoginViewControllerImpl.webView:didReceiveAuthenticationChallenge",
+          "file": "Sources/App/Onboarding/API/OnboardingAuthLoginViewController.swift",
+          "line": 109,
+          "code": "func webView(_:, didReceive challenge:, completionHandler:) { authDetails.exceptions.evaluate(challenge) }",
+          "details": "Server trust evaluation for HTTPS connection; supports self-signed certificates and client certificate (mTLS) authentication."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "OnboardingAuthTokenExchange.tokenInfo",
+          "file": "Sources/App/Onboarding/API/OnboardingAuthTokenExchange.swift",
+          "line": 1,
+          "code": "func tokenInfo(code:, connectionInfo:) -> Promise<TokenInfo>",
+          "details": "Authorization code exchanged for bearer/refresh token via HTTPS POST to HA server."
+        },
+        {
+          "step": "Storage",
+          "function": "SettingsStore (Keychain)",
+          "file": "Sources/Shared/Settings/SettingsStore.swift",
+          "line": 45,
+          "code": "KeychainWrapper.standard.set(token, forKey: \"accessToken\")",
+          "details": "Tokens stored in iOS Keychain with hardware-backed encryption."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_USER_AUTH_CLIENT_CERT",
+      "data_type": "Client Certificate (PKCS12 identity)",
+      "description": "Optional mTLS client certificate imported from MDM or manual configuration. Used for server authentication.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "OnboardingAuthLoginViewControllerImpl.handleClientCertificateChallenge",
+          "file": "Sources/App/Onboarding/API/OnboardingAuthLoginViewController.swift",
+          "line": 128,
+          "code": "private func handleClientCertificateChallenge(_, completionHandler:)",
+          "details": "Server requests client certificate during TLS handshake."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "ClientCertificateManager.shared.urlCredential",
+          "file": "Sources/App/Onboarding/API/OnboardingAuthLoginViewController.swift",
+          "line": 139,
+          "code": "let credential = try ClientCertificateManager.shared.urlCredential(for: clientCertificate)",
+          "details": "Client certificate identity loaded from Keychain and provided as URLCredential."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_USER_AUTH_REGISTRATION",
+      "data_type": "Device Identifiers (push token, device name, version)",
+      "description": "Mobile app registration sends device metadata to HA server during onboarding.",
+      "flow_steps": [
+        {
+          "step": "Data Transmission",
+          "function": "OnboardingAuthStepRegister",
+          "file": "Sources/App/Onboarding/API/Steps/OnboardingAuthStepRegister.swift",
+          "line": 1,
+          "code": "class OnboardingAuthStepRegister",
+          "details": "Device registers with HA server: sends device name, push token, version info via HTTPS."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "MobileAppRegistrationRequest",
+          "file": "Sources/Shared/API/Requests/MobileAppRegistrationRequest.swift",
+          "line": 1,
+          "code": "struct MobileAppRegistrationRequest",
+          "details": "Registration payload includes device ID, app version, push notification token, and device permanent name."
+        }
+      ]
+    }
+  ]
+}

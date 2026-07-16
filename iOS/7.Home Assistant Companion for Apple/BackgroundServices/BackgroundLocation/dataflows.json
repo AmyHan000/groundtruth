@@ -1,0 +1,152 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_BACKGROUND_LOCATION",
+      "data_type": "Device GPS Location (Precise, always-on)",
+      "description": "CLLocationManager with allowsBackgroundLocationUpdates monitors significant location changes and zone regions. Location sent to HA server as device tracker.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "ZoneManager.updateLocationManager",
+          "file": "Sources/App/ZoneManager/ZoneManager.swift",
+          "line": 53,
+          "code": "private func updateLocationManager(isInitial:) { locationManager.allowsBackgroundLocationUpdates = true; locationManager.startMonitoringSignificantLocationChanges() }",
+          "details": "CLLocationManager configured for background location with significant location change monitoring."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "CLLocationManager.startMonitoringSignificantLocationChanges",
+          "file": "Sources/App/ZoneManager/ZoneManager.swift",
+          "line": 57,
+          "code": "$0.startMonitoringSignificantLocationChanges()",
+          "details": "Significant location change monitoring active in background."
+        },
+        {
+          "step": "Data Processing",
+          "function": "ZoneManagerProcessor.processNextEvent",
+          "file": "Sources/App/ZoneManager/ZoneManagerProcessor.swift",
+          "line": 51,
+          "code": "private func processNextEvent() { guard currentEvent == nil, let (event, resolver) = queue.pop() else { return } }",
+          "details": "Location events processed sequentially from queue. Events include region enter/exit and raw location changes."
+        },
+        {
+          "step": "Data Processing",
+          "function": "ZoneManagerProcessor.perform",
+          "file": "Sources/App/ZoneManager/ZoneManagerProcessor.swift",
+          "line": 68,
+          "code": "func perform(event:) -> Promise<Void> { let promise = queue.add(event: event); processNextEvent(); return promise }",
+          "details": "Accuracy fuzzers (MultiZone, RegionEnter, MultiRegionOverlap) applied to protect location precision."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "ZoneManagerProcessorImpl.processNextEvent",
+          "file": "Sources/App/ZoneManager/ZoneManagerProcessor.swift",
+          "line": 95,
+          "code": "api.SubmitLocation(updateType: trigger, location: location, zone: event.associatedZone)",
+          "details": "Location submitted to all available HA servers via SubmitLocation webhook."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "ZoneManager.fire",
+          "file": "Sources/App/ZoneManager/ZoneManager.swift",
+          "line": 97,
+          "code": "api.CreateEvent(eventType: eventInfo.eventType, eventData: eventInfo.eventData)",
+          "details": "Zone enter/exit events fired as HA events."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_GEOCODED_LOCATION",
+      "data_type": "Geocoded Address (Street-level)",
+      "description": "GPS coordinates reverse-geocoded via CLGeocoder into street addresses. Data sent to Apple servers for geocoding.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "GeocoderSensor.sensors",
+          "file": "Sources/Shared/API/Webhook/Sensors/GeocoderSensor.swift",
+          "line": 26,
+          "code": "public func sensors() -> Promise<[WebhookSensor]> { firstly { Current.geocoder.geocode(location) } }",
+          "details": "Sensor update triggers reverse geocoding of current GPS location."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "CLGeocoder.reverseGeocodeLocation",
+          "file": "Sources/Shared/API/Webhook/Sensors/GeocoderSensor.swift",
+          "line": 32,
+          "code": "return Current.geocoder.geocode(location)",
+          "details": "GPS coordinates sent to Apple CLGeocoder service, which may resolve to street-level address."
+        },
+        {
+          "step": "Data Processing",
+          "function": "GeocoderSensor.sensors result",
+          "file": "Sources/Shared/API/Webhook/Sensors/GeocoderSensor.swift",
+          "line": 65,
+          "code": "var attributes = Self.attributes(for: placemarks); attributes[\"Zones\"] = Array(insideZones)",
+          "details": "Address attributes extracted from CLPlacemark including administrative area, locality, thoroughfare, and time zone."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "GeocoderSensor.sensors return",
+          "file": "Sources/Shared/API/Webhook/Sensors/GeocoderSensor.swift",
+          "line": 80,
+          "code": "sensor.Attributes = attributes; return [sensor]",
+          "details": "Geocoded location sensor submitted to HA server via standard sensor webhook."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_LOCATION_ONE_SHOT",
+      "data_type": "Device GPS Location (One-shot)",
+      "description": "One-shot location queries triggered by various events (push notification, background fetch, URL scheme) via CLLocationManager requestLocation.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "CLLocationManagerOneShotLocation",
+          "file": "Sources/Shared/Location/CLLocationManager+OneShotLocation.swift",
+          "line": 1,
+          "code": "extension CLLocationManager",
+          "details": "Multiple trigger types can request a one-shot location: Manual, PushNotification, BackgroundFetch, URLScheme, XCallbackURL, Siri, AppShortcut, Visit, Periodic."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "CLLocationManager.requestLocation",
+          "file": "Sources/Shared/Location/CLLocationManager+OneShotLocation.swift",
+          "line": 20,
+          "code": "requestLocation()",
+          "details": "GPS fix acquired via CLLocationManager with timeout based on trigger type (10-30 seconds)."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "HAAPI.SubmitLocation",
+          "file": "Sources/Shared/API/HAAPI.swift",
+          "line": 1,
+          "code": "func SubmitLocation(updateType:, location:, zone:)",
+          "details": "One-shot location submitted to HA server."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_BEACON_REGION_MONITORING",
+      "data_type": "iBeacon Region Enter/Exit",
+      "description": "CLBeaconRegion monitoring for user-defined iBeacons. Region enter/exit events trigger location updates.",
+      "flow_steps": [
+        {
+          "step": "Sensitive Operation",
+          "function": "ZoneManager.sync",
+          "file": "Sources/App/ZoneManager/ZoneManager.swift",
+          "line": 121,
+          "code": "locationManager.startMonitoring(for: region)",
+          "details": "CLBeaconRegion regions monitored for enter/exit events alongside CLCircularRegions."
+        },
+        {
+          "step": "Data Processing",
+          "function": "ZoneManagerProcessorImpl.evaluateRegionEvent",
+          "file": "Sources/App/ZoneManager/ZoneManagerProcessor.swift",
+          "line": 118,
+          "code": "private static func evaluateRegionEvent(region:, state:, zone:) -> Promise<Void>",
+          "details": "Beacon exit events are ignored (beaconExitIgnored) to prevent false exits. Zone enter events trigger location submission."
+        }
+      ]
+    }
+  ]
+}

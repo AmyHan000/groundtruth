@@ -1,0 +1,135 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_PUSH_NOTIFICATION_RECEIVE",
+      "data_type": "Push Notification Content (APNs)",
+      "description": "Notifications received via APNs/Firebase Cloud Messaging. Notification payload may contain messages, camera commands, URLs, and action data. Processed by NotificationService extension.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "NotificationManager.didReceiveRemoteNotification",
+          "file": "Sources/App/Notifications/NotificationManager.swift",
+          "line": 296,
+          "code": "func didReceiveRemoteNotification(userInfo:, fetchCompletionHandler:) { Messaging.messaging().appDidReceiveMessage(userInfo) }",
+          "details": "Remote notification received via APNs. Forwarded to Firebase Messaging for analytics."
+        },
+        {
+          "step": "Data Processing",
+          "function": "NotificationService.didReceive",
+          "file": "Sources/Extensions/NotificationService/NotificationService.swift",
+          "line": 9,
+          "code": "override func didReceive(_ request:, withContentHandler:) { Current.notificationHistoryStore.record(...); Current.notificationAttachmentManager.content(from: request.content, api:) }",
+          "details": "Notification service extension records content to history DB and downloads attachment media from HA server (camera snapshots, etc.)."
+        },
+        {
+          "step": "Data Processing",
+          "function": "NotificationManager.userNotificationCenter:willPresent",
+          "file": "Sources/App/Notifications/NotificationManager.swift",
+          "line": 502,
+          "code": "public func userNotificationCenter(_:, willPresent notification:) async -> UNNotificationPresentationOptions",
+          "details": "Foreground notification processed for display with appropriate presentation options."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_PUSH_NOTIFICATION_CAMERA_COMMAND",
+      "data_type": "Camera Entity ID (in Notification Payload)",
+      "description": "Push notification with 'kiosk_show_camera' command triggers live camera overlay. Camera entity ID extracted from payload; camera stream rendered via WebRTC/HLS.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "NotificationManager.openCamera",
+          "file": "Sources/App/Notifications/NotificationManager.swift",
+          "line": 73,
+          "code": "private func openCamera(from userInfo:) { let view = CameraPlayerView(server: server, cameraEntityId: entityId) }",
+          "details": "Push notification with 'show_camera' command extracts camera.entity_id from payload."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "NotificationManager.cameraEntityId",
+          "file": "Sources/App/Notifications/NotificationManager.swift",
+          "line": 85,
+          "code": "private func cameraEntityId(from userInfo:) -> String? { if userInfo[\"entity_id\"] as? String hasPrefix \"camera.\" }",
+          "details": "Camera entity ID extracted from notification homeassistant payload."
+        },
+        {
+          "step": "Data Processing",
+          "function": "NotificationManager.cameraOverlayController",
+          "file": "Sources/App/Notifications/NotificationManager.swift",
+          "line": 73,
+          "code": "CameraPlayerView(server: server, cameraEntityId: entityId).embeddedInHostingController()",
+          "details": "Camera player view presented as overlay for live camera stream from HA server."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_PUSH_NOTIFICATION_LIVE_ACTIVITY",
+      "data_type": "Live Activity Push Update Data",
+      "description": "Push notifications can update Live Activities (iOS 17.2+). Live activity commands update dynamic island/lock screen content.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "NotificationService.isLiveActivity",
+          "file": "Sources/Extensions/NotificationService/NotificationService.swift",
+          "line": 21,
+          "code": "private static func isLiveActivity(_ userInfo:) -> Bool { (hadict[\"live_update\"] as? Bool) == true || (hadict[\"command\"] as? String) == \"live_activity\" }",
+          "details": "Notification payload checked for live activity update flags."
+        },
+        {
+          "step": "Data Processing",
+          "function": "LiveActivityPendingEndObserver / LiveActivityPendingStartObserver",
+          "file": "Sources/App/Notifications/NotificationManager.swift",
+          "line": 63,
+          "code": "LiveActivityPendingEndObserver.drain(); LiveActivityPendingStartObserver.drain()",
+          "details": "Live Activity start/end commands processed on app foreground."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_PUSH_NOTIFICATION_KIOSK_COMMANDS",
+      "data_type": "Kiosk Command Parameters (brightness, volume, screen)",
+      "description": "Push commands can set screen brightness, system volume, show/hide camera, and control kiosk mode settings.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "NotificationManager.setScreenBrightness",
+          "file": "Sources/App/Notifications/NotificationManager.swift",
+          "line": 100,
+          "code": "private func setScreenBrightness(_ level:) { UIScreen.main.brightness = clamped }",
+          "details": "Push command sets screen brightness level."
+        },
+        {
+          "step": "Trigger",
+          "function": "NotificationManager.setSystemVolume",
+          "file": "Sources/App/Notifications/NotificationManager.swift",
+          "line": 108,
+          "code": "private func setSystemVolume(_ level:) { slider.setValue(clamped, animated: false); slider.sendActions(for: .touchUpInside) }",
+          "details": "Push command sets system volume via MPVolumeView."
+        },
+        {
+          "step": "Trigger",
+          "function": "NotificationManager.hideCamera",
+          "file": "Sources/App/Notifications/NotificationManager.swift",
+          "line": 96,
+          "code": "private func hideCamera() { webViewController.dismissOverlayController(animated:) { self?.cameraOverlayController = nil } }",
+          "details": "Push command hides camera overlay."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_PUSH_NOTIFICATION_ATTACHMENT_MEDIA",
+      "data_type": "Notification Attachment (Image/Video URL)",
+      "description": "Notification attachments downloaded from HA server URLs and displayed as media attachments within notifications.",
+      "flow_steps": [
+        {
+          "step": "Data Transmission",
+          "function": "NotificationAttachmentManager.content",
+          "file": "Sources/Shared/Notifications/NotificationAttachmentManager.swift",
+          "line": 1,
+          "code": "func content(from:, api:) -> Promise<UNNotificationContent>",
+          "details": "Attachment media (camera snapshot, etc.) downloaded from HA server for notification display."
+        }
+      ]
+    }
+  ]
+}

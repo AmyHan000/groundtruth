@@ -1,0 +1,46 @@
+{
+  "id": "SETTINGS_SENSOR",
+  "feature_name": "传感器管理",
+  "data": [
+    {
+      "scene": "用户启用传感器上报功能",
+      "purpose": "将设备传感器数据上报至 Home Assistant 服务器用于自动化和监测",
+      "source": "多个传感器 API（CMMotionActivityManager、CMPedometer、CMAltimeter、UIDevice、NWPathMonitor、CoreTelephony 等）",
+      "item": "运动活动类型（敏感）、步数/距离（敏感）、气压数据、电池状态、WiFi SSID/BSSID（敏感）、连接类型、蜂窝运营商信息、显示信息、专注模式状态、存储信息、地理编码位置（敏感）、音频输出信息、前台状态",
+      "frequency": "定期采集（可配置间隔）",
+      "processing": "上传至服务器",
+      "storage": "服务器端存储",
+      "recipient": "Home Assistant 服务器（自托管）",
+      "thirdparty": "无第三方",
+      "switchpath": "设置 -> 传感器"
+    },
+    {
+      "scene": "地理编码传感器采集位置信息",
+      "purpose": "将 GPS 坐标通过 Apple CLGeocoder 转换为街道地址",
+      "source": "CLLocation（GPS 坐标）+ Apple CLGeocoder",
+      "item": "GPS 坐标（敏感）、街道地址（敏感）、行政区域（敏感）、邮政编码、时区",
+      "frequency": "每次传感器更新时",
+      "processing": "Apple 服务反向地理编码后上传至服务器",
+      "storage": "服务器端存储",
+      "recipient": "Home Assistant 服务器 + Apple CLGeocoder（中间服务）",
+      "thirdparty": "Apple CLGeocoder 用于地理编码服务",
+      "switchpath": "设置 -> 传感器 -> 地理编码位置"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "NSMotionUsageDescription",
+      "scene": "用户启用活动或计步器传感器时",
+      "authorization": "运行时",
+      "purpose": "访问运动活动数据和计步数据",
+      "impact": "如果拒绝，活动/计步器传感器不可用"
+    },
+    {
+      "name": "NSFocusStatusUsageDescription",
+      "scene": "用户启用专注模式传感器时",
+      "authorization": "运行时",
+      "purpose": "读取设备当前的专注模式状态",
+      "impact": "如果拒绝，专注模式传感器不可用"
+    }
+  ]
+}

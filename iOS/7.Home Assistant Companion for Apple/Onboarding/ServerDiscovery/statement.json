@@ -1,0 +1,39 @@
+{
+  "id": "ONBOARDING_SERVER_DISCOVERY",
+  "feature_name": "服务器发现",
+  "data": [
+    {
+      "scene": "用户启动应用并进入服务器发现页面",
+      "purpose": "自动发现本地网络的 Home Assistant 服务器，或手动输入服务器地址",
+      "source": "NetServiceBrowser (Bonjour/mDNS)",
+      "item": "服务器 URL、位置名称、版本号、局域网 IP",
+      "frequency": "仅首次配置时触发",
+      "processing": "本地处理，仅存储服务器URL",
+      "storage": "本地存储 (Server model)",
+      "recipient": "设备本地",
+      "thirdparty": "无第三方",
+      "switchpath": "设置 -> 服务器 -> 重新发现"
+    },
+    {
+      "scene": "用户手动输入服务器地址",
+      "purpose": "连接用户指定的 Home Assistant 服务器",
+      "source": "用户输入",
+      "item": "Home Assistant 服务器 URL",
+      "frequency": "一次性",
+      "processing": "本地处理",
+      "storage": "本地存储",
+      "recipient": "设备本地",
+      "thirdparty": "无第三方",
+      "switchpath": "设置 -> 服务器"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "NSLocalNetworkUsageDescription",
+      "scene": "用户首次打开服务器发现页面时",
+      "authorization": "运行时",
+      "purpose": "允许应用通过 Bonjour/mDNS 扫描本地网络中的 Home Assistant 服务器",
+      "impact": "如果拒绝，将无法自动发现服务器，需手动输入URL"
+    }
+  ]
+}

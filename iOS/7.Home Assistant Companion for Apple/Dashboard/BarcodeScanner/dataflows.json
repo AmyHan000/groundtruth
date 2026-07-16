@@ -1,0 +1,51 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_CAMERA_BARCODE_SCAN",
+      "data_type": "Camera Video Feed / QR Code / Barcode Content",
+      "description": "AVFoundation rear camera activated for barcode scanning via AVCaptureMetadataOutput. Camera preview displayed as CIImage stream. Detected barcode value returned to frontend.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "BarcodeScannerCamera.start",
+          "file": "Sources/App/BarcodeScanner/Camera/BarcodeScannerCamera.swift",
+          "line": 240,
+          "code": "func start() async { guard authorized else { return }; sessionQueue.async { self.captureSession.startRunning() } }",
+          "details": "User triggers barcode scan; AVCaptureSession starts on session queue."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "BarcodeScannerCamera.configureCaptureSession",
+          "file": "Sources/App/BarcodeScanner/Camera/BarcodeScannerCamera.swift",
+          "line": 103,
+          "code": "private func configureCaptureSession(completionHandler:) { let deviceInput = try? AVCaptureDeviceInput(device: captureDevice); captureSession.addInput(deviceInput) }",
+          "details": "Rear camera device activated via AVCaptureDeviceInput. Supports triple, dual, and wide-angle cameras."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "BarcodeScannerCamera.captureOutput:didOutput:fromConnection",
+          "file": "Sources/App/BarcodeScanner/Camera/BarcodeScannerCamera.swift",
+          "line": 278,
+          "code": "func captureOutput(_:, didOutput sampleBuffer:, from:) { addToPreviewStream?(CIImage(cvPixelBuffer: pixelBuffer)) }",
+          "details": "Live camera preview frames streamed as CIImage for display. Video data output continuously produces pixel buffers."
+        },
+        {
+          "step": "Data Processing",
+          "function": "BarcodeScannerCamera.metadataOutput:didOutput:fromConnection",
+          "file": "Sources/App/BarcodeScanner/Camera/BarcodeScannerCamera.swift",
+          "line": 295,
+          "code": "func metadataOutput(_:, didOutput metadataObjects:, from:) { delegate?.didDetectBarcode(stringValue, format: format) }",
+          "details": "AVCaptureMetadataOutput detects barcodes (QR, Aztec, Code128, Code39, Code93, DataMatrix, EAN13, EAN8, PDF417, UPC-E, Codabar, ITF14)."
+        },
+        {
+          "step": "Data Processing",
+          "function": "BarcodeScannerViewModel.handleDetection",
+          "file": "Sources/App/BarcodeScanner/Camera/BarcodeScannerViewModel.swift",
+          "line": 40,
+          "code": "func handleDetection(value:) { delegate?.barcodeScannerDidScan(value) }",
+          "details": "Detected barcode value returned to frontend for processing (e.g., triggering automation)."
+        }
+      ]
+    }
+  ]
+}
