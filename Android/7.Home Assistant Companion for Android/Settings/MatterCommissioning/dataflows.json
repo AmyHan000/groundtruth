@@ -1,0 +1,27 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_MATTER_DEVICE_COMMISSIONING",
+      "data_type": "Matter Commissioning Code and Device PIN (Smart Home Credentials)",
+      "description": "The user commissions a Matter smart home device via the app. The Matter commissioning code (pairing key) or device PIN and IP address are sent to the Home Assistant server via WebSocket for device pairing.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "FrontendMatterThreadHandler.onStartMatterCommissioning",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/matterthread/FrontendMatterThreadHandler.kt",
+          "line": 71,
+          "code": "suspend fun onStartMatterCommissioning() { matterManager.prepareMatterDeviceCommissioning() }",
+          "details": "User triggers Matter commissioning from the WebView frontend. The app prepares the commissioning flow via Google Play Services."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "MatterManagerImpl.commissionDevice / commissionOnNetworkDevice",
+          "file": "app/src/full/kotlin/io/homeassistant/companion/android/matter/MatterManagerImpl.kt",
+          "line": 45,
+          "code": "webSocketRepository.sendMessage(CommissionMatterDevice(code)); CommissionMatterDeviceOnNetwork(pin, ip)",
+          "details": "The Matter commissioning code (QR code payload) or device PIN and local IP address are sent to the Home Assistant server via WebSocket for commissioning."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "ONBOARDING_LOCATION_PERMISSION",
+  "feature_name": "Location Permission Request",
+  "data": [
+    {
+      "scene": "User taps 'Share Location' button on Location Sharing screen during onboarding after server connection.",
+      "purpose": "Enable location-based automations and presence detection features in Home Assistant.",
+      "source": "Android Permissions API (system dialog)",
+      "item": "Location permission grant/deny status (ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION, ACCESS_BACKGROUND_LOCATION)",
+      "frequency": "Once during onboarding",
+      "processing": "Local only; sensor enable state written to Room database (Sensor table)",
+      "storage": "Local Room database (Sensor table)",
+      "recipient": "Only the sensor enable state is sent to the Home Assistant server; permission status itself is local",
+      "thirdparty": "No third-party data sharing",
+      "switchpath": "Onboarding flow -> Location Sharing screen -> 'Share Location' button"
+    },
+    {
+      "scene": "User selects 'Most Secure' option during HTTP server connection setup; location permission is requested for home network detection.",
+      "purpose": "Detect whether the device is on the home Wi-Fi network to configure a secure connection.",
+      "source": "Android Permissions API (system dialog)",
+      "item": "Location permission grant/deny status (for local network detection during onboarding)",
+      "frequency": "Once during onboarding (only if server uses HTTP)",
+      "processing": "Local only; denied permission causes option to revert to 'Less Secure'",
+      "storage": "Not stored",
+      "recipient": "None; permission result used only for UI flow decisions",
+      "thirdparty": "No third-party data sharing",
+      "switchpath": "Onboarding flow -> Secure Connection screen -> 'Most Secure' radio -> Save"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "ACCESS_FINE_LOCATION",
+      "scene": "When requesting location permission during onboarding.",
+      "authorization": "Runtime",
+      "purpose": "Obtain precise GPS location for presence detection and geofencing automations.",
+      "impact": "If denied, location-related features will be unavailable, but other app features will still work."
+    },
+    {
+      "name": "ACCESS_COARSE_LOCATION",
+      "scene": "When requesting location permission during onboarding.",
+      "authorization": "Runtime",
+      "purpose": "Obtain approximate location for network-based positioning during onboarding.",
+      "impact": "If denied, location-related features will be unavailable, but other app features will still work."
+    },
+    {
+      "name": "ACCESS_BACKGROUND_LOCATION",
+      "scene": "When requesting location permission during onboarding (Android 10+).",
+      "authorization": "Runtime",
+      "purpose": "Allow location updates when the app is in the background for continuous presence detection.",
+      "impact": "If denied, background location tracking will not be available; only foreground location will work."
+    }
+  ]
+}

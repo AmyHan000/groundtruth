@@ -1,0 +1,35 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_WAKE_WORD_DETECTION",
+      "data_type": "Voice Audio for Wake Word Detection (Biometric/Sensitive)",
+      "description": "The app continuously captures microphone audio in the background and processes it through an on-device open-source microWakeWord TFLite model for local wake word detection. All audio processing is on-device; no audio is uploaded unless wake word is detected.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "WakeWordListener.start",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/assist/wakeword/WakeWordListener.kt",
+          "line": 76,
+          "code": "@RequiresPermission(Manifest.permission.RECORD_AUDIO) suspend fun start(coroutineScope, modelConfig, coroutineContext) { microWakeWordFactory(modelConfig).use { onListenerReady(modelConfig); runDetectionLoop(modelConfig, microWakeWord) } }",
+          "details": "When the user enables wake word, the WakeWordListener loads the microWakeWord TFLite model and begins continuous listening."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "WakeWordListener.runDetectionLoop",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/assist/wakeword/WakeWordListener.kt",
+          "line": 119,
+          "code": "private suspend fun runDetectionLoop(modelConfig: MicroWakeWordModelConfig, microWakeWord: MicroWakeWord) { while (isActive) { audioData = voiceAudioRecorder.audioData.receive(); microWakeWord.detectWakeWord(audioData) } }",
+          "details": "Continuously receives audio chunks (~10ms each) from VoiceAudioRecorder and passes them through the local TFLite model for wake word detection. All processing is on-device."
+        },
+        {
+          "step": "Data Processing",
+          "function": "WakeWordListener.onWakeWordDetected",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/assist/wakeword/WakeWordListener.kt",
+          "line": 57,
+          "code": "private val onWakeWordDetected: (MicroWakeWordModelConfig) -> Unit",
+          "details": "When a wake word is detected, the callback triggers the Assist voice pipeline, which then starts streaming audio to the server."
+        }
+      ]
+    }
+  ]
+}

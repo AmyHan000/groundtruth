@@ -1,0 +1,13 @@
+1. 我们如何收集和使用您的个人信息
+
+**Home Assistant 服务器发现（mDNS/Bonjour）**
+
+当您在引导流程中搜索本地网络上的 Home Assistant 服务器，或手动输入服务器 URL 时，为了发现并连接到您的 Home Assistant 实例，我们会通过 Android NsdManager 在本地网络上发起 mDNS/Bonjour 多播 DNS 查询，发现 Home Assistant 服务实例。选定的服务器 URL 将存储在本地数据库中。
+
+处理方式说明：
+仅本地处理：服务器发现使用本地网络多播 DNS（mDNS），仅在本地网络内通信。服务器 URL 本地存储在数据库中。
+
+2. 设备权限调用
+
+ACCESS_FINE_LOCATION / ACCESS_COARSE_LOCATION（位置）权限：当在 Android 11+ 上浏览本地网络服务器时，本应用将询问位置权限。
+拒绝后果：如果拒绝，自动服务器发现可能无法工作；您仍然可以手动输入服务器 URL。

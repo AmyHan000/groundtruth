@@ -1,0 +1,113 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_BACKGROUND_LOCATION_COLLECTION",
+      "data_type": "Device GPS Location (Precise)",
+      "description": "The app periodically collects precise GPS location via Google Play Services FusedLocationProviderClient and sends it to the Home Assistant server for presence detection, while also storing it in the local Room database.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "LocationSensorManager.requestLocationUpdates",
+          "file": "app/src/full/kotlin/io/homeassistant/companion/android/sensors/LocationSensorManager.kt",
+          "line": 697,
+          "code": "private suspend fun requestLocationUpdates() { ... }",
+          "details": "The periodic sensor update cycle triggers location requests, calling FusedLocationProviderClient for device GPS position."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "LocationSensorManager.sendLocationUpdate",
+          "file": "app/src/full/kotlin/io/homeassistant/companion/android/sensors/LocationSensorManager.kt",
+          "line": 908,
+          "code": "private suspend fun sendLocationUpdate(location: Location, serverId: Int, trigger: LocationUpdateTrigger?) { ... serverManager.integrationRepository(serverId).updateLocation(updateLocation) }",
+          "details": "GPS location data is wrapped into an UpdateLocation object and sent to the Home Assistant server via WebSocket/REST API."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "IntegrationRepository.updateLocation",
+          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/data/integration/IntegrationRepository.kt",
+          "line": 150,
+          "code": "suspend fun updateLocation(updateLocation: UpdateLocation) { webSocketRepository.sendMessage(updateLocation) }",
+          "details": "Location data is sent in real-time to the Home Assistant server via persistent WebSocket connection."
+        },
+        {
+          "step": "Storage",
+          "function": "LocationHistoryDao.insert",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/database/location/LocationHistoryDao.kt",
+          "line": 25,
+          "code": "@Insert fun insert(locationHistoryItem: LocationHistoryItem)",
+          "details": "Location data is also stored in the local Room database in the location_history table for zone matching."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_GEOCODED_LOCATION",
+      "data_type": "Geocoded Address (Street-level location)",
+      "description": "The app reverse-geocodes GPS coordinates into human-readable street addresses via Android Geocoder API and sends them as geocoded_location sensor data to the Home Assistant server.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "GeocodeSensorManager.updateGeocodedLocation",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/GeocodeSensorManager.kt",
+          "line": 104,
+          "code": "private suspend fun updateGeocodedLocation() { ... val location = getLastLocation(applicationContext) ... }",
+          "details": "The periodic sensor update cycle triggers geocoded location refresh."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "Geocoder.getFromLocationAwait",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/GeocodeSensorManager.kt",
+          "line": 131,
+          "code": "address = Geocoder(applicationContext).getFromLocationAwait(location.latitude, location.longitude, 1).firstOrNull()",
+          "details": "GPS coordinates are reverse-geocoded into a human-readable address via Android Geocoder API (may require network)."
+        },
+        {
+          "step": "Data Processing",
+          "function": "GeocodeSensorManager.Address.toMap",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/GeocodeSensorManager.kt",
+          "line": 159,
+          "code": "return mapOf(\"administrative_area\" to adminArea, \"country\" to countryName, \"location\" to listOf(latitude, longitude), \"phone\" to phone, ...)",
+          "details": "The resolved address is decomposed into structured fields: administrative area, country, coordinates, phone number, URL, etc."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "GeocodeSensorManager.onSensorUpdated",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/GeocodeSensorManager.kt",
+          "line": 151,
+          "code": "onSensorUpdated(geocodedLocation, prettyAddress ?: STATE_UNKNOWN, geocodedLocation.statelessIcon, address?.toMap().orEmpty())",
+          "details": "Complete address information (including coordinates, phone, URL) is sent to the Home Assistant server via WebSocket as a sensor state."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_HIGH_ACCURACY_LOCATION_MODE",
+      "data_type": "High-Accuracy GPS Location (Precise, continuous)",
+      "description": "The app starts a foreground service to continuously collect high-accuracy GPS location data for precise presence detection.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "LocationSensorManager.setHighAccuracyModeSetting",
+          "file": "app/src/full/kotlin/io/homeassistant/companion/android/sensors/LocationSensorManager.kt",
+          "line": 550,
+          "code": "fun setHighAccuracyModeSetting(enabled: Boolean) { prefsRepository.setHighAccuracyMode(enabled) }",
+          "details": "High-accuracy mode is triggered by user settings, server commands, or geofence enter/exit events."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "HighAccuracyLocationService.onStartCommand",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/location/HighAccuracyLocationService.kt",
+          "line": 40,
+          "code": "override fun onStartCommand(...): Int { fusedLocationClient.requestLocationUpdates(highAccuracyRequest, callback, Looper.getMainLooper()) }",
+          "details": "A foreground service requests continuous GPS updates at PRIORITY_HIGH_ACCURACY, even when the app is in the background."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "LocationSensorManager.sendLocationUpdate",
+          "file": "app/src/full/kotlin/io/homeassistant/companion/android/sensors/LocationSensorManager.kt",
+          "line": 908,
+          "code": "sendLocationUpdate(location, serverId, trigger)",
+          "details": "Each GPS location update is sent in real-time to the Home Assistant server."
+        }
+      ]
+    }
+  ]
+}

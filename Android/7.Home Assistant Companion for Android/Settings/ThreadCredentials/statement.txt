@@ -1,0 +1,12 @@
+1. 我们如何收集和使用您的个人信息
+
+**Thread 网络凭据管理**
+
+当您在 Home Assistant 前端导出或导入 Thread 网络凭据时，为了同步 Thread 网络配置以管理智能家居设备，我们会通过 Google Play Services ThreadNetworkClient 从设备 Thread 无线电固件读取活跃操作数据集。数据集包含 **Thread 网络密钥**、**PAN ID**、**扩展 PAN ID**、网络名称等数据。
+
+处理方式说明：
+上传/下载云端处理：Thread 网络凭据通过 REST API（HTTPS加密）与您自托管的 Home Assistant 服务器双向同步。
+
+2. 设备权限调用
+
+本功能不调用额外的 Android 危险权限。此功能仅在支持 Google Play Services 和 Thread 无线电硬件的设备上可用。

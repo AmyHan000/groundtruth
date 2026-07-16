@@ -1,0 +1,13 @@
+1. 我们如何收集和使用您的个人信息
+
+**WebView 文件上传（文件选择器）**
+
+当您在 Home Assistant WebView 前端中点击文件上传输入框时，为了允许您从设备存储中选择文件上传至 Home Assistant，我们会通过 Android 系统文件选择器打开文件浏览界面，您可选择任意类型的文件。您选择的文件 URI 将返回至 WebView JavaScript 上下文，由前端负责上传至 Home Assistant 服务器。
+
+处理方式说明：
+上传云端处理：文件选择由 Android 系统文件选择器处理，您完全控制选择哪些文件。文件通过 WebView 的标准上传机制发送至您自托管的 Home Assistant 服务器。
+
+2. 设备权限调用
+
+WRITE_EXTERNAL_STORAGE（写外部存储）权限：当在 Android 9 及以下版本从 WebView 下载文件时，本应用将询问存储权限。
+拒绝后果：如果拒绝，在 Android 9 及以下版本上文件下载可能无法正常工作。

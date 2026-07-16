@@ -1,0 +1,34 @@
+{
+  "id": "DASHBOARD_IMPROV",
+  "feature_name": "Improv Device Provisioning",
+  "data": [
+    {
+      "scene": "User enters WiFi credentials in the frontend to configure a new IoT device.",
+      "purpose": "Transmit WiFi network credentials to IoT devices via Bluetooth for network configuration.",
+      "source": "User manually enters credentials in the Home Assistant frontend",
+      "item": "WiFi SSID and WiFi password",
+      "frequency": "On-demand",
+      "processing": "Local BLE transmission only",
+      "storage": "Not stored",
+      "recipient": "Target IoT device (direct Bluetooth BLE transmission)",
+      "thirdparty": "No third-party involvement",
+      "switchpath": "Frontend Settings -> Devices & Services -> Add Device -> Improv"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "BLUETOOTH_CONNECT",
+      "scene": "During Improv provisioning on Android 12+",
+      "authorization": "Runtime",
+      "purpose": "Connect to IoT devices via BLE and transmit WiFi credentials",
+      "impact": "If denied, Improv Bluetooth provisioning will be unavailable"
+    },
+    {
+      "name": "BLUETOOTH_SCAN",
+      "scene": "When scanning for nearby Improv devices on Android 12+",
+      "authorization": "Runtime",
+      "purpose": "Discover nearby Bluetooth IoT devices",
+      "impact": "If denied, nearby Improv devices cannot be discovered"
+    }
+  ]
+}

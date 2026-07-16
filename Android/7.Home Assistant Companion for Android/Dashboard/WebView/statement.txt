@@ -1,0 +1,12 @@
+1. 我们如何收集和使用您的个人信息
+
+**Home Assistant 前端 WebView**
+
+当您打开 Home Assistant 仪表盘时，为了渲染智能家居控制界面并支持您与设备的交互，我们会创建一个完整的 WebView 加载您 Home Assistant 服务器的前端网页。WebView 会存储会话 Cookie 以维持您的登录状态，并通过 JavaScript 外部消息总线与原生功能（条码扫描、NFC、语音助手等）进行通信。
+
+处理方式说明：
+本地渲染与服务器交互：WebView 直接与您自托管的 Home Assistant 服务器通信（HTTPS加密）。Cookie 由 Android 系统 WebView CookieManager 管理。
+
+2. 设备权限调用
+
+本功能为应用的核心界面，不直接调用额外设备危险权限。

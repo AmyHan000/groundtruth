@@ -1,0 +1,45 @@
+{
+  "id": "SETTINGS_THREAD_CREDENTIALS",
+  "feature_name": "Thread Credential Management",
+  "description": "The Thread Credential Management feature manages the bidirectional synchronization of Thread network credentials (active operational dataset) between the device and the Home Assistant server. It allows exporting the device's preferred Thread dataset to the server, importing the server's dataset to the device, and full bidirectional reconciliation including deletion of orphaned credentials.",
+  "data": [
+    {
+      "data_type": "Thread Network Credentials (Active Operational Dataset - TLV bytes containing network key, PAN ID, extended PAN ID, network name, channel)",
+      "category": "Thread Network Configuration",
+      "detail": "Device's preferred Thread operational dataset read from Google Play Services ThreadNetworkClient (preferredCredentials API). Contains the active network key, PAN ID (16-bit), extended PAN ID (64-bit), network name, channel, and channel mask encoded as TLV bytes.",
+      "storage": "Not stored persistently by the app. Temporarily held in memory during sync and forwarded to the server or written to the device's credential store via Google Play Services.",
+      "retention": "Transient - held only during the sync operation. The server stores it persistently; the device stores it via the Google Play Services ThreadNetwork credential store.",
+      "shared_with": "Home Assistant server (user self-hosted) via REST API (addThreadDataset), sent as raw TLV bytes. Also written to the device's Google Play Services Thread credential store via addCredentials API when importing.",
+      "data_flows": [
+        "FLOW_THREAD_CREDENTIAL_EXPORT"
+      ]
+    },
+    {
+      "data_type": "Thread Border Agent ID",
+      "category": "Thread Network Configuration",
+      "detail": "Identifier for the Thread Border Agent associated with the dataset. Used to correlate credentials with specific border routers. Stored as a hex string (16-byte ID, or placeholder '0000000000000001' for legacy entries).",
+      "storage": "Local Room database via serverManager.integrationRepository (setThreadBorderAgentIds / getThreadBorderAgentIds / getOrphanedThreadBorderAgentIds).",
+      "retention": "Persistent until deleted during sync (deleteOrphanedThreadCredentials) or when the user removes the server.",
+      "shared_with": "Home Assistant server via WebSocket API (getThreadDatasets, addThreadDataset).",
+      "data_flows": [
+        "FLOW_THREAD_CREDENTIAL_EXPORT"
+      ]
+    }
+  ],
+  "permissions": [
+    {
+      "permission": "Google Play Services ThreadNetworkClient (implicit, requires GMS)",
+      "purpose": "Access the device's Thread network credentials store to read the preferred dataset (export), add new credentials (import), remove credentials (cleanup), and query credential state. This is an implicit permission gated by Google Play Services availability on full flavor builds.",
+      "required": true,
+      "data_flows": [
+        "FLOW_THREAD_CREDENTIAL_EXPORT"
+      ]
+    },
+    {
+      "permission": "NEARBY_DEVICES / BLUETOOTH_SCAN / BLUETOOTH_CONNECT / ACCESS_FINE_LOCATION (via Google Play Services Thread subsystem)",
+      "purpose": "Used by Google Play Services Thread subsystem to discover and communicate with Thread Border Agents over BLE for credential operations. Required when the device needs to discover nearby Thread networks.",
+      "required": false,
+      "data_flows": []
+    }
+  ]
+}

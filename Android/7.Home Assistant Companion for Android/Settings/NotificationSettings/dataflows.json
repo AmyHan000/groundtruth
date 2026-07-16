@@ -1,0 +1,42 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_NOTIFICATION_HISTORY_VIEW",
+      "data_type": "Push Notification History (title, message, image URLs)",
+      "description": "The app stores received push notification content (title, message, image URLs) in a local Room database (notification table). The Notification History screen reads and displays this stored notification data for user review.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "NotificationHistoryFragment.onViewCreated",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/settings/notification/NotificationHistoryFragment.kt",
+          "line": 36,
+          "code": "lifecycleScope.launch { val allNotifications = notificationDao.getAll() }",
+          "details": "User opens the Notification History screen. The app queries all stored notification records from the local Room database."
+        },
+        {
+          "step": "Storage",
+          "function": "MessagingManager.handleMessage",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/notifications/MessagingManager.kt",
+          "line": 300,
+          "code": "notificationDao.add(notificationItem)",
+          "details": "Previously, when push notifications were received via FCM, the notification content (title, message, image URLs, tag) was stored in the local Room database notification table for later viewing."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_NOTIFICATION_CHANNEL_MANAGEMENT",
+      "data_type": "Notification Channel Configuration (no personal data)",
+      "description": "The Notification Settings screen reads and manages Android notification channels for the app. It reads channel configurations from the system NotificationManager and allows creating/deleting channels.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "NotificationViewModel.init",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/settings/notification/NotificationViewModel.kt",
+          "line": 22,
+          "code": "notificationManager.notificationChannels.sortedBy { it.name.toString() }",
+          "details": "User opens Notification Settings. The app reads notification channel configurations from the system NotificationManager."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "DASHBOARD_SHARE",
+  "feature_name": "Share to Home Assistant",
+  "data": [
+    {
+      "scene": "User shares text, URLs, or content from any Android app to Home Assistant via the system share sheet.",
+      "purpose": "Send shared content (text, URLs, subject) to the Home Assistant server as a mobile_app.share event for automation or logging.",
+      "source": "External Android app (via ACTION_SEND intent); caller app identity extracted via ActivityCompat.getReferrer",
+      "item": "Shared text, shared URL, subject line, caller app identity (referrer URI)",
+      "frequency": "On-demand (each time the user shares content to Home Assistant)",
+      "processing": "Extracted from incoming intent and immediately transmitted to Home Assistant server via REST API; no local processing or transformation",
+      "storage": "Not stored locally on device; data is forwarded to the Home Assistant server in transit",
+      "recipient": "Home Assistant server (via REST API mobile_app.share event)",
+      "thirdparty": "No third-party involvement; data is sent to the user's self-hosted Home Assistant server only",
+      "switchpath": "Share sheet -> Select Home Assistant app -> Content is sent to server"
+    }
+  ],
+  "permissions": []
+}

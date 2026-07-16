@@ -1,0 +1,58 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_ONBOARDING_LOCATION_PERMISSION_REQUEST",
+      "data_type": "Location Permission Status (Fine/Coarse/Background)",
+      "description": "During onboarding, the app requests location permissions (ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION, ACCESS_BACKGROUND_LOCATION) from the user. This flow only covers the permission grant/deny interaction; actual location data collection begins later via LocationSensorManager.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "LocationSharingScreen composable - 'Share Location' button",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/onboarding/locationsharing/LocationSharingScreen.kt",
+          "line": 145,
+          "code": "onLocationSharingResponse(true); onNext(); permissions.launchMultiplePermissionRequest()",
+          "details": "User taps 'Share Location' button during onboarding. The app prepares to request location permissions."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "LocationPermissionState.rememberLocationPermission - launchMultiplePermissionRequest",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/util/compose/LocationPermissionState.kt",
+          "line": 45,
+          "code": "permissionState.launchMultiplePermissionRequest()",
+          "details": "System location permission dialog is shown to the user, requesting ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION, and ACCESS_BACKGROUND_LOCATION (Android Q+)."
+        },
+        {
+          "step": "Data Processing",
+          "function": "LocationSharingViewModel.setupLocationSensor",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/onboarding/locationsharing/LocationSharingViewModel.kt",
+          "line": 31,
+          "code": "sensorRepository.setSensorsEnabled(sensorIds = [backgroundLocation.id, zoneLocation.id, singleAccurateLocation.id], serverId = serverId, enabled = enabled)",
+          "details": "Location sensor enable state is written to the local Room database (Sensor table). Permission result is recorded; denial is accepted without blocking onboarding."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_ONBOARDING_LOCATION_FOR_SECURE_CONNECTION",
+      "data_type": "Location Permission Status (for local network detection)",
+      "description": "During onboarding, if the server connection uses HTTP, the app requests location permission to detect whether the device is on the home Wi-Fi network for secure connection configuration.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "LocationForSecureConnectionScreen composable - 'Most Secure' radio + save",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/onboarding/locationforsecureconnection/LocationForSecureConnectionScreen.kt",
+          "line": 207,
+          "code": "permissions.launchMultiplePermissionRequest()",
+          "details": "User selects 'Most Secure' option and taps save. Location permission is requested for home network detection."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "LocationPermissionState.rememberLocationPermission",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/util/compose/LocationPermissionState.kt",
+          "line": 45,
+          "code": "permissionState.launchMultiplePermissionRequest()",
+          "details": "System location permission dialog is shown. If granted, the app allows insecure connection setting and navigates to home network setup. If denied, a snackbar error is shown and the option reverts to 'Less Secure'."
+        }
+      ]
+    }
+  ]
+}

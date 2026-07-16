@@ -1,0 +1,46 @@
+{
+  "id": "BACKGROUND_NOTIFICATION",
+  "feature_name": "Notification Reception & Listening",
+  "data": [
+    {
+      "scene": "When the Home Assistant server sends a push notification via FCM.",
+      "purpose": "Display push notifications and alerts from Home Assistant.",
+      "source": "Firebase Cloud Messaging (pushed from Home Assistant server)",
+      "item": "Notification message content, title, image/video URLs, action button configuration",
+      "frequency": "Triggered by the Home Assistant server",
+      "processing": "Local display only",
+      "storage": "Local Room database (notification history)",
+      "recipient": "Device-local storage and display only",
+      "thirdparty": "FCM used for push delivery; content originates from the user's Home Assistant server",
+      "switchpath": "Settings -> Notifications -> Manage notification channels"
+    },
+    {
+      "scene": "When any app on the device posts a notification (notification listener sensor enabled).",
+      "purpose": "Sync other apps' notification content to Home Assistant for automation rules.",
+      "source": "Android NotificationListenerService",
+      "item": "Other apps' notification titles, text content, sender package name",
+      "frequency": "Triggered immediately each time another app posts a notification",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party involvement; data is sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> Notification Sensor -> Enable/Disable"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "POST_NOTIFICATIONS",
+      "scene": "When first receiving a push notification on Android 13+",
+      "authorization": "Runtime",
+      "purpose": "Display push notifications to the user",
+      "impact": "If denied, push notifications cannot be received or displayed"
+    },
+    {
+      "name": "BIND_NOTIFICATION_LISTENER_SERVICE",
+      "scene": "When enabling the notification sensor",
+      "authorization": "Pre-authorization (user must manually grant in system settings)",
+      "purpose": "Read notification content from other apps on the device",
+      "impact": "If denied, the notification listener sensor will not work"
+    }
+  ]
+}

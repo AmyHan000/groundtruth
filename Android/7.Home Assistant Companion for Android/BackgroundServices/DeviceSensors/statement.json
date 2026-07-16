@@ -1,0 +1,235 @@
+{
+  "id": "BACKGROUND_DEVICE_SENSORS",
+  "feature_name": "Device Sensor Data Collection",
+  "data": [
+    {
+      "scene": "The app periodically collects battery and power state data in the background.",
+      "purpose": "Provide battery diagnostics and enable power-related automations (e.g., trigger power-saving mode when battery drops below 20%).",
+      "source": "Android BatteryManager API (ACTION_BATTERY_CHANGED sticky broadcast)",
+      "item": "Battery level (%), charging status, charger type, battery health, temperature (Celsius), power consumption (watts), remaining charge time",
+      "frequency": "Periodic (every 15 minutes by default) and on battery state change",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> Battery Sensors -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects activity recognition data via Google Play Services.",
+      "purpose": "Detect user's motion state for occupancy and activity-based automation rules.",
+      "source": "Google Play Services ActivityRecognition API",
+      "item": "Detected activity type (still, walking, running, in_vehicle, on_bicycle, tilting, unknown) and confidence level",
+      "frequency": "Periodic (updated on activity transition)",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "Google Play Services performs on-device activity recognition; results are sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> Activity Recognition Sensor -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects step count data from the device's hardware step counter.",
+      "purpose": "Track cumulative daily step count for health dashboard display and automation.",
+      "source": "Android Hardware SensorManager (TYPE_STEP_COUNTER)",
+      "item": "Cumulative step count since last device boot",
+      "frequency": "Periodic (updated on each sensor update cycle)",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> Steps Sensor -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects WiFi network connectivity information.",
+      "purpose": "Enable location-aware automations triggered by WiFi connection (e.g., arriving home scene).",
+      "source": "Android WifiManager and ConnectivityManager APIs",
+      "item": "Currently connected WiFi SSID, BSSID (router MAC), local IP address, public IP address, network type (4G/5G/WiFi)",
+      "frequency": "Periodic and on network state change",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server. SSID/BSSID read requires ACCESS_FINE_LOCATION on Android 9+.",
+      "switchpath": "Settings -> Sensor Management -> Network Sensors -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects Bluetooth device state and BLE beacon information.",
+      "purpose": "Enable Bluetooth-based presence detection and beacon-triggered automations.",
+      "source": "Android BluetoothAdapter and BluetoothManager APIs",
+      "item": "Bluetooth on/off state, paired/connected device names and MAC addresses, BLE iBeacon UUID, major/minor values, distance estimate, RSSI signal strength",
+      "frequency": "Periodic and on Bluetooth state change",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> Bluetooth Sensors -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects phone state, SIM, and signal strength information.",
+      "purpose": "Provide phone state diagnostics and enable cellular-based automation rules.",
+      "source": "Android TelephonyManager and SubscriptionManager APIs",
+      "item": "Call state (idle/ringing/offhook), SIM carrier names, country ISO, MCC/MNC codes, cellular signal strength (dBm)",
+      "frequency": "Periodic and on phone state change",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server. Requires READ_PHONE_STATE permission.",
+      "switchpath": "Settings -> Sensor Management -> Phone State Sensors -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects environmental sensor data from device hardware sensors.",
+      "purpose": "Provide ambient environment context for automations and dashboards.",
+      "source": "Android Hardware SensorManager (TYPE_LIGHT, TYPE_PRESSURE, TYPE_PROXIMITY)",
+      "item": "Ambient light level (lux), barometric pressure (hPa), proximity sensor data",
+      "frequency": "Periodic (updated on each sensor update cycle)",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> Environmental Sensors -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects storage space usage information.",
+      "purpose": "Provide device storage diagnostics for monitoring and automation.",
+      "source": "Android StatFs and Environment APIs",
+      "item": "Internal storage total/free space (%), external/SD card storage total/free space (%)",
+      "frequency": "Periodic (updated on each sensor update cycle)",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> Storage Sensors -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects audio device state information.",
+      "purpose": "Provide audio context for automation rules (e.g., silence phone during meetings).",
+      "source": "Android AudioManager APIs",
+      "item": "Ringer mode (normal/silent/vibrate), headphone connection state, microphone mute state, music active state, speakerphone state, all stream volume levels",
+      "frequency": "Periodic and on audio state change",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> Audio Sensors -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects display and screen configuration information.",
+      "purpose": "Provide display context for automation rules and dashboards.",
+      "source": "Android DisplayManager, Settings.System, and Configuration APIs",
+      "item": "Screen brightness (0-255), screen off timeout, screen orientation (portrait/landscape), display rotation (0/90/180/270 degrees)",
+      "frequency": "Periodic and on configuration change",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> Display Sensors -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects device power state information (doze, interactive, power save).",
+      "purpose": "Provide device power context for automation rules (e.g., trigger actions when screen turns on/off).",
+      "source": "Android PowerManager APIs",
+      "item": "Screen on/off state (isInteractive), doze mode state (isDeviceIdleMode), power save mode state (isPowerSaveMode)",
+      "frequency": "Periodic and on power state change",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> Power Sensors -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects the next scheduled alarm clock information.",
+      "purpose": "Provide alarm context for automation rules (e.g., wake-up routines).",
+      "source": "Android AlarmManager API",
+      "item": "Next alarm trigger timestamp and the package name of the app that set the alarm",
+      "frequency": "Periodic and on alarm clock change",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> Next Alarm Sensor -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects Do Not Disturb and keyguard/lock screen state.",
+      "purpose": "Provide device quiet mode and security context for automation rules.",
+      "source": "Android NotificationManager and KeyguardManager APIs",
+      "item": "DND interrupt filter (off/alarms/priority/total_silence), device lock status, device security state, keyguard locked/secure state",
+      "frequency": "Periodic and on DND/keyguard state change",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> DND / Keyguard Sensors -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects network traffic usage statistics.",
+      "purpose": "Provide network usage diagnostics for monitoring and automation.",
+      "source": "Android TrafficStats API",
+      "item": "Cumulative mobile data bytes received/transmitted (GB), cumulative total data bytes received/transmitted (GB) since device boot",
+      "frequency": "Periodic (updated on each sensor update cycle)",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> Network Usage Sensors -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects device timezone and daylight saving time information.",
+      "purpose": "Provide timezone context for dashboards and timezone-aware automations.",
+      "source": "Android java.util.TimeZone API",
+      "item": "Device timezone display name, DST active status, UTC offset in milliseconds",
+      "frequency": "Periodic and on timezone change",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> Timezone Sensor -> Enable/Disable"
+    },
+    {
+      "scene": "The app collects app diagnostic information.",
+      "purpose": "Provide app diagnostics for debugging and monitoring.",
+      "source": "Android TrafficStats, Runtime, UsageStatsManager APIs",
+      "item": "App version code, app network RX/TX bytes, app memory usage (free/total), app inactive state, standby bucket",
+      "frequency": "Periodic (updated on each sensor update cycle)",
+      "processing": "Uploaded to server",
+      "storage": "Server-side storage",
+      "recipient": "Home Assistant server (user self-hosted)",
+      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+      "switchpath": "Settings -> Sensor Management -> App Diagnostic Sensors -> Enable/Disable"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "ACTIVITY_RECOGNITION",
+      "scene": "When enabling the activity recognition sensor or step counter sensor on Android 10+",
+      "authorization": "Runtime",
+      "purpose": "Detect user's motion state (walking, running, driving, cycling, still) and read step counter data",
+      "impact": "If denied, the activity recognition and step counter sensors will not work"
+    },
+    {
+      "name": "ACCESS_FINE_LOCATION",
+      "scene": "When enabling WiFi SSID/BSSID sensors on Android 9+",
+      "authorization": "Runtime",
+      "purpose": "Read WiFi network SSID and BSSID (required by Android for WiFi scanning on API 29+)",
+      "impact": "If denied, WiFi SSID and BSSID sensors will not report data; network type sensor may still work"
+    },
+    {
+      "name": "READ_PHONE_STATE",
+      "scene": "When enabling phone state sensors (call state, SIM info, signal strength)",
+      "authorization": "Runtime",
+      "purpose": "Read call state, SIM carrier information, and cellular signal strength",
+      "impact": "If denied, phone state sensors (call state, SIM info, signal strength) will not work"
+    },
+    {
+      "name": "BLUETOOTH_CONNECT",
+      "scene": "When enabling Bluetooth sensors on Android 12+",
+      "authorization": "Runtime",
+      "purpose": "Scan for connected/paired Bluetooth devices and read device names and MAC addresses",
+      "impact": "If denied, Bluetooth sensor data will not be available"
+    },
+    {
+      "name": "BLUETOOTH_SCAN",
+      "scene": "When enabling BLE beacon monitoring on Android 12+",
+      "authorization": "Runtime",
+      "purpose": "Scan for nearby BLE iBeacons to detect beacon proximity",
+      "impact": "If denied, BLE beacon monitoring sensor will not work"
+    }
+  ]
+}

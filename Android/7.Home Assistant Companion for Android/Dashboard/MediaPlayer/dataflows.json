@@ -1,0 +1,27 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_MEDIA_STREAMING",
+      "data_type": "Media Stream (Audio/Video from HA server)",
+      "description": "The app streams media files (camera streams, doorbell videos, audio) from the Home Assistant server via ExoPlayer, using the Bearer Token for authenticated access.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "FrontendViewModel.onExoPlayerFullscreenChanged",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/FrontendViewModel.kt",
+          "line": 200,
+          "code": "fun onExoPlayerFullscreenChanged(isFullScreen: Boolean) { updateState { it.copy(exoPlayerState = it.exoPlayerState?.copy(isFullScreen = isFullScreen)) } }",
+          "details": "The frontend WebView requests media playback via external bus message, creating an ExoPlayer instance."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "ExoPlayer MediaSource",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/exoplayer/FrontendExoPlayerManager.kt",
+          "line": 50,
+          "code": "fun buildMediaSource(url: String): MediaSource { ... addHeader(\"Authorization\", buildBearerToken()) }",
+          "details": "Media content is fetched from the Home Assistant server via HTTP with Bearer Token authentication added to requests."
+        }
+      ]
+    }
+  ]
+}

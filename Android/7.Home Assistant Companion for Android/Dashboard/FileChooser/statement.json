@@ -1,0 +1,19 @@
+{
+  "id": "DASHBOARD_FILE_CHOOSER",
+  "feature_name": "File Chooser (WebView Upload)",
+  "data": [
+    {
+      "scene": "User triggers a file upload from the dashboard WebView (e.g., attaching a photo, document, or any file to a Home Assistant form).",
+      "purpose": "Allow the user to select any file from device storage for upload to the Home Assistant server via the frontend.",
+      "source": "Device storage (via Android system file picker, type */*)",
+      "item": "User-selected file URI (content:// URI pointing to any file: photos, documents, downloads, etc.)",
+      "frequency": "On-demand (each time the user taps a file upload input in the WebView)",
+      "processing": "Local only; file URI is passed to the WebView JavaScript context. Actual upload is performed by the frontend to the user's Home Assistant server.",
+      "storage": "Not stored on device by the app; the system file picker may grant temporary URI access",
+      "recipient": "Home Assistant frontend WebView (JavaScript context), which uploads the file content to the user's Home Assistant server",
+      "thirdparty": "No third-party involvement; file selection uses the Android system file picker, and uploads go to the user's self-hosted Home Assistant server",
+      "switchpath": "N/A (file upload is triggered per-action from the dashboard WebView; no global toggle)"
+    }
+  ],
+  "permissions": []
+}

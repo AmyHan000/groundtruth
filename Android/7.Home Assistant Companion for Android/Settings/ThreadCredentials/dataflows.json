@@ -1,0 +1,35 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_THREAD_CREDENTIAL_EXPORT",
+      "data_type": "Thread Network Credentials (Active Operational Dataset - network keys, PAN ID, network name)",
+      "description": "The app reads the device's Thread network credentials (active operational dataset) via Google Play Services ThreadNetworkClient and exports them to the Home Assistant server for Thread network management.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "FrontendMatterThreadHandler.onImportThreadCredentials",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/matterthread/FrontendMatterThreadHandler.kt",
+          "line": 108,
+          "code": "suspend fun onImportThreadCredentials(serverId: Int) { threadManager.exportPreferredDataset(serverId) }",
+          "details": "User triggers Thread credential export from the WebView frontend. The app reads the Thread network dataset from the device."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "ThreadManagerImpl.exportPreferredDataset",
+          "file": "app/src/full/kotlin/io/homeassistant/companion/android/thread/ThreadManagerImpl.kt",
+          "line": 40,
+          "code": "threadNetworkClient.preferredDataset; dataset.toByteArray()",
+          "details": "Reads the active Thread operational dataset from the device via Google Play Services ThreadNetworkClient. Contains network keys (TLV bytes), PAN ID, Extended PAN ID, and network name."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "ThreadManagerImpl.sendThreadDatasetExportResult",
+          "file": "app/src/full/kotlin/io/homeassistant/companion/android/thread/ThreadManagerImpl.kt",
+          "line": 80,
+          "code": "serverManager.integrationRepository(serverId).addThreadDataset(tlvBytes)",
+          "details": "The Thread network credential TLV bytes are sent to the Home Assistant server via REST API for network management and sharing."
+        }
+      ]
+    }
+  ]
+}

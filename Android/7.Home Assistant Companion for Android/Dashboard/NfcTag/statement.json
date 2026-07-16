@@ -1,0 +1,39 @@
+{
+  "id": "DASHBOARD_NFC_TAG",
+  "feature_name": "NFC Tag Reader / Writer",
+  "data": [
+    {
+      "scene": "User writes a new NFC tag from the dashboard (Write NFC Tag).",
+      "purpose": "Generate a unique tag identifier (UUID) and write it to a physical NFC tag for use with Home Assistant automations.",
+      "source": "Device-generated (UUID.randomUUID())",
+      "item": "NFC Tag Identifier (UUID string written to physical NFC tag as URI)",
+      "frequency": "On-demand (each time user taps 'Write NFC Tag')",
+      "processing": "Local generation and NFC write; tag ID subsequently sent to Home Assistant server via REST API",
+      "storage": "Not stored on device; tag ID is sent to Home Assistant server",
+      "recipient": "Physical NFC tag (write target), Home Assistant server (tag scan event)",
+      "thirdparty": "No third-party involvement; communication is between the device and the user's self-hosted Home Assistant server",
+      "switchpath": "Dashboard -> NFC Tags -> Write NFC Tag"
+    },
+    {
+      "scene": "User scans an NFC tag or QR code with the device.",
+      "purpose": "Read the tag ID from a physical NFC tag or QR code and send it to the Home Assistant server to trigger automations.",
+      "source": "Physical NFC tag (via NFC hardware) or QR code (via camera)",
+      "item": "NFC Tag Identifier (extracted from tag or QR code content)",
+      "frequency": "On-demand (each time user scans a tag)",
+      "processing": "Local extraction; tag ID checked against local allowed-tags list (stored in app preferences); tag ID sent to Home Assistant server via REST API upon approval",
+      "storage": "If user selects 'Allow Always', the tag ID is persisted in local app preferences for automatic future approval",
+      "recipient": "Home Assistant server (tag scan event for automation triggering)",
+      "thirdparty": "No third-party involvement; communication is between the device and the user's self-hosted Home Assistant server",
+      "switchpath": "Dashboard -> NFC Tags -> Scan Tags"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "NFC",
+      "scene": "Writing or scanning NFC tags",
+      "authorization": "Implicit (manifest-declared feature dependency)",
+      "purpose": "Enable NFC hardware to read from and write to physical NFC tags",
+      "impact": "If NFC is disabled, NFC tag reading and writing will be unavailable; QR code scanning is available as a fallback"
+    }
+  ]
+}
