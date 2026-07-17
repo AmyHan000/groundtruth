@@ -1,0 +1,84 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "启动应用加载聊天列表",
+        "purpose": "显示用户的聊天列表",
+        "source": "本地数据库",
+        "item": "聊天列表数据",
+        "frequency": "每次启动/恢复",
+        "processing": "Haskell核心读取本地SQLite数据库",
+        "storage": "本地加密数据库",
+        "recipient": "仅本机显示",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      },
+      {
+        "scene": "网络状态变化",
+        "purpose": "通知Haskell核心网络状态变化以维护连接",
+        "source": "Android ConnectivityManager",
+        "item": "网络类型（WiFi/蜂窝/以太网）和在线状态",
+        "frequency": "网络变化时",
+        "processing": "本地处理，通过apiSetNetworkInfo发送给核心",
+        "storage": "内存中",
+        "recipient": "仅本机核心",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      },
+      {
+        "scene": "获取设备信息",
+        "purpose": "向核心提供设备型号信息",
+        "source": "Build.MODEL",
+        "item": "设备型号名称",
+        "frequency": "应用启动时",
+        "processing": "本地读取",
+        "storage": "不存储",
+        "recipient": "仅本机核心",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      },
+      {
+        "scene": "SMP/XFTP协议桥接",
+        "purpose": "通过JNI调用Haskell核心进行消息收发",
+        "source": "JNI外部函数",
+        "item": "消息命令和响应",
+        "frequency": "每次消息收发",
+        "processing": "JNI调用Haskell核心进行SMP/XFTP协议处理",
+        "storage": "不存储",
+        "recipient": "SMP/XFTP服务器",
+        "thirdparty": "SMP中继服务器（仅转发加密数据）",
+        "switchpath": "无（核心功能）"
+      },
+      {
+        "scene": "网络状态信息发送到后端",
+        "purpose": "通知核心当前网络状态",
+        "source": "用户网络信息",
+        "item": "网络类型和在线状态",
+        "frequency": "网络变化时",
+        "processing": "通过apiSetNetworkInfo发送给核心",
+        "storage": "不存储",
+        "recipient": "仅本机核心",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      },
+      {
+        "scene": "QR码扫描",
+        "purpose": "扫描联系人二维码添加好友",
+        "source": "设备摄像头",
+        "item": "摄像头图像数据",
+        "frequency": "用户主动操作",
+        "processing": "本地处理，使用boofcv库识别QR码",
+        "storage": "不存储",
+        "recipient": "仅本机",
+        "thirdparty": "无",
+        "switchpath": "可选择手动输入链接而非扫描"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.ACCESS_NETWORK_STATE",
+      "android.permission.CAMERA"
+    ]
+  }
+]

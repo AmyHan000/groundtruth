@@ -1,0 +1,3 @@
+应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
+--- | --- | --- | --- | --- | ---
+https://github.com/mastodon/mastodon-android | 通知页 | 接收通知 | FCM令牌注册→服务器推送→本地显示 | 见statement.json | 本功能通过Google FCM接收推送通知，将设备推送令牌和账户标识发送到服务器，使用VAPID加密确保推送安全

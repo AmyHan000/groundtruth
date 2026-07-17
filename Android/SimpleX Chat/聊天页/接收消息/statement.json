@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "接收消息",
+        "purpose": "端到端加密通讯",
+        "source": "SMP服务器",
+        "item": "加密的消息数据",
+        "frequency": "实时接收",
+        "processing": "Haskell核心解密并存入本地数据库",
+        "storage": "本地加密数据库",
+        "recipient": "仅本机用户",
+        "thirdparty": "SMP中继服务器（仅转发加密数据）",
+        "switchpath": "无（核心功能）"
+      },
+      {
+        "scene": "显示通知",
+        "purpose": "提醒用户有新消息",
+        "source": "本地消息数据",
+        "item": "通知标题和内容",
+        "frequency": "每次新消息",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "仅本机显示",
+        "thirdparty": "无",
+        "switchpath": "可在设置中关闭通知"
+      },
+      {
+        "scene": "保存接收到的文件",
+        "purpose": "将接收的文件保存到外部存储",
+        "source": "接收的文件",
+        "item": "文件数据",
+        "frequency": "用户主动操作",
+        "processing": "需要WRITE_EXTERNAL_STORAGE权限",
+        "storage": "用户选择的存储位置",
+        "recipient": "仅本机",
+        "thirdparty": "无",
+        "switchpath": "可选择不保存到外部存储"
+      }
+    ],
+    "permissions": [
+      "android.permission.POST_NOTIFICATIONS",
+      "android.permission.WRITE_EXTERNAL_STORAGE"
+    ]
+  }
+]

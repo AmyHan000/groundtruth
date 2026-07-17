@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "data_item": "用户偏好设置",
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/GlobalUserPreferences.java",
+        "line": 21,
+        "code": "private static SharedPreferences getPrefs(){\n    return MastodonApp.context.getSharedPreferences(\"global\", Context.MODE_PRIVATE);\n}"
+      },
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/GlobalUserPreferences.java",
+        "line": 58,
+        "code": "public static void save(){\n    getPrefs().edit()\n            .putBoolean(\"playGifs\", playGifs)\n            .putBoolean(\"useCustomTabs\", useCustomTabs)\n            .putInt(\"theme\", theme.ordinal())\n            ..."
+      }
+    ]
+  }
+]

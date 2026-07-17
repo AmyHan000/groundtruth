@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "OAuth登录",
+        "purpose": "用户身份验证",
+        "source": "用户输入",
+        "item": "OAuth授权码",
+        "frequency": "仅登录时",
+        "processing": "令牌交换",
+        "storage": "SQLite数据库",
+        "recipient": "用户控制的服务器",
+        "thirdparty": "Google FCM（推送通知）",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET"
+    ]
+  }
+]

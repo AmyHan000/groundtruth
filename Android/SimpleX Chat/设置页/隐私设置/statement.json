@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "配置隐私选项",
+        "purpose": "管理应用隐私行为",
+        "source": "用户选择",
+        "item": "隐私设置选项",
+        "frequency": "用户主动操作",
+        "processing": "本地存储",
+        "storage": "SharedPreferences",
+        "recipient": "仅本机",
+        "thirdparty": "无",
+        "switchpath": "所有选项均可用户控制"
+      },
+      {
+        "scene": "屏幕保护",
+        "purpose": "防止他人窥视屏幕",
+        "source": "用户设置",
+        "item": "屏幕保护设置",
+        "frequency": "用户主动操作",
+        "processing": "本地处理",
+        "storage": "SharedPreferences",
+        "recipient": "仅本机",
+        "thirdparty": "无",
+        "switchpath": "可开启/关闭"
+      },
+      {
+        "scene": "数据库密码加密",
+        "purpose": "使用AES/GCM加密数据库密码",
+        "source": "用户设置的密码",
+        "item": "加密后的密码数据",
+        "frequency": "密码变更时",
+        "processing": "使用Android KeyStore生成密钥，AES/GCM算法加密",
+        "storage": "Android KeyStore",
+        "recipient": "仅本机",
+        "thirdparty": "无",
+        "switchpath": "无（安全功能）"
+      },
+      {
+        "scene": "应用设置存储",
+        "purpose": "持久化应用配置",
+        "source": "用户设置",
+        "item": "应用配置数据",
+        "frequency": "设置变更时",
+        "processing": "通过SharedPreferencesSettings存储",
+        "storage": "SharedPreferences文件",
+        "recipient": "仅本机",
+        "thirdparty": "无",
+        "switchpath": "所有设置均可用户控制"
+      }
+    ],
+    "permissions": []
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "发布帖子",
+        "purpose": "发布社交内容",
+        "source": "用户输入",
+        "item": "帖子文本、媒体附件",
+        "frequency": "用户主动发布",
+        "processing": "服务器端处理",
+        "storage": "服务器存储",
+        "recipient": "服务器",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET"
+    ]
+  }
+]

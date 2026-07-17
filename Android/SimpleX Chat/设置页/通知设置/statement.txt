@@ -1,0 +1,4 @@
+应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
+--- | --- | --- | --- | --- | ---
+https://github.com/simplex-chat/simplex-chat | 设置页/通知设置 | 配置通知模式 | 用户选择→SharedPreferences→系统通知 | 见statement.json | 本功能管理通知模式（即时/定期/关闭），设置存储在本地，不涉及网络传输
+https://github.com/simplex-chat/simplex-chat | 设置页/通知设置 | 后台服务运行 | 系统事件→前台服务→消息接收 | 见statement.json | 本功能运行后台服务以保持消息接收，使用前台服务或定期任务，不收集个人信息

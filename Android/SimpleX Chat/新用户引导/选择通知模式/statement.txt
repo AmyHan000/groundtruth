@@ -1,0 +1,3 @@
+应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
+--- | --- | --- | --- | --- | ---
+https://github.com/simplex-chat/simplex-chat | 新用户引导/选择通知模式 | 选择通知模式 | 用户选择→SharedPreferences→系统通知 | 见statement.json | 本功能让用户选择通知模式（即时/定期/关闭），设置存储在本地，不涉及网络传输

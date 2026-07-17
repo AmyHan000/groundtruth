@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "data_item": "视频通话数据",
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/views/call/WebRTC.kt",
+        "line": 1,
+        "code": "package chat.simplex.common.views.call"
+      },
+      {
+        "filePath": "apps/multiplatform/android/src/main/java/chat/simplex/app/views/call/CallActivity.kt",
+        "line": 1,
+        "code": "package chat.simplex.app.views.call"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data_item": "通话服务通知",
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/android/src/main/java/chat/simplex/app/CallService.kt",
+        "line": 82,
+        "code": "val previewMode = appPreferences.notificationPreviewMode.get()\n    val title = if (previewMode == NotificationPreviewMode.HIDDEN.name)\n      generalGetString(MR.strings.notification_preview_somebody)\n    else\n      call?.contact?.profile?.displayName ?: \"\"\n    val text = generalGetString(if (call?.hasVideo == true) MR.strings.call_service_notification_video_call else MR.strings.call_service_notification_audio_call)"
+      }
+    ]
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "data_item": "媒体文件",
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/fragments/ComposeFragment.java",
+        "line": 1028,
+        "code": "intent=new Intent(MediaStore.ACTION_PICK_IMAGES);"
+      },
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/ContentUriRequestBody.java",
+        "line": 34,
+        "code": "return Okio.source(MastodonApp.context.getContentResolver().openInputStream(uri));"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data_item": "媒体元数据",
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/ContentUriRequestBody.java",
+        "line": 21,
+        "code": "try(Cursor cursor=MastodonApp.context.getContentResolver().query(uri, new String[]{OpenableColumns.SIZE}, null, null, null)){"
+      }
+    ]
+  }
+]

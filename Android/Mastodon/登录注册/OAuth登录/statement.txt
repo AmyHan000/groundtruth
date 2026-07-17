@@ -1,0 +1,3 @@
+应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
+--- | --- | --- | --- | --- | ---
+https://github.com/mastodon/mastodon-android | 登录注册 | OAuth登录 | 用户授权→令牌交换→会话存储 | 见statement.json | 本功能通过OAuth PKCE流程登录，将授权码交换为访问令牌，令牌存储在本地SQLite数据库，同时注册推送通知
