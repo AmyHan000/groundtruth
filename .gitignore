@@ -1,7 +1,0 @@
-# 忽略其他应用（只保留每个平台的第一个应用）
-Android/Mastodon/
-Android/SimpleX Chat/
-iOS/Mastodon/
-iOS/SimpleX Chat/
-OpenHarmony/FilePicker/
-OpenHarmony/UserCertificateManager/
