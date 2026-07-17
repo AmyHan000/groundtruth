@@ -1,0 +1,7 @@
+应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
+--- | --- | --- | --- | --- | ---
+https://gitcode.com/openharmony/applications_dlp_manager | 文件加密分享页 | 加密分享 | 联系人应用→联系人信息→显示 | 见statement.json | 本功能从联系人应用获取手机号，用于选择文件分享接收人
+https://gitcode.com/openharmony/applications_dlp_manager | 文件加密分享页 | 加密分享 | 系统API→设备信息→显示 | 见statement.json | 本功能获取设备类型信息，用于判断是否显示联系人选择器
+https://gitcode.com/openharmony/applications_dlp_manager | 文件加密分享页 | 加密分享 | 系统API→云账号信息→显示 | 见statement.json | 本功能获取当前云账号信息，用于文件分享授权
+https://gitcode.com/openharmony/applications_dlp_manager | 文件加密分享页 | 加密分享 | 系统API→网络信息→显示 | 见statement.json | 本功能检查网络连接状态，确保云账号服务可用
+https://gitcode.com/openharmony/applications_dlp_manager | 文件加密分享页 | 加密分享 | 文件系统→文件信息→加密处理 | 见statement.json | 本功能获取文件信息，用于DLP加密处理

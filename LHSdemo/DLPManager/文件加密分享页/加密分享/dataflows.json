@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "data_item": "联系人信息",
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/encryptedSharing.ets",
+        "line": 233,
+        "code": "contactsAction = () => {\n  if (this.isPhoneDevice) {\n    contact.selectContacts({ isMultiSelect: false }).then((data) => {\n      HiLog.info(TAG, 'success in selecting Contacts.');\n      if (!data || !data.length) {\n        HiLog.error(TAG, 'Contacts data is empty.');\n        return;\n      }\n      const phoneNumbers = data[0].phoneNumbers;\n      if (!phoneNumbers || !phoneNumbers.length) {\n        HiLog.error(TAG, 'Contacts phoneNumbers is empty.');\n        return;\n      }\n      const phoneNumber = phoneNumbers[0].phoneNumber;\n      if (phoneNumber) {\n        this.inputValue = phoneNumber;\n        this.isFromContactsPicker = true;\n        this.tempInputValue = phoneNumber;\n      }\n    }).catch((error: BusinessError) => {\n      HiLog.wrapError(TAG, error, 'Failed to select Contacts');\n    });\n  } else {\n    this.isShowSheet = !this.isShowSheet;\n  }\n}"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data_item": "设备信息",
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/encryptedSharing.ets",
+        "line": 689,
+        "code": "aboutToAppear() {\n  HiLog.info(TAG, `aboutToAppear enter: ${this.showUIExtensionForAccountLogin}`);\n  this.isPhoneDevice = deviceInfo.deviceType === 'phone';\n  this.getLoginStatus();\n  AppStorage.setOrCreate('hiAccountType', dlpPermission.AccountType.CLOUD_ACCOUNT);\n  sendDlpManagerAccountLogin(-1);\n  this.checkContacts();\n  this.getAuthorizedAccount();\n  this.clearHistoryDLPFile();\n  this.subscribeLanguageChange();\n}"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data_item": "云账号信息",
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/encryptedSharing.ets",
+        "line": 551,
+        "code": "async getLocalAccountInfo() {\n  HiLog.info(TAG, 'get Account Info start');\n  if (!(await getConnectionStatus())) {\n    showToast(this.getUIContext(), EncryptSharingHelper.getShowErr(EncryptSharingShowCodeEnum.NETWORK_ERROR));\n    this.enableComponents();\n    return;\n  }\n  try {\n    let accountInfo = await getOsAccountInfo();\n    if (accountInfo.distributedInfo.name === 'ohosAnonymousName' &&\n      accountInfo.distributedInfo.id === 'ohosAnonymousUid') {\n      this.showUIExtensionForAccountLogin = true;\n      return;\n    }\n    if (accountInfo.distributedInfo.id !== this.recordSuccessUid) {\n      HiLog.info(TAG, 'COMMAND_GET_ACCOUNT_INFO start');\n      this.connectService.connectServiceShareAbility(Constants.COMMAND_GET_ACCOUNT_INFO);\n      this.recordSuccessUid = accountInfo.distributedInfo.id;\n      return;\n    } else {\n      this.connectService.connectServiceShareAbility(Constants.COMMAND_SEARCH_USER_INFO);\n    }\n  } catch (error) {\n    HiLog.wrapError(TAG, error, 'getOsAccountInfo failed');\n    showToast(this.getUIContext(), EncryptSharingHelper.getShowErr(EncryptSharingShowCodeEnum.ENCRYPT_FAIL_ERROR));\n    this.enableComponents();\n  }\n}"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "data_item": "网络信息",
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/common/FileUtils/utils.ets",
+        "line": 659,
+        "code": "async function getConnectionStatus(exactly: boolean = true): Promise<boolean> {\n  HiLog.info(TAG, `Enter getConnectionStatus, exactly mode: ${exactly}.`);\n  try {\n    const startTime = getCurrentTime();\n    let net: connection.NetHandle = await connection.getDefaultNet();\n    let capabilities: connection.NetCapabilities = await connection.getNetCapabilities(net);\n    HiLog.info(TAG, `success to get net capabilities, ${JSON.stringify(capabilities)}.`);\n    let networkCap = capabilities.networkCap;\n    while (exactly && networkCap?.includes(NET_CAPABILITY_CHECKING_CONNECTIVITY)) {\n      HiLog.info(TAG, 'Checking connectivity...');\n      if (isExpire(startTime, TIME_OUT_SECONDS, UnitType.SECOND_UNIT)) {\n        HiLog.error(TAG, 'Network connection check failed.');\n        return false;\n      }\n      await sleep(SLEEP_MILLISECONDS);\n      net = await connection.getDefaultNet();\n      capabilities = await connection.getNetCapabilities(net);\n      networkCap = capabilities.networkCap;\n    }\n    let internetExists = networkCap?.includes(NET_CAPABILITY_INTERNET);\n    let validatedExists = networkCap?.includes(NET_CAPABILITY_VALIDATED);\n    if (internetExists && validatedExists) {\n      HiLog.debug(TAG, 'Net connection is valid.');\n      return true;\n    } else {\n      HiLog.error(TAG, 'Net connection is invalid.');\n    }\n  } catch (error) {\n    HiLog.wrapError(TAG, error, 'GetConnectionStatus failed');\n  }\n  return false;\n}"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "data_item": "文件信息",
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/encryptedSharing.ets",
+        "line": 420,
+        "code": "for (const inputUri of this.inputUriArray) {\n  let srcFileMsg: FileMsg = FileUtils.getSuffixFileMsgByUri(inputUri);\n  let dlpFileName: string = srcFileMsg.fileName + srcFileMsg.fileType + Constants.DLP_FILE_SUFFIX;\n  let dlpFilePath = filePath + dlpFileName;\n  let task: taskpool.Task =\n    new taskpool.Task(generateDlpFile, dlpFilePath, inputUri, this.dlpProperty);\n  taskGroup.addTask(task);\n  dlpFilePathArray.push(dlpFilePath);\n  dlpFileNameArray.push(dlpFileName);\n}"
+      }
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
+--- | --- | --- | --- | --- | ---
+https://gitcode.com/openharmony/applications_dlp_manager | 应用管理页 | 账号管理 | 系统API→域账号信息→显示 | 见statement.json | 本功能获取当前登录的域账号信息并显示给用户
+https://gitcode.com/openharmony/applications_dlp_manager | 应用管理页 | 账号管理 | 本地数据库→授权账号列表→显示 | 见statement.json | 本功能获取已授权账号列表，用于文件分享管理
+https://gitcode.com/openharmony/applications_dlp_manager | 应用管理页 | 账号管理 | 系统API→用户ID→上报 | 见statement.json | 本功能获取用户ID并上报到系统事件服务，用于操作日志记录
