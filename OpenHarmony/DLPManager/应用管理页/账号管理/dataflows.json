@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "data_item": "域账号信息",
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/manager/AccountManager.ets",
+        "line": 103,
+        "code": "public static async getAccountInfo(): Promise<account_osAccount.OsAccountInfo | null> {\n  try {\n    return await getOsAccountInfo();\n  } catch (error) {\n    HiLog.wrapError(TAG, error, 'getAccountInfo error');\n  }\n  return null;\n}"
+      },
+      {
+        "filePath": "entry/src/main/ets/manager/AccountManager.ets",
+        "line": 44,
+        "code": "public static async getDomainAccountByAccountName(search: string): Promise<DomainAccountInfo> {\n  let domainAccountMap: Map<string, DomainAccountInfo> | undefined =\n    AppStorage.get(AppStorageConstant.DOMAIN_ACCOUNT_MAP);\n  let domainAccount: DomainAccountInfo | undefined = domainAccountMap?.get(search.toLocaleUpperCase());\n  if (domainAccount) {\n    return domainAccount;\n  }\n  let domainResponse: DomainAccountResponse | undefined =\n    await AccountManager.getDomainAccountWithRetry([search]);\n  if (domainResponse && domainResponse.getData() && domainResponse.getData().length > 0) {\n    return domainResponse.getData()[0];\n  }\n  return new DomainAccountInfo();\n}"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data_item": "授权账号列表",
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/service/AccountAssociationService.ets",
+        "line": 33,
+        "code": "public async getAuthorizedAccount(): Promise<string[]> {\n  HiLog.info(TAG, 'Enter getAuthorizedAccount.');\n  let accountInfo: osAccount.OsAccountInfo | null = null;\n  try {\n    accountInfo = await getOsAccountInfo();\n  } catch (err) {\n    HiLog.wrapError(TAG, err, 'getOsAccountInfo failed');\n    return [];\n  }\n  const ownerAccountId: string = accountInfo.distributedInfo.name;\n  const associationMgr: AccountAssociationManager | null = AccountAssociationManager.getInstance();\n  if (!associationMgr) {\n    HiLog.error(TAG, 'Get account association manager failed.');\n    return [];\n  }\n  const authorizedAccounts: AuthorizedAccount[] = await associationMgr.getAuthorizedAccount(ownerAccountId);\n  let responseData: string[] = [];\n  authorizedAccounts.forEach(account => {\n    responseData.push(account.getUserAccount());\n  });\n  return responseData;\n}"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data_item": "用户ID",
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/common/FileUtils/utils.ets",
+        "line": 169,
+        "code": "async function getUserId(): Promise<number> {\n  let accountMgr = account_osAccount.getAccountManager();\n  return await accountMgr.getOsAccountLocalId();\n}"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/encryptionProtection.ets",
+        "line": 254,
+        "code": "let userId = await getUserId();\nif (event.params) {\n  event.params['USER_ID'] = userId;\n  await hiSysEvent.write(event);\n}"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "data_item": "IPC通信",
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/rpc/ViewAbility/stub/ViewAbilityStub.ets",
+        "line": 25,
+        "code": "export default class ViewAbilityStub extends rpc.RemoteObject {"
+      },
+      {
+        "filePath": "entry/src/main/ets/rpc/ViewAbility/stub/ViewAbilityStub.ets",
+        "line": 52,
+        "code": "async onRemoteMessageRequest(code: number, data: rpc.MessageSequence): Promise<boolean> {"
+      },
+      {
+        "filePath": "entry/src/main/ets/rpc/ViewAbility/stub/ViewAbilityStub.ets",
+        "line": 62,
+        "code": "proxy = data.readRemoteObject();"
+      },
+      {
+        "filePath": "entry/src/main/ets/rpc/ViewAbility/stub/ViewAbilityStub.ets",
+        "line": 74,
+        "code": "resultVar = data.readString();"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "data_item": "本地存储",
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/common/StorageUtil.ets",
+        "line": 43,
+        "code": "let preference = await data_preferences.getPreferences(this.appContext, name);"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/StorageUtil.ets",
+        "line": 48,
+        "code": "await preference.put(key, value);"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/StorageUtil.ets",
+        "line": 50,
+        "code": "await preference.flush();"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/StorageUtil.ets",
+        "line": 67,
+        "code": "let preference = await data_preferences.getPreferences(this.appContext, name);"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/StorageUtil.ets",
+        "line": 72,
+        "code": "let res = await preference.get(key, '');"
+      }
+    ]
+  }
+]

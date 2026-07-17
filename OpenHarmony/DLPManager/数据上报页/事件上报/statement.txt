@@ -1,0 +1,5 @@
+应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
+--- | --- | --- | --- | --- | ---
+https://gitcode.com/openharmony/applications_dlp_manager | 数据上报页 | 事件上报 | 系统API→行为事件→上报 | 见statement.json | 本功能上报用户行为事件到系统事件服务，用于功能优化分析
+https://gitcode.com/openharmony/applications_dlp_manager | 数据上报页 | 事件上报 | 系统API→故障事件→上报 | 见statement.json | 本功能上报故障事件到系统事件服务，用于问题诊断和修复
+https://gitcode.com/openharmony/applications_dlp_manager | 数据上报页 | 事件上报 | 系统API→文件操作事件→上报 | 见statement.json | 本功能上报文件操作事件到系统事件服务，用于使用统计

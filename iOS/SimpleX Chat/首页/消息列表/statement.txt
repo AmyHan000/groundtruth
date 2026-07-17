@@ -1,4 +1,0 @@
-应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
---- | --- | --- | --- | --- | ---
-https://github.com/simplex-chat/simplex-chat | 首页/消息列表 | 加载聊天列表 | 本地SQLite数据库→Haskell核心→UI显示 | 见statement.json | 本功能从本地加密数据库读取聊天列表数据，不涉及网络传输，所有数据仅在本机处理和显示
-https://github.com/simplex-chat/simplex-chat | 首页/消息列表 | 网络状态监控 | NWPathMonitor→NetworkObserver→apiSetNetworkInfo | 见statement.json | 本功能监控网络类型（WiFi/蜂窝/以太网）和在线状态，用于通知核心维护连接，不收集个人信息

@@ -1,3 +1,0 @@
-应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
---- | --- | --- | --- | --- | ---
-https://github.com/mastodon/mastodon-android | 首页 | 时间线浏览 | 服务器API→本地HTTP缓存 | 见statement.json | 本功能从服务器获取帖子内容并缓存到本地，使用OAuth令牌认证，HTTP缓存大小为10MB

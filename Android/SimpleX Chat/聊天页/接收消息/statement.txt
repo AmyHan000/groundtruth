@@ -1,4 +1,0 @@
-应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
---- | --- | --- | --- | --- | ---
-https://github.com/simplex-chat/simplex-chat | 聊天页/接收消息 | 接收消息 | SMP服务器→Haskell核心解密→本地数据库 | 见statement.json | 本功能从SMP服务器接收端到端加密的消息数据，解密后存入本地数据库，服务器无法读取消息内容
-https://github.com/simplex-chat/simplex-chat | 聊天页/接收消息 | 显示通知 | 本地消息→通知管理器→系统通知 | 见statement.json | 本功能从本地消息数据生成系统通知，不涉及网络传输

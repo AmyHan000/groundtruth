@@ -1,3 +1,0 @@
-应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
---- | --- | --- | --- | --- | ---
-https://github.com/mastodon/mastodon-ios | 登录页 | 用户认证 | 用户输入→OAuth认证→Keychain存储 | 见statement.json | 本功能通过OAuth协议与Mastodon服务器进行身份验证，登录凭证通过HTTPS加密传输。访问令牌存储在iOS Keychain中，确保安全存储。用户可以随时退出登录，清除本地存储的令牌。

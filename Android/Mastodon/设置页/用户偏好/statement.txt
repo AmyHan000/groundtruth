@@ -1,3 +1,0 @@
-应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
---- | --- | --- | --- | --- | ---
-https://github.com/mastodon/mastodon-android | 设置页 | 用户偏好 | 用户设置→本地存储 | 见statement.json | 本功能将用户界面偏好设置（主题、动画、确认提示等）存储在本地SharedPreferences，不传输到服务器

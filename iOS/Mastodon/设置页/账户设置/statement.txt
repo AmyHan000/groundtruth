@@ -1,3 +1,0 @@
-应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
---- | --- | --- | --- | --- | ---
-https://github.com/mastodon/mastodon-ios | 设置页 | 账户设置 | 用户设置→本地存储→系统通知 | 见statement.json | 本功能管理用户通知偏好设置，存储在本地UserDefaults。推送通知通过Apple推送服务（APNs）接收，通知内容来自Mastodon服务器。用户可以随时在系统设置中关闭通知权限。

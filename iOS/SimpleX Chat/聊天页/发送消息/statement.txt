@@ -1,4 +1,0 @@
-应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
---- | --- | --- | --- | --- | ---
-https://github.com/simplex-chat/simplex-chat | 聊天页/发送消息 | 发送文本消息 | 用户输入→Haskell核心加密→SMP协议→网络传输 | 见statement.json | 本功能收集用户输入的消息内容，进行端到端加密后通过SMP协议传输给接收方，服务器无法读取消息内容
-https://github.com/simplex-chat/simplex-chat | 聊天页/发送消息 | 发送文件 | 用户选择文件→XFTP加密→网络传输 | 见statement.json | 本功能收集用户选择的文件，进行端到端加密后通过XFTP协议分片传输，服务器仅存储加密分片无法读取内容

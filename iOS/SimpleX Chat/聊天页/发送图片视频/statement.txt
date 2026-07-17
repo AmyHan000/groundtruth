@@ -1,4 +1,0 @@
-应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
---- | --- | --- | --- | --- | ---
-https://github.com/simplex-chat/simplex-chat | 聊天页/发送图片视频 | 发送图片/视频 | 用户选择→本地加密→XFTP加密传输 | 见statement.json | 本功能收集用户选择的图片/视频，进行端到端加密后通过XFTP协议传输，服务器仅存储加密分片无法读取内容
-https://github.com/simplex-chat/simplex-chat | 聊天页/发送图片视频 | 拍摄照片/视频 | 摄像头→本地处理→加密存储 | 见statement.json | 本功能访问设备摄像头获取照片/视频，仅在本地处理和存储，不上传到任何服务器

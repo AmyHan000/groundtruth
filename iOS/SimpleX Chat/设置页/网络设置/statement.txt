@@ -1,3 +1,0 @@
-应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
---- | --- | --- | --- | --- | ---
-https://github.com/simplex-chat/simplex-chat | 设置页/网络设置 | 配置网络代理 | 用户输入→UserDefaults→网络连接 | 见statement.json | 本功能配置SOCKS5代理服务器，设置存储在本地，可通过代理服务器增强隐私
