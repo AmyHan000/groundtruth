@@ -1,0 +1,27 @@
+{
+  "id": "SETTINGS_APP_LOCK",
+  "feature_name": "App Lock (Biometric)",
+  "data": [
+    {
+      "scene": "User enables app lock; verification triggers on app start or return from background.",
+      "purpose": "Verify user identity via biometrics to prevent unauthorized access.",
+      "source": "Android BiometricPrompt API (system-level fingerprint/face recognition)",
+      "item": "Biometric verification result (success/failure)",
+      "frequency": "Every time the app comes to the foreground",
+      "processing": "Local only",
+      "storage": "No biometric data stored",
+      "recipient": "Device-local only (result never leaves the device)",
+      "thirdparty": "No third-party involvement; biometric verification handled by Android TEE",
+      "switchpath": "Settings -> App Lock -> Enable/Disable"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "Biometric permission (implicitly via BiometricPrompt)",
+      "scene": "When enabling app lock or verifying identity",
+      "authorization": "System-level authorization dialog",
+      "purpose": "Verify user identity via fingerprint or face recognition",
+      "impact": "If denied, app lock will be unavailable; device credential (PIN/password) can be used as alternative"
+    }
+  ]
+}

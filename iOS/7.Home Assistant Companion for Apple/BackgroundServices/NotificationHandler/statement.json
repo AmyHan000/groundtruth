@@ -1,0 +1,75 @@
+{
+  "id": "BACKGROUND_NOTIFICATION",
+  "feature_name": "推送通知处理",
+  "data": [
+    {
+      "scene": "Home Assistant 服务器向设备发送推送通知",
+      "purpose": "向用户展示通知提醒信息",
+      "source": "APNs / Firebase Cloud Messaging",
+      "item": "通知标题、消息内容、推送附加数据（摄像头实体 ID、信息亭命令参数等）",
+      "frequency": "由 Home Assistant 服务器触发",
+      "processing": "仅本地展示和处理",
+      "storage": "通知历史存储在本地数据库；通知内容处理完成后不持久保留",
+      "recipient": "设备本地",
+      "thirdparty": "APNs + Firebase Cloud Messaging 用于消息投递",
+      "switchpath": "设置 -> 通知"
+    },
+    {
+      "scene": "推送通知包含摄像头命令",
+      "purpose": "在应用内以悬浮层显示摄像头直播画面",
+      "source": "通知负载中的 camera.entity_id",
+      "item": "从 Home Assistant 服务器获取的摄像头视频流",
+      "frequency": "收到摄像头相关推送时",
+      "processing": "仅本地播放",
+      "storage": "不存储",
+      "recipient": "设备本地",
+      "thirdparty": "无第三方",
+      "switchpath": "不适用"
+    },
+    {
+      "scene": "推送通知包含信息亭命令",
+      "purpose": "执行屏幕亮度/系统音量调节、摄像头关闭等远程管理命令",
+      "source": "推送通知负载中的命令参数",
+      "item": "亮度值、音量值、命令标识符",
+      "frequency": "接收到对应推送命令时",
+      "processing": "仅本地执行",
+      "storage": "不存储",
+      "recipient": "设备本地",
+      "thirdparty": "无第三方",
+      "switchpath": "不适用"
+    },
+    {
+      "scene": "通知服务扩展处理推送附件",
+      "purpose": "下载推送通知中的媒体附件（图片/视频）并展示在通知中",
+      "source": "Home Assistant 服务器",
+      "item": "媒体附件（图片/视频 URL 下载）",
+      "frequency": "推送通知包含附件时",
+      "processing": "下载后临时本地展示",
+      "storage": "临时缓存后自动清理",
+      "recipient": "设备本地",
+      "thirdparty": "无第三方（直接从用户的 HA 服务器下载）",
+      "switchpath": "不适用"
+    },
+    {
+      "scene": "Live Activity 更新",
+      "purpose": "更新灵动岛/锁屏上的 Live Activity 显示内容",
+      "source": "推送通知中的 live_activity 命令",
+      "item": "Live Activity 更新数据",
+      "frequency": "推送触发",
+      "processing": "仅本地更新",
+      "storage": "系统 Live Activity 状态",
+      "recipient": "设备本地",
+      "thirdparty": "无第三方",
+      "switchpath": "不适用"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "推送通知权限（UNAuthorizationOptionAlert/Badge/Sound）",
+      "scene": "首次启动应用时",
+      "authorization": "运行时",
+      "purpose": "在设备上显示推送通知",
+      "impact": "如果拒绝，将无法收到 Home Assistant 的推送通知"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_BLE_BEACON_MONITORING",
+      "data_type": "BLE iBeacon Data (UUID, Major, Minor, Distance, RSSI, MAC addresses)",
+      "description": "The app passively scans for nearby BLE iBeacons using the AltBeacon library. It collects beacon identifiers (UUID, major, minor), estimated distance, and RSSI signal strength, then sends this data to the Home Assistant server as a sensor for presence detection.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "MonitoringManager / IBeaconMonitor.setBeacons",
+          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/bluetooth/ble/IBeaconMonitor.kt",
+          "line": 43,
+          "code": "fun setBeacons(newBeacons: Collection<Beacon>) { for (newBeacon in newBeacons) { uuid = newBeacon.id1; major = newBeacon.id2; minor = newBeacon.id3; distance = newBeacon.distance; rssi = newBeacon.runningAverageRssi ... } }",
+          "details": "AltBeacon library BLE scan callback triggers beacon data processing. Beacon UUID, major, minor, distance (meters), and RSSI are extracted."
+        },
+        {
+          "step": "Data Processing",
+          "function": "IBeaconMonitor.sendUpdate",
+          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/bluetooth/ble/IBeaconMonitor.kt",
+          "line": 94,
+          "code": "private fun sendUpdate(tmp: List<IBeacon>) { beacons = tmp; sensorManager.updateBeaconMonitoringSensor(); sensorManager.sendBluetoothSensorUpdate() }",
+          "details": "Beacon data is sorted by distance, filtered by UUID filter rules, and passed to BluetoothSensorManager for transmission. A Kalman filter smooths RSSI values for accuracy."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "BluetoothSensorManager.updateBeaconMonitoringSensor",
+          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/BluetoothSensorManager.kt",
+          "line": 200,
+          "code": "onSensorUpdated(beaconMonitor, beaconDataList, icon, attributes)",
+          "details": "Beacon UUIDs, major/minor values, distances, and RSSI readings are sent to the Home Assistant server via REST API as sensor data."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_BLE_IBEACON_TRANSMITTING",
+      "data_type": "BLE iBeacon Broadcast (User-configured UUID, Major, Minor)",
+      "description": "The app can be configured to broadcast as a BLE iBeacon from the user's device. The user-configured UUID, major, and minor values are transmitted via BLE advertising for other devices to detect.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "TransmitterManager.start",
+          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/bluetooth/ble/TransmitterManager.kt",
+          "line": 40,
+          "code": "fun start(context: Context, transmitter: IBeaconTransmitter) { bleAdvertisementSet.startAdvertising() }",
+          "details": "User enables BLE transmitter in Bluetooth sensor settings. The app starts broadcasting as an iBeacon via BLE advertising."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "BluetoothAdapter / BLE Advertisement",
+          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/bluetooth/ble/TransmitterManager.kt",
+          "line": 55,
+          "code": "AdvertisingSetParameters.Builder().setPrimaryPhy(BluetoothDevice.PHY_LE_CODED).setLegacyMode(false).setConnectable(false).build()",
+          "details": "The device broadcasts the configured iBeacon UUID, major, and minor values via BLE. Requires BLUETOOTH_ADVERTISE permission on API 31+."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_BLUETOOTH_PAIRED_DEVICES",
+      "data_type": "Bluetooth Device Information (Paired device names and MAC addresses)",
+      "description": "The app reads the list of paired/connected Bluetooth devices via Android BluetoothAdapter, collecting device names and MAC addresses, and sends them to the Home Assistant server.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "BluetoothSensorManager.requestSensorUpdate",
+          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/BluetoothSensorManager.kt",
+          "line": 120,
+          "code": "updateBluetoothConnectionSensor()",
+          "details": "Bluetooth state change broadcast or periodic update triggers Bluetooth device list collection."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "BluetoothUtils.getBluetoothDevices",
+          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/bluetooth/BluetoothUtils.kt",
+          "line": 50,
+          "code": "BluetoothAdapter.getDefaultAdapter().bondedDevices; BluetoothManager.getConnectedDevices(BluetoothProfile.GATT)",
+          "details": "Reads all paired Bluetooth devices (names and MAC addresses) and currently connected GATT devices."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "BluetoothSensorManager.sendBluetoothSensorUpdate",
+          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/BluetoothSensorManager.kt",
+          "line": 200,
+          "code": "onSensorUpdated(bluetoothConnection, connectionInfo)",
+          "details": "Paired/connected Bluetooth device names and MAC addresses are sent to the Home Assistant server via REST API."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_ONDEVICE_SPEECH_TO_TEXT",
+      "data_type": "Voice Audio for On-Device Speech Recognition",
+      "description": "On-device STT via SFSpeechRecognizer with requiresOnDeviceRecognition=true. Audio processed via AVAudioEngine and SFSpeechAudioBufferRecognitionRequest. Audio never leaves device.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "SpeechTranscriber.startListening",
+          "file": "Sources/App/Assist/Local/SpeechTranscriber.swift",
+          "line": 188,
+          "code": "public func startListening() async throws { try await requestPermission(); audioEngine = AVAudioEngine(); recognitionRequest = SFSpeechAudioBufferRecognitionRequest(); recognitionRequest.requiresOnDeviceRecognition = true }",
+          "details": "User initiates voice input with on-device STT enabled. SFSpeechRecognizer configured for on-device-only recognition."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "SpeechTranscriber.startListening (audio engine)",
+          "file": "Sources/App/Assist/Local/SpeechTranscriber.swift",
+          "line": 216,
+          "code": "recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in ... }",
+          "details": "SFSpeechRecognizer processes microphone audio via AVAudioEngine tap. On-device recognition with partial results."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "SpeechTranscriber.requestPermission",
+          "file": "Sources/App/Assist/Local/SpeechTranscriber.swift",
+          "line": 213,
+          "code": "public func requestPermission() async throws { AVAudioApplication.requestRecordPermission { ... }; SFSpeechRecognizer.requestAuthorization { ... } }",
+          "details": "Microphone and speech recognition permissions requested."
+        },
+        {
+          "step": "Data Processing",
+          "function": "SpeechTranscriber.handleRecognitionResult",
+          "file": "Sources/App/Assist/Local/SpeechTranscriber.swift",
+          "line": 258,
+          "code": "private func handleRecognitionResult(_ result:, error:) { transcript = result.bestTranscription.formattedString; onTranscriptUpdate?(transcript, isFinal) }",
+          "details": "Recognized text returned locally. Audio stays on-device. Partial results sent in real-time; final result triggers Assist text query."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_ONDEVICE_TEXT_TO_SPEECH",
+      "data_type": "Text Rendered as Speech Audio",
+      "description": "On-device TTS via AVSpeechSynthesizer. Text from Assist response spoken locally. No audio data sent to server.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "SpeechSynthesizer.speak",
+          "file": "Sources/App/Assist/Local/SpeechSynthesizer.swift",
+          "line": 36,
+          "code": "func speak(_ text:) { let utterance = AVSpeechUtterance(string: text); synthesizer.speak(utterance) }",
+          "details": "Assist response text spoken via system TTS. AVSpeechSynthesizer outputs audio locally."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "SpeechSynthesizer.init(voiceIdentifier:)",
+          "file": "Sources/App/Assist/Local/SpeechSynthesizer.swift",
+          "line": 25,
+          "code": "init(voiceIdentifier:) { self.voice = AVSpeechSynthesisVoice(identifier: voiceIdentifier) }",
+          "details": "User-selected TTS voice loaded from available system voices. Voice preference stored in AssistConfiguration."
+        },
+        {
+          "step": "Data Processing",
+          "function": "AssistViewModel.speakWithOnDeviceTTS",
+          "file": "Sources/App/Assist/AssistViewModel.swift",
+          "line": 143,
+          "code": "private func speakWithOnDeviceTTS(_ text:) { speechSynthesizer?.speak(text) }",
+          "details": "Assist response text rendered by on-device TTS. No server round-trip for speech synthesis."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SERVER_DISCOVERY",
+      "data_type": "Server URL / Network Info",
+      "description": "The user discovers a Home Assistant server on the local network via Bonjour/mDNS or enters a URL manually. The server URL is stored for subsequent connections.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "ServerDiscoveryScreen.onSearch",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/onboarding/serverdiscovery/ServerDiscoveryScreen.kt",
+          "line": 40,
+          "code": "fun onSearch() { viewModel.discoverServers() }",
+          "details": "User taps 'Search' on the server discovery screen, starting Bonjour/mDNS discovery on the local network."
+        },
+        {
+          "step": "Data Processing",
+          "function": "HomeAssistantSearcher.discover",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/onboarding/serverdiscovery/HomeAssistantSearcher.kt",
+          "line": 45,
+          "code": "fun discover(): Flow<DiscoveredServer> { ... nsdManager.discoverServices(SERVICE_TYPE, ...) }",
+          "details": "The app uses Android's NsdManager to discover Home Assistant instances on the local network, receiving server names and URLs."
+        },
+        {
+          "step": "Storage",
+          "function": "ServerManager.registerServer",
+          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/data/servers/ServerManager.kt",
+          "line": 80,
+          "code": "suspend fun registerServer(url: String): RegisteredServer { ... store server URL in database }",
+          "details": "The selected server URL is stored in the app's local database for future connections."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_NFC_TAG_WRITE",
+      "data_type": "NFC Tag Identifier (UUID written to physical NFC tag)",
+      "description": "The user generates a unique tag ID (UUID) and writes it to a physical NFC tag via the device's NFC hardware. The tag ID is also sent to the Home Assistant server as a tag scan event.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "NfcViewModel.writeNewTag",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/nfc/NfcViewModel.kt",
+          "line": 67,
+          "code": "nfcTagIdentifier = UUID.randomUUID().toString(); navigator.navigateTo(NfcSetupActivity.NAV_WRITE)",
+          "details": "User taps 'Write NFC Tag' button. A new UUID is generated as the tag identifier."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "NFCUtil.createNFCMessage / NfcAdapter enqueue",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/nfc/NFCUtil.kt",
+          "line": 30,
+          "code": "NfcAdapter.setTagIntent; NdefMessage(NdefRecord.createUri(\"https://www.home-assistant.io/tag/$uuid\"))",
+          "details": "The UUID is written to the physical NFC tag as a URI record (https://www.home-assistant.io/tag/{uuid})."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "NfcViewModel.fireNfcTagEvent",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/nfc/NfcViewModel.kt",
+          "line": 105,
+          "code": "serverManager.integrationRepository(server.id).scanTag(hashMapOf(\"tag_id\" to it))",
+          "details": "After write success, the tag ID is sent to all registered Home Assistant servers via REST API (scanTag)."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_NFC_TAG_READ",
+      "data_type": "NFC Tag Identifier (scanned from physical tag)",
+      "description": "The user scans an NFC tag or QR code with the device. The tag ID is extracted, checked against an allowed list, and sent to the Home Assistant server to trigger automations.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "TagReaderViewModel.onTagScanned",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/nfc/TagReaderViewModel.kt",
+          "line": 40,
+          "code": "onTagScanned(tagId: String) { processTagId(tagId) }",
+          "details": "User scans a physical NFC tag or QR code. The tag ID is extracted from the tag content."
+        },
+        {
+          "step": "Data Processing",
+          "function": "prefsRepository.getAllowedTags / user approval",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/nfc/TagReaderViewModel.kt",
+          "line": 55,
+          "code": "val allowedTags = prefsRepository.getAllowedTags(); if (tagId !in allowedTags) { showApprovalDialog() }",
+          "details": "The scanned tag ID is checked against the user's allowed tags list (stored in local preferences). If not yet allowed, the user must approve it."
+        },
+        {
+          "step": "Storage",
+          "function": "prefsRepository.addAllowedTag",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/nfc/TagReaderViewModel.kt",
+          "line": 70,
+          "code": "prefsRepository.addAllowedTag(tagId)",
+          "details": "If user selects 'Allow Always', the tag ID is persisted in local app preferences for automatic approval in the future."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "IntegrationRepository.scanTag",
+          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/data/integration/IntegrationRepository.kt",
+          "line": 120,
+          "code": "fun scanTag(tagId: String): Boolean",
+          "details": "After approval, the tag ID is sent to the Home Assistant server via REST API, which triggers tag-based automations."
+        }
+      ]
+    }
+  ]
+}

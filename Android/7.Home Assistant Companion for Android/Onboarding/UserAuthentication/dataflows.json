@@ -1,0 +1,35 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_USER_AUTH_TOKEN",
+      "data_type": "Bearer Token / Refresh Token (Credentials)",
+      "description": "The user enters a server URL during onboarding, completes OAuth2 authentication, and the app securely stores the obtained Bearer Token and Refresh Token in EncryptedSharedPreferences.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "LinkViewModel.submitUrl",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/launch/link/LinkViewModel.kt",
+          "line": 60,
+          "code": "fun submitUrl(url: String) { serverManager.registerServer(url); authenticator.authenticate() }",
+          "details": "User enters the Home Assistant server URL and initiates the authentication flow."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "ServerSessionManager.exchangeCodeForToken",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/session/ServerSessionManager.kt",
+          "line": 45,
+          "code": "suspend fun exchangeCodeForToken(code: String): AuthPayload { httpClient.post(authUrl, code) }",
+          "details": "The authorization code is exchanged for a Bearer Token via HTTPS POST to the Home Assistant server's token endpoint."
+        },
+        {
+          "step": "Storage",
+          "function": "AuthenticationRepository.storeToken",
+          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/data/auth/AuthenticationRepository.kt",
+          "line": 60,
+          "code": "suspend fun storeToken(authPayload: AuthPayload) { encryptedPreferences.putString(\"access_token\", authPayload.accessToken); putString(\"refresh_token\", authPayload.refreshToken) }",
+          "details": "The Bearer Token and Refresh Token are securely stored using EncryptedSharedPreferences (AES-256 encryption)."
+        }
+      ]
+    }
+  ]
+}

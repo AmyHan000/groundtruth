@@ -1,0 +1,27 @@
+{
+  "id": "VOICE_ASSIST_WAKE_WORD",
+  "feature_name": "Wake Word Detection",
+  "data": [
+    {
+      "scene": "User enables wake word detection; the app continuously listens for the wake word in the background.",
+      "purpose": "Enable hands-free voice activation for quick access to the voice assistant.",
+      "source": "Device microphone (continuous audio stream processed by local TFLite model)",
+      "item": "Microphone audio stream (continuously collected for on-device detection)",
+      "frequency": "Continuous (audio chunks ~10ms each buffered and processed locally)",
+      "processing": "Local only",
+      "storage": "Not stored; audio is discarded immediately after local model processing",
+      "recipient": "Device-local processing only",
+      "thirdparty": "No third-party involvement; all audio processing uses on-device TFLite model",
+      "switchpath": "Settings -> Assist -> Wake Word Detection -> Enable/Disable"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "RECORD_AUDIO",
+      "scene": "When enabling wake word detection",
+      "authorization": "Runtime",
+      "purpose": "Continuously monitor the microphone for wake word detection",
+      "impact": "If denied, wake word detection cannot be enabled"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+1. 我们如何收集和使用您的个人信息
+
+**健康数据采集（Health Connect）**
+
+当您在传感器管理中启用 Health Connect 传感器并通过 Google Health Connect 授权后，为了将健康指标同步至 Home Assistant 用于健康监测仪表盘和自动化触发，我们会通过 Google Health Connect API 读取您的**心率（次/分）**、**血压（收缩压/舒张压 mmHg）**、**血糖（mg/dL，含膳食背景信息）**、**睡眠时长和阶段（清醒/浅睡/深睡/REM）**以及其他您授权的健康数据类型。为了保证数据的及时性，我们将以每15分钟一次的频率收集上述数据。
+
+处理方式说明：
+上传云端处理：健康数据通过 REST API（HTTPS加密）传输至您自托管的 Home Assistant 服务器。应用不在本地持久化存储健康数据。所有数据读取均通过 Google Health Connect 官方 API 进行，Health Connect 提供设备级加密存储。
+
+2. 设备权限调用
+
+Health Connect 读取权限（25+种类型：心率、血压、血糖、睡眠、体重、体温、血氧等）：当您在传感器管理中启用 Health Connect 传感器时，本应用将通过 Google Health Connect 系统界面请求您授权读取指定的健康数据类型。
+拒绝后果：如果拒绝，对应的健康传感器将无法读取数据，该传感器将保持不可用状态。您可以在 Health Connect 应用中随时管理已授权的数据类型。

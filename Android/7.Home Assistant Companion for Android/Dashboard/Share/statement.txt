@@ -1,0 +1,12 @@
+1. 我们如何收集和使用您的个人信息
+
+**分享到 Home Assistant**
+
+当您通过 Android 分享菜单将内容从其他应用分享至 Home Assistant 时，为了将您分享的内容发送至 Home Assistant 服务器用于自动化触发或记录，我们会提取分享的内容（文字、URL、主题）以及调用来源应用的身份信息。这些内容将立即以 mobile_app.share 事件形式发送至您的 Home Assistant 服务器。
+
+处理方式说明：
+上传云端处理：分享的内容通过 REST API（HTTPS加密）立即发送至您自托管的 Home Assistant 服务器。应用不本地存储任何分享内容。
+
+2. 设备权限调用
+
+本功能不调用额外的设备危险权限。

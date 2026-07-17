@@ -1,0 +1,81 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SERVER_DISCOVERY_BONJOUR",
+      "data_type": "Local Network mDNS Data",
+      "description": "NetServiceBrowser scans for _home-assistant._tcp services on local network via Bonjour/mDNS. Resolved instances contain server URL, location name, and version.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "Bonjour.start",
+          "file": "Sources/App/Onboarding/API/Bonjour.swift",
+          "line": 39,
+          "code": "public func start() { browser.searchForServices(ofType: \"_home-assistant._tcp.\", inDomain: \"\") }",
+          "details": "NetServiceBrowser performs mDNS query for HA instances on local network."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "Bonjour.netServiceDidResolveAddress",
+          "file": "Sources/App/Onboarding/API/Bonjour.swift",
+          "line": 60,
+          "code": "public func netServiceDidResolveAddress(_ sender: NetService) { let serviceDict = NetService.dictionary(fromTXTRecord: txtRecord) ... }",
+          "details": "Discovered HA server metadata (URL, name, version) extracted from mDNS TXT record."
+        },
+        {
+          "step": "Data Processing",
+          "function": "Bonjour.discoveredHomeAssistant",
+          "file": "Sources/App/Onboarding/API/Bonjour.swift",
+          "line": 84,
+          "code": "private func discoveredHomeAssistant(bonjourName:, netServiceDictionary:) throws -> DiscoveredHomeAssistant",
+          "details": "mDNS response parsed into DiscoveredHomeAssistant model with server URL and metadata."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_SERVER_DISCOVERY_MANUAL_URL",
+      "data_type": "Server URL",
+      "description": "User manually enters HA server URL. URL validated for connectivity and stored for connection.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "ManualURLEntryView",
+          "file": "Sources/App/Onboarding/Steps/Servers/ManualURLEntry/ManualURLEntryView.swift",
+          "line": 1,
+          "code": "struct ManualURLEntryView: View",
+          "details": "User presented with URL text input field during onboarding."
+        },
+        {
+          "step": "Storage",
+          "function": "OnboardingAuthLogin.withURL",
+          "file": "Sources/App/Onboarding/API/OnboardingAuthLogin.swift",
+          "line": 40,
+          "code": "func withURL(_ url: URL)",
+          "details": "Server URL stored in Server model for OAuth2 authentication."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_SERVER_DISCOVERY_LOCAL_NETWORK",
+      "data_type": "Local Network Access",
+      "description": "App declares NSLocalNetworkUsageDescription and NSBonjourServices for local network discovery and communication with HA instance.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "LocalAccessPermissionView",
+          "file": "Sources/App/Onboarding/Steps/Permissions/Steps/LocalAccessAndNetworkInput/LocalAccess/LocalAccessPermissionView.swift",
+          "line": 1,
+          "code": "struct LocalAccessPermissionView: View",
+          "details": "Onboarding permission screen requests local network access."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "Info.plist NSLocalNetworkUsageDescription",
+          "file": "Sources/App/Resources/Info.plist",
+          "line": 1,
+          "code": "<key>NSLocalNetworkUsageDescription</key><string>Locate and communicate with your Home Assistant instance.</string>",
+          "details": "iOS local network permission declaration for mDNS discovery."
+        }
+      ]
+    }
+  ]
+}

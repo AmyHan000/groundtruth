@@ -1,0 +1,13 @@
+1. 我们如何收集和使用您的个人信息
+
+**Matter 智能家居设备配网**
+
+当您通过 Home Assistant 前端配置 Matter 认证的智能家居设备时，为了将设备配对至您的 Home Assistant 服务器，我们会通过 Google Play Services Matter API 进行设备发现和设置。**Matter 配网码（配对密钥）**、**设备 PIN 和 IP 地址**将通过 WebSocket 发送至您的 Home Assistant 服务器。
+
+处理方式说明：
+上传云端处理：配网数据通过 WebSocket（WSS加密）发送至您自托管的 Home Assistant 服务器。
+
+2. 设备权限调用
+
+BLUETOOTH_CONNECT / BLUETOOTH_SCAN（蓝牙连接/扫描）权限：当进行 Matter 设备 BLE 配网时，本应用将询问蓝牙权限。
+拒绝后果：如果拒绝，Matter 设备 BLE 配网方式可能无法工作。

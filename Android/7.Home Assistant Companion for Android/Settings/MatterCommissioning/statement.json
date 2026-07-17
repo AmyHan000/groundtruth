@@ -1,0 +1,46 @@
+{
+  "id": "SETTINGS_MATTER_COMMISSIONING",
+  "feature_name": "Matter Commissioning",
+  "data": [
+    {
+      "scene": "User scans a Matter QR code or enters a manual pairing code to commission a new Matter smart home device.",
+      "purpose": "Pair a Matter smart home device with the user's Home Assistant server for local smart home control.",
+      "source": "User-entered commissioning code (QR code scan via camera or manual text input) and optional device PIN",
+      "item": "Matter commissioning code (QR code payload / manual pairing code), device PIN, local IP address of the device being commissioned",
+      "frequency": "On-demand (each time the user commissions a new Matter device)",
+      "processing": "Uploaded to server",
+      "storage": "Not stored by the app; forwarded to the Home Assistant server for commissioning and discarded",
+      "recipient": "Home Assistant server (user self-hosted) via WebSocket; Google Play Services for Matter framework operations",
+      "thirdparty": "Google Play Services (Matter subsystem) prepares and manages the commissioning session; the commissioning payload is sent to the user's self-hosted Home Assistant server only",
+      "switchpath": "Settings -> Matter Commissioning (triggered from WebView frontend)"
+    },
+    {
+      "scene": "User commissions a Matter device already on the local network by providing its device PIN and IP address.",
+      "purpose": "Commission an existing network-connected Matter device by verifying its PIN and establishing it as a paired device in Home Assistant.",
+      "source": "User-provided device PIN and local network IP address of the Matter device",
+      "item": "Matter device setup PIN, local IP address",
+      "frequency": "On-demand (each time the user commissions an on-network Matter device)",
+      "processing": "Uploaded to server",
+      "storage": "Not stored by the app; forwarded to the Home Assistant server for commissioning and discarded",
+      "recipient": "Home Assistant server (user self-hosted) via WebSocket",
+      "thirdparty": "No third-party involvement; PIN and IP address are sent to the user's self-hosted Home Assistant server only",
+      "switchpath": "Settings -> Matter Commissioning -> On-Network Commissioning"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "CAMERA",
+      "scene": "When user taps the QR code scan button to commission a Matter device",
+      "authorization": "Runtime",
+      "purpose": "Scan the Matter device QR code to extract the commissioning code for device pairing",
+      "impact": "If denied, the user must manually type the commissioning code instead of scanning the QR code"
+    },
+    {
+      "name": "NEARBY_DEVICES (BLUETOOTH_SCAN / BLUETOOTH_CONNECT) / ACCESS_FINE_LOCATION",
+      "scene": "When commissioning a Matter device via Google Play Services Matter subsystem",
+      "authorization": "Runtime",
+      "purpose": "Discover and connect to nearby Matter devices via Bluetooth LE for the commissioning process",
+      "impact": "If denied, Matter device discovery via BLE may not function correctly; the user may need to enter the device IP address manually"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "DASHBOARD_BARCODE",
+  "feature_name": "Barcode / QR Code Scanning",
+  "data": [
+    {
+      "scene": "When the frontend WebView requests a barcode/QR code scan.",
+      "purpose": "Scan QR codes for IoT device provisioning, login authentication.",
+      "source": "Device rear camera (via CameraX API)",
+      "item": "Camera live preview feed, decoded barcode content",
+      "frequency": "On-demand",
+      "processing": "Local only",
+      "storage": "Not stored",
+      "recipient": "Scan result returned to frontend WebView",
+      "thirdparty": "No third-party involvement; uses local ZXing/MLKit libraries",
+      "switchpath": "Permission dialog shown when frontend triggers a scan request"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "CAMERA",
+      "scene": "First use of barcode scanning",
+      "authorization": "Runtime",
+      "purpose": "Activate the rear camera for scanning QR codes / barcodes",
+      "impact": "If denied, barcode scanning will be unavailable"
+    }
+  ]
+}

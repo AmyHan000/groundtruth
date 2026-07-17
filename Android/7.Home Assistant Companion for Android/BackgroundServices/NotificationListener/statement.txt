@@ -1,0 +1,16 @@
+1. 我们如何收集和使用您的个人信息
+
+**推送通知与通知监听**
+
+当您的 Home Assistant 服务器发送推送通知，或您在传感器管理中启用通知监听传感器时，为了显示推送通知并将设备通知内容用于自动化规则，我们会通过 Firebase Cloud Messaging 接收来自您 Home Assistant 服务器的推送消息（标题、正文、图片URL、操作按钮），并在您启用通知监听传感器后，通过 Android NotificationListenerService 读取您设备上**其他应用的通知内容（应用包名、通知标题、通知文本）**以及**当前正在播放的媒体信息（艺术家、专辑、标题、播放状态）**。
+
+处理方式说明：
+上传云端处理：推送通知通过 Google 的 Firebase Cloud Messaging 加密传输通道接收。通知监听传感器读取的通知内容通过 REST API（HTTPS加密）发送至您自托管的 Home Assistant 服务器用于自动化处理。通知历史记录存储在本地 Room 数据库中，可在设置中查看和删除。
+
+2. 设备权限调用
+
+POST_NOTIFICATIONS（通知）权限：当应用需要显示来自 Home Assistant 的推送通知时（Android 13+），本应用将询问通知权限，以便向您展示通知消息。
+拒绝后果：如果拒绝，来自 Home Assistant 的推送通知将无法在您的设备上显示。
+
+BIND_NOTIFICATION_LISTENER_SERVICE（通知监听）权限：当启用通知监听传感器时，本应用将引导您前往系统设置中授予通知监听权限，以便读取设备通知内容用于 Home Assistant 自动化。
+拒绝后果：如果拒绝，通知监听传感器将无法工作，基于通知内容的自动化将不可用。

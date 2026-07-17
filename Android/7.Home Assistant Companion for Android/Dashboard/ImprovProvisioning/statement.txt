@@ -1,0 +1,16 @@
+1. 我们如何收集和使用您的个人信息
+
+**Improv Wi-Fi 配网（BLE）**
+
+当您通过 Home Assistant 前端使用 Improv 协议配置新的 IoT 设备时，为了将设备连接到您的 Wi-Fi 网络，我们会通过蓝牙低功耗（BLE）GATT 特征写入将您在前端输入的 **WiFi SSID 和密码**传输至待配网的 IoT 设备。WiFi 凭据可访问您的本地网络。
+
+处理方式说明：
+仅本地传输：WiFi 凭据仅通过本地 BLE 传输至目标设备，不会发送至任何服务器。凭据不会存储在应用中。
+
+2. 设备权限调用
+
+BLUETOOTH_SCAN / BLUETOOTH_CONNECT（蓝牙扫描/连接）权限：当扫描 Improv 兼容设备并通过 BLE 传输 WiFi 凭据时，本应用将询问蓝牙权限。
+拒绝后果：如果拒绝，Improv 设备配网功能将不可用。
+
+ACCESS_FINE_LOCATION（精确位置）权限：当在某些 Android 版本上扫描 BLE 设备时，本应用将询问位置权限。
+拒绝后果：如果拒绝，在某些 Android 版本上 Improv 设备发现可能受限。

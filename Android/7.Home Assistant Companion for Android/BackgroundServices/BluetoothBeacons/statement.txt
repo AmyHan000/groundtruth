@@ -1,0 +1,19 @@
+1. 我们如何收集和使用您的个人信息
+
+**蓝牙信标监测与 BLE 发射**
+
+当您在蓝牙传感器设置中启用 BLE 信标监测或 BLE 发射器时，为了实现室内存在检测和基于距离的自动化，我们会通过 AltBeacon 库持续扫描附近的 BLE iBeacon，收集其**UUID、Major、Minor、估计距离（米）和 RSSI 信号强度**；同时收集**已配对和已连接的蓝牙设备名称及 MAC 地址**。在启用 BLE 发射器时，您的设备将持续广播您配置的 iBeacon UUID。信标扫描将以连续模式运行（可配置扫描周期1-30秒）。
+
+处理方式说明：
+上传云端处理：信标 UUID、距离和设备信息通过 REST API（HTTPS加密）发送至您自托管的 Home Assistant 服务器。所有 BLE 扫描和广播均在本地设备上执行，支持 UUID 过滤以限制报告的信标范围。
+
+2. 设备权限调用
+
+BLUETOOTH_SCAN / BLUETOOTH_CONNECT（蓝牙扫描/连接）权限：当启用 BLE 信标监测或蓝牙设备传感器时（Android 12+），本应用将询问蓝牙扫描权限，以便扫描附近 BLE 信标和读取已配对蓝牙设备信息。
+拒绝后果：如果拒绝，BLE 信标监测和蓝牙设备传感器将不可用。
+
+BLUETOOTH_ADVERTISE（蓝牙广播）权限：当启用 BLE iBeacon 发射器时（Android 12+），本应用将询问蓝牙广播权限，以便将您的设备广播为 BLE iBeacon。
+拒绝后果：如果拒绝，BLE 发射器功能将不可用。
+
+ACCESS_FINE_LOCATION（精确位置）权限：当在 Android 9-11 上使用 BLE 扫描时，本应用将询问位置权限。
+拒绝后果：如果拒绝，在 Android 9-11 上 BLE 信标监测将不可用。

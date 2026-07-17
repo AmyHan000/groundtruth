@@ -1,0 +1,27 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_WIFI_CREDENTIALS_IMPROV",
+      "data_type": "WiFi SSID and Password (Network Credentials)",
+      "description": "The user enters WiFi credentials in the frontend WebView. The app transmits the SSID and password to IoT devices via Bluetooth BLE using the Improv protocol for device provisioning.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "FrontendImprovHandler.onImprovConnectDevice",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/improv/FrontendImprovHandler.kt",
+          "line": 55,
+          "code": "fun onImprovConnectDevice(ssid: String, password: String) { ... }",
+          "details": "The user enters the WiFi SSID and password in the frontend, passed to the Improv handler via external bus."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "ImprovRepositoryImpl.provisionDevice",
+          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/improv/ImprovRepositoryImpl.kt",
+          "line": 80,
+          "code": "suspend fun provisionDevice(ssid: String, password: String): Boolean { bluetoothPeripheral.send(improvCommand) }",
+          "details": "WiFi SSID and password are transmitted via Bluetooth Low Energy GATT characteristic write, using the Improv serial protocol."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "VOICE_ASSIST_RECORDING",
+  "feature_name": "语音录制",
+  "data": [
+    {
+      "scene": "用户点击麦克风按钮与语音助手对话",
+      "purpose": "录制用户语音命令并通过 WebSocket 传输至 Home Assistant 服务器进行语音转文字处理",
+      "source": "麦克风（AVCaptureSession、AVCaptureAudioDataOutput）",
+      "item": "用户语音音频（16kHz PCM 格式）",
+      "frequency": "用户按需触发",
+      "processing": "实时流式上传至服务器",
+      "storage": "处理完成后不保留",
+      "recipient": "Home Assistant 服务器（自托管）Assist Pipeline",
+      "thirdparty": "无第三方",
+      "switchpath": "Assist 设置 -> 输入模式"
+    },
+    {
+      "scene": "服务器返回语音助手 TTS 响应",
+      "purpose": "播放服务器生成的 TTS 音频回复",
+      "source": "Home Assistant 服务器",
+      "item": "TTS 音频文件（来自媒体 URL）",
+      "frequency": "每次语音对话后触发",
+      "processing": "仅本地播放",
+      "storage": "播放后丢弃",
+      "recipient": "设备本地",
+      "thirdparty": "无第三方",
+      "switchpath": "Assist 设置 -> 启用 TTS"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "NSMicrophoneUsageDescription",
+      "scene": "用户首次点击麦克风按钮时",
+      "authorization": "运行时",
+      "purpose": "录制语音以进行语音命令处理",
+      "impact": "如果拒绝，仍然可以使用文字输入方式"
+    }
+  ]
+}

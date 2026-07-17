@@ -1,0 +1,39 @@
+{
+  "id": "VOICE_ASSIST_LOCAL_SPEECH",
+  "feature_name": "设备端语音处理",
+  "data": [
+    {
+      "scene": "用户启用设备端语音识别并开始说话",
+      "purpose": "使用 Apple SFSpeechRecognizer 在设备本地将语音转为文字，音频数据永不离开设备",
+      "source": "麦克风（AVAudioEngine）+ Apple SFSpeechRecognizer",
+      "item": "用户语音音频（仅用于设备端识别）",
+      "frequency": "用户按需触发",
+      "processing": "设备端本地处理（requiresOnDeviceRecognition = true）",
+      "storage": "不存储",
+      "recipient": "仅设备本地",
+      "thirdparty": "Apple 设备端框架",
+      "switchpath": "Assist 设置 -> 启用设备端 STT"
+    },
+    {
+      "scene": "语音助手返回文字回复需要语音朗读",
+      "purpose": "使用 AVSpeechSynthesizer 在设备本地将文字合成为语音朗读",
+      "source": "本地 AVSpeechSynthesizer",
+      "item": "从服务器返回的回复文字",
+      "frequency": "每次语音助手的文字回复需要朗读时",
+      "processing": "设备端本地处理",
+      "storage": "不存储",
+      "recipient": "仅设备本地（扬声器输出）",
+      "thirdparty": "Apple 设备端框架",
+      "switchpath": "Assist 设置 -> 启用设备端 TTS"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "NSSpeechRecognitionUsageDescription",
+      "scene": "用户首次启用设备端语音识别时",
+      "authorization": "运行时",
+      "purpose": "在设备端本地进行语音转文字",
+      "impact": "如果拒绝，将使用服务器端语音识别作为回退"
+    }
+  ]
+}

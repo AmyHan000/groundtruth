@@ -1,0 +1,19 @@
+{
+  "id": "ONBOARDING_AUTH",
+  "feature_name": "User Authentication",
+  "data": [
+    {
+      "scene": "User enters the server URL and completes login during onboarding.",
+      "purpose": "Obtain API access tokens to authorize all subsequent data communications.",
+      "source": "Home Assistant server (OAuth2 authorization code flow)",
+      "item": "Bearer Token (access token), Refresh Token, authorization code",
+      "frequency": "One-time at first connection; tokens can be refreshed",
+      "processing": "Local only",
+      "storage": "Encrypted storage (EncryptedSharedPreferences, AES-256)",
+      "recipient": "Device-local encrypted storage only",
+      "thirdparty": "No third-party involvement",
+      "switchpath": "Settings -> Servers -> Log out and re-authenticate"
+    }
+  ],
+  "permissions": []
+}

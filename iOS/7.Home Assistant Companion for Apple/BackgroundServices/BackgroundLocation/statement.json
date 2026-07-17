@@ -1,0 +1,58 @@
+{
+  "id": "BACKGROUND_LOCATION",
+  "feature_name": "后台定位",
+  "data": [
+    {
+      "scene": "用户启用了位置追踪功能",
+      "purpose": "后台持续监测位置变化和地理围栏事件，用于存在检测和位置自动化",
+      "source": "CLLocationManager（Significant Location Change + Region Monitoring）",
+      "item": "GPS 坐标（敏感）、地理围栏进出事件（敏感）、iBeacon 区域进出事件（敏感）",
+      "frequency": "后台持续监测，显著位置变化或区域边界事件触发上报",
+      "processing": "上传至服务器（经精度模糊处理以保护隐私）",
+      "storage": "服务器端存储",
+      "recipient": "Home Assistant 服务器（自托管）",
+      "thirdparty": "无第三方",
+      "switchpath": "设置 -> 位置"
+    },
+    {
+      "scene": "用户启用了地理编码传感器",
+      "purpose": "将 GPS 坐标通过 Apple 服务反向解析为街道地址",
+      "source": "CLGeocoder（GPS → 地址转换）",
+      "item": "GPS 坐标（敏感）、街道地址（敏感）、城市、省份、国家、邮政编码、时区",
+      "frequency": "每次传感器更新时",
+      "processing": "Apple 服务处理 + 上传至服务器",
+      "storage": "服务器端存储",
+      "recipient": "Home Assistant 服务器 + Apple CLGeocoder（中转）",
+      "thirdparty": "Apple CLGeocoder 提供地理编码服务",
+      "switchpath": "设置 -> 传感器 -> 地理编码位置"
+    },
+    {
+      "scene": "应用接收到需要定位的触发事件",
+      "purpose": "响应各种触发事件（推送、后台抓取、URL Scheme 等）获取一次性定位",
+      "source": "CLLocationManager（requestLocation）",
+      "item": "GPS 坐标（敏感）",
+      "frequency": "基于触发事件类型（推送、后台抓取、URL Scheme、Siri 等）",
+      "processing": "上传至服务器",
+      "storage": "服务器端存储",
+      "recipient": "Home Assistant 服务器",
+      "thirdparty": "无第三方",
+      "switchpath": "设置 -> 位置 -> 触发器"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "NSLocationAlwaysAndWhenInUseUsageDescription",
+      "scene": "用户启用位置追踪时",
+      "authorization": "运行时",
+      "purpose": "在后台持续监测位置以支持地理围栏和存在检测",
+      "impact": "如果拒绝，位置自动化和区域触发功能将不可用"
+    },
+    {
+      "name": "NSLocationWhenInUseUsageDescription",
+      "scene": "用户仅允许前台定位时",
+      "authorization": "运行时",
+      "purpose": "仅在前台使用期间获取位置",
+      "impact": "后台位置功能将不可用"
+    }
+  ]
+}
