@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "配置隐私选项",
+        "purpose": "管理应用隐私行为",
+        "source": "用户选择",
+        "item": "隐私设置选项",
+        "frequency": "用户主动操作",
+        "processing": "本地存储",
+        "storage": "UserDefaults",
+        "recipient": "仅本机",
+        "thirdparty": "无",
+        "switchpath": "所有选项均可用户控制"
+      },
+      {
+        "scene": "屏幕保护",
+        "purpose": "防止他人窥视屏幕",
+        "source": "用户设置",
+        "item": "屏幕保护设置",
+        "frequency": "用户主动操作",
+        "processing": "本地处理",
+        "storage": "UserDefaults",
+        "recipient": "仅本机",
+        "thirdparty": "无",
+        "switchpath": "可开启/关闭"
+      },
+      {
+        "scene": "数据库密码加密",
+        "purpose": "使用iOS Keychain加密数据库密码",
+        "source": "用户设置的密码",
+        "item": "加密后的密码数据",
+        "frequency": "密码变更时",
+        "processing": "使用iOS Keychain API加密存储",
+        "storage": "iOS Keychain",
+        "recipient": "仅本机",
+        "thirdparty": "无",
+        "switchpath": "无（安全功能）"
+      }
+    ],
+    "permissions": []
+  }
+]

@@ -1,0 +1,4 @@
+应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
+--- | --- | --- | --- | --- | ---
+https://github.com/simplex-chat/simplex-chat | 聊天页/接收消息 | 接收消息 | SMP服务器→Haskell核心解密→本地数据库 | 见statement.json | 本功能从SMP服务器接收端到端加密的消息数据，解密后存入本地数据库，服务器无法读取消息内容
+https://github.com/simplex-chat/simplex-chat | 聊天页/接收消息 | APNs推送通知 | APNs→设备令牌→加密通知→本地处理 | 见statement.json | 本功能通过Apple APNs接收加密通知，设备令牌仅用于通知传递，通知内容端到端加密

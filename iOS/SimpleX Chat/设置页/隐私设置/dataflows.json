@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "data_item": "隐私设置",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Views/UserSettings/PrivacySettings.swift",
+        "line": 246,
+        "code": "private func setEncryptLocalFiles(_ enable: Bool) {\n        do {\n            try apiSetEncryptLocalFiles(enable)\n        } catch let error {\n            let err = responseError(error)\n            logger.error(\"apiSetEncryptLocalFiles \\(err)\")\n            alert = .error(title: \"Error\", error: \"\\(err)\")\n        }\n    }"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data_item": "数据库密码加密",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/SimpleXChat/CryptoFile.swift",
+        "line": 12,
+        "code": "enum WriteFileResult: Decodable {\n    case result(cryptoArgs: CryptoFileArgs)\n    case error(writeError: String)\n  }"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data_item": "UserDefaults存储",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Views/UserSettings/SettingsView.swift",
+        "line": 183,
+        "code": "let chatArchiveTimeDefault = DateDefault(defaults: UserDefaults.standard, forKey: DEFAULT_CHAT_ARCHIVE_TIME)"
+      }
+    ]
+  }
+]

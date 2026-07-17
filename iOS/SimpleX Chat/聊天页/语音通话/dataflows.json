@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "data_item": "语音通话数据",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Views/Call/WebRTCClient.swift",
+        "line": 7,
+        "code": "import WebRTC"
+      },
+      {
+        "filePath": "apps/ios/Shared/Views/Call/CallManager.swift",
+        "line": 9,
+        "code": "import Foundation\nimport SimpleXChat"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data_item": "通话服务通知",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Views/Call/CallManager.swift",
+        "line": 12,
+        "code": "class CallManager {\n    func newOutgoingCall(_ contact: Contact, _ media: CallMediaType) -> String {\n        let uuid = UUID().uuidString.lowercased()\n        let call = Call(direction: .outgoing, contact: contact, callUUID: uuid, callState: .waitCapabilities, initialCallType: media)\n        call.speakerEnabled = media == .video\n        ChatModel.shared.activeCall = call\n        return uuid\n    }\n\n    func startOutgoingCall(callUUID: String) -> Bool {\n        let m = ChatModel.shared\n        if let call = m.activeCall, call.callUUID == callUUID {\n            m.showCallView = true\n            Task { await m.callCommand.processCommand(.capabilities(media: call.initialCallType)) }\n            return true\n        }\n        return false\n    }"
+      }
+    ]
+  }
+]

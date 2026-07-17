@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "关注用户",
+        "purpose": "建立社交关系",
+        "source": "用户操作",
+        "item": "关注请求",
+        "frequency": "每次操作",
+        "processing": "加密传输",
+        "storage": "服务器存储",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "取消关注"
+      }
+    ],
+    "permissions": []
+  }
+]

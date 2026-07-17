@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "data_item": "通知内容",
+    "dataflow": [
+      {
+        "filePath": "MastodonSDK/Sources/MastodonCore/Service/API/APIService+Notification.swift",
+        "line": 50,
+        "code": "let response = try await Mastodon.API.Notifications.getNotifications(\n            session: session,\n            domain: authenticationBox.domain,\n            query: query,\n            authorization: authorization\n        ).singleOutput()"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data_item": "网络请求",
+    "dataflow": [
+      {
+        "filePath": "MastodonSDK/Sources/MastodonCore/Service/API/APIService.swift",
+        "line": 32,
+        "code": "configuration.httpAdditionalHeaders = [\"User-Agent\" : \"mastodon-ios/\" + appVersion]"
+      }
+    ]
+  }
+]

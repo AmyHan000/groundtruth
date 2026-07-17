@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "data_item": "用户资料",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Views/Onboarding/CreateProfile.swift",
+        "line": 162,
+        "code": "private func createProfile() {\n        hideKeyboard()\n        let shortDescr: String? = if profileBio.isEmpty { nil } else { profileBio }\n        let profile = Profile(\n            displayName: displayName.trimmingCharacters(in: .whitespaces),\n            fullName: \"\",\n            shortDescr: shortDescr,\n            image: profileImage\n        )\n        let m = ChatModel.shared\n        do {\n            AppChatState.shared.set(.active)\n            m.currentUser = try apiCreateActiveUser(profile)"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data_item": "数据库初始化与密钥管理",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/SimpleXChat/API.swift",
+        "line": 24,
+        "code": "public func chatMigrateInit(_ useKey: String? = nil, confirmMigrations: MigrationConfirmation? = nil, backgroundMode: Bool = false) -> (Bool, DBMigrationResult) {\n    if let res = migrationResult { return res }\n    let dbPath = getAppDatabasePath().path\n    var dbKey = \"\"\n    let useKeychain = storeDBPassphraseGroupDefault.get()\n    logger.debug(\"chatMigrateInit uses keychain: \\(useKeychain)\")\n    if let key = useKey {"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data_item": "设备名称发送到后端",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Model/SimpleXAPI.swift",
+        "line": 256,
+        "code": "func apiCreateActiveUser(_ p: Profile?, pastTimestamp: Bool = false, ctrl: chat_ctrl? = nil) throws -> User {\n    let r: ChatResponse0 = try chatSendCmdSync(.createActiveUser(profile: p, pastTimestamp: pastTimestamp), ctrl: ctrl)\n    if case let .activeUser(user) = r { return user }\n    throw r.unexpected\n}"
+      }
+    ]
+  }
+]

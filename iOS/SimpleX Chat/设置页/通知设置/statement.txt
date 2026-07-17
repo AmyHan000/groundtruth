@@ -1,0 +1,4 @@
+应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
+--- | --- | --- | --- | --- | ---
+https://github.com/simplex-chat/simplex-chat | 设置页/通知设置 | 配置通知模式 | 用户选择→UserDefaults→系统通知 | 见statement.json | 本功能管理通知模式（即时/定期/关闭），设置存储在本地
+https://github.com/simplex-chat/simplex-chat | 设置页/通知设置 | 注册推送令牌 | APNs→设备令牌→Keychain→SimpleX核心 | 见statement.json | 本功能注册APNs设备令牌用于接收推送通知，令牌存储在Keychain中，仅用于通知传递

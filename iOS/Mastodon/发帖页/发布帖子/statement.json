@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "发布帖子",
+        "purpose": "发布用户内容",
+        "source": "用户输入",
+        "item": "帖子文本",
+        "frequency": "每次发布",
+        "processing": "加密传输",
+        "storage": "服务器存储",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "不发布"
+      },
+      {
+        "scene": "发布帖子",
+        "purpose": "上传媒体",
+        "source": "用户选择",
+        "item": "图片/视频",
+        "frequency": "每次上传",
+        "processing": "压缩处理",
+        "storage": "服务器存储",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "不上传媒体"
+      },
+      {
+        "scene": "发布帖子",
+        "purpose": "拍照上传",
+        "source": "设备相机",
+        "item": "照片",
+        "frequency": "每次拍照",
+        "processing": "本地处理",
+        "storage": "临时存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "不使用相机"
+      }
+    ],
+    "permissions": ["相机", "相册"]
+  }
+]

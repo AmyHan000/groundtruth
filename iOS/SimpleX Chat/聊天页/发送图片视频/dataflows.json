@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "data_item": "图片/视频文件",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/SimpleXChat/ImageUtils.swift",
+        "line": 62,
+        "code": "public func saveAnimImage(_ image: UIImage) -> CryptoFile? {\n    let fileName = generateNewFileName(\"IMG\", \"gif\")\n    guard let imageData = image.imageData else { return nil }\n    return saveFile(imageData, fileName, encrypted: privacyEncryptLocalFilesGroupDefault.get())\n  }"
+      },
+      {
+        "filePath": "apps/ios/SimpleXChat/ImageUtils.swift",
+        "line": 199,
+        "code": "public func saveFileFromURL(_ url: URL) -> CryptoFile? {\n    let encrypted = privacyEncryptLocalFilesGroupDefault.get()\n    let savedFile: CryptoFile?\n    if url.startAccessingSecurityScopedResource() {"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data_item": "本地文件加密/解密",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/SimpleXChat/CryptoFile.swift",
+        "line": 12,
+        "code": "enum WriteFileResult: Decodable {\n    case result(cryptoArgs: CryptoFileArgs)\n    case error(writeError: String)\n  }\n\n  // Spec: spec/services/files.md#writeCryptoFile\n  public func writeCryptoFile(path: String, data: Data) throws -> CryptoFileArgs {"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data_item": "临时文件存储",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/SimpleXChat/FileUtils.swift",
+        "line": 16,
+        "code": "// image file size for complession\n// Spec: spec/services/files.md#MAX_IMAGE_SIZE\npublic let MAX_IMAGE_SIZE: Int64 = 261_120 // 255KB"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "data_item": "相机拍照和图库选择",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Views/Chat/ComposeMessage/ComposeView.swift",
+        "line": 622,
+        "code": ".fullScreenCover(isPresented: $showTakePhoto) {\n            ZStack {\n                Color.black.edgesIgnoringSafeArea(.all)\n                CameraImageListPicker(images: $chosenMedia)\n            }\n        }\n        .sheet(isPresented: $showMediaPicker) {\n            LibraryMediaListPicker(addMedia: addMediaContent, selectionLimit: 10, finishedPreprocessing: finishedPreprocessingMediaContent) {"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "data_item": "XFTP文件传输",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Model/SimpleXAPI.swift",
+        "line": 1480,
+        "code": "func uploadStandaloneFile(user: any UserLike, file: CryptoFile, ctrl: chat_ctrl? = nil) async -> (FileTransferMeta?, String?) {\n    let r: APIResult<ChatResponse2> = await chatApiSendCmd(.apiUploadStandaloneFile(userId: user.userId, file: file), ctrl: ctrl)\n    if case let .result(.sndStandaloneFileCreated(_, fileTransferMeta)) = r {\n        return (fileTransferMeta, nil)\n    } else {\n        let err = responseError(r.unexpected)\n        logger.error(\"uploadStandaloneFile error: \\(err)\")\n        return (nil, err)\n    }\n}"
+      }
+    ]
+  }
+]

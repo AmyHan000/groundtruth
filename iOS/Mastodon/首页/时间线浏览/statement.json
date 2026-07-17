@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "浏览时间线",
+        "purpose": "显示社交内容",
+        "source": "服务器API",
+        "item": "帖子内容",
+        "frequency": "每次刷新",
+        "processing": "本地处理",
+        "storage": "缓存存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      },
+      {
+        "scene": "浏览时间线",
+        "purpose": "身份验证",
+        "source": "本地存储",
+        "item": "访问令牌",
+        "frequency": "每次请求",
+        "processing": "加密存储",
+        "storage": "Keychain",
+        "recipient": "服务器",
+        "thirdparty": "无",
+        "switchpath": "退出登录"
+      }
+    ],
+    "permissions": []
+  }
+]

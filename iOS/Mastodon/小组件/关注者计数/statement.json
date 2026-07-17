@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "显示关注者计数",
+        "purpose": "显示用户关注者数量",
+        "source": "服务器API",
+        "item": "关注者数量",
+        "frequency": "定期更新",
+        "processing": "本地渲染",
+        "storage": "内存缓存",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "移除小组件"
+      },
+      {
+        "scene": "显示关注者计数",
+        "purpose": "显示用户头像",
+        "source": "服务器API",
+        "item": "头像图片",
+        "frequency": "定期更新",
+        "processing": "网络下载",
+        "storage": "系统缓存",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "移除小组件"
+      }
+    ],
+    "permissions": []
+  }
+]

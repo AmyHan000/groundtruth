@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "data_item": "网络配置",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Views/UserSettings/NetworkAndServers/NetworkAndServers.swift",
+        "line": 134,
+        "code": "Section(header: Text(\"Network connection\").foregroundColor(theme.colors.secondary)) {\n                    HStack {\n                        Text(m.networkInfo.networkType.text)\n                        Spacer()\n                        Image(systemName: \"circle.fill\").foregroundColor(m.networkInfo.online ? .green : .red)\n                    }\n                }"
+      }
+    ]
+  }
+]

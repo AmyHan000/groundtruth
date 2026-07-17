@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "data_item": "用户生成内容",
+    "dataflow": [
+      {
+        "filePath": "ShareActionExtension/Scene/ShareViewController.swift",
+        "line": 137,
+        "code": "_ = try await statusPublisher.publish(api: APIService.shared, authenticationBox: authenticationBox)"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data_item": "媒体文件",
+    "dataflow": [
+      {
+        "filePath": "ShareActionExtension/Scene/ShareViewController.swift",
+        "line": 248,
+        "code": "if let movieProvider = _movieProvider {"
+      },
+      {
+        "filePath": "ShareActionExtension/Scene/ShareViewController.swift",
+        "line": 257,
+        "code": "let attachmentViewModels = imageProviders.map { provider in"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data_item": "网络请求",
+    "dataflow": [
+      {
+        "filePath": "MastodonSDK/Sources/MastodonCore/Service/API/APIService.swift",
+        "line": 32,
+        "code": "configuration.httpAdditionalHeaders = [\"User-Agent\" : \"mastodon-ios/\" + appVersion]"
+      }
+    ]
+  }
+]

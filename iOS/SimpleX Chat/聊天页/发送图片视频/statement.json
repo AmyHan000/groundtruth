@@ -1,0 +1,60 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "发送图片/视频",
+        "purpose": "端到端加密媒体传输",
+        "source": "用户选择或拍摄的图片/视频",
+        "item": "图片/视频文件",
+        "frequency": "每次发送",
+        "processing": "本地可选加密→XFTP协议加密传输",
+        "storage": "本地加密存储（可选）",
+        "recipient": "仅接收方",
+        "thirdparty": "XFTP服务器（仅存储加密分片）",
+        "switchpath": "无（核心功能）"
+      },
+      {
+        "scene": "拍摄照片/视频",
+        "purpose": "获取媒体内容用于发送",
+        "source": "设备摄像头",
+        "item": "照片/视频数据",
+        "frequency": "每次拍摄",
+        "processing": "本地处理",
+        "storage": "临时存储，发送后可删除",
+        "recipient": "仅本机",
+        "thirdparty": "无",
+        "switchpath": "可选择从相册选择而非拍摄"
+      },
+      {
+        "scene": "本地文件加密/解密",
+        "purpose": "保护本地存储的媒体文件",
+        "source": "本地文件",
+        "item": "加密/解密后的文件数据",
+        "frequency": "文件读写时",
+        "processing": "使用XFTP密钥进行AES加密/解密",
+        "storage": "本地加密文件",
+        "recipient": "仅本机",
+        "thirdparty": "无",
+        "switchpath": "可在隐私设置中关闭本地文件加密"
+      },
+      {
+        "scene": "XFTP文件传输",
+        "purpose": "端到端加密文件传输",
+        "source": "本地文件",
+        "item": "加密的文件分片",
+        "frequency": "每次文件传输",
+        "processing": "XFTP协议加密传输",
+        "storage": "XFTP服务器（仅存储加密分片）",
+        "recipient": "仅接收方",
+        "thirdparty": "XFTP服务器（无法读取内容）",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "NSCameraUsageDescription",
+      "NSMicrophoneUsageDescription",
+      "NSPhotoLibraryUsageDescription"
+    ]
+  }
+]

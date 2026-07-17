@@ -1,0 +1,310 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "局域网内设备识别和显示",
+        "source": "系统API",
+        "item": "设备型号",
+        "frequency": "每次启动",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "局域网内其他LocalSend设备",
+        "thirdparty": "device_info_plus",
+        "switchpath": "无"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "获取本机网络地址用于设备发现和文件传输",
+        "source": "系统API",
+        "item": "本地IP地址",
+        "frequency": "每次启动及网络变化时",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "局域网内其他LocalSend设备",
+        "thirdparty": "network_info_plus",
+        "switchpath": "无"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "枚举所有网络接口获取IP地址",
+        "source": "系统API",
+        "item": "网络接口列表",
+        "frequency": "每次启动及网络变化时",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "不传输",
+        "thirdparty": "无",
+        "switchpath": "无"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 4,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "显示设备型号以便识别",
+        "source": "系统API",
+        "item": "设备型号",
+        "frequency": "每次启动",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "局域网内其他LocalSend设备",
+        "thirdparty": "device_info_plus",
+        "switchpath": "无"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 5,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "区分移动设备和桌面设备",
+        "source": "系统API",
+        "item": "设备类型",
+        "frequency": "每次启动",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "局域网内其他LocalSend设备",
+        "thirdparty": "device_info_plus",
+        "switchpath": "无"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 6,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "设备身份验证和安全通信",
+        "source": "本地生成",
+        "item": "证书指纹",
+        "frequency": "每次启动",
+        "processing": "本地生成和存储",
+        "storage": "本地存储",
+        "recipient": "局域网内其他LocalSend设备",
+        "thirdparty": "无",
+        "switchpath": "设置中可重置"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 7,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "协议兼容性检查",
+        "source": "应用配置",
+        "item": "协议版本",
+        "frequency": "每次启动",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "局域网内其他LocalSend设备",
+        "thirdparty": "无",
+        "switchpath": "无"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 8,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "建立WebRTC信令连接以支持P2P通信",
+        "source": "网络连接",
+        "item": "WebRTC信令服务器连接",
+        "frequency": "用户启用WebRTC时",
+        "processing": "网络传输",
+        "storage": "不存储",
+        "recipient": "WebRTC信令服务器",
+        "thirdparty": "rust",
+        "switchpath": "设置中可禁用WebRTC"
+      }
+    ],
+    "permissions": [
+      "NSNetworkUsageDescription"
+    ]
+  },
+  {
+    "id": 9,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "调试模式下输出私钥信息",
+        "source": "本地生成",
+        "item": "私钥调试打印",
+        "frequency": "调试模式下每次生成密钥时",
+        "processing": "本地处理",
+        "storage": "不存储（仅打印到日志）",
+        "recipient": "不传输",
+        "thirdparty": "无",
+        "switchpath": "仅在调试模式下启用"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 10,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "生成RSA密钥对用于设备身份验证",
+        "source": "本地生成",
+        "item": "RSA密钥对生成",
+        "frequency": "每次启动（如未存储）",
+        "processing": "本地生成和存储",
+        "storage": "本地存储",
+        "recipient": "局域网内其他LocalSend设备",
+        "thirdparty": "basic_utils",
+        "switchpath": "设置中可重置"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 11,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "获取应用版本信息用于显示和兼容性检查",
+        "source": "系统API",
+        "item": "应用版本信息",
+        "frequency": "每次启动",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "不传输",
+        "thirdparty": "package_info_plus",
+        "switchpath": "无"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 12,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "生成密钥对用于WebRTC安全通信",
+        "source": "本地生成",
+        "item": "WebRTC密钥对生成",
+        "frequency": "用户启用WebRTC时",
+        "processing": "本地生成",
+        "storage": "内存中（临时）",
+        "recipient": "WebRTC信令服务器",
+        "thirdparty": "rust",
+        "switchpath": "设置中可禁用WebRTC"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 13,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "存储用户收藏的设备列表",
+        "source": "用户操作",
+        "item": "收藏设备列表存储",
+        "frequency": "用户添加/删除收藏时",
+        "processing": "本地存储",
+        "storage": "本地存储（UserDefaults）",
+        "recipient": "不传输",
+        "thirdparty": "无",
+        "switchpath": "用户可在界面管理收藏设备"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 14,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "存储WebRTC信令服务器配置",
+        "source": "用户设置",
+        "item": "WebRTC信令服务器配置存储",
+        "frequency": "用户修改配置时",
+        "processing": "本地存储",
+        "storage": "本地存储（UserDefaults）",
+        "recipient": "不传输",
+        "thirdparty": "无",
+        "switchpath": "用户可在设置中修改服务器配置"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 15,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "存储WebRTC STUN服务器配置",
+        "source": "用户设置",
+        "item": "WebRTC STUN服务器配置存储",
+        "frequency": "用户修改配置时",
+        "processing": "本地存储",
+        "storage": "本地存储（UserDefaults）",
+        "recipient": "不传输",
+        "thirdparty": "无",
+        "switchpath": "用户可在设置中修改服务器配置"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 16,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "生成并存储设备别名用于局域网内设备识别",
+        "source": "本地生成",
+        "item": "设备别名生成和存储",
+        "frequency": "首次启动时",
+        "processing": "本地生成和存储",
+        "storage": "本地存储（UserDefaults）",
+        "recipient": "局域网内其他LocalSend设备",
+        "thirdparty": "无",
+        "switchpath": "用户可在设置中修改设备别名"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 17,
+    "data": [
+      {
+        "scene": "设备发现",
+        "purpose": "记录设备发现过程中的日志用于调试",
+        "source": "本地生成",
+        "item": "发现日志记录",
+        "frequency": "每次设备发现操作",
+        "processing": "本地处理",
+        "storage": "内存中（最多200条）",
+        "recipient": "不传输",
+        "thirdparty": "logging",
+        "switchpath": "无"
+      }
+    ],
+    "permissions": []
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "data_item": "网络请求",
+    "dataflow": [
+      {
+        "filePath": "OpenInActionExtension/ActionRequestHandler.swift",
+        "line": 69,
+        "code": "Mastodon.API\n            .V2\n            .Search\n            .search(\n                session: .shared,\n                domain: activeAuthenticationBox.domain,\n                query: .init(q: url, resolve: true),\n                authorization: activeAuthenticationBox.userAuthorization\n            )"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data_item": "URL处理",
+    "dataflow": [
+      {
+        "filePath": "OpenInActionExtension/ActionRequestHandler.swift",
+        "line": 48,
+        "code": "if let url = results[\"url\"] as? String {"
+      }
+    ]
+  }
+]

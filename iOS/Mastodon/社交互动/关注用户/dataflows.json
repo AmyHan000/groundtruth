@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "data_item": "社交关系",
+    "dataflow": [
+      {
+        "filePath": "MastodonSDK/Sources/MastodonCore/Service/API/APIService+Follow.swift",
+        "line": 22,
+        "code": "return try await Mastodon.API.Account.follow(\n            session: session,\n            domain: authenticationBox.domain,\n            accountID: accountID,\n            followQueryType: .follow(query: .init(reblogs: !hideBoosts)),\n            authorization: authenticationBox.userAuthorization\n        ).singleOutput().value"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data_item": "网络请求",
+    "dataflow": [
+      {
+        "filePath": "MastodonSDK/Sources/MastodonCore/Service/API/APIService.swift",
+        "line": 32,
+        "code": "configuration.httpAdditionalHeaders = [\"User-Agent\" : \"mastodon-ios/\" + appVersion]"
+      }
+    ]
+  }
+]

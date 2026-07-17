@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "data_item": "用户资料",
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Model/SimpleXAPI.swift",
+        "line": 1311,
+        "code": "func apiUpdateProfile(profile: Profile) async throws -> (Profile, [Contact])? {\n    let userId = try currentUserId(\"apiUpdateProfile\")\n    let r: APIResult<ChatResponse1> = await chatApiSendCmd(.apiUpdateProfile(userId: userId, profile: profile))\n    switch r {\n    case .result(.userProfileNoChange): return (profile, [])\n    case let .result(.userProfileUpdated(_, _, toProfile, updateSummary)): return (toProfile, updateSummary.changedContacts)\n    case .error(.errorStore(.duplicateName)): return nil;\n    default: throw r.unexpected\n    }\n}"
+      }
+    ]
+  }
+]
