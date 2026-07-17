@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "加密分享",
+        "purpose": "获取联系人手机号用于文件分享",
+        "source": "联系人应用",
+        "item": "联系人信息",
+        "frequency": "用户主动选择",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "仅本地显示",
+        "thirdparty": "无",
+        "switchpath": "设置页→联系人权限"
+      },
+      {
+        "scene": "加密分享",
+        "purpose": "判断设备类型",
+        "source": "系统API",
+        "item": "设备信息",
+        "frequency": "每次操作",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "仅本地显示",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      },
+      {
+        "scene": "加密分享",
+        "purpose": "获取云账号信息用于文件分享",
+        "source": "系统API",
+        "item": "云账号信息",
+        "frequency": "每次操作",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "仅本地显示",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      },
+      {
+        "scene": "加密分享",
+        "purpose": "检查网络连接状态",
+        "source": "系统API",
+        "item": "网络信息",
+        "frequency": "每次操作",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "仅本地显示",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      },
+      {
+        "scene": "加密分享",
+        "purpose": "获取文件信息用于加密",
+        "source": "文件系统",
+        "item": "文件信息",
+        "frequency": "每次操作",
+        "processing": "本地处理",
+        "storage": "临时存储（内存）",
+        "recipient": "仅本地显示",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_CONTACTS",
+        "scene": "读取联系人",
+        "authorization": "运行时授权",
+        "purpose": "获取联系人手机号用于文件分享",
+        "impact": "无法从联系人列表选择接收人"
+      },
+      {
+        "name": "ohos.permission.GET_NETWORK_INFO",
+        "scene": "获取网络信息",
+        "authorization": "预授权",
+        "purpose": "检查网络连接状态",
+        "impact": "无法检查网络连接"
+      }
+    ]
+  }
+]

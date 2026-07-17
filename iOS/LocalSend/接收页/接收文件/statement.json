@@ -1,0 +1,130 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "接收文件",
+        "purpose": "接收并保存其他设备发送的文件",
+        "source": "局域网内其他LocalSend设备",
+        "item": "接收的文件数据",
+        "frequency": "用户主动接收",
+        "processing": "本地处理",
+        "storage": "用户选择的存储位置",
+        "recipient": "不传输",
+        "thirdparty": "无",
+        "switchpath": "用户主动接受文件传输时触发"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "接收文件",
+        "purpose": "确定文件保存位置",
+        "source": "用户设置",
+        "item": "文件保存路径",
+        "frequency": "每次接收",
+        "processing": "本地处理",
+        "storage": "本地存储",
+        "recipient": "不传输",
+        "thirdparty": "path_provider",
+        "switchpath": "用户可在设置中修改默认保存路径"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "接收文件",
+        "purpose": "显示发送者信息以便用户识别",
+        "source": "局域网内其他LocalSend设备",
+        "item": "发送者设备信息",
+        "frequency": "每次接收",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "不传输",
+        "thirdparty": "无",
+        "switchpath": "无"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 4,
+    "data": [
+      {
+        "scene": "接收文件",
+        "purpose": "记录文件接收历史",
+        "source": "本地生成",
+        "item": "接收历史记录",
+        "frequency": "每次接收",
+        "processing": "本地存储",
+        "storage": "本地存储",
+        "recipient": "不传输",
+        "thirdparty": "无",
+        "switchpath": "用户可在设置中清除历史记录"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 5,
+    "data": [
+      {
+        "scene": "接收文件",
+        "purpose": "将接收的媒体文件保存到系统相册",
+        "source": "系统API",
+        "item": "相册存储权限",
+        "frequency": "用户启用保存到相册时",
+        "processing": "本地处理",
+        "storage": "系统相册",
+        "recipient": "不传输",
+        "thirdparty": "gal",
+        "switchpath": "用户可在接收设置中关闭保存到相册"
+      }
+    ],
+    "permissions": [
+      "NSPhotoLibraryAddUsageDescription"
+    ]
+  },
+  {
+    "id": 6,
+    "data": [
+      {
+        "scene": "接收文件",
+        "purpose": "管理应用缓存目录，清理临时文件",
+        "source": "系统API",
+        "item": "缓存目录管理",
+        "frequency": "用户清除缓存时",
+        "processing": "本地处理",
+        "storage": "临时存储（可清理）",
+        "recipient": "不传输",
+        "thirdparty": "path_provider",
+        "switchpath": "用户可在设置中清除缓存"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 7,
+    "data": [
+      {
+        "scene": "接收文件",
+        "purpose": "记录HTTP请求/响应日志用于调试",
+        "source": "本地生成",
+        "item": "HTTP日志记录",
+        "frequency": "每次HTTP操作",
+        "processing": "本地处理",
+        "storage": "内存中（最多200条）",
+        "recipient": "不传输",
+        "thirdparty": "logging",
+        "switchpath": "无"
+      }
+    ],
+    "permissions": []
+  }
+]

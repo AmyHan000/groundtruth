@@ -1,0 +1,11 @@
+应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
+--- | --- | --- | --- | --- | ---
+https://github.com/localsend/localsend | 发送页 | 文件选择 | 剪贴板文本→目标设备 | 见statement.json | 本功能获取用户剪贴板中的文本内容，用于用户主动选择发送文本消息
+https://github.com/localsend/localsend | 发送页 | 文件选择 | 剪贴板图片→目标设备 | 见statement.json | 本功能获取用户剪贴板中的图片内容，用于用户主动选择发送图片
+https://github.com/localsend/localsend | 发送页 | 文件选择 | 剪贴板文件列表→目标设备 | 见statement.json | 本功能获取用户剪贴板中的文件路径列表，用于用户主动选择发送文件
+https://github.com/localsend/localsend | 发送页 | 文件选择 | 用户选择的文件→目标设备 | 见statement.json | 本功能让用户从设备存储选择要发送的文件
+https://github.com/localsend/localsend | 发送页 | 文件选择 | 媒体文件→目标设备 | 见statement.json | 本功能让用户从相册选择媒体文件进行发送
+https://github.com/localsend/localsend | 发送页 | 文件选择 | 目录路径→目标设备 | 见statement.json | 本功能让用户选择要发送的目录
+https://github.com/localsend/localsend | 发送页 | 文件选择 | 用户输入文本→目标设备 | 见statement.json | 本功能让用户输入要发送的文本消息
+https://github.com/localsend/localsend | 发送页 | 文件选择 | 已安装应用列表→目标设备 | 见statement.json | 本功能获取设备上已安装的应用列表供用户选择发送
+https://github.com/localsend/localsend | 发送页 | 文件选择 | HTTP日志记录→不传输 | 见statement.json | 本功能记录HTTP请求/响应日志用于调试

@@ -1,0 +1,89 @@
+[
+  {
+    "id": 1,
+    "data_item": "接收的文件数据",
+    "dataflow": [
+      {
+        "filePath": "app/lib/provider/network/server/controller/receive_controller.dart",
+        "line": 506,
+        "code": "(savedToGallery, filePath) = await saveFile(...);"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data_item": "文件保存路径",
+    "dataflow": [
+      {
+        "filePath": "app/lib/util/native/file_saver.dart",
+        "line": 48,
+        "code": "final (destinationPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(...);"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data_item": "发送者设备信息",
+    "dataflow": [
+      {
+        "filePath": "app/lib/provider/network/server/controller/receive_controller.dart",
+        "line": 237,
+        "code": "sender: dto.info.toDevice(request.ip, port, https, null),"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "data_item": "接收历史记录",
+    "dataflow": [
+      {
+        "filePath": "app/lib/provider/network/server/controller/receive_controller.dart",
+        "line": 544,
+        "code": "await server.ref.redux(receiveHistoryProvider).dispatchAsync(AddHistoryEntryAction(...));"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "data_item": "相册存储权限",
+    "dataflow": [
+      {
+        "filePath": "app/lib/util/native/file_saver.dart",
+        "line": 174,
+        "code": "isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "data_item": "缓存目录管理",
+    "dataflow": [
+      {
+        "filePath": "app/lib/util/native/cache_helper.dart",
+        "line": 38,
+        "code": "getTemporaryDirectory().then((cacheDir) {"
+      },
+      {
+        "filePath": "app/lib/util/native/cache_helper.dart",
+        "line": 41,
+        "code": "event.delete().then((_) {}).catchError((error) {"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "data_item": "HTTP日志记录",
+    "dataflow": [
+      {
+        "filePath": "app/lib/provider/logging/http_logs_provider.dart",
+        "line": 18,
+        "code": "_logger.info(log);"
+      },
+      {
+        "filePath": "app/lib/provider/logging/http_logs_provider.dart",
+        "line": 21,
+        "code": "LogEntry(timestamp: DateTime.now(), log: log),"
+      }
+    ]
+  }
+]
