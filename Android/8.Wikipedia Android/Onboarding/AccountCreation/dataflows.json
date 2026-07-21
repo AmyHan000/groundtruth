@@ -1,0 +1,35 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_CREATE_ACCOUNT",
+      "data_type": "User Registration Data (Username, Password, Email)",
+      "description": "User creates a new Wikipedia account. Requires username, password, optional email, and may require CAPTCHA verification. Data sent to createaccount API.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "CreateAccountActivity",
+          "file": "app/src/main/java/org/wikipedia/createaccount/CreateAccountActivity.kt",
+          "line": 1,
+          "code": "class CreateAccountActivity : BaseActivity()",
+          "details": "User fills in username, password, and optional email for account creation. CAPTCHA may be required."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "Service.postCreateAccount",
+          "file": "app/src/main/java/org/wikipedia/dataclient/Service.kt",
+          "line": 328,
+          "code": "@FormUrlEncoded @POST(MW_API_PREFIX + \"action=createaccount&createmessageformat=html\") suspend fun postCreateAccount(@Field(\"username\") user: String, @Field(\"password\") pass: String, @Field(\"retype\") retype: String, @Field(\"email\") email: String?, @Field(\"captchaId\") captchaId: String?, @Field(\"captchaWord\") captchaWord: String?, ...)",
+          "details": "Username, password, retype, and optional email sent to MediaWiki createaccount API. CAPTCHA response included if required."
+        },
+        {
+          "step": "Data Processing",
+          "function": "CreateAccountActivity.onActivityResult",
+          "file": "app/src/main/java/org/wikipedia/login/LoginActivity.kt",
+          "line": 63,
+          "code": "private val createAccountLauncher = registerForActivityResult(...) { binding.loginUsernameText.editText?.setText(it.data!!.getStringExtra(CreateAccountActivity.CREATE_ACCOUNT_RESULT_USERNAME)); ... doLogin() }",
+          "details": "On successful account creation, username and password are passed back to LoginActivity and auto-login is performed."
+        }
+      ]
+    }
+  ]
+}

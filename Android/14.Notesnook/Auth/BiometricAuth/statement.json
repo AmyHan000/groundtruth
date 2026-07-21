@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "生物识别验证",
+    "business_scenario": "用户在解锁应用或进行敏感操作时触发指纹/面部识别验证，通过设备硬件完成生物识别比对，获取加密密钥以访问受保护数据",
+    "data_types_info": "指纹/面部数据(敏感), 加密密钥(敏感)",
+    "processing_method": "本地处理（由设备硬件安全模块完成，数据不离开设备）",
+    "permissions_info": "USE_FINGERPRINT(首次调用生物识别时); USE_BIOMETRIC(首次调用生物识别时)"
+  }
+]

@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "分享页面",
+    "business_scenario": "用户点击分享图标，文章URL（含来源追踪参数）和页面标题通过Android分享系统发送至用户选择的外部应用。",
+    "data_types_info": "页面URL(一般), 页面标题(一般)",
+    "processing_method": "仅本地展示",
+    "permissions_info": "无"
+  }
+]

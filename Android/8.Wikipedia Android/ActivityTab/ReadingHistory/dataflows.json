@@ -1,0 +1,66 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_ACTIVITY_TAB_READING_HISTORY",
+      "data_type": "Reading History Data (Page Titles, Timestamps, Thumbnails)",
+      "description": "ActivityTab displays aggregated reading stats including most-read articles, reading streaks, and impact metrics. Data sourced from local Room database.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "ActivityTabFragment.onCreate",
+          "file": "app/src/main/java/org/wikipedia/activitytab/ActivityTabFragment.kt",
+          "line": 1,
+          "code": "class ActivityTabFragment : Fragment()",
+          "details": "User opens the Activity tab to view reading history and impact stats."
+        },
+        {
+          "step": "Data Storage (Local)",
+          "function": "HistoryEntry Database",
+          "file": "app/src/main/java/org/wikipedia/history/HistoryEntry.kt",
+          "line": 25,
+          "code": "@Entity(indices = [Index(value = [\"lang\", \"namespace\", \"apiTitle\"])]) class HistoryEntry(...)",
+          "details": "Reading history loaded from local Room database with image URLs for thumbnails."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "Service.getUserInfo",
+          "file": "app/src/main/java/org/wikipedia/dataclient/Service.kt",
+          "line": 370,
+          "code": "@GET(MW_API_PREFIX + \"action=query&meta=userinfo&uiprop=groups|blockinfo|editcount|latestcontrib|hasmsg|options&assert=user\") suspend fun getUserInfo(): MwQueryResponse",
+          "details": "User info loaded for impact module (edit count, groups, latest contributions)."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "Service.getUserContributions",
+          "file": "app/src/main/java/org/wikipedia/dataclient/Service.kt",
+          "line": 484,
+          "code": "suspend fun getUserContributions(@Query(\"ucuser\") username: String, ...)",
+          "details": "Edit contributions fetched from API for impact display."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_YEAR_IN_REVIEW",
+      "data_type": "Browsing History + Edit Stats (Aggregated)",
+      "description": "Year in Review feature processes local browsing history and API edit data to generate annual reading/editing summary.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "YearInReviewActivity",
+          "file": "app/src/main/java/org/wikipedia/yearinreview/YearInReviewActivity.kt",
+          "line": 1,
+          "code": "class YearInReviewActivity : ...",
+          "details": "User opens Year in Review during year-end period."
+        },
+        {
+          "step": "Data Processing",
+          "function": "YearInReviewViewModel",
+          "file": "app/src/main/java/org/wikipedia/yearinreview/YearInReviewViewModel.kt",
+          "line": 1,
+          "code": "class YearInReviewViewModel : ViewModel()",
+          "details": "Aggregates local browsing history and API contributions data into year-end statistics."
+        }
+      ]
+    }
+  ]
+}

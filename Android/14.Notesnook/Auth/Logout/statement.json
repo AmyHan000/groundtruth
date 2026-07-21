@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "退出登录",
+    "business_scenario": "用户主动执行退出登录操作，可选择仅本地退出或完全退出账号，系统会清除所有本地数据包括加密数据库、MMKV存储、生物识别凭据和设置，可选择在退出前创建备份",
+    "data_types_info": "会话令牌(敏感), 所有本地笔记数据(一般)",
+    "processing_method": "本地处理（清除所有本地存储数据）",
+    "permissions_info": "无"
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "business_function": "编辑文章内容",
+    "business_scenario": "用户编辑文章章节内容后点击保存，编辑后的Wikitext内容、编辑摘要、章节标题、基准修订版本ID和CSRF令牌发送至MediaWiki编辑API。支持可视化编辑、验证码验证和编辑生命周期事件记录。",
+    "data_types_info": "编辑内容(一般), 编辑摘要(一般), 章节标题(一般), 页面标题(一般), CSRF令牌(一般), 基准修订版本ID(一般)",
+    "processing_method": "上传云端",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "插入媒体文件",
+    "business_scenario": "用户在编辑文章时搜索Commons图片插入至文章，搜索词发送至MediaWiki API检索Commons中的图片和媒体资源。",
+    "data_types_info": "搜索词(一般), 媒体文件(一般)",
+    "processing_method": "上传云端",
+    "permissions_info": "无"
+  }
+]

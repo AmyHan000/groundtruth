@@ -1,0 +1,59 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_GALLERY_MEDIA_VIEW",
+      "data_type": "Media File Metadata (Images, Videos, License Info)",
+      "description": "Gallery fetches image/video metadata from MediaWiki API including descriptions, captions, license info, artist attribution, and EXIF metadata.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "GalleryActivity.newIntent",
+          "file": "app/src/main/java/org/wikipedia/gallery/GalleryActivity.kt",
+          "line": 661,
+          "code": "fun newIntent(context: Context, pageTitle: PageTitle?, filename: String, wiki: WikiSite, revision: Long? = null): Intent",
+          "details": "User taps image in article. Gallery opens with specified filename and wiki site."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "Service.getImageInfo",
+          "file": "app/src/main/java/org/wikipedia/dataclient/Service.kt",
+          "line": 157,
+          "code": "@GET(MW_API_PREFIX + \"action=query&prop=imageinfo&iiprop=timestamp|user|url|mime|metadata|extmetadata\") suspend fun getImageInfo(@Query(\"titles\") titles: String, @Query(\"iiextmetadatalanguage\") lang: String)",
+          "details": "Image metadata fetched from Commons API including timestamps, uploader, URLs, MIME type, EXIF metadata, and license info."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "Service.getVideoInfo",
+          "file": "app/src/main/java/org/wikipedia/dataclient/Service.kt",
+          "line": 163,
+          "code": "@GET(MW_API_PREFIX + \"action=query&prop=videoinfo&viprop=timestamp|user|url|mime|metadata|extmetadata|derivatives\") suspend fun getVideoInfo(@Query(\"titles\") titles: String, @Query(\"viextmetadatalanguage\") lang: String)",
+          "details": "Video metadata fetched including derivatives info for video files."
+        },
+        {
+          "step": "Data Processing",
+          "function": "GalleryViewModel.fetchGalleryItems",
+          "file": "app/src/main/java/org/wikipedia/gallery/GalleryViewModel.kt",
+          "line": 1,
+          "code": "class GalleryViewModel : ViewModel()",
+          "details": "Fetches gallery items (images/videos) from the API for the given page. Manages pagination via continue parameters."
+        },
+        {
+          "step": "Media Download",
+          "function": "MediaDownloadReceiver",
+          "file": "app/src/main/java/org/wikipedia/gallery/GalleryActivity.kt",
+          "line": 241,
+          "code": "override fun onDownload(item: GalleryItemFragment) { item.mediaInfo?.let { downloadReceiver.download(this, item.imageTitle, it) } }",
+          "details": "User can download media to device storage. File saved via WRITE_EXTERNAL_STORAGE permission."
+        },
+        {
+          "step": "Data Processing",
+          "function": "GalleryItemFragment.onShare",
+          "file": "app/src/main/java/org/wikipedia/gallery/GalleryActivity.kt",
+          "line": 250,
+          "code": "override fun onShare(item: GalleryItemFragment, bitmap: Bitmap?, ...) { ShareUtil.shareImage(lifecycleScope, this, bitmap, ...) }",
+          "details": "Media can be shared to external apps via Android share intent."
+        }
+      ]
+    }
+  ]
+}

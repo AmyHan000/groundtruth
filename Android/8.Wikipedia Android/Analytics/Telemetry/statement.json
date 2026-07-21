@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "分析遥测",
+    "business_scenario": "应用在首次启动时生成持久性设备安装标识符，通过HTTP头附加至每一个API请求中。同时事件平台收集用户交互行为数据（页面浏览、编辑尝试、会话、错误）并批量上传至Wikipedia事件平台。",
+    "data_types_info": "设备安装标识符(敏感), 会话标识符(一般), 页面浏览事件(一般), 编辑操作事件(一般), 错误日志(一般), 应用版本(一般)",
+    "processing_method": "上传云端",
+    "permissions_info": "无"
+  }
+]

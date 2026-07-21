@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_WATCHLIST_MANAGE",
+      "data_type": "Watchlist Page Titles",
+      "description": "User adds/removes pages from watchlist. Page titles sent to MediaWiki watch API with CSRF token.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "WatchlistActivity",
+          "file": "app/src/main/java/org/wikipedia/watchlist/WatchlistActivity.kt",
+          "line": 1,
+          "code": "class WatchlistActivity : ...",
+          "details": "User views and manages watched pages."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "Service.watchPost",
+          "file": "app/src/main/java/org/wikipedia/dataclient/Service.kt",
+          "line": 1,
+          "code": "@FormUrlEncoded @POST(MW_API_PREFIX + \"action=watch\") suspend fun watchPost(@Field(\"title\") title: String, @Field(\"token\") token: String, @Field(\"unwatch\") unwatch: Boolean?): WatchPostResponse",
+          "details": "Page title and CSRF token sent to MediaWiki watch API to add or remove from watchlist."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "Service.getUserInfo",
+          "file": "app/src/main/java/org/wikipedia/dataclient/Service.kt",
+          "line": 370,
+          "code": "@GET(MW_API_PREFIX + \"action=query&meta=userinfo&uiprop=groups|blockinfo|editcount|latestcontrib|hasmsg|options&assert=user\") suspend fun getUserInfo(): MwQueryResponse",
+          "details": "User info fetched to verify login status and permissions for watchlist management."
+        },
+        {
+          "step": "Data Processing",
+          "function": "WatchlistViewModel",
+          "file": "app/src/main/java/org/wikipedia/watchlist/WatchlistViewModel.kt",
+          "line": 1,
+          "code": "class WatchlistViewModel : ViewModel()",
+          "details": "Watchlist data processed and displayed with filter options (namespace, time period)."
+        }
+      ]
+    }
+  ]
+}
