@@ -1,0 +1,17 @@
+[
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "app-android/app/src/main/java/de/tutao/tutanota/AndroidMobileContactsFacade.kt",
+        "line": 1165,
+        "code": "private fun insertRelation(relation: StructuredRelationship): ContentProviderOperation.Builder {"
+      },
+      {
+        "filePath": "app-android/app/src/main/java/de/tutao/tutanota/AndroidMobileContactsFacade.kt",
+        "line": 1195,
+        "code": "private val CONTACT_DATA_URI = ContactsContract.Data.CONTENT_URI.buildUpon()"
+      }
+    ]
+  }
+]

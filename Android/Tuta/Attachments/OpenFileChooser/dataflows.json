@@ -1,0 +1,42 @@
+[
+  {
+    "id": 7,
+    "dataflow": [
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/file/AndroidFileFacade.kt",
+        "line": 133,
+        "code": "override suspend fun openFileChooser("
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/file/AndroidFileFacade.kt",
+        "line": 138,
+        "code": "val intent = Intent(Intent.ACTION_GET_CONTENT).apply {"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/file/AndroidFileFacade.kt",
+        "line": 146,
+        "code": "val result = activityUtils.startActivityForResult(Intent.createChooser(intent, \"Select File\"))"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/file/AndroidFileFacade.kt",
+        "line": 153,
+        "code": "val clipData = data.clipData"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/file/AndroidFileFacade.kt",
+        "line": 158,
+        "code": "selectedFiles.add(item.uri.toString())"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/file/AndroidFileFacade.kt",
+        "line": 162,
+        "code": "val uri = result.data.data"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/file/AndroidFileFacade.kt",
+        "line": 167,
+        "code": "return selectedFiles"
+      }
+    ]
+  }
+]

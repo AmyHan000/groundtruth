@@ -1,0 +1,17 @@
+[
+  {
+    "id": 8,
+    "dataflow": [
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/AuthenticationPrompt.kt",
+        "line": 53,
+        "code": "private fun showPrompt("
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/AuthenticationPrompt.kt",
+        "line": 61,
+        "code": "val biometricPrompt = BiometricPrompt("
+      }
+    ]
+  }
+]

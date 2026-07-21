@@ -1,0 +1,42 @@
+[
+  {
+    "id": 9,
+    "dataflow": [
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/AndroidMobileSystemFacade.kt",
+        "line": 132,
+        "code": "override suspend fun requestPermission(permission: PermissionType) {"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/AndroidMobileSystemFacade.kt",
+        "line": 141,
+        "code": "PermissionType.CAMERA -> activityUtils.getPermission(Manifest.permission.CAMERA)"
+      },
+      {
+        "filePath": "app-android/app/src/main/java/de/tutao/tutanota/MainActivity.kt",
+        "line": 398,
+        "code": "// When creating a video element in the WebView, we are receiving an android.webkit.resource.VIDEO_CAPTURE"
+      },
+      {
+        "filePath": "app-android/app/src/main/java/de/tutao/tutanota/MainActivity.kt",
+        "line": 401,
+        "code": "webView.webChromeClient = object : WebChromeClient() {"
+      },
+      {
+        "filePath": "app-android/app/src/main/java/de/tutao/tutanota/MainActivity.kt",
+        "line": 402,
+        "code": "override fun onPermissionRequest(request: PermissionRequest) {"
+      },
+      {
+        "filePath": "app-android/app/src/main/java/de/tutao/tutanota/MainActivity.kt",
+        "line": 403,
+        "code": "if (request.resources.contains(PermissionRequest.RESOURCE_VIDEO_CAPTURE)) {"
+      },
+      {
+        "filePath": "app-android/app/src/main/java/de/tutao/tutanota/MainActivity.kt",
+        "line": 404,
+        "code": "request.grant(arrayOf(PermissionRequest.RESOURCE_VIDEO_CAPTURE))"
+      }
+    ]
+  }
+]

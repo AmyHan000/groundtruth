@@ -1,0 +1,28 @@
+[
+  {
+    "id": 9,
+    "data": [
+      {
+        "scene": "用户在 Tuta WebView 中使用需要拍摄视频的功能时，应用先请求 Android 相机权限；WebView 随后请求 VIDEO_CAPTURE 资源，原生层仅在该资源请求中授予摄像头访问。",
+        "purpose": "为 WebView 功能提供相机视频采集",
+        "source": "设备相机和 WebView 媒体采集请求",
+        "item": "相机采集的视频画面",
+        "frequency": "每次用户主动进入需要视频采集的 Web 功能且尚未授权时",
+        "processing": "相机数据由 WebView 当前业务在本地采集和处理，具体发送取决于用户执行的业务操作",
+        "storage": "本原生桥接代码未显示持久化存储",
+        "recipient": "本应用内的 Tuta WebView 业务",
+        "thirdparty": "当前原生桥接未显示向独立第三方共享",
+        "switchpath": "可在 Android 系统设置中关闭相机权限；关闭后相关视频采集功能不可用"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "相机权限",
+        "scene": "用户使用需要视频采集的 WebView 功能且尚未授权时",
+        "authorization": "动态授权",
+        "purpose": "允许当前 Tuta WebView 功能采集视频",
+        "impact": "拒绝后无法使用依赖相机的视频采集功能"
+      }
+    ]
+  }
+]

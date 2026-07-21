@@ -1,0 +1,22 @@
+[
+  {
+    "id": 5,
+    "dataflow": [
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/AndroidNativeCredentialsFacade.kt",
+        "line": 121,
+        "code": "private suspend fun getOrCreateCredentialEncryptionKey(): ByteArray {"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/AndroidNativeCredentialsFacade.kt",
+        "line": 128,
+        "code": "val encryptedKey = this.keychainEncryption.encryptUsingKeychain(newKey, encryptionMode)"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/AndroidNativeCredentialsFacade.kt",
+        "line": 129,
+        "code": "db.keyBinaryDao().put(CREDENTIALS_ENCRYPTION_KEY_KEY, encryptedKey)"
+      }
+    ]
+  }
+]

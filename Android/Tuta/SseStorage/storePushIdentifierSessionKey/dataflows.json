@@ -1,0 +1,17 @@
+[
+  {
+    "id": 17,
+    "dataflow": [
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/push/SseStorage.kt",
+        "line": 34,
+        "code": "fun storePushIdentifierSessionKey("
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/push/SseStorage.kt",
+        "line": 46,
+        "code": "val deviceEncSessionKey = keyStoreFacade.encryptKey(pushIdentifierSessionKey)"
+      }
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "app-android/calendar/src/main/java/de/tutao/calendar/AndroidMobileContactsFacade.kt",
+        "line": 17,
+        "code": "override suspend fun findSuggestions(query: String): List<ContactSuggestion> {"
+      },
+      {
+        "filePath": "app-android/calendar/src/main/java/de/tutao/calendar/AndroidMobileContactsFacade.kt",
+        "line": 24,
+        "code": "ContactsContract.CommonDataKinds.Email.CONTENT_URI,"
+      },
+      {
+        "filePath": "app-android/calendar/src/main/java/de/tutao/calendar/AndroidMobileContactsFacade.kt",
+        "line": 30,
+        "code": "?: return listOf()"
+      },
+      {
+        "filePath": "app-android/calendar/src/main/java/de/tutao/calendar/AndroidMobileContactsFacade.kt",
+        "line": 32,
+        "code": "return cursor.use {"
+      }
+    ]
+  }
+]

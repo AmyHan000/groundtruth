@@ -1,0 +1,17 @@
+[
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/AndroidNativeCredentialsFacade.kt",
+        "line": 111,
+        "code": "private suspend fun getCredentialsEncryptionKey(): ByteArray? {"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/AndroidNativeCredentialsFacade.kt",
+        "line": 115,
+        "code": "this.keychainEncryption.decryptUsingKeychain(existingKey, encryptionMode)"
+      }
+    ]
+  }
+]
