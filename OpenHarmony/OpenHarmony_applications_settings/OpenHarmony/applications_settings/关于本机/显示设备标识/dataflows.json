@@ -1,0 +1,27 @@
+[
+  {
+    "id": 5,
+    "dataflow": [
+      {
+        "filePath": "common/src/main/ets/utils/TelephonyRadioUtils.ets",
+        "line": 26,
+        "code": "let imei: string = await radio.getIMEI(slotId);"
+      },
+      {
+        "filePath": "product/phone/src/main/ets/Setting/AboutDevice/SubHome/controller/ImeiController.ets",
+        "line": 34,
+        "code": "this.refreshUi(imei);"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "dataflow": [
+      {
+        "filePath": "product/phone/src/main/ets/Setting/AboutDevice/SubHome/model/AboutDevicePageModel.ets",
+        "line": 204,
+        "code": "result: { type: ItemResultType.RESULT_TYPE_TEXT, result: { content: deviceInfo.serial } },"
+      }
+    ]
+  }
+]

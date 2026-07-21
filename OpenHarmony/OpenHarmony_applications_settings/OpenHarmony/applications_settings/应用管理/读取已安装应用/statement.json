@@ -1,0 +1,28 @@
+[
+  {
+    "id": 7,
+    "data": [
+      {
+        "scene": "用户进入应用管理页面时",
+        "purpose": "展示已安装应用并提供管理入口",
+        "source": "HarmonyOS 包管理服务",
+        "item": "已安装应用名称、包名、图标及应用状态",
+        "frequency": "每次进入或刷新应用列表时",
+        "processing": "读取系统包信息并在本地构建列表",
+        "storage": "不由设置应用新增持久化",
+        "recipient": "设置应用与 HarmonyOS 包管理服务",
+        "thirdparty": "不向第三方共享",
+        "switchpath": "设置 > 应用和服务 > 应用管理"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "读取已安装应用信息",
+        "scene": "进入应用管理页面",
+        "authorization": "系统应用预授权",
+        "purpose": "展示并管理已安装应用",
+        "impact": "无法显示完整应用列表"
+      }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 8,
+    "dataflow": [
+      {
+        "filePath": "feature/storage/src/main/ets/controller/CircleController.ets",
+        "line": 61,
+        "code": "storage.getUserStorageStats(),"
+      },
+      {
+        "filePath": "feature/storage/src/main/ets/controller/CircleController.ets",
+        "line": 65,
+        "code": "this.storageDetail = res[0];"
+      },
+      {
+        "filePath": "feature/storage/src/main/ets/controller/CircleController.ets",
+        "line": 79,
+        "code": "this.usedBytesNumber = detail.total - this.freeBytesNumber;"
+      }
+    ]
+  }
+]

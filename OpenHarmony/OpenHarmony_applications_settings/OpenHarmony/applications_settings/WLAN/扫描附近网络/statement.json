@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "用户进入 WLAN 页面或刷新网络列表时",
+        "purpose": "发现并展示附近无线网络",
+        "source": "HarmonyOS WLAN 扫描服务",
+        "item": "附近 Wi-Fi 的 SSID、BSSID、信号强度和安全类型",
+        "frequency": "进入页面及系统返回扫描结果时",
+        "processing": "本地调用系统 WLAN 扫描并构建网络列表",
+        "storage": "不由设置应用单独持久化",
+        "recipient": "设置应用和 HarmonyOS WLAN 服务",
+        "thirdparty": "不向第三方共享",
+        "switchpath": "设置 > WLAN > 关闭 WLAN 或离开页面"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "WLAN 扫描/附近设备能力",
+        "scene": "进入 WLAN 页面并扫描附近网络",
+        "authorization": "系统应用预授权或系统能力授权",
+        "purpose": "发现附近无线网络",
+        "impact": "无法展示附近 WLAN 列表"
+      }
+    ]
+  }
+]

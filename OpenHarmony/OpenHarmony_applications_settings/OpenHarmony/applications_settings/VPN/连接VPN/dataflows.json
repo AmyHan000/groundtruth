@@ -1,0 +1,27 @@
+[
+  {
+    "id": 10,
+    "dataflow": [
+      {
+        "filePath": "feature/vpn/src/main/ets/VpnConnectView.ets",
+        "line": 155,
+        "code": "this.vpnConfig.userName = this.vpnUserName;"
+      },
+      {
+        "filePath": "feature/vpn/src/main/ets/VpnConnectView.ets",
+        "line": 156,
+        "code": "this.vpnConfig.password = this.vpnPassword;"
+      },
+      {
+        "filePath": "feature/vpn/src/main/ets/VpnConnectView.ets",
+        "line": 172,
+        "code": "VpnConnectModel.getInstance().setUp(this.vpnConfig);"
+      },
+      {
+        "filePath": "feature/vpn/src/main/ets/model/VpnConnectModel.ts",
+        "line": 161,
+        "code": "await this.connection.setUp(vpnConfig);"
+      }
+    ]
+  }
+]

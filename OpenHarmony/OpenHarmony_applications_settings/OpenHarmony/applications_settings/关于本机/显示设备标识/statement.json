@@ -1,0 +1,54 @@
+[
+  {
+    "id": 5,
+    "data": [
+      {
+        "scene": "用户打开“关于本机”设备标识页面时",
+        "purpose": "显示移动设备身份信息供用户核对",
+        "source": "系统电话服务",
+        "item": "IMEI",
+        "frequency": "每次进入相关页面时",
+        "processing": "从系统服务读取并仅在本地界面展示",
+        "storage": "不由设置应用新增存储",
+        "recipient": "设置应用界面",
+        "thirdparty": "不向第三方共享",
+        "switchpath": "设置 > 关于本机 > 状态信息"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "读取设备标识信息",
+        "scene": "进入关于本机相关页面",
+        "authorization": "系统应用预授权",
+        "purpose": "展示 IMEI 和序列号",
+        "impact": "相关设备标识无法显示"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "data": [
+      {
+        "scene": "用户打开“关于本机”页面时",
+        "purpose": "显示设备序列号供用户核对",
+        "source": "HarmonyOS 设备信息接口",
+        "item": "设备序列号",
+        "frequency": "每次进入相关页面时",
+        "processing": "从系统设备信息读取并本地展示",
+        "storage": "不由设置应用新增存储",
+        "recipient": "设置应用界面",
+        "thirdparty": "不向第三方共享",
+        "switchpath": "设置 > 关于本机"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "读取设备标识信息",
+        "scene": "进入关于本机相关页面",
+        "authorization": "系统应用预授权",
+        "purpose": "展示 IMEI 和序列号",
+        "impact": "相关设备标识无法显示"
+      }
+    ]
+  }
+]

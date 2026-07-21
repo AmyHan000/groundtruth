@@ -1,0 +1,22 @@
+[
+  {
+    "id": 7,
+    "dataflow": [
+      {
+        "filePath": "feature/application/src/main/ets/controller/ApplicationController.ets",
+        "line": 45,
+        "code": "AppListLoader.getInstance().loadAppList();"
+      },
+      {
+        "filePath": "feature/application/src/main/ets/AppListLoaderManagerTaskPool.ets",
+        "line": 303,
+        "code": "bundleManager.getAllBundleInfo(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION),"
+      },
+      {
+        "filePath": "feature/application/src/main/ets/AppListLoaderManagerTaskPool.ets",
+        "line": 82,
+        "code": "appList.push(appEntry);"
+      }
+    ]
+  }
+]

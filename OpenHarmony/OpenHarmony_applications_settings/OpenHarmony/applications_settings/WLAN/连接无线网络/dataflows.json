@@ -1,0 +1,27 @@
+[
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "feature/wifi/src/main/ets/controller/WifiPasswordButtonMenuController.ets",
+        "line": 105,
+        "code": "this.wifiBaseConfigManager.connectToWifiDevice(this, this.isReconnect);"
+      },
+      {
+        "filePath": "feature/wifi/src/main/ets/WifiTracker.ets",
+        "line": 348,
+        "code": "public async connectToWifiDevice(config: wifiManager.WifiDeviceConfig, isConfigUpdate: boolean): Promise<boolean> {"
+      },
+      {
+        "filePath": "feature/wifi/src/main/ets/WifiTracker.ets",
+        "line": 361,
+        "code": "networkId = await wifiManager.addDeviceConfig(config);"
+      },
+      {
+        "filePath": "feature/wifi/src/main/ets/WifiTracker.ets",
+        "line": 386,
+        "code": "wifiManager.connectToNetwork(networkId);"
+      }
+    ]
+  }
+]

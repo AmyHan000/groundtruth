@@ -1,0 +1,22 @@
+[
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "feature/bluetooth/src/main/ets/controller/AvailableDeviceController.ets",
+        "line": 332,
+        "code": "BluetoothAdapter.getInstance().pairDevice(component.id);"
+      },
+      {
+        "filePath": "feature/bluetooth/src/main/ets/BluetoothAdapter.ets",
+        "line": 2296,
+        "code": "pairDevice(deviceId: string): boolean {"
+      },
+      {
+        "filePath": "feature/bluetooth/src/main/ets/BluetoothAdapter.ets",
+        "line": 1226,
+        "code": "connection.pairDevice(this.pairDeviceId);"
+      }
+    ]
+  }
+]
