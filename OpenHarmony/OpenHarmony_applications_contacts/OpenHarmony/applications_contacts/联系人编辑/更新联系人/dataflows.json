@@ -1,0 +1,27 @@
+[
+  {
+    "id": 6,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/presenter/contact/accountants/AccountantsPresenter.ets",
+        "line": 1706,
+        "code": ".sendRequest('updateContact', {"
+      },
+      {
+        "filePath": "entry/src/main/ets/workers/DataWorkerTask.ets",
+        "line": 305,
+        "code": "ContactAbilityModel.updateContact(null, contactBefore, query, deletePhoto, (arg: string) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/model/ContactAbilityModel.ets",
+        "line": 1835,
+        "code": "updateFlag = await this.updateRawContacts(rawContactsInfos, daHelper, deletePhoto);"
+      },
+      {
+        "filePath": "entry/src/main/ets/model/ContactAbilityModel.ets",
+        "line": 1884,
+        "code": "let updateResult: number = await daHelper.update(RawContacts.CONTENT_URI, conditionUpdate, updateInfo);"
+      }
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "id": 8,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/model/calllog/CalllogModel.ets",
+        "line": 57,
+        "code": "CallLogRepository.getInstance().findAll(actionData, (result: CallLog[]) => {"
+      },
+      {
+        "filePath": "feature/call/src/main/ets/repo/CallLogRepository.ets",
+        "line": 570,
+        "code": ".query(queryUrl, condition, Calls.getSearchFields())"
+      },
+      {
+        "filePath": "feature/call/src/main/ets/repo/CallLogRepository.ets",
+        "line": 587,
+        "code": "let builder = CallLogBuilder.fromResultSet(resultSet);"
+      },
+      {
+        "filePath": "entry/src/main/ets/model/calllog/CalllogModel.ets",
+        "line": 88,
+        "code": "resultData.callLogList = CallLogService.getInstance().mergeCallLogs([...result]);"
+      }
+    ]
+  }
+]

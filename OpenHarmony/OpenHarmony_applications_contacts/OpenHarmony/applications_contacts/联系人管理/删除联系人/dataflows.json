@@ -1,0 +1,22 @@
+[
+  {
+    "id": 7,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/presenter/contact/ContactListPresenter.ets",
+        "line": 1260,
+        "code": "async onDeleteDialogConfirm(index: number, contactId: string, isMyCard: boolean, deleteCallback?: Function) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/presenter/contact/ContactListPresenter.ets",
+        "line": 1285,
+        "code": ".sendRequest('deleteContactById', contactIdParam, (result: number | undefined) => {"
+      },
+      {
+        "filePath": "feature/contact/src/main/ets/repo/ContactRepository.ets",
+        "line": 1701,
+        "code": "dataAbilityHelper.delete(Contacts.CONTACT_URI, condition).then((data: number) => {"
+      }
+    ]
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "用户在联系人搜索框输入关键词时",
+        "purpose": "按姓名或号码检索联系人",
+        "source": "用户在搜索框主动输入",
+        "item": "联系人搜索关键词",
+        "frequency": "每次关键词变化时",
+        "processing": "在本地构造查询条件并查询系统联系人数据库",
+        "storage": "不单独存储搜索关键词",
+        "recipient": "联系人应用与系统联系人数据库",
+        "thirdparty": "不向第三方共享",
+        "switchpath": "联系人 > 搜索框 > 清空或退出搜索"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "读取联系人",
+        "scene": "用户搜索联系人",
+        "authorization": "动态授权（前序申请）",
+        "purpose": "查询系统联系人数据",
+        "impact": "无法搜索联系人"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "data": [
+      {
+        "scene": "系统返回匹配结果后",
+        "purpose": "向用户展示匹配联系人",
+        "source": "系统联系人数据库",
+        "item": "匹配联系人的姓名、号码及联系人标识",
+        "frequency": "每次有效搜索时",
+        "processing": "本地读取、过滤并刷新搜索结果列表",
+        "storage": "不新增存储",
+        "recipient": "联系人应用界面",
+        "thirdparty": "不向第三方共享",
+        "switchpath": "联系人 > 搜索结果"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "读取联系人",
+        "scene": "用户搜索联系人",
+        "authorization": "动态授权（前序申请）",
+        "purpose": "查询系统联系人数据",
+        "impact": "无法搜索联系人"
+      }
+    ]
+  }
+]

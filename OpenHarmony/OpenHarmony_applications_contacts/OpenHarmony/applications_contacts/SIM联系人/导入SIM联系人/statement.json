@@ -1,0 +1,28 @@
+[
+  {
+    "id": 10,
+    "data": [
+      {
+        "scene": "用户选择从 SIM 卡导入联系人时",
+        "purpose": "将 SIM 卡联系人复制到系统联系人数据库",
+        "source": "SIM 卡联系人存储",
+        "item": "SIM 联系人姓名和电话号码",
+        "frequency": "每次执行导入时",
+        "processing": "读取 SIM 联系人并转换为联系人记录后写入系统联系人数据库",
+        "storage": "由系统联系人数据库持久化保存",
+        "recipient": "联系人应用、SIM 服务和系统联系人服务",
+        "thirdparty": "不向第三方共享",
+        "switchpath": "联系人 > 设置/导入导出 > 从 SIM 卡导入"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "读取SIM联系人及写入联系人",
+        "scene": "用户发起 SIM 联系人导入",
+        "authorization": "系统能力调用并依赖联系人写入授权",
+        "purpose": "读取 SIM 联系人并写入本机联系人",
+        "impact": "无法完成 SIM 联系人导入"
+      }
+    ]
+  }
+]
