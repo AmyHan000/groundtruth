@@ -1,0 +1,47 @@
+[
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 47,
+        "code": "@MainActor public func open(withAnchorRect anchorRect: CGRect, isFileOnly: Bool) async throws -> [String] {"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 55,
+        "code": "self.showFilePicker()"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 67,
+        "code": "private func showFilePicker() {"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 68,
+        "code": "let filePicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.content, UTType.archive, UTType.data], asCopy: true)"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 69,
+        "code": "filePicker.allowsMultipleSelection = true"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 71,
+        "code": "sourceController.present(filePicker, animated: true)"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 130,
+        "code": "public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 131,
+        "code": "copyFilesToLocalFolderAndSendResults(srcUrls: urls)"
+      }
+    ]
+  }
+]

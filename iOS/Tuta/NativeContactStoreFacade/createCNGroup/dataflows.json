@@ -1,0 +1,22 @@
+[
+  {
+    "id": 8,
+    "dataflow": [
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 52,
+        "code": "func createCNGroup(username: String) throws -> CNMutableGroup {"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 60,
+        "code": "do { try CNContactStore().execute(saveRequest) } catch { throw ContactStoreError(message: \"Could not create CNGroup\", underlyingError: error) }"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 62,
+        "code": "return newGroup"
+      }
+    ]
+  }
+]

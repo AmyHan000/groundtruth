@@ -1,0 +1,42 @@
+[
+  {
+    "id": 6,
+    "dataflow": [
+      {
+        "filePath": "app-ios/drive/Sources/IosMobileContactsFacade.swift",
+        "line": 24,
+        "code": "private func queryContactSuggestions(query: String, upTo: Int) throws -> [ContactSuggestion] {"
+      },
+      {
+        "filePath": "app-ios/drive/Sources/IosMobileContactsFacade.swift",
+        "line": 25,
+        "code": "let contactsStore = CNContactStore()"
+      },
+      {
+        "filePath": "app-ios/drive/Sources/IosMobileContactsFacade.swift",
+        "line": 26,
+        "code": "let keysToFetch: [any CNKeyDescriptor] = ["
+      },
+      {
+        "filePath": "app-ios/drive/Sources/IosMobileContactsFacade.swift",
+        "line": 30,
+        "code": "let request = CNContactFetchRequest(keysToFetch: keysToFetch)"
+      },
+      {
+        "filePath": "app-ios/drive/Sources/IosMobileContactsFacade.swift",
+        "line": 34,
+        "code": "// Alternatively we could query for email and query for name separately and then combine the results"
+      },
+      {
+        "filePath": "app-ios/drive/Sources/IosMobileContactsFacade.swift",
+        "line": 35,
+        "code": "try self.enumerateContactsInContactStore(contactsStore, with: request) { contact, stopPointer in"
+      },
+      {
+        "filePath": "app-ios/drive/Sources/IosMobileContactsFacade.swift",
+        "line": 36,
+        "code": "let name: String = CNContactFormatter.string(from: contact, style: .fullName) ?? \"\""
+      }
+    ]
+  }
+]

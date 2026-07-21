@@ -1,0 +1,42 @@
+[
+  {
+    "id": 9,
+    "dataflow": [
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 156,
+        "code": "func delete(localContacts nativeIdentifiersToRemove: [String]) throws {"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 157,
+        "code": "let store = CNContactStore()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 158,
+        "code": "let fetch = makeContactFetchRequest(forKeys: [CNContactIdentifierKey] as [any CNKeyDescriptor])"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 160,
+        "code": "fetch.predicate = CNContact.predicateForContacts(withIdentifiers: nativeIdentifiersToRemove)"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 161,
+        "code": "let save = CNSaveRequest()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 163,
+        "code": "try self.enumerateContactsInContactStore(store, with: fetch) { contact, _ in save.delete(contact.mutableCopy() as! CNMutableContact) }"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 165,
+        "code": "try store.execute(save)"
+      }
+    ]
+  }
+]

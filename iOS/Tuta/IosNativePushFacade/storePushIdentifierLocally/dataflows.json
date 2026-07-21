@@ -1,0 +1,17 @@
+[
+  {
+    "id": 7,
+    "dataflow": [
+      {
+        "filePath": "app-ios/tutanota/Sources/Alarms/IosNativePushFacade.swift",
+        "line": 42,
+        "code": "func storePushIdentifierLocally("
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Alarms/IosNativePushFacade.swift",
+        "line": 50,
+        "code": "try self.keychainManager.storeKey(pushIdentifierSessionKey.data, withId: pushIdentifierId)"
+      }
+    ]
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "id": 5,
+    "dataflow": [
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 47,
+        "code": "@MainActor public func open(withAnchorRect anchorRect: CGRect, isFileOnly: Bool) async throws -> [String] {"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 59,
+        "code": "case .photos: self.showPhpicker(anchor: anchorRect)"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 113,
+        "code": "private func showPhpicker(anchor: CGRect) {"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 114,
+        "code": "var configuration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 116,
+        "code": "configuration.filter = .any(of: [.videos, .images])"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 117,
+        "code": "let picker = PHPickerViewController(configuration: configuration)"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 119,
+        "code": "sourceController.present(picker, animated: true, completion: nil)"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 279,
+        "code": "public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 286,
+        "code": "result.itemProvider.loadFileRepresentation(forTypeIdentifier: type) { (url, error) in"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 290,
+        "code": "let copyResult = Result { try self.copyToLocalFolder(srcUrl: url!, filename: url!.lastPathComponent) }"
+      }
+    ]
+  }
+]

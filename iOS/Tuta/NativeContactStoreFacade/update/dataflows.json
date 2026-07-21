@@ -1,0 +1,32 @@
+[
+  {
+    "id": 17,
+    "dataflow": [
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 146,
+        "code": "func update(contacts: [NativeMutableContact]) throws {"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 147,
+        "code": "let store = CNContactStore()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 148,
+        "code": "let saveRequest = CNSaveRequest()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 150,
+        "code": "for nativeMutableContact in contacts { saveRequest.update(nativeMutableContact.contact) }"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 152,
+        "code": "do { try store.execute(saveRequest) } catch { throw ContactStoreError(message: \"Could not update contacts\", underlyingError: error) }"
+      }
+    ]
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "id": 14,
+    "dataflow": [
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 37,
+        "code": "func isLocalStorageAvailable() -> Bool {"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 38,
+        "code": "let store = CNContactStore()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 41,
+        "code": "let containers = try store.containers(matching: nil)"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 44,
+        "code": "return containers.contains(where: { $0.type == CNContainerType.local })"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 46,
+        "code": "TUTSLog(\"Failed to fetch containers: \\(error)\")"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 47,
+        "code": "return false"
+      }
+    ]
+  }
+]

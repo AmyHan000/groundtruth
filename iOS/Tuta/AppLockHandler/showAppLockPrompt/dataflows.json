@@ -1,0 +1,27 @@
+[
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "app-ios/tutanota/Sources/AppLockHandler.swift",
+        "line": 10,
+        "code": "public func showAppLockPrompt(_ method: AppLockMethod) async throws {"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/AppLockHandler.swift",
+        "line": 16,
+        "code": "evaluateResult = try await context.evaluatePolicy("
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/AppLockHandler.swift",
+        "line": 21,
+        "code": "evaluateResult = try await context.evaluatePolicy("
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/AppLockHandler.swift",
+        "line": 25,
+        "code": "default: return"
+      }
+    ]
+  }
+]
