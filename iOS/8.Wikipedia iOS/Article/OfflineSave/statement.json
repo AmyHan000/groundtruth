@@ -1,0 +1,37 @@
+[
+  {
+    "business_function": "离线保存",
+    "business_scenario": "触发文章离线缓存，传入文章URL和分组键，最终在Cache Core Data中标记项目为已下载，包含项目键、变体信息和HTTP响应头",
+    "data_types_info": "文章离线缓存数据（HTML内容、媒体列表、图片、CSS、JS）(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "离线保存",
+    "business_scenario": "从图片URL下载图片数据，最终图片同时存储在内存缓存（上限1000万像素）和文件系统Permanent Cache目录中",
+    "data_types_info": "文章图片数据（从图片URL下载）(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "离线保存",
+    "business_scenario": "存储缓存项目的语言变体信息和HTTP Vary响应头到Cache Core Data，最终CacheGroup和CacheItem实体持久化到Cache.sqlite数据库中",
+    "data_types_info": "缓存元数据（项目键、下载状态、变体信息、URL、HTTP头）(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "离线保存",
+    "business_scenario": "下载失败时记录错误类型、递增重试次数并设置下次重试日期到WMFArticle Core Data实体，最终重试日期存储到WMFArticle实体，用于后续自动重试下载",
+    "data_types_info": "下载失败状态（错误类型、重试次数、重试日期）(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "离线保存",
+    "business_scenario": "文章缓存成功后设置isDownloaded为true，最终文章URL被添加到iOS Core Spotlight索引，允许通过系统搜索访问",
+    "data_types_info": "文章元数据（URL、标题等）写入iOS Spotlight索引(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  }
+]

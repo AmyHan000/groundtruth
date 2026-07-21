@@ -1,0 +1,11 @@
+1 我们如何收集和使用您的个人信息：
+
+[1] 统计分析，Various app components call EventPlatformClient.submit() to log events (e.g., LoginFunnel, DonateFun，Buffered events are sent in batches to the Wikimedia event intake service endpoint via HTTPS POST。为提供此功能，我们会收集您的Event Data (event name(一般)、schema version(一般)、app install ID(一般)、app session ID(一般)、timestamp(一般)。采集频率：用户触发时单次采集。处理方式说明：上传云端 (通过HTTPS加密传输)。数据传输使用HTTPS协议加密。
+
+[2] 统计分析，Login-related user actions (impression, login start, success, logout, create account) are logged as ，Login funnel events are batched with other analytics events and periodically sent to the remote i。为提供此功能，我们会收集您的Login Funnel Events (action: impression/login_start/logout/login_success/createa(一般)、category(一般)、label(一般)、timestamp)(一般)。采集频率：后台定期采集。处理方式说明：上传云端 (通过HTTPS加密传输)。数据传输使用HTTPS协议加密。
+
+[3] 统计分析，App session lifecycle events (start, end) and user navigation events (page view, scroll, tab switch)，Session events are batched and sent to the event intake endpoint via HTTPS POST.。为提供此功能，我们会收集您的Session Data (session ID(一般)、session length(一般)、timestamp(一般)、user interactions(一般)、scroll depth(一般)。采集频率：用户触发时单次采集。处理方式说明：上传云端 (通过HTTPS加密传输)。数据传输使用HTTPS协议加密。
+
+2 设备权限调用：
+
+无

@@ -1,0 +1,21 @@
+1 我们如何收集和使用您的个人信息：
+
+[1] 文章浏览，文章加载时如果isPageView为true，设置X-Analytics HTTP头标记为页面浏览，携带X-Analytics头部的HTTP请求发送到Wikimedia Page Content Service REST API。为提供此功能，我们会收集您的**页面浏览标识（X-Analytics: pageview=1）**(敏感)。采集频率：用户设置时触发。处理方式说明：本地处理/本地加密存储。数据仅本地处理，使用硬件加密存储。
+
+[2] 文章浏览，将文章标题编码后组装到REST API路径中，可选包含修订版本ID，文章标题作为URL路径的一部分通过GET请求发送到Page Content Service。为提供此功能，我们会收集您的文章标题（URL编码）和版本ID(一般)。采集频率：用户触发时单次采集。处理方式说明：本地处理/本地加密存储。
+
+[3] 文章浏览，文章标题编码后组装到REST API路径中请求媒体列表，GET请求发送到Page Content Service的media-list端点。为提供此功能，我们会收集您的文章标题（URL编码）(一般)。采集频率：用户触发时单次采集。处理方式说明：本地处理/本地加密存储。
+
+[4] 文章浏览，文章标题编码后组装到REST API路径中请求摘要，GET请求发送到Page Content Service的summary端点。为提供此功能，我们会收集您的文章标题（URL编码）(一般)。采集频率：用户触发时单次采集。处理方式说明：本地处理/本地加密存储。
+
+[5] 文章浏览，文章加载完成后触发页面浏览记录的持久化，文章加载完成时在WMFArticle实体上设置viewedDate为当前日期。为提供此功能，我们会收集您的文章浏览历史（标题、项目ID、命名空间ID、时间戳、浏览时长）(一般)。采集频率：用户设置时触发。处理方式说明：本地处理/本地加密存储。
+
+[6] 文章浏览，用户停留文章页面超过30秒后，在WMFArticle Core Data实体上设置显著浏览标记，wasSignificantlyViewed标记存储到WMFArticle Core Data实体。为提供此功能，我们会收集您的显著浏览标记（wasSignificantlyViewed）(一般)。采集频率：用户设置时触发。处理方式说明：本地处理/本地加密存储。
+
+[7] 文章浏览，文章加载完成后触发页面浏览分析事件，事件通过EventPlatformClient提交到ios.article_link_interaction流，发送到https://intake-analytics.wikimedia.org/。为提供此功能，我们会收集您的文章导航分析事件（pageID、wikiID、source）(一般)。采集频率：用户触发时单次采集。处理方式说明：上传云端 (通过HTTPS加密传输)。数据传输使用HTTPS协议加密。
+
+[8] 文章浏览，用户点击保存按钮时触发，导航事件通过EventPlatformClient提交到ios.navigation_events流。为提供此功能，我们会收集您的导航事件（action类型）(一般)。采集频率：用户触发时单次采集。处理方式说明：上传云端 (通过HTTPS加密传输)。数据传输使用HTTPS协议加密。
+
+2 设备权限调用：
+
+无

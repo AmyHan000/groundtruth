@@ -1,0 +1,30 @@
+[
+  {
+    "business_function": "临时账号管理",
+    "business_scenario": "通过MediaWiki API查询siteinfo中是否启用了临时账户功能，最终API查询发送到Wikipedia MediaWiki API，检查autocreatetempuser属性",
+    "data_types_info": "Wiki域名/语言代码(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "临时账号管理",
+    "business_scenario": "从HTTP Cookie存储中读取centralauth_User Cookie值作为临时账户用户名，最终临时账户用户名用于导航到用户的讨论页面，用户名会发送到Wikipedia服务器以加载讨论页",
+    "data_types_info": "临时账户用户名（从centralauth_User Cookie读取）(敏感)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "临时账号管理",
+    "business_scenario": "用户点击结束临时账户会话时触发登出，最终从HTTPCookieStorage中删除所有Cookie，包括centralauth_User",
+    "data_types_info": "临时账户登出触发（清除Keychain凭据、Cookie和缓存）(敏感)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "临时账号管理",
+    "business_scenario": "通过检查centralauth_User Cookie存在且Keychain中无凭据来判断是否为临时账户，最终从HTTPCookieStorage读取centralauth_User Cookie判断是否存在",
+    "data_types_info": "认证状态检测（Cookie存在性 + Keychain为空）(敏感)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  }
+]

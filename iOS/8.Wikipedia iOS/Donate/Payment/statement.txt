@@ -1,0 +1,9 @@
+1 我们如何收集和使用您的个人信息：
+
+[1] 捐赠支付，User initiates a donation from various entry points: article campaign modal, settings, explore, arti，Donation funnel events (impression, click, submission, success, error) are logged via EventPlatfo。为提供此功能，我们会收集您的**Payment Information (amount**(敏感)、currency(一般)、country code(一般)、language(一般)、**payment token**(敏感)。采集频率：用户触发时单次采集。处理方式说明：上传云端 (通过HTTPS加密传输)。数据传输使用HTTPS协议加密。
+
+[2] 捐赠支付，The app fetches donation configuration (payment methods, amounts, currency) from the Wikimedia donat，Donation config response is parsed to determine available payment methods (Apple Pay, web) and su。为提供此功能，我们会收集您的**Donation Configuration (payment methods**(敏感)、suggested amounts(一般)、currency(一般)、merchant ID(一般)、country-specific settings)(一般)。采集频率：用户触发时单次采集。处理方式说明：本地处理/本地加密存储。数据仅本地处理，使用硬件加密存储。
+
+2 设备权限调用：
+
+- PKPaymentAuthorizationController (Apple Pay) (Sensitive Operation：For Apple Pay donations, the system handles biomet)

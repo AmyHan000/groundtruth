@@ -1,0 +1,104 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "SHARE_ARTICLE_SYSTEM_SHEET",
+      "data_type": "文章URL和用户选中的文本",
+      "description": "用户分享文章时，文章URL和可选选中的文本传递给iOS系统分享面板，由用户选择分享目标",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "shareArticle",
+          "file": "Wikipedia/Code/ArticleViewController+Sharing.swift",
+          "line": 4,
+          "code": "func shareArticle() {\n    themesPresenter?.dismissReadingThemesPopoverIfActive(from: self)\n    webView.wmf_getSelectedText({ [weak self] selectedText in\n        self?.shareArticle(with: selectedText)",
+          "details": "用户点击分享按钮，获取WebView中选中的文本"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "sharingActivityViewController",
+          "file": "Wikipedia/Code/ArticleViewController+Sharing.swift",
+          "line": 36,
+          "code": "let textActivitySource = WMFArticleTextActivitySource(article: article, shareText: textSnippet)",
+          "details": "创建包含文章和可选选中文本的分享内容源"
+        },
+        {
+          "step": "Data Display",
+          "function": "sharingActivityViewController",
+          "file": "Wikipedia/Code/ArticleViewController+Sharing.swift",
+          "line": 40,
+          "code": "vc = ShareActivityController(article: article, textActivitySource: textActivitySource)",
+          "details": "文章URL和选中文本通过iOS UIActivityViewController展示给用户，由用户选择分享到何处"
+        }
+      ]
+    },
+    {
+      "id": "SHARE_A_FACT",
+      "data_type": "用户选中的文章文本片段和文章元数据",
+      "description": "用户通过\"Share-a-fact\"功能分享选中的文本片段和文章元数据到自定义分享视图",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "shareAFact",
+          "file": "Wikipedia/Code/ArticleViewController+Sharing.swift",
+          "line": 48,
+          "code": "func shareAFact(with text: String) {\n    guard let shareViewController = ShareViewController(text: text, article: article, theme: theme) else { return }\n    present(shareViewController, animated: true)",
+          "details": "用户选择Share-a-fact功能，传入选中的文本和文章对象到自定义分享视图控制器"
+        },
+        {
+          "step": "Data Display",
+          "function": "shareAFact",
+          "file": "Wikipedia/Code/ArticleViewController+Sharing.swift",
+          "line": 52,
+          "code": "present(shareViewController, animated: true)",
+          "details": "显示包含选中文本和文章信息的自定义分享视图控制器，用户确认分享内容"
+        }
+      ]
+    },
+    {
+      "id": "SHARE_ANALYTICS_SUCCESS",
+      "data_type": "分享成功分析事件（NavigationAction: articleToolbarShareSuccess）",
+      "description": "用户完成分享操作后记录分享成功分析事件",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "shareArticle",
+          "file": "Wikipedia/Code/ArticleViewController+Sharing.swift",
+          "line": 11,
+          "code": "NavigationEventsFunnel.shared.logEvent(action: .articleToolbarShareSuccess)",
+          "details": "分享操作成功后触发分析事件"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "logEvent",
+          "file": "Wikipedia/Code/NavigationEventsFunnel.swift",
+          "line": 50,
+          "code": "func logEvent(action: NavigationAction) {\n    let event = Event(action: action)\n    EventPlatformClient.shared.submit(stream: .navigation, event: event)",
+          "details": "分享成功事件通过EventPlatformClient提交到ios.navigation_events流"
+        }
+      ]
+    },
+    {
+      "id": "SHARE_ADD_TO_READING_LIST",
+      "data_type": "文章对象（包含URL、标题、描述等元数据）",
+      "description": "用户从分享菜单选择添加到阅读列表时，文章对象被传入AddArticlesToReadingListViewController",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "addToReadingListActivity",
+          "file": "Wikipedia/Code/ArticleViewController+Sharing.swift",
+          "line": 56,
+          "code": "func addToReadingListActivity(with presenter: UIViewController, eventLogAction: @escaping () -> Void) -> UIActivity {\n    let addToReadingListActivity = AddToReadingListActivity {\n        let vc = AddArticlesToReadingListViewController(with: self.dataStore, articles: [self.article], theme: self.theme)",
+          "details": "用户选择添加文章到阅读列表，文章对象传递给AddArticlesToReadingListViewController"
+        },
+        {
+          "step": "Data Display",
+          "function": "addToReadingListActivity",
+          "file": "Wikipedia/Code/ArticleViewController+Sharing.swift",
+          "line": 61,
+          "code": "present(navigationController, animated: true)",
+          "details": "展示阅读列表选择界面，用户选择要添加到的目标列表"
+        }
+      ]
+    }
+  ]
+}

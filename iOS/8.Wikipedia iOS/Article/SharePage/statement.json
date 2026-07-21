@@ -1,0 +1,30 @@
+[
+  {
+    "business_function": "文章分享",
+    "business_scenario": "用户点击分享按钮，获取WebView中选中的文本，最终文章URL和选中文本通过iOS UIActivityViewController展示给用户，由用户选择分享到何处",
+    "data_types_info": "文章URL和用户选中的文本(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "文章分享",
+    "business_scenario": "用户选择Share-a-fact功能，传入选中的文本和文章对象到自定义分享视图控制器，最终显示包含选中文本和文章信息的自定义分享视图控制器，用户确认分享内容",
+    "data_types_info": "用户选中的文章文本片段和文章元数据(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "文章分享",
+    "business_scenario": "分享操作成功后触发分析事件，最终分享成功事件通过EventPlatformClient提交到ios.navigation_events流",
+    "data_types_info": "分享成功分析事件（NavigationAction: articleToolbarShareSuccess）(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "文章分享",
+    "business_scenario": "用户选择添加文章到阅读列表，文章对象传递给AddArticlesToReadingListViewController，最终展示阅读列表选择界面，用户选择要添加到的目标列表",
+    "data_types_info": "文章对象（包含URL、标题、描述等元数据）(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  }
+]

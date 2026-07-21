@@ -1,0 +1,220 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "ARTICLE_PAGE_VIEW_HEADER",
+      "data_type": "页面浏览标识（X-Analytics: pageview=1）",
+      "description": "文章加载时在HTTP请求头中发送pageview=1标识，通知服务器这是页面浏览而非预取",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "mobileHTMLRequest",
+          "file": "Wikipedia/Code/ArticleFetcher.swift",
+          "line": 371,
+          "code": "if isPageView {\n    urlRequest.setValue(\"pageview=1\", forHTTPHeaderField: \"X-Analytics\")\n}",
+          "details": "文章加载时如果isPageView为true，设置X-Analytics HTTP头标记为页面浏览"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "dataTask",
+          "file": "Wikipedia/Code/Session.swift",
+          "line": 359,
+          "code": "public func dataTask(with url: URL?, method: Session.Request.Method = .get, ..., completionHandler: ...) -> URLSessionDataTask?",
+          "details": "携带X-Analytics头部的HTTP请求发送到Wikimedia Page Content Service REST API"
+        }
+      ]
+    },
+    {
+      "id": "ARTICLE_CONTENT_LOADING",
+      "data_type": "文章标题（URL编码）和版本ID",
+      "description": "加载文章时，文章标题和可选的修订版本ID通过REST API URL路径发送到服务器",
+      "flow_steps": [
+        {
+          "step": "Data Assembly",
+          "function": "mobileHTMLURL",
+          "file": "Wikipedia/Code/ArticleFetcher.swift",
+          "line": 288,
+          "code": "var pathComponents = [\"page\", \"mobile-html\", percentEncodedTitle]\nif let revisionID = revisionID {\n    pathComponents.append(\"\\(revisionID)\")\n}\nguard let mobileHTMLURL = configuration.pageContentServiceAPIURLForURL(articleURL, appending: pathComponents)",
+          "details": "将文章标题编码后组装到REST API路径中，可选包含修订版本ID"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "mobileHTMLRequest",
+          "file": "Wikipedia/Code/ArticleFetcher.swift",
+          "line": 348,
+          "code": "return session.request(with: mobileHTMLURL, method: .get, headers: headers, cachePolicy: cachePolicy)",
+          "details": "文章标题作为URL路径的一部分通过GET请求发送到Page Content Service"
+        }
+      ]
+    },
+    {
+      "id": "ARTICLE_MEDIA_LIST_LOADING",
+      "data_type": "文章标题（URL编码）",
+      "description": "加载文章的媒体列表时，文章标题通过REST API URL路径发送",
+      "flow_steps": [
+        {
+          "step": "Data Assembly",
+          "function": "mediaListURL",
+          "file": "Wikipedia/Code/ArticleFetcher.swift",
+          "line": 309,
+          "code": "guard let url = configuration.pageContentServiceAPIURLForURL(articleURL, appending: [\"page\", \"media-list\", percentEncodedTitle])",
+          "details": "文章标题编码后组装到REST API路径中请求媒体列表"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "fetchMediaListURLs",
+          "file": "Wikipedia/Code/ArticleFetcher.swift",
+          "line": 51,
+          "code": "@discardableResult func fetchMediaListURLs(with request: URLRequest, completion: @escaping (Result<[MediaListItem], Error>) -> Void) -> URLSessionTask?",
+          "details": "GET请求发送到Page Content Service的media-list端点"
+        }
+      ]
+    },
+    {
+      "id": "ARTICLE_SUMMARY_LOADING",
+      "data_type": "文章标题（URL编码）",
+      "description": "加载文章摘要时，文章标题通过REST API URL路径发送到服务器的summary端点",
+      "flow_steps": [
+        {
+          "step": "Data Assembly",
+          "function": "summaryURL",
+          "file": "Wikipedia/Code/ArticleFetcher.swift",
+          "line": 508,
+          "code": "guard let url = configuration.pageContentServiceAPIURLForURL(articleURL, appending: [\"page\", \"summary\", percentEncodedTitle])",
+          "details": "文章标题编码后组装到REST API路径中请求摘要"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "fetchSummaryForArticle",
+          "file": "Wikipedia/Code/ArticleSummaryController.swift",
+          "line": 14,
+          "code": "return fetcher.fetchSummaryForArticle(with: articleKey, cachePolicy: cachePolicy) { [weak self] (articleSummary, urlResponse, error) in",
+          "details": "GET请求发送到Page Content Service的summary端点"
+        }
+      ]
+    },
+    {
+      "id": "ARTICLE_VIEW_HISTORY_CORE_DATA",
+      "data_type": "文章浏览历史（标题、项目ID、命名空间ID、时间戳、浏览时长）",
+      "description": "用户浏览文章时，浏览记录（包含文章标题、项目、时间戳和时长）被持久化到WMFData Core Data存储",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "persistPageViewsForWikipediaInReview",
+          "file": "Wikipedia/Code/ArticleViewController+YearInReview.swift",
+          "line": 10,
+          "code": "let pageViewsDataController = try WMFPageViewsDataController()\nlet objectID = try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject, previousPageViewObjectID: previousPageViewObjectID, timestamp: timestamp)",
+          "details": "文章加载完成后触发页面浏览记录的持久化"
+        },
+        {
+          "step": "Storage",
+          "function": "addPageView",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/WMFPageViewsDataController.swift",
+          "line": 120,
+          "code": "public func addPageView(title: String, namespaceID: Int16, project: WMFProject, previousPageViewObjectID: NSManagedObjectID?, timestamp: Date? = nil) async throws -> NSManagedObjectID?",
+          "details": "创建CDPage和CDPageView Core Data对象，存储文章标题、项目ID、命名空间ID和时间戳"
+        },
+        {
+          "step": "Storage",
+          "function": "addPageView",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/WMFPageViewsDataController.swift",
+          "line": 130,
+          "code": "let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)\npage?.title = coreDataTitle\npage?.namespaceID = namespaceID\npage?.projectID = project.id\npage?.timestamp = timestamp",
+          "details": "文章标题、命名空间ID和项目ID存储到CDPage实体"
+        },
+        {
+          "step": "Storage",
+          "function": "addPageViewSeconds",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/WMFPageViewsDataController.swift",
+          "line": 152,
+          "code": "public func addPageViewSeconds(pageViewManagedObjectID: NSManagedObjectID, numberOfSeconds: Double) async throws {\n    ...\n    pageView.numberOfSeconds += Int64(numberOfSeconds)",
+          "details": "用户浏览文章的时长（秒数）累加到CDPageView实体的numberOfSeconds字段"
+        },
+        {
+          "step": "Trigger",
+          "function": "addToReadHistory",
+          "file": "WMF Framework/NSManagedObjectContext+History.swift",
+          "line": 38,
+          "code": "public func addToReadHistory() throws {\n    viewedDate = Date()\n    updateViewedDateWithoutTime()\n    try managedObjectContext?.save()",
+          "details": "文章加载完成时在WMFArticle实体上设置viewedDate为当前日期"
+        }
+      ]
+    },
+    {
+      "id": "ARTICLE_SIGNIFICANTLY_VIEWED",
+      "data_type": "显著浏览标记（wasSignificantlyViewed）",
+      "description": "用户浏览文章超过30秒时，标记文章为\"已显著浏览\"",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "startSignificantlyViewedTimer",
+          "file": "Wikipedia/Code/ArticleViewController.swift",
+          "line": 959,
+          "code": "significantlyViewedTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { [weak self] (timer) in\n    self.article.wasSignificantlyViewed = true\n    self.stopSignificantlyViewedTimer()\n})",
+          "details": "用户停留文章页面超过30秒后，在WMFArticle Core Data实体上设置显著浏览标记"
+        },
+        {
+          "step": "Storage",
+          "function": "startSignificantlyViewedTimer",
+          "file": "Wikipedia/Code/ArticleViewController.swift",
+          "line": 961,
+          "code": "self.article.wasSignificantlyViewed = true",
+          "details": "wasSignificantlyViewed标记存储到WMFArticle Core Data实体"
+        }
+      ]
+    },
+    {
+      "id": "ARTICLE_LINK_INTERACTION_ANALYTICS",
+      "data_type": "文章导航分析事件（pageID、wikiID、source）",
+      "description": "用户查看文章时，页面ID和Wiki数据库名称通过EventPlatformClient发送到分析服务器",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "logPageViewAfterArticleLoad",
+          "file": "Wikipedia/Code/ArticleViewController.swift",
+          "line": 734,
+          "code": "ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project, source: articleViewSource)",
+          "details": "文章加载完成后触发页面浏览分析事件"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "logArticleView",
+          "file": "Wikipedia/Code/ArticleLinkInteractionFunnel.swift",
+          "line": 27,
+          "code": "let event = Event(action: .navigate, pageID: pageID, wikiID: project.notificationsApiWikiIdentifier, source: source?.rawValue)",
+          "details": "组装包含action(navigate)、pageID、wikiID和source的事件数据"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "logArticleView",
+          "file": "Wikipedia/Code/ArticleLinkInteractionFunnel.swift",
+          "line": 32,
+          "code": "EventPlatformClient.shared.submit(stream: .articleLinkInteraction, event: event)",
+          "details": "事件通过EventPlatformClient提交到ios.article_link_interaction流，最终发送到https://intake-analytics.wikimedia.org/v1/events"
+        }
+      ]
+    },
+    {
+      "id": "ARTICLE_NAVIGATION_ANALYTICS",
+      "data_type": "导航事件（action类型）",
+      "description": "用户操作文章工具栏（目录、语言切换、保存、分享、外观、搜索）时发送导航分析事件",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "logTappedSaved",
+          "file": "Wikipedia/Code/NavigationEventsFunnel.swift",
+          "line": 63,
+          "code": "@objc func logTappedSaved() { logEvent(action: .saved) }",
+          "details": "用户点击保存按钮时触发"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "logEvent",
+          "file": "Wikipedia/Code/NavigationEventsFunnel.swift",
+          "line": 50,
+          "code": "func logEvent(action: NavigationAction) {\n    let event = Event(action: action)\n    EventPlatformClient.shared.submit(stream: .navigation, event: event)",
+          "details": "导航事件通过EventPlatformClient提交到ios.navigation_events流"
+        }
+      ]
+    }
+  ]
+}

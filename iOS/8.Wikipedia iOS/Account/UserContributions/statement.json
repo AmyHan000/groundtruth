@@ -1,0 +1,37 @@
+[
+  {
+    "business_function": "用户贡献查看",
+    "business_scenario": "获取用户编辑贡献历史，用户名作为查询参数发送，最终用户名和查询参数通过GET请求发送到Wikipedia MediaWiki API",
+    "data_types_info": "用户名（查询参数）(敏感)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "用户贡献查看",
+    "business_scenario": "获取用户编辑次数，用户名和编辑属性作为查询参数，最终用户名和查询参数通过GET请求发送到Wikipedia MediaWiki API",
+    "data_types_info": "用户名（查询参数）(敏感)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "用户贡献查看",
+    "business_scenario": "通过query+globaluserinfo API获取用户的全局编辑统计，最终API查询发送到Wikipedia MediaWiki API，返回全局用户信息和编辑次数",
+    "data_types_info": "全局用户ID（URL路径参数）(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "用户贡献查看",
+    "business_scenario": "全局用户ID嵌入到Wikimedia Metrics REST API URL路径中，最终GET请求发送到wikimedia.org Metrics API，URL中包含用户ID",
+    "data_types_info": "全局用户ID（URL路径中直接嵌入）(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "用户贡献查看",
+    "business_scenario": "用户ID（带#前缀）嵌入到REST API URL路径中，语言代码作为查询参数发送，最终GET请求发送到Wikipedia Growth Experiments REST API，URL中包含用户ID",
+    "data_types_info": "用户ID（URL路径参数）和语言代码（查询参数）(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  }
+]

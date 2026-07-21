@@ -1,0 +1,143 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "OFFLINE_SAVE_ARTICLE_CACHE",
+      "data_type": "文章离线缓存数据（HTML内容、媒体列表、图片、CSS、JS）",
+      "description": "用户保存文章供离线阅读时，文章HTML、媒体资源、CSS和JS文件被下载并缓存到本地文件系统和Core Data",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "add",
+          "file": "WMF Framework/ArticleCacheDBWriter.swift",
+          "line": 43,
+          "code": "func add(url: URL, groupKey: CacheController.ItemKey, individualCompletion: @escaping CacheController.IndividualCompletion, groupCompletion: @escaping CacheController.GroupCompletion)",
+          "details": "触发文章离线缓存，传入文章URL和分组键"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "add",
+          "file": "WMF Framework/ArticleCacheDBWriter.swift",
+          "line": 60,
+          "code": "mobileHTMLRequest = try self.articleFetcher.mobileHTMLRequest(articleURL: url)\nmobileHTMLMediaListRequest = try self.articleFetcher.mobileHTMLMediaListRequest(articleURL: url)",
+          "details": "构建文章HTML和媒体列表请求"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "add",
+          "file": "WMF Framework/CacheFileWriter.swift",
+          "line": 44,
+          "code": "let task = fetcher.dataForURLRequest(urlRequest) { [weak self] (response) in\n    ...\n    self.fetcher.cacheResponse(httpUrlResponse: httpUrlResponse, content: .data(result.data), urlRequest: urlRequest, success: {",
+          "details": "从Wikimedia Page Content Service下载文章HTML、图片、CSS和JS文件"
+        },
+        {
+          "step": "Storage",
+          "function": "cacheResponse",
+          "file": "WMF Framework/CacheFileWriter.swift",
+          "line": 72,
+          "code": "self.fetcher.cacheResponse(httpUrlResponse: httpUrlResponse, content: .data(result.data), urlRequest: urlRequest, success: {",
+          "details": "下载的内容通过cacheResponse存储到Permanent Cache文件系统目录"
+        },
+        {
+          "step": "Storage",
+          "function": "markDownloaded",
+          "file": "WMF Framework/ArticleCacheDBWriter.swift",
+          "line": 119,
+          "code": "guard let cacheItem = CacheDBWriterHelper.cacheItem(with: itemKey, variant: nil, in: self.context) else { ... }\ncacheItem.isDownloaded = true",
+          "details": "在Cache Core Data中标记项目为已下载，包含项目键、变体信息和HTTP响应头"
+        }
+      ]
+    },
+    {
+      "id": "OFFLINE_SAVE_IMAGE_CACHE",
+      "data_type": "文章图片数据（从图片URL下载）",
+      "description": "文章中包含的图片被下载并同时缓存在文件系统和内存NSCache中",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "fetchData",
+          "file": "WMF Framework/ImageCacheController.swift",
+          "line": 82,
+          "code": "let task = self.imageFetcher.dataForURL(schemedURL, persistType: .image, headers: acceptAnyContentType) { ... }",
+          "details": "从图片URL下载图片数据"
+        },
+        {
+          "step": "Storage",
+          "function": "init",
+          "file": "WMF Framework/ImageCacheController.swift",
+          "line": 40,
+          "code": "memoryCache = NSCache<NSString, Image>()\nmemoryCache.totalCostLimit = 10000000",
+          "details": "图片同时存储在内存缓存（上限1000万像素）和文件系统Permanent Cache目录中"
+        }
+      ]
+    },
+    {
+      "id": "OFFLINE_SAVE_CORE_DATA_METADATA",
+      "data_type": "缓存元数据（项目键、下载状态、变体信息、URL、HTTP头）",
+      "description": "缓存的每个资源在Cache Core Data中存储元数据，记录下载状态和HTTP响应信息",
+      "flow_steps": [
+        {
+          "step": "Storage",
+          "function": "markDownloaded",
+          "file": "WMF Framework/ArticleCacheDBWriter.swift",
+          "line": 126,
+          "code": "let varyHeaderValue = response?.allHeaderFields[HTTPURLResponse.varyHeaderKey] as? String ?? nil\nlet variesOnLanguage = varyHeaderValue?.contains(HTTPURLResponse.acceptLanguageHeaderValue) ?? false\nif variesOnLanguage {\n    cacheItem.variant = variant\n}",
+          "details": "存储缓存项目的语言变体信息和HTTP Vary响应头到Cache Core Data"
+        },
+        {
+          "step": "Storage",
+          "function": "addGroup",
+          "file": "WMF Framework/CacheController.swift",
+          "line": "-",
+          "code": "// Creates CacheGroup in Core Data with groupKey, date, and associated CacheItems",
+          "details": "CacheGroup和CacheItem实体持久化到Cache.sqlite数据库中"
+        }
+      ]
+    },
+    {
+      "id": "OFFLINE_SAVE_RETRY_MECHANISM",
+      "data_type": "下载失败状态（错误类型、重试次数、重试日期）",
+      "description": "离线保存失败时记录错误状态到WMFArticle Core Data实体，用于后续重试",
+      "flow_steps": [
+        {
+          "step": "Data Processing",
+          "function": "handleFailure",
+          "file": "Wikipedia/Code/SavedArticlesFetcher.swift",
+          "line": 285,
+          "code": "article.error = .apiFailed\narticle.downloadAttemptCount = newAttemptCount\narticle.downloadRetryDate = Date(timeIntervalSinceNow: TimeInterval(integerLiteral: secondsFromNowToAttempt))",
+          "details": "下载失败时记录错误类型、递增重试次数并设置下次重试日期到WMFArticle Core Data实体"
+        },
+        {
+          "step": "Storage",
+          "function": "handleFailure",
+          "file": "Wikipedia/Code/SavedArticlesFetcher.swift",
+          "line": 287,
+          "code": "article.downloadRetryDate = Date(timeIntervalSinceNow: TimeInterval(integerLiteral: secondsFromNowToAttempt))",
+          "details": "重试日期存储到WMFArticle实体，用于后续自动重试下载"
+        }
+      ]
+    },
+    {
+      "id": "OFFLINE_SAVE_SPOTLIGHT_INDEX",
+      "data_type": "文章元数据（URL、标题等）写入iOS Spotlight索引",
+      "description": "文章成功离线保存后，添加到iOS系统Spotlight搜索索引，允许用户通过系统搜索找到文章",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "didFetchArticle",
+          "file": "Wikipedia/Code/SavedArticlesFetcher.swift",
+          "line": 273,
+          "code": "func didFetchArticle(with managedObjectID: NSManagedObjectID) {\n    operateOnArticle(with: managedObjectID) { (article) in\n        article.isDownloaded = true",
+          "details": "文章缓存成功后设置isDownloaded为true"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "didFetchArticle",
+          "file": "Wikipedia/Code/SavedArticlesFetcher.swift",
+          "line": 215,
+          "code": "self.spotlightManager.addToIndex(url: articleURL as NSURL)",
+          "details": "文章URL被添加到iOS Core Spotlight索引，允许通过系统搜索访问"
+        }
+      ]
+    }
+  ]
+}

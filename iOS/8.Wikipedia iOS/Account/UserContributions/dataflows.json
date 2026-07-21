@@ -1,0 +1,119 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "USER_CONTRIBUTIONS_FETCH",
+      "data_type": "用户名（查询参数）",
+      "description": "获取用户的编辑贡献历史时，用户名通过API请求发送到MediaWiki服务器",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "fetchRecentEdits",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/UserContributionsDataController.swift",
+          "line": 10,
+          "code": "let parameters: [String: Any] = [\n    \"action\": \"query\",\n    \"list\": \"usercontribs\",\n    \"ucuser\": username,\n    \"uclimit\": \"500\",\n    \"ucprop\": \"ids|title|timestamp\"\n]",
+          "details": "获取用户编辑贡献历史，用户名作为查询参数发送"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "fetchRecentEdits",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/UserContributionsDataController.swift",
+          "line": 27,
+          "code": "// service.performDecodableGET with parameters sent to Wikipedia API",
+          "details": "用户名和查询参数通过GET请求发送到Wikipedia MediaWiki API"
+        }
+      ]
+    },
+    {
+      "id": "USER_CONTRIBUTIONS_COUNT",
+      "data_type": "用户名（查询参数）",
+      "description": "获取用户的编辑次数时，用户名通过API请求发送到MediaWiki服务器",
+      "flow_steps": [
+        {
+          "step": "Data Assembly",
+          "function": "fetchUserContributionsCount",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/UserContributionsDataController.swift",
+          "line": 80,
+          "code": "let parameters: [String: Any] = [\n    \"action\": \"query\",\n    \"list\": \"usercontribs\",\n    \"ucuser\": username,\n    \"uclimit\": \"500\",\n    \"ucprop\": \"ids|title|timestamp|tags|flags\"\n]",
+          "details": "获取用户编辑次数，用户名和编辑属性作为查询参数"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "fetchUserContributionsCount",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/UserContributionsDataController.swift",
+          "line": 134,
+          "code": "// service.performDecodableGET with parameters sent to Wikipedia API",
+          "details": "用户名和查询参数通过GET请求发送到Wikipedia MediaWiki API"
+        }
+      ]
+    },
+    {
+      "id": "GLOBAL_USER_INFO",
+      "data_type": "全局用户ID（URL路径参数）",
+      "description": "获取全局用户信息时，通过MediaWiki API查询用户的全局编辑次数",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "fetchGlobalUserInfo",
+          "file": "WMFData/Sources/WMFData/Data Controllers/GlobalUserInfo/WMFGlobalUserInfoDataController.swift",
+          "line": 11,
+          "code": "let parameters: [String: Any] = [\n    \"action\": \"query\",\n    \"meta\": \"globaluserinfo\",\n    \"guiprop\": \"editcount\",\n    \"format\": \"json\"\n]",
+          "details": "通过query+globaluserinfo API获取用户的全局编辑统计"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "fetchGlobalUserInfo",
+          "file": "WMFData/Sources/WMFData/Data Controllers/GlobalUserInfo/WMFGlobalUserInfoDataController.swift",
+          "line": 47,
+          "code": "// service.performDecodableGET sent to Wikipedia MediaWiki API",
+          "details": "API查询发送到Wikipedia MediaWiki API，返回全局用户信息和编辑次数"
+        }
+      ]
+    },
+    {
+      "id": "GLOBAL_EDIT_COUNT_METRICS",
+      "data_type": "全局用户ID（URL路径中直接嵌入）",
+      "description": "通过Wikimedia Metrics API获取用户的全局编辑统计，用户ID直接嵌入在API URL路径中",
+      "flow_steps": [
+        {
+          "step": "Data Assembly",
+          "function": "fetchEditCount",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/WMFGlobalEditCountDataController.swift",
+          "line": 27,
+          "code": "guard let baseURL = URL.metricsAPIURL() else { ... }\nlet finalURL = baseURL.appending(path: \"edits/v3/per_editor/\\(globalUserID)/all_page_types/monthly/\\(startDateString)/\\(endDateString)\")",
+          "details": "全局用户ID嵌入到Wikimedia Metrics REST API URL路径中"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "fetchEditCount",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/WMFGlobalEditCountDataController.swift",
+          "line": 55,
+          "code": "// service.performDecodableGET to https://wikimedia.org/api/rest_v1/metrics/edits/v3/per_editor/{globalUserID}/...",
+          "details": "GET请求发送到wikimedia.org Metrics API，URL中包含用户ID"
+        }
+      ]
+    },
+    {
+      "id": "USER_IMPACT_DATA",
+      "data_type": "用户ID（URL路径参数）和语言代码（查询参数）",
+      "description": "通过Growth Experiments REST API获取用户影响数据（包含页面浏览量、编辑次数、感谢次数等），用户ID嵌入在URL路径中",
+      "flow_steps": [
+        {
+          "step": "Data Assembly",
+          "function": "fetch",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/WMFUserImpactDataController.swift",
+          "line": 27,
+          "code": "let prefixedUserID = \"#\" + String(userID)\nguard let baseUrl = URL.mediaWikiRestAPIURL(project: project, additionalPathComponents: [\"growthexperiments\", \"v0\", \"user-impact\", prefixedUserID])\nurlComponents?.queryItems = [URLQueryItem(name: \"lang\", value: language)]",
+          "details": "用户ID（带#前缀）嵌入到REST API URL路径中，语言代码作为查询参数发送"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "fetch",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/WMFUserImpactDataController.swift",
+          "line": 149,
+          "code": "// Request to https://{lang}.wikipedia.org/w/rest.php/growthexperiments/v0/user-impact/#{userID}?lang={language}",
+          "details": "GET请求发送到Wikipedia Growth Experiments REST API，URL中包含用户ID"
+        }
+      ]
+    }
+  ]
+}

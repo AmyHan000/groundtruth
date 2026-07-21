@@ -1,0 +1,104 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "TEMP_ACCOUNT_STATUS_CHECK",
+      "data_type": "Wiki域名/语言代码",
+      "description": "检查指定Wiki是否启用了临时账户功能时，发送API查询到MediaWiki服务器",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "checkTempAccountStatus",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Temp Accounts/WMFTempAccountDataController.swift",
+          "line": 48,
+          "code": "let parameters: [String: Any] = [\n    \"action\": \"query\",\n    \"format\": \"json\",\n    \"meta\": \"siteinfo\",\n    \"formatversion\": \"2\",\n    \"siprop\": \"autocreatetempuser\"\n]",
+          "details": "通过MediaWiki API查询siteinfo中是否启用了临时账户功能"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "checkTempAccountStatus",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Temp Accounts/WMFTempAccountDataController.swift",
+          "line": 75,
+          "code": "let request = WMFMediaWikiServiceRequest(url:url, method: .GET, backend: .mediaWiki, parameters: parameters)\nmediaWikiService.performDecodableGET(request: request) { (result: Result<TempStatusResponse, Error>) in",
+          "details": "API查询发送到Wikipedia MediaWiki API，检查autocreatetempuser属性"
+        }
+      ]
+    },
+    {
+      "id": "TEMP_ACCOUNT_USERNAME_READ",
+      "data_type": "临时账户用户名（从centralauth_User Cookie读取）",
+      "description": "读取临时账户的用户名，该用户名存储在HTTP Cookie centralauth_User中",
+      "flow_steps": [
+        {
+          "step": "Data Processing",
+          "function": "authStateTemporaryUsername",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 66,
+          "code": "@objc public var authStateTemporaryUsername: String? {\n    if authStateIsTemporary {\n        return session.getCentralAuthUserCookie()\n    } else {\n        return nil\n    }\n}",
+          "details": "从HTTP Cookie存储中读取centralauth_User Cookie值作为临时账户用户名"
+        },
+        {
+          "step": "Data Display",
+          "function": "showUserTalkPage",
+          "file": "Wikipedia/Code/Temp Accounts/TempAccountsSettingsViewController.swift",
+          "line": 80,
+          "code": "let username = dataStore.authenticationManager.authStateTemporaryUsername\nif let siteURL = dataStore.primarySiteURL, let username, let navigationController {\n    let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)",
+          "details": "临时账户用户名用于导航到用户的讨论页面，用户名会发送到Wikipedia服务器以加载讨论页"
+        }
+      ]
+    },
+    {
+      "id": "TEMP_ACCOUNT_SESSION_END",
+      "data_type": "临时账户登出触发（清除Keychain凭据、Cookie和缓存）",
+      "description": "用户结束临时账户会话时，调用登出流程清除所有认证状态",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "endTempAccountSession",
+          "file": "Wikipedia/Code/Temp Accounts/TempAccountsSettingsViewController.swift",
+          "line": 202,
+          "code": "private func endTempAccountSession() {\n    dataStore.authenticationManager.logout(initiatedBy: .user) { [weak self] in\n        self?.dismiss(animated: true, completion: nil)",
+          "details": "用户点击结束临时账户会话时触发登出"
+        },
+        {
+          "step": "Data Deletion",
+          "function": "logout",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 536,
+          "code": "private func reset() {\n    KeychainCredentialsManager.shared.username = nil\n    KeychainCredentialsManager.shared.password = nil\n    currentUserCache = [:]\n    session.removeAllCookies()",
+          "details": "登出流程清除Keychain凭据、内存缓存和所有HTTP Cookie"
+        },
+        {
+          "step": "Data Deletion",
+          "function": "removeAllCookies",
+          "file": "Wikipedia/Code/Session.swift",
+          "line": 125,
+          "code": "public func removeAllCookies() {\n    guard let storage = defaultURLSession.configuration.httpCookieStorage else { return }\n    storage.cookies?.forEach { cookie in\n        storage.deleteCookie(cookie)\n    }\n}",
+          "details": "从HTTPCookieStorage中删除所有Cookie，包括centralauth_User"
+        }
+      ]
+    },
+    {
+      "id": "TEMP_ACCOUNT_STATE_DETECTION",
+      "data_type": "认证状态检测（Cookie存在性 + Keychain为空）",
+      "description": "检测当前用户是否为临时账户：存在centralauth_User Cookie但Keychain中无用户名密码",
+      "flow_steps": [
+        {
+          "step": "Data Processing",
+          "function": "authStateIsTemporary",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 147,
+          "code": "@objc public var authStateIsTemporary: Bool {\n    return session.hasCentralAuthUserCookie() && KeychainCredentialsManager.shared.username == nil && KeychainCredentialsManager.shared.password == nil\n}",
+          "details": "通过检查centralauth_User Cookie存在且Keychain中无凭据来判断是否为临时账户"
+        },
+        {
+          "step": "Data Processing",
+          "function": "hasCentralAuthUserCookie",
+          "file": "Wikipedia/Code/Session.swift",
+          "line": 90,
+          "code": "public func hasCentralAuthUserCookie() -> Bool {\n    guard let storage = defaultURLSession.configuration.httpCookieStorage else { return false }\n    guard let cookie = storage.cookieWithName(\"centralauth_User\", for: Configuration.current.centralAuthCookieSourceDomain), !cookie.value.isEmpty else { return false }\n    return true\n}",
+          "details": "从HTTPCookieStorage读取centralauth_User Cookie判断是否存在"
+        }
+      ]
+    }
+  ]
+}

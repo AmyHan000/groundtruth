@@ -1,0 +1,16 @@
+[
+  {
+    "business_function": "附近文章",
+    "business_scenario": "User opens the Places tab or performs a nearby article search. The app searches for Wikipedia articl，最终Nearby article results are displayed on a map and in a list, showing the distance from the user's",
+    "data_types_info": "Location Data (CLLocation: latitude(敏感)、longitude for nearby article search)(敏感)、User Location Authorization Status (CLAuthorizationStatus)(敏感)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "PlaceSearchService.performSearch (Trigger：User opens the Places tab or performs a nearby art); LocationManager.startMonitoringLocation (Sensitive Operation：LocationManager requests the device's curren"
+  },
+  {
+    "business_function": "附近文章",
+    "business_scenario": "When location monitoring is requested but authorization status is .notDetermined, LocationManager tr，最终If location permission is denied, a banner cell is shown in the Places tab inviting the user to e",
+    "data_types_info": "Location Authorization Status (CLAuthorizationStatus: notDetermined(敏感)、restricted(一般)、denied(一般)、authorizedAlways(一般)、authorizedWhenInUse)(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "LocationManager Authorize (Trigger：When location monitoring is requested but authoriz); CLLocationManager.requestWhenInUseAuthorization (iOS System) (Sensitive Operation：The user is prompted to grant "
+  }
+]

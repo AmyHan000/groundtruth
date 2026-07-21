@@ -1,0 +1,166 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "SEARCH_TERM_SUBMISSION",
+      "data_type": "搜索词文本和站点URL",
+      "description": "用户输入搜索词后，搜索词通过MediaWiki API GET请求发送到服务器进行前缀搜索和全文搜索",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "updateSearchResults",
+          "file": "Wikipedia/Code/SearchResultsViewController.swift",
+          "line": 507,
+          "code": "// updateSearchResults(for:) triggers search(for:suggested:) -> fetcher.fetchArticles(forSearchTerm:siteURL:...)",
+          "details": "用户在搜索栏输入时触发搜索"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "params",
+          "file": "Wikipedia/Code/WMFSearchFetcher.m",
+          "line": 48,
+          "code": "params = @{\n    @\"action\": @\"query\",\n    @\"generator\": @\"prefixsearch\",\n    @\"gpssearch\": searchTerm,\n    @\"gpslimit\": @(resultLimit),\n    @\"format\": @\"json\",\n    // ...\n    @\"list\": @\"search\",\n    @\"srsearch\": searchTerm,\n}",
+          "details": "搜索词组装到MediaWiki API查询参数中（前缀搜索和全文搜索）"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "fetchArticles",
+          "file": "Wikipedia/Code/WMFSearchFetcher.m",
+          "line": 107,
+          "code": "[self performMediaWikiAPIGETForURL:url withQueryParameters:params ...]",
+          "details": "搜索词通过GET请求发送到Wikipedia MediaWiki API (w/api.php)"
+        }
+      ]
+    },
+    {
+      "id": "SEARCH_HISTORY_LOCAL_SAVE",
+      "data_type": "搜索词文本和搜索URL",
+      "description": "用户点击搜索结果的搜索词和URL被保存到本地搜索历史列表中",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "saveSearchTerm",
+          "file": "Wikipedia/Code/SearchResultsViewController.swift",
+          "line": 375,
+          "code": "let entry = MWKRecentSearchEntry(url: url, searchTerm: term)\ndataStore.recentSearchList.addEntry(entry)\ndataStore.recentSearchList.save()",
+          "details": "用户点击搜索结果时，搜索词和URL被添加到本地搜索历史"
+        },
+        {
+          "step": "Storage",
+          "function": "performSaveWithCompletion",
+          "file": "Wikipedia/Code/MWKRecentSearchList.m",
+          "line": 56,
+          "code": "- (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler {\n    NSError *error;\n    if ([self.dataStore saveRecentSearchList:self error:&error]) {",
+          "details": "搜索历史和条目被持久化保存到文件系统"
+        },
+        {
+          "step": "Data Processing",
+          "function": "dataExport",
+          "file": "Wikipedia/Code/MWKRecentSearchList.m",
+          "line": 69,
+          "code": "- (NSArray *)dataExport {\n    return [self.entries wmf_map:^id(MWKRecentSearchEntry *obj) {\n        return [obj dataExport];\n    }];\n}",
+          "details": "搜索历史条目包含URL绝对字符串和搜索词文本"
+        }
+      ]
+    },
+    {
+      "id": "SEARCH_EVENT_ANALYTICS",
+      "data_type": "搜索分析事件（action、source、position、number_of_results、time_to_display_results、session_token、wiki_id）",
+      "description": "每次搜索操作（开始、结果显示、点击、取消、语言切换）都发送分析事件到EventPlatformClient",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "logSearchStart",
+          "file": "Wikipedia/Code/SearchFunnel.swift",
+          "line": 65,
+          "code": "func logSearchStart(source: String) {\n    _searchSessionToken = nil\n    logEvent(action: .start, source: source, wikiId: searchLanguage)",
+          "details": "用户开始搜索时触发，重置搜索会话令牌"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "logEvent",
+          "file": "Wikipedia/Code/SearchFunnel.swift",
+          "line": 44,
+          "code": "let event = Event(action: action, action_data: actionDataString, source: source, position: position, search_type: searchType?.rawValue, number_of_results: numberOfResults, time_to_display_results: timeToDisplay, session_token: searchSessionToken, wiki_id: wikiId)",
+          "details": "组装搜索分析事件数据，包含随机UUID会话令牌和搜索语言代码"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "logEvent",
+          "file": "Wikipedia/Code/SearchFunnel.swift",
+          "line": 62,
+          "code": "EventPlatformClient.shared.submit(stream: .search, event: event)",
+          "details": "搜索事件通过EventPlatformClient提交到ios.search流，发送到https://intake-analytics.wikimedia.org/v1/events"
+        }
+      ]
+    },
+    {
+      "id": "SEARCH_LANGUAGE_PREFERENCE",
+      "data_type": "搜索语言代码",
+      "description": "用户选择的搜索语言偏好存储在UserDefaults中，并用于搜索和搜索分析事件",
+      "flow_steps": [
+        {
+          "step": "Storage",
+          "function": "wmf_setCurrentSearchContentLanguageCode",
+          "file": "Wikipedia/Code/SearchLanguagesBarViewController.swift",
+          "line": 159,
+          "code": "UserDefaults.standard.wmf_setCurrentSearchContentLanguageCode(newValue)",
+          "details": "用户选择的搜索语言代码持久化到UserDefaults"
+        },
+        {
+          "step": "Data Processing",
+          "function": "searchLanguage",
+          "file": "Wikipedia/Code/SearchFunnel.swift",
+          "line": 38,
+          "code": "var searchLanguage: String? {\n    let userDefaults = UserDefaults.standard\n    let lang = userDefaults.wmf_currentSearchContentLanguageCode()\n    return lang\n}",
+          "details": "从UserDefaults读取搜索语言代码，用于搜索分析事件的wiki_id字段"
+        }
+      ]
+    },
+    {
+      "id": "SEARCH_USER_ACTIVITY_HANDOFF",
+      "data_type": "搜索词和站点URL（通过iOS Handoff/Spotlight共享）",
+      "description": "搜索结果通过iOS NSUserActivity暴露给系统Handoff和Spotlight搜索",
+      "flow_steps": [
+        {
+          "step": "Data Processing",
+          "function": "updateSearchResults",
+          "file": "Wikipedia/Code/SearchResultsViewController.swift",
+          "line": 316,
+          "code": "NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))",
+          "details": "搜索词和站点URL通过NSUserActivity暴露给iOS系统"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "wmf_makeActive",
+          "file": "Wikipedia/Code/NSUserActivity+Extensions.swift",
+          "line": "-",
+          "code": "// Activity advertised to system for Handoff between devices",
+          "details": "搜索词可以通过iCloud Handoff在不同设备间共享"
+        }
+      ]
+    },
+    {
+      "id": "PLACE_SEARCH_HISTORY",
+      "data_type": "Place搜索历史（类型、过滤器、排序方式、搜索词、区域坐标、站点URL）",
+      "description": "用户在地图/地点页面执行的搜索被保存到Core Data中，最多保留15条记录",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "saveSearch",
+          "file": "Wikipedia/Code/PlacesViewController.swift",
+          "line": 1303,
+          "code": "keyValue.key = search.key\nkeyValue.group = currentSearchHistoryGroup()\nkeyValue.date = Date()\nkeyValue.value = search.dictionaryValue as NSCoding",
+          "details": "用户执行地点搜索后，搜索参数（包含区域坐标、搜索词等）被保存到Core Data"
+        },
+        {
+          "step": "Data Deletion",
+          "function": "trimSearchHistory",
+          "file": "Wikipedia/Code/PlacesViewController.swift",
+          "line": 2006,
+          "code": "if count > searchHistoryCountLimit { ... moc.delete(result) }",
+          "details": "搜索历史超过15条时自动删除最早的记录"
+        }
+      ]
+    }
+  ]
+}

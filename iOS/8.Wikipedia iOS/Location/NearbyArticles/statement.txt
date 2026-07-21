@@ -1,0 +1,12 @@
+1 我们如何收集和使用您的个人信息：
+
+[1] 附近文章，User opens the Places tab or performs a nearby article search. The app searches for Wikipedia articl，Nearby article results are displayed on a map and in a list, showing the distance from the user's。为提供此功能，我们会收集您的**Location Data (CLLocation: latitude**(敏感)、**longitude for nearby article search)**(敏感)、**User Location Authorization Status (CLAuthorizationStatus)**(敏感)。采集频率：用户触发时单次采集。处理方式说明：上传云端 (通过HTTPS加密传输)。数据传输使用HTTPS协议加密。
+
+[2] 附近文章，When location monitoring is requested but authorization status is .notDetermined, LocationManager tr，If location permission is denied, a banner cell is shown in the Places tab inviting the user to e。为提供此功能，我们会收集您的**Location Authorization Status (CLAuthorizationStatus: notDetermined**(敏感)、restricted(一般)、denied(一般)、authorizedAlways(一般)、authorizedWhenInUse)(一般)。采集频率：用户触发时单次采集。处理方式说明：本地处理/本地加密存储。数据仅本地处理，使用硬件加密存储。
+
+2 设备权限调用：
+
+- PlaceSearchService.performSearch (Trigger：User opens the Places tab or performs a nearby art)
+- LocationManager.startMonitoringLocation (Sensitive Operation：LocationManager requests the device's curren
+- LocationManager Authorize (Trigger：When location monitoring is requested but authoriz)
+- CLLocationManager.requestWhenInUseAuthorization (iOS System) (Sensitive Operation：The user is prompted to grant

@@ -1,0 +1,44 @@
+[
+  {
+    "business_function": "搜索历史",
+    "business_scenario": "用户在搜索栏输入时触发搜索，最终搜索词通过GET请求发送到Wikipedia MediaWiki API (w/api.php)",
+    "data_types_info": "搜索词文本和站点URL(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "搜索历史",
+    "business_scenario": "用户点击搜索结果时，搜索词和URL被添加到本地搜索历史，最终搜索历史条目包含URL绝对字符串和搜索词文本",
+    "data_types_info": "搜索词文本和搜索URL(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "搜索历史",
+    "business_scenario": "用户开始搜索时触发，重置搜索会话令牌，最终搜索事件通过EventPlatformClient提交到ios.search流，发送到https://intake-analytics.wikimedia.org/v1/events",
+    "data_types_info": "搜索分析事件（action、source、position、number_of_results、time_to_display_results、session_(敏感)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "搜索历史",
+    "business_scenario": "用户选择的搜索语言代码持久化到UserDefaults，最终从UserDefaults读取搜索语言代码，用于搜索分析事件的wiki_id字段",
+    "data_types_info": "搜索语言代码(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "搜索历史",
+    "business_scenario": "搜索词和站点URL通过NSUserActivity暴露给iOS系统，最终搜索词可以通过iCloud Handoff在不同设备间共享",
+    "data_types_info": "搜索词和站点URL（通过iOS Handoff/Spotlight共享）(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "搜索历史",
+    "business_scenario": "用户执行地点搜索后，搜索参数（包含区域坐标、搜索词等）被保存到Core Data，最终搜索历史超过15条时自动删除最早的记录",
+    "data_types_info": "Place搜索历史（类型、过滤器、排序方式、搜索词、区域坐标、站点URL）(敏感)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  }
+]
