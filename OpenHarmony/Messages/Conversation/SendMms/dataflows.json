@@ -1,0 +1,67 @@
+[
+  {
+    "id": 7,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 235,
+        "code": "async sendMmsMessage(context: Context, params: Record<string, Array<string> | string | number | boolean>,"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 239,
+        "code": "let to: Array<string> = params.to as Array<string>;"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 240,
+        "code": "let subject: string = params.subject as string;"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 242,
+        "code": "let attachment ="
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 244,
+        "code": "params.content as string, mmsSource);"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 264,
+        "code": "let isEncode = await this.wrapperStepForEncodeMms(context, mmsType, attachment, reportParams);"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 274,
+        "code": "let mmsParams = await this.buildMmsparams(context, slotId, mmsCfg);"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 278,
+        "code": "this.sendMmsMethod(context as myCommon.UIAbilityContext, mmsParams, callback, reportParams);"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 298,
+        "code": "sms.sendMms(context, mmsParams, async (err: BusinessError) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 324,
+        "code": "async buildMmsparams(context: Context, slotId: number, mmsCfg: sms.MmsConfig): Promise<sms.MmsParams> {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 329,
+        "code": "mmsc: mmsc,"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 330,
+        "code": "data: path,"
+      }
+    ]
+  }
+]

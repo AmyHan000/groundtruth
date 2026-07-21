@@ -1,0 +1,32 @@
+[
+  {
+    "id": 28,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/views/receive/receiveController.ets",
+        "line": 147,
+        "code": "requestItem(context: Context) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/receive/receiveController.ets",
+        "line": 151,
+        "code": "this.queryContacts(context);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/receive/receiveController.ets",
+        "line": 152,
+        "code": "} else if (count < this.totalMessage && this.contacts.length > (this.page - 1) * this.limit) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/receive/receiveController.ets",
+        "line": 154,
+        "code": "this.page++;"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/receive/receiveController.ets",
+        "line": 155,
+        "code": "this.queryContacts(context);"
+      }
+    ]
+  }
+]

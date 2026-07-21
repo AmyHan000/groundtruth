@@ -1,0 +1,32 @@
+[
+  {
+    "id": 20,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 263,
+        "code": "async jumpToGalleryOfRCS(context: Context, callback?:() => void) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 268,
+        "code": "let photoPicker = new photoAccessHelper.PhotoViewPicker();"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 269,
+        "code": "this.photoSelectResOfRCS = await photoPicker.select(photoSelectOptions)"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 270,
+        "code": "if (this.mmAreaController.hasNeedReplaceVcard() && this.photoSelectResOfRCS.photoUris.length > 0 && callback) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 273,
+        "code": "this.handlePhotoSelectResultOfRCS(context)"
+      }
+    ]
+  }
+]

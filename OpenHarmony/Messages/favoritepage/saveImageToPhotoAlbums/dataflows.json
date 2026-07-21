@@ -1,0 +1,47 @@
+[
+  {
+    "id": 23,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1246,
+        "code": "async saveImageToPhotoAlbums(sandBoxPath: string) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1250,
+        "code": "let phAccessHelper = photoAccessHelper.default.getPhotoAccessHelper(context);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1253,
+        "code": "let fileSandbox = await fs.open(sandBoxPath, fs.OpenMode.READ_ONLY);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1254,
+        "code": "let size = fs.statSync(fileSandbox.fd).size;"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1255,
+        "code": "let fileSandboxBuffer = new ArrayBuffer(size);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1258,
+        "code": "let uri = await phAccessHelper.createAsset(photoAccessHelper.default.PhotoType.IMAGE, 'jpg');"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1259,
+        "code": "let file = await fs.open(uri, fs.OpenMode.READ_WRITE);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1260,
+        "code": "await fs.write(file.fd, fileSandboxBuffer);"
+      }
+    ]
+  }
+]

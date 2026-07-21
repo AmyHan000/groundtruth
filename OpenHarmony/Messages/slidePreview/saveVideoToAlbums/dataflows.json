@@ -1,0 +1,47 @@
+[
+  {
+    "id": 30,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 302,
+        "code": "async saveVideoToAlbums(sandBoxPath: string, isMultiSave?: boolean): Promise<string> {"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 307,
+        "code": "let phAccessHelper = photoAccessHelper.default.getPhotoAccessHelper(context);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 310,
+        "code": "let fileSandbox = await fs.open(sandBoxPath, fs.OpenMode.READ_ONLY);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 311,
+        "code": "let size = fs.statSync(fileSandbox.fd).size;"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 312,
+        "code": "let fileSandboxBuffer = new ArrayBuffer(size);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 315,
+        "code": "let uri = await phAccessHelper.createAsset(photoAccessHelper.default.PhotoType.VIDEO, 'mp4');"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 316,
+        "code": "let fileAlbums = await fs.open(uri, fs.OpenMode.READ_WRITE);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 318,
+        "code": "await fs.write(fileAlbums.fd, fileSandboxBuffer);"
+      }
+    ]
+  }
+]

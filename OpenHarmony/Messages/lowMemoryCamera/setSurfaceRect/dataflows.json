@@ -1,0 +1,17 @@
+[
+  {
+    "id": 26,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/lowMemoryCamera/LowMemoryCameraController.ets",
+        "line": 101,
+        "code": "private setSurfaceRect() {"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/lowMemoryCamera/LowMemoryCameraController.ets",
+        "line": 118,
+        "code": "public async openCamera(context: Context) {"
+      }
+    ]
+  }
+]

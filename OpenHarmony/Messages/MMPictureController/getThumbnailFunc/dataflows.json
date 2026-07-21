@@ -1,0 +1,42 @@
+[
+  {
+    "id": 17,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 180,
+        "code": "async getThumbnailFunc(uri: string,videoUri: string, callback: Function) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 184,
+        "code": "let fetchOption: photoAccessHelper.FetchOptions = {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 189,
+        "code": "const context = (GlobalContext.getContext().getObject('mmsContext') as myCommon.UIAbilityContext);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 190,
+        "code": "let mPhotoAccessHelper = photoAccessHelper.getPhotoAccessHelper(context);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 191,
+        "code": "let fetchResult: photoAccessHelper.FetchResult<photoAccessHelper.PhotoAsset> ="
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 192,
+        "code": "await mPhotoAccessHelper.getAssets(fetchOption);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 193,
+        "code": "const asset: photoAccessHelper.PhotoAsset|undefined = await fetchResult.getFirstObject();"
+      }
+    ]
+  }
+]

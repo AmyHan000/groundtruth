@@ -1,0 +1,47 @@
+[
+  {
+    "id": 19,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 330,
+        "code": "jumpToGallery(context: Context, callback?:() => void) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 333,
+        "code": "let photoSelectOptions = new photoAccessHelper.PhotoSelectOptions();"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 334,
+        "code": "photoSelectOptions.MIMEType = photoAccessHelper.PhotoViewMIMETypes.IMAGE_VIDEO_TYPE;"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 336,
+        "code": "let photoPicker = new photoAccessHelper.PhotoViewPicker();"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 337,
+        "code": "photoPicker.select(photoSelectOptions).then(async (photoSelectResult) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 338,
+        "code": "this.photoSelectRes = photoSelectResult"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 339,
+        "code": "if (this.mmAreaController.hasNeedReplaceVcard() && this.photoSelectRes.photoUris.length > 0 && callback) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 342,
+        "code": "this.handlePhotoSelectResult(context)"
+      }
+    ]
+  }
+]

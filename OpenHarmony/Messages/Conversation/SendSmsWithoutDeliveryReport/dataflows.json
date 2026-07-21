@@ -1,0 +1,47 @@
+[
+  {
+    "id": 9,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 97,
+        "code": "async sendMsgWithoutDeliveryReports(params: LooseObject, callback: Function) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 109,
+        "code": "sms.sendShortMessage({"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 112,
+        "code": "destinationHost: params.destinationHost,"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 113,
+        "code": "content: params.content,"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 114,
+        "code": "serviceCenter: smsc,"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 115,
+        "code": "sendCallback: (err, value) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 121,
+        "code": "sendStatus = that.dealSendResult(value);"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 133,
+        "code": "callback(sendStatus);"
+      }
+    ]
+  }
+]

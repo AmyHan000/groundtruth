@@ -1,0 +1,47 @@
+[
+  {
+    "id": 16,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 99,
+        "code": "async getPicFromGallery() {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 109,
+        "code": "let mPhotoAccessHelper = photoAccessHelper.getPhotoAccessHelper(context);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 112,
+        "code": "let predicates = new dataSharePredicates.DataSharePredicates();"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 113,
+        "code": "let fetchOption: photoAccessHelper.FetchOptions = {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 118,
+        "code": "let fetchResult = await mPhotoAccessHelper.getAssets(fetchOption);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 122,
+        "code": "let display = JSON.parse(JSON.stringify(MMAttachmentAreaController.getInstance()"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 129,
+        "code": "ele.forEach((item: photoAccessHelper.PhotoAsset, index: number) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 134,
+        "code": "selected: display.length > 0 ? display.some(ele => ele.galleryPath == item.uri) : false,"
+      }
+    ]
+  }
+]

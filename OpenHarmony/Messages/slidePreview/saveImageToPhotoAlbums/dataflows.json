@@ -1,0 +1,47 @@
+[
+  {
+    "id": 29,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 268,
+        "code": "async saveImageToPhotoAlbums(sandBoxPath: string, isMultiSave?: boolean): Promise<string> {"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 273,
+        "code": "let phAccessHelper = photoAccessHelper.default.getPhotoAccessHelper(context);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 276,
+        "code": "let fileSandbox = await fs.open(sandBoxPath, fs.OpenMode.READ_ONLY);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 277,
+        "code": "let size = fs.statSync(fileSandbox.fd).size;"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 278,
+        "code": "let fileSandboxBuffer = new ArrayBuffer(size);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 281,
+        "code": "let uri = await phAccessHelper.createAsset(photoAccessHelper.default.PhotoType.IMAGE, 'jpg');"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 282,
+        "code": "let file = await fs.open(uri, fs.OpenMode.READ_WRITE);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/slidePreview/SlidePreviewController.ets",
+        "line": 283,
+        "code": "await fs.write(file.fd, fileSandboxBuffer);"
+      }
+    ]
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/service/AudioRecorderService.ets",
+        "line": 161,
+        "code": "rcsStartRecording(context: Context, callback: (ready: boolean) => void) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/AudioRecorderService.ets",
+        "line": 163,
+        "code": "this.createRecorder(() => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/AudioRecorderService.ets",
+        "line": 164,
+        "code": "this.setAudioRecorderCallback();"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/AudioRecorderService.ets",
+        "line": 165,
+        "code": "let name = commonData.STR.RECORDING_PREFIX + new Date().getTime() + rcsFormat;"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/AudioRecorderService.ets",
+        "line": 166,
+        "code": "this.fileName = name;"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/AudioRecorderService.ets",
+        "line": 167,
+        "code": "let fileObj = FileUtil.getFileUrl(context, name);"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/AudioRecorderService.ets",
+        "line": 168,
+        "code": "this.avConfig.url = fileObj?.fileFd as string;"
+      }
+    ]
+  }
+]

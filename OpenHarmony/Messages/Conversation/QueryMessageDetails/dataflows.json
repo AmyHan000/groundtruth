@@ -1,0 +1,52 @@
+[
+  {
+    "id": 6,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/service/ConversationService.ets",
+        "line": 671,
+        "code": "public queryMessageDetailAll( context: Context, actionData: LooseObject, callback: Function, rcsCount:number): void {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/ConversationService.ets",
+        "line": 672,
+        "code": "this.querySmsMmsInfoByConditionAll(context, actionData, (res1: resType) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/ConversationService.ets",
+        "line": 673,
+        "code": "this.queryMessageDetailResultAll(res1, actionData, callback, context, rcsCount);"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/ConversationService.ets",
+        "line": 737,
+        "code": "public queryMessageDetailResultAll(res1:resType, actionData: LooseObject, callback: Function,"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/ConversationService.ets",
+        "line": 742,
+        "code": "this.queryMmsInfoResponse(res1.abilityResult, (mmsResult: Array<LooseObject>) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/ConversationService.ets",
+        "line": 757,
+        "code": "smsList.push(item1);"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/ConversationService.ets",
+        "line": 761,
+        "code": "this.groupDetailMessage(context, smsList, actionData, (resultList: Array<LooseObject>) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/ConversationService.ets",
+        "line": 763,
+        "code": "result.response = resultList;"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/ConversationService.ets",
+        "line": 764,
+        "code": "callback(result);"
+      }
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "id": 15,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 497,
+        "code": "private getPhotoSelectOptionsOfEnhancedInfo() {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 498,
+        "code": "let photoSelectOptions = new photoAccessHelper.PhotoSelectOptions();"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 499,
+        "code": "photoSelectOptions.MIMEType = photoAccessHelper.PhotoViewMIMETypes.IMAGE_VIDEO_TYPE;"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 502,
+        "code": "return photoSelectOptions;"
+      }
+    ]
+  }
+]

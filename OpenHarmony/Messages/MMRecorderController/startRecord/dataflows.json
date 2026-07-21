@@ -1,0 +1,27 @@
+[
+  {
+    "id": 21,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMRecorderController.ets",
+        "line": 174,
+        "code": "startRecord(context: Context, callback?:Function) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMRecorderController.ets",
+        "line": 183,
+        "code": "this.audioRecorderService.startRecording(context, (ready: boolean) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMRecorderController.ets",
+        "line": 184,
+        "code": "this.audioReady = ready;"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMRecorderController.ets",
+        "line": 189,
+        "code": "this.startInterval();"
+      }
+    ]
+  }
+]

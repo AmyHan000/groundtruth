@@ -1,0 +1,22 @@
+[
+  {
+    "id": 5,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/chatbot/utils/ChatbotLocationUtil.ets",
+        "line": 36,
+        "code": "export async function nodeGetGeographicalPosition() {"
+      },
+      {
+        "filePath": "entry/src/main/ets/chatbot/utils/ChatbotLocationUtil.ets",
+        "line": 58,
+        "code": "await geoLocationManager.getCurrentLocation(requestInfo).then((result) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/chatbot/utils/ChatbotLocationUtil.ets",
+        "line": 67,
+        "code": "return output"
+      }
+    ]
+  }
+]

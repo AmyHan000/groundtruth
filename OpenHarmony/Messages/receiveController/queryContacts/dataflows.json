@@ -1,0 +1,32 @@
+[
+  {
+    "id": 27,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/views/receive/receiveController.ets",
+        "line": 159,
+        "code": "queryContacts(context: Context) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/receive/receiveController.ets",
+        "line": 160,
+        "code": "let actionData: Record<string, number> = {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/receive/receiveController.ets",
+        "line": 161,
+        "code": "'page': this.page,"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/receive/receiveController.ets",
+        "line": 162,
+        "code": "'limit': this.limit"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/receive/receiveController.ets",
+        "line": 167,
+        "code": "this.totalMessage = res.abilityResult;"
+      }
+    ]
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": 18,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 696,
+        "code": "async isAddImageFromCheckImageWidthAndHeight(context: Context, imageUrl: string): Promise<boolean> {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 697,
+        "code": "let phAccessHelper = photoAccessHelper.getPhotoAccessHelper(context);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 698,
+        "code": "let predicates: dataSharePredicates.DataSharePredicates = new dataSharePredicates.DataSharePredicates();"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 701,
+        "code": "let fetchOption: photoAccessHelper.FetchOptions = {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 702,
+        "code": "fetchColumns: [photoAccessHelper.PhotoKeys.WIDTH, photoAccessHelper.PhotoKeys.HEIGHT,"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 703,
+        "code": "photoAccessHelper.PhotoKeys.TITLE, photoAccessHelper.PhotoKeys.DURATION],"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 707,
+        "code": "let fetchResult: photoAccessHelper.FetchResult<photoAccessHelper.PhotoAsset> ="
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 710,
+        "code": "const asset: photoAccessHelper.PhotoAsset = await fetchResult.getFirstObject();"
+      }
+    ]
+  }
+]
