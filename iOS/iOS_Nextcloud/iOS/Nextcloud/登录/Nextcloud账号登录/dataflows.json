@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "iOSClient/Login/NCLoginProvider.swift",
+        "line": 199,
+        "code": "NextcloudKit.shared.getLoginFlowV2Poll(token: token, endpoint: endpoint, options: options) { server, loginName, appPassword, _, error in"
+      },
+      {
+        "filePath": "iOSClient/Login/NCLoginProvider.swift",
+        "line": 254,
+        "code": "await NCAccount().createAccount(viewController: viewController, urlBase: urlBase, user: loginName, password: appPassword, controller: controller)"
+      },
+      {
+        "filePath": "iOSClient/Account/NCAccount.swift",
+        "line": 26,
+        "code": "NextcloudKit.shared.appendSession(account: account,"
+      },
+      {
+        "filePath": "iOSClient/Account/NCAccount.swift",
+        "line": 57,
+        "code": "await self.database.addAccountAsync(account, urlBase: urlBase, user: user, userId: userProfile.userId, password: password)"
+      }
+    ]
+  }
+]

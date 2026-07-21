@@ -1,0 +1,28 @@
+[
+  {
+    "id": 10,
+    "data": [
+      {
+        "scene": "用户在 iOS“文件”应用或其他支持 File Provider 的应用打开 Nextcloud 文件时",
+        "purpose": "按需提供云端文件内容",
+        "source": "File Provider 项目标识和本地元数据",
+        "item": "文件标识、路径、文件内容及下载状态",
+        "frequency": "每次系统请求尚未在本地的文件时",
+        "processing": "扩展解析文件标识并启动后台 HTTPS 下载",
+        "storage": "文件保存在 File Provider 管理的本地存储，元数据保存在数据库",
+        "recipient": "iOS Files/File Provider、用户设备和 Nextcloud 服务器",
+        "thirdparty": "不向无关第三方共享；打开文件的目标应用可读取用户选择的文件",
+        "switchpath": "iOS 文件 > Nextcloud；可移除下载或注销账号"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "File Provider 系统扩展能力",
+        "scene": "用户在系统文件界面访问 Nextcloud",
+        "authorization": "由用户选择文件触发",
+        "purpose": "按需提供云端文件",
+        "impact": "系统文件界面无法打开该云端文件"
+      }
+    ]
+  }
+]

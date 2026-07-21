@@ -1,0 +1,28 @@
+[
+  {
+    "id": 7,
+    "data": [
+      {
+        "scene": "用户允许通知且 iOS 成功注册远程通知时",
+        "purpose": "接收文件活动和账号事件推送",
+        "source": "Apple Push Notification service",
+        "item": "APNs 设备令牌",
+        "frequency": "首次注册或令牌更新时",
+        "processing": "将令牌保存到应用偏好，并向已登录 Nextcloud 服务器注册推送订阅",
+        "storage": "令牌保存在本地偏好，服务器保存推送订阅",
+        "recipient": "Apple 推送服务和用户选择的 Nextcloud 服务器",
+        "thirdparty": "为通知投递向 Apple 推送基础设施披露令牌",
+        "switchpath": "系统设置 > 通知 > Nextcloud"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "通知",
+        "scene": "应用请求显示通知",
+        "authorization": "动态授权",
+        "purpose": "接收服务器事件提醒",
+        "impact": "无法显示系统推送通知，但手动打开应用仍可同步"
+      }
+    ]
+  }
+]

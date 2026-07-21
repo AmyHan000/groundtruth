@@ -1,0 +1,27 @@
+[
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "iOSClient/Networking/NCNetworking+Download.swift",
+        "line": 15,
+        "code": "func downloadFile(metadata: tableMetadata,"
+      },
+      {
+        "filePath": "iOSClient/Networking/NCNetworking+Download.swift",
+        "line": 25,
+        "code": "let fileNameLocalPath = utilityFileSystem.getDirectoryProviderStorageOcId(metadata.ocId, fileName: metadata.fileName, userId: metadata.userId, urlBase: metadata.urlBase)"
+      },
+      {
+        "filePath": "iOSClient/Networking/NCNetworking+Download.swift",
+        "line": 33,
+        "code": "let results = await NextcloudKit.shared.downloadAsync(serverUrlFileName: metadata.serverUrlFileName,"
+      },
+      {
+        "filePath": "iOSClient/Networking/NCNetworking+Download.swift",
+        "line": 45,
+        "code": "await NCManageDatabase.shared.setMetadataSessionAsync("
+      }
+    ]
+  }
+]

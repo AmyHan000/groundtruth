@@ -1,0 +1,22 @@
+[
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "iOSClient/Files/NCFiles.swift",
+        "line": 131,
+        "code": "override func reloadDataSource() async {"
+      },
+      {
+        "filePath": "iOSClient/Files/NCFiles.swift",
+        "line": 155,
+        "code": "let metadatas = await self.database.getMetadatasAsyncDataSource(withServerUrl: self.serverUrl,"
+      },
+      {
+        "filePath": "iOSClient/Files/NCFiles.swift",
+        "line": 160,
+        "code": "self.dataSource = NCCollectionViewDataSource(metadatas: metadatas,"
+      }
+    ]
+  }
+]

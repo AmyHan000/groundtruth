@@ -1,0 +1,28 @@
+[
+  {
+    "id": 9,
+    "data": [
+      {
+        "scene": "用户在其他应用的系统分享面板选择 Nextcloud 并点击上传时",
+        "purpose": "将用户明确分享的文件上传到选定云端目录",
+        "source": "iOS 分享扩展的 NSItemProvider",
+        "item": "用户分享的文件内容、文件名、类型和目标目录",
+        "frequency": "每次用户从系统分享面板确认上传时",
+        "processing": "扩展加载所选项目、构建上传元数据并通过 HTTPS 上传",
+        "storage": "扩展临时目录可暂存文件；服务器保存上传文件",
+        "recipient": "用户选择的 Nextcloud 服务器",
+        "thirdparty": "仅按用户选择上传到其服务器",
+        "switchpath": "其他应用 > 分享 > Nextcloud；上传前可取消"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "系统分享扩展访问",
+        "scene": "用户在分享面板选择 Nextcloud",
+        "authorization": "用户逐次主动授权",
+        "purpose": "读取本次明确分享的项目",
+        "impact": "取消后不会读取或上传"
+      }
+    ]
+  }
+]

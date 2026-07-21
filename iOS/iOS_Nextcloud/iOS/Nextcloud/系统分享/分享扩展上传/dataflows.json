@@ -1,0 +1,27 @@
+[
+  {
+    "id": 9,
+    "dataflow": [
+      {
+        "filePath": "Share/NCShareExtension+Files.swift",
+        "line": 88,
+        "code": "provider.loadItem(forTypeIdentifier: provider.typeIdentifier) { [self] item, error in"
+      },
+      {
+        "filePath": "Share/NCShareExtension.swift",
+        "line": 372,
+        "code": "uploadMetadata.append(metadataForUpload)"
+      },
+      {
+        "filePath": "Share/NCShareExtension.swift",
+        "line": 418,
+        "code": "error = await self.upload(metadata: metadata)"
+      },
+      {
+        "filePath": "Share/NCShareExtension.swift",
+        "line": 513,
+        "code": "let results = await NCNetworking.shared.uploadFile(account: metadata.account,"
+      }
+    ]
+  }
+]

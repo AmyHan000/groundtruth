@@ -1,0 +1,22 @@
+[
+  {
+    "id": 8,
+    "dataflow": [
+      {
+        "filePath": "iOSClient/Main/NCPasscode.swift",
+        "line": 50,
+        "code": "if NCPreferences().touchFaceID, LAContext().canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {"
+      },
+      {
+        "filePath": "iOSClient/Main/NCPasscode.swift",
+        "line": 76,
+        "code": "LAContext().evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: NCBrandOptions.shared.brand) { success, evaluateError in"
+      },
+      {
+        "filePath": "iOSClient/Main/NCPasscode.swift",
+        "line": 82,
+        "code": "self.delegate?.evaluatePolicy(passcodeViewController, isCorrectCode: true)"
+      }
+    ]
+  }
+]

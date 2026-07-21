@@ -1,0 +1,28 @@
+[
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "用户打开云端文件或选择下载时",
+        "purpose": "将云端文件下载到本地供查看或离线使用",
+        "source": "用户选择的 Nextcloud 服务器",
+        "item": "文件内容、文件名、路径、ETag 和下载状态",
+        "frequency": "每次用户打开/下载或离线同步时",
+        "processing": "通过 HTTPS 下载并更新本地传输状态",
+        "storage": "文件保存在应用的 File Provider 存储，元数据保存在数据库",
+        "recipient": "用户设备和 Nextcloud 服务器",
+        "thirdparty": "不向无关第三方共享",
+        "switchpath": "文件 > 目标文件 > 离线/删除本地副本"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "网络访问",
+        "scene": "用户下载文件",
+        "authorization": "应用基础网络能力",
+        "purpose": "从服务器获取文件",
+        "impact": "无法下载，仅可查看已缓存内容"
+      }
+    ]
+  }
+]

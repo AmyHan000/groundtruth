@@ -1,0 +1,27 @@
+[
+  {
+    "id": 7,
+    "dataflow": [
+      {
+        "filePath": "iOSClient/AppDelegate.swift",
+        "line": 85,
+        "code": "application.registerForRemoteNotifications()"
+      },
+      {
+        "filePath": "iOSClient/AppDelegate.swift",
+        "line": 173,
+        "code": "func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {"
+      },
+      {
+        "filePath": "iOSClient/AppDelegate.swift",
+        "line": 180,
+        "code": "NCPreferences().deviceTokenPushNotification = deviceToken"
+      },
+      {
+        "filePath": "iOSClient/PushNotification/NCPushNotification.swift",
+        "line": 67,
+        "code": "pushToken: preferences.deviceTokenPushNotification,"
+      }
+    ]
+  }
+]
