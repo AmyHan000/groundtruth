@@ -1,0 +1,28 @@
+[
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "用户在频道或讨论串输入消息并点击发送时",
+        "purpose": "发布消息并在发送过程中显示待发送状态",
+        "source": "用户主动输入",
+        "item": "消息正文、频道标识、回复关系及关联附件标识",
+        "frequency": "每次点击发送时",
+        "processing": "先在本地数据库创建待发送记录，再通过 HTTPS 上传至 Mattermost 服务器",
+        "storage": "消息会保存在本地数据库缓存和用户配置的 Mattermost 服务器",
+        "recipient": "频道成员及用户配置的 Mattermost 服务器",
+        "thirdparty": "根据频道成员范围共享；不向无关第三方共享",
+        "switchpath": "频道 > 消息输入框；可删除已发送消息或退出服务器"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "网络访问",
+        "scene": "用户发送消息",
+        "authorization": "应用基础网络能力",
+        "purpose": "同步消息到服务器",
+        "impact": "消息无法发送"
+      }
+    ]
+  }
+]

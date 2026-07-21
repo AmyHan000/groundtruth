@@ -1,0 +1,22 @@
+[
+  {
+    "id": 9,
+    "dataflow": [
+      {
+        "filePath": "app/components/channel_bookmarks/channel_bookmark/bookmark_options.tsx",
+        "line": 171,
+        "code": "const url = bookmark.linkUrl!;"
+      },
+      {
+        "filePath": "app/components/channel_bookmarks/channel_bookmark/bookmark_options.tsx",
+        "line": 172,
+        "code": "Share.open({"
+      },
+      {
+        "filePath": "app/components/channel_bookmarks/channel_bookmark/bookmark_options.tsx",
+        "line": 175,
+        "code": "url,"
+      }
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "app/utils/file/file_picker/index.ts",
+        "line": 296,
+        "code": "const picks = (await pick({allowMultiSelection, type: [fileType]}));"
+      },
+      {
+        "filePath": "app/utils/file/file_picker/index.ts",
+        "line": 307,
+        "code": "const docResponse = await keepLocalCopy({"
+      },
+      {
+        "filePath": "app/utils/file/file_picker/index.ts",
+        "line": 328,
+        "code": "await this.prepareFileUpload(docs);"
+      },
+      {
+        "filePath": "app/actions/remote/file.ts",
+        "line": 36,
+        "code": "return {cancel: client.uploadAttachment(file, channelId, onProgress, onComplete, onError, skipBytes, isBookmark)};"
+      }
+    ]
+  }
+]
