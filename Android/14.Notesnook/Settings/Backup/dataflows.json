@@ -1,0 +1,66 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_DATA_BACKUP",
+      "data_type": "All Note Data + Attachments (Encrypted or Plaintext)",
+      "description": "User creates backup of all data including attachments. Backup exported as .nnbackupz file to user-selected directory. Supports optional encryption.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "BackupService.run",
+          "file": "apps/mobile/app/services/backup.ts",
+          "line": 169,
+          "code": "for await (const file of db.backup.export({ type: \"mobile\", encrypt: SettingsService.get().encryptedBackup && !!user, mode: backupType }))",
+          "details": "User triggers backup. All notes, notebooks, tags, and settings exported into a single backup stream."
+        },
+        {
+          "step": "Data Processing",
+          "function": "BackupService.run (zip creation)",
+          "file": "apps/mobile/app/services/backup.ts",
+          "line": 226,
+          "code": "await zip(zipSourceFolder, zipOutputFile);",
+          "details": "All data (encrypted or plaintext) and attachment encrypted blobs written to zip file."
+        },
+        {
+          "step": "Data Storage",
+          "function": "BackupService.run (Android save)",
+          "file": "apps/mobile/app/services/backup.ts",
+          "line": 287,
+          "code": "const file = await ScopedStorage.createFile(androidBackupDirectory?.uri, ...); await copyFileAsync('file://${zipOutputFile}', file.uri);",
+          "details": "Backup zip file saved to user-selected directory via Android Scoped Storage / Storage Access Framework."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_DATA_RESTORE",
+      "data_type": "Backup File All Notes Data",
+      "description": "User restores from .nnbackup or .nnbackupz file. Decrypts and imports all note data.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "restoreBackup",
+          "file": "apps/mobile/app/screens/settings/restore-backup/index.tsx",
+          "line": 87,
+          "code": "const backup = await ScopedStorage.readFile(uri);",
+          "details": "User selects backup file via SAF file picker. Reads entire backup file into buffer."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "restoreBackup (decrypt + import)",
+          "file": "apps/mobile/app/screens/settings/restore-backup/index.tsx",
+          "line": 161,
+          "code": "await db.backup.import(backup, { ...passwordOrKey, attachmentsKey: attachmentsKey });",
+          "details": "Backup decrypted if encrypted (user prompted for password/key). All data imported into local database."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "withPassword",
+          "file": "apps/mobile/app/screens/settings/restore-backup/index.tsx",
+          "line": 55,
+          "code": "prompt user for password or encryption key",
+          "details": "If backup is encrypted, user must provide password or encryption key for decryption."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_LOGIN_CREDENTIALS",
+      "data_type": "User Credentials (Username + Password)",
+      "description": "User enters username and password to log in to Wikipedia. Credentials sent to MediaWiki API via clientlogin action with login token for CSRF protection. Supports OATH two-factor auth and email authentication.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "LoginActivity.doLogin",
+          "file": "app/src/main/java/org/wikipedia/login/LoginActivity.kt",
+          "line": 286,
+          "code": "private fun doLogin() { val username = getText(binding.loginUsernameText); val password = getText(binding.loginPasswordInput); val twoFactorCode = getText(binding.login2faText) }",
+          "details": "User taps login button after entering credentials. Username, password, and optional 2FA code collected from EditText fields."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "LoginClient.login",
+          "file": "app/src/main/java/org/wikipedia/login/LoginClient.kt",
+          "line": 28,
+          "code": "fun login(coroutineScope: CoroutineScope, wiki: WikiSite, userName: String, password: String, ...)",
+          "details": "LoginClient receives raw credentials. Gets login token from API then posts credentials via postLogIn."
+        },
+        {
+          "step": "Token Acquisition",
+          "function": "Service.getLoginToken",
+          "file": "app/src/main/java/org/wikipedia/dataclient/Service.kt",
+          "line": 340,
+          "code": "@GET(MW_API_PREFIX + \"action=query&meta=tokens&type=login\") suspend fun getLoginToken(): MwQueryResponse",
+          "details": "Acquires login token from MediaWiki API for CSRF protection before sending credentials."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "Service.postLogIn",
+          "file": "app/src/main/java/org/wikipedia/dataclient/Service.kt",
+          "line": 344,
+          "code": "@FormUrlEncoded @POST(MW_API_PREFIX + \"action=clientlogin&rememberMe=\") suspend fun postLogIn(@Field(\"username\") user: String?, @Field(\"password\") pass: String?, @Field(\"OATHToken\") twoFactorCode: String?, ...)",
+          "details": "Credentials transmitted to api.php?action=clientlogin. Includes username, password, optional OATH 2FA token, captcha response, and login token. Response returns user ID and groups."
+        },
+        {
+          "step": "Data Processing",
+          "function": "LoginClient.login callback",
+          "file": "app/src/main/java/org/wikipedia/login/LoginClient.kt",
+          "line": 48,
+          "code": "if (loginResult.pass() && userName.isNotEmpty()) { ServiceFactory.get(wiki).getUserInfo().query?.userInfo?.let { loginResult.userId = it.id; loginResult.groups = it.groups() } }",
+          "details": "On success, retrieves user ID and permission groups from MediaWiki API. Updates local AccountManager account."
+        },
+        {
+          "step": "Post-Auth Setup",
+          "function": "LoginActivity.onLoginSuccess",
+          "file": "app/src/main/java/org/wikipedia/login/LoginActivity.kt",
+          "line": 254,
+          "code": "private fun onLoginSuccess() { ... ReadingListSyncAdapter.manualSyncWithForce(); PollNotificationWorker.schedulePollNotificationJob(this); updateSubscription() }",
+          "details": "After successful login, triggers reading list sync, notification polling setup, and FCM push subscription update."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_LOGIN_BACKGROUND",
+      "data_type": "Stored Credentials (Encrypted)",
+      "description": "Wikipedia uses Android AccountManager to store account credentials persistently. Background re-login uses stored credentials with rate limiting (max once per day).",
+      "flow_steps": [
+        {
+          "step": "Sensitive Operation",
+          "function": "AccountUtil",
+          "file": "app/src/main/java/org/wikipedia/auth/AccountUtil.kt",
+          "line": 1,
+          "code": "object AccountUtil { ... fun updateAccount(response: AccountAuthenticatorResponse?, result: LoginResult) }",
+          "details": "Account credentials managed via Android AccountManager with AccountAuthenticatorService. Supports automatic token refresh."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "LoginClient.loginBlocking",
+          "file": "app/src/main/java/org/wikipedia/login/LoginClient.kt",
+          "line": 91,
+          "code": "suspend fun loginBlocking(wiki: WikiSite, userName: String, password: String, ...): LoginResult",
+          "details": "Background re-login with stored credentials. Rate-limited to prevent more than one attempt per 1-day period."
+        },
+        {
+          "step": "Storage",
+          "function": "AuthenticatorService",
+          "file": "app/src/main/AndroidManifest.xml",
+          "line": 488,
+          "code": "<service android:name=\".auth.AuthenticatorService\" android:exported=\"false\"> <intent-filter> <action android:name=\"android.accounts.AccountAuthenticator\" /> </intent-filter> </service>",
+          "details": "Android AccountAuthenticator service manages persistent account credentials."
+        }
+      ]
+    }
+  ]
+}

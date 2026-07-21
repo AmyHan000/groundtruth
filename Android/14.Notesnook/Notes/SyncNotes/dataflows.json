@@ -1,0 +1,67 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_DATA_SYNC",
+      "data_type": "All Encrypted Note Data + User Token",
+      "description": "Synchronizes encrypted note data between local device and api.notesnook.com. Triggered on login, manually, and via background fetch. Data encrypted end-to-end before transmission.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "Sync.run",
+          "file": "apps/mobile/app/services/sync.ts",
+          "line": 40,
+          "code": "await db.sync({ type: type, force: forced, offlineMode: SettingsService.get().offlineMode });",
+          "details": "Sync triggered by user action, login completion, or background fetch. Supports full and partial sync modes."
+        },
+        {
+          "step": "Background Sync",
+          "function": "BackgroundSync.start",
+          "file": "apps/mobile/app/services/background-sync.ts",
+          "line": 45,
+          "code": "const status = await BackgroundFetch.configure({ minimumFetchInterval: 15, enableHeadless: true, startOnBoot: true, stopOnTerminate: false, requiredNetworkType: BackgroundFetch.NETWORK_TYPE_ANY }, onEvent, onTimeout);",
+          "details": "Background fetch configured with 15-minute minimum interval. Runs as headless JS task on Android."
+        },
+        {
+          "step": "Boot-time Recovery",
+          "function": "BootRecieverService.onReceive",
+          "file": "apps/mobile/android/app/src/main/java/com/streetwriters/notesnook/BootRecieverService.java",
+          "line": 16,
+          "code": "Intent serviceIntent = new Intent(context, BootTaskService.class); context.startForegroundService(serviceIntent); HeadlessJsTaskService.acquireWakeLockNow(context);",
+          "details": "On device boot, foreground service started to restore notifications, pinned notes, and start background sync."
+        },
+        {
+          "step": "Boot-time JS Handler",
+          "function": "onBoot",
+          "file": "apps/mobile/app/services/background-sync.ts",
+          "line": 129,
+          "code": "await Notifications.setupReminders(); if (SettingsService.get().notifNotes) { Notifications.pinQuickNote(); } Notifications.restorePinnedNotes(); NotePreviewWidget.updateNotes();",
+          "details": "Headless JS task restores reminders, pinned notes, and updates widgets on boot."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "database index (API_HOST)",
+          "file": "apps/mobile/app/common/database/index.ts",
+          "line": 55,
+          "code": "API_HOST: \"https://api.notesnook.com\"",
+          "details": "All sync data transmitted to api.notesnook.com over HTTPS. Data already encrypted client-side before transmission."
+        },
+        {
+          "step": "SSE Events",
+          "function": "database index (SSE_HOST)",
+          "file": "apps/mobile/app/common/database/index.ts",
+          "line": 60,
+          "code": "SSE_HOST: \"https://events.streetwriters.co\"",
+          "details": "Server-Sent Events endpoint for real-time sync notifications from server."
+        },
+        {
+          "step": "Foreground Service",
+          "function": "AndroidManifest",
+          "file": "apps/mobile/android/app/src/main/AndroidManifest.xml",
+          "line": 11,
+          "code": "<uses-permission android:name=\"android.permission.FOREGROUND_SERVICE\" />",
+          "details": "Foreground service permission for background sync operations."
+        }
+      ]
+    }
+  ]
+}

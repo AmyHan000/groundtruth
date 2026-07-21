@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "查看用户贡献",
+    "business_scenario": "用户打开个人贡献页面查看编辑历史，用户名被发送至MediaWiki API查询编辑贡献数据，返回内容包括页面标题、时间戳、编辑摘要、大小变更和标签等。",
+    "data_types_info": "用户名(一般), 页面标题(一般), 编辑摘要(一般), 时间戳(一般), 编辑标签(一般), 用户组信息(一般)",
+    "processing_method": "上传云端",
+    "permissions_info": "无"
+  }
+]

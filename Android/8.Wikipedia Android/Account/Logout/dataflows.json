@@ -1,0 +1,59 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_LOGOUT",
+      "data_type": "CSRF Token, FCM Push Token, User Account Data",
+      "description": "User logs out of Wikipedia. Triggers: FCM push token unsubscription from server, server-side session invalidation via postLogout, Android AccountManager account removal, local cookie store clearing, and deletion of all local notification data.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "WikipediaApp.logOut",
+          "file": "app/src/main/java/org/wikipedia/WikipediaApp.kt",
+          "line": 246,
+          "code": "fun logOut() { MainScope().launch(CoroutineExceptionHandler { _, t -> L.e(t) }) { ServiceFactory.get(wikiSite).getToken().query?.csrfToken()?.let { token -> WikipediaFirebaseMessagingService.unsubscribePushToken(token, Prefs.pushNotificationToken); ServiceFactory.get(wikiSite).postLogout(token) } } }",
+          "details": "User triggers logout. CSRF token acquired from server, then used to unsubscribe FCM push token and call postLogout API."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "Service.postLogout",
+          "file": "app/src/main/java/org/wikipedia/dataclient/Service.kt",
+          "line": 361,
+          "code": "@FormUrlEncoded @POST(MW_API_PREFIX + \"action=logout\") suspend fun postLogout(@Field(\"token\") token: String): MwPostResponse",
+          "details": "CSRF token sent to MediaWiki API to invalidate server-side session."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "Service.unsubscribePush",
+          "file": "app/src/main/java/org/wikipedia/dataclient/Service.kt",
+          "line": 420,
+          "code": "@FormUrlEncoded @POST(MW_API_PREFIX + \"action=echopushsubscriptions&command=delete&provider=fcm\") suspend fun unsubscribePush(@Field(\"token\") csrfToken: String, @Field(\"providertoken\") providerToken: String)",
+          "details": "FCM push notification token unregistered from Wikipedia Echo service."
+        },
+        {
+          "step": "Data Deletion",
+          "function": "WikipediaApp.resetAfterLogOut",
+          "file": "app/src/main/java/org/wikipedia/WikipediaApp.kt",
+          "line": 260,
+          "code": "fun resetAfterLogOut() { AccountUtil.removeAccount(); Prefs.isPushNotificationTokenSubscribed = false; Prefs.pushNotificationTokenOld = \"\"; SharedPreferenceCookieManager.instance.clearAllCookies(); AppDatabase.instance.notificationDao().deleteAll(); Prefs.impactLastResponseBody = emptyMap(); Prefs.yearInReviewModelData = emptyMap() }",
+          "details": "Local state cleared: Android AccountManager account removed, all cookies cleared, notification database deleted, impact and Year-in-Review cached data cleared."
+        },
+        {
+          "step": "Account Removal",
+          "function": "AccountUtil.removeAccount",
+          "file": "app/src/main/java/org/wikipedia/auth/AccountUtil.kt",
+          "line": 1,
+          "code": "fun removeAccount() { ... accountManager().removeAccount(account, ...) }",
+          "details": "User account (including stored password) removed from Android AccountManager."
+        },
+        {
+          "step": "Cookie Clearance",
+          "function": "SharedPreferenceCookieManager.clearAllCookies",
+          "file": "app/src/main/java/org/wikipedia/dataclient/SharedPreferenceCookieManager.kt",
+          "line": 1,
+          "code": "fun clearAllCookies() { ... }",
+          "details": "All authentication and session cookies removed from persistent storage."
+        }
+      ]
+    }
+  ]
+}
