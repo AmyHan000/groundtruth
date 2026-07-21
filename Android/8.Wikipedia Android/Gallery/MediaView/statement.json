@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "画廊媒体查看",
-    "business_scenario": "用户点击文章中的图片或视频打开画廊视图，媒体文件名和语言代码发送至MediaWiki API获取图片/视频的描述、版权信息、作者署名、EXIF元数据和许可证信息。用户可下载或分享媒体文件。",
-    "data_types_info": "媒体文件名(一般), 语言代码(一般), 页面标题(一般)",
-    "processing_method": "上传云端",
-    "permissions_info": "WRITE_EXTERNAL_STORAGE(下载媒体文件至设备时)"
-  }
-]

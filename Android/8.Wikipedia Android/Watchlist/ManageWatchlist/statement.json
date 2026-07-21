@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "管理监视列表",
-    "business_scenario": "用户查看和管理已监视的Wikipedia页面，页面标题和CSRF令牌发送至MediaWiki watch API以添加或移除监视，同时获取用户信息验证登录状态和权限。",
-    "data_types_info": "页面标题(一般), CSRF令牌(一般), 用户组信息(一般)",
-    "processing_method": "上传云端",
-    "permissions_info": "无"
-  }
-]

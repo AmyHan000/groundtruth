@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "阅读列表同步",
-    "business_scenario": "阅读列表数据通过ReadingListClient在本地Room数据库和MediaWiki服务器之间进行双向同步，包含页面标题、描述、缩略图URL和列表元数据，支持时间戳比较冲突解决。同步在登录、手动刷新或定期WorkManager调度时触发。",
-    "data_types_info": "页面标题(一般), 页面描述(一般), 缩略图URL(一般), 列表名称(一般), 列表元数据(一般)",
-    "processing_method": "上传云端",
-    "permissions_info": "无"
-  }
-]

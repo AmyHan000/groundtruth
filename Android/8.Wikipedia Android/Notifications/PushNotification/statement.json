@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "推送通知",
-    "business_scenario": "用户登录Wikipedia账户后，后台工作器定期轮询Wikipedia Echo API获取未读通知（讨论页消息、提及提醒、感谢通知），FCM推送令牌注册至Wikipedia Echo服务以支持实时推送。",
-    "data_types_info": "通知内容(一般), 通知类型(一般), 时间戳(一般), FCM推送令牌(一般), CSRF令牌(一般)",
-    "processing_method": "上传云端",
-    "permissions_info": "POST_NOTIFICATIONS(接收推送通知展示时)"
-  }
-]

@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "退出登录",
-    "business_scenario": "用户点击退出登录按钮，系统获取CSRF令牌并发送至MediaWiki API使服务器会话失效，同时取消注册FCM推送令牌，随后清除本地AccountManager账户、Cookie存储和通知数据库。",
-    "data_types_info": "CSRF令牌(一般), FCM推送令牌(一般), 会话Cookie(一般)",
-    "processing_method": "上传云端",
-    "permissions_info": "无"
-  }
-]

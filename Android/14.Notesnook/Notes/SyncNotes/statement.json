@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "数据同步",
-    "business_scenario": "应用在登录后、用户手动触发和后台定时（最小间隔15分钟）将本地所有加密笔记数据同步至api.notesnook.com，数据在客户端已端到端加密后再传输。设备启动时通过前台服务自动恢复提醒、固定笔记和启动后台同步",
-    "data_types_info": "加密笔记数据(一般), 用户令牌(敏感)",
-    "processing_method": "上传云端（经端到端加密后同步至api.notesnook.com，通过SSE接收实时同步事件）",
-    "permissions_info": "FOREGROUND_SERVICE(后台同步时)"
-  }
-]

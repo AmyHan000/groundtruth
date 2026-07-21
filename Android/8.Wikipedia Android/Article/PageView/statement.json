@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "文章页面浏览",
-    "business_scenario": "用户点击搜索结果、链接或推送卡片打开Wikipedia文章，页面标题发送至MediaWiki API获取文章HTML内容、描述和图片信息，同时浏览记录写入本地Room数据库。",
-    "data_types_info": "页面标题(一般), 文章内容(一般), 页面描述(一般), 图片信息(一般)",
-    "processing_method": "上传云端",
-    "permissions_info": "无"
-  }
-]

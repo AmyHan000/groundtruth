@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "创建账户",
-    "business_scenario": "用户填写用户名、密码和可选邮箱注册Wikipedia账户，注册数据发送至MediaWiki createaccount API，支持验证码验证。注册成功后用户名和密码传递至登录页面自动完成登录。",
-    "data_types_info": "用户名(一般), 密码(一般), 邮箱地址(一般), 验证码响应(一般)",
-    "processing_method": "上传云端",
-    "permissions_info": "无"
-  }
-]

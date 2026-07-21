@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "创建笔记",
-    "business_scenario": "用户在编辑器中创建或编辑笔记，编辑器从本地应用资源加载，所有编辑在本地完成，内容经libsodium加密后存储在SQLite数据库中",
-    "data_types_info": "笔记内容(一般), 加密密钥(敏感)",
-    "processing_method": "本地加密存储（SQLite数据库经libsodium派生密钥加密）",
-    "permissions_info": "无"
-  }
-]

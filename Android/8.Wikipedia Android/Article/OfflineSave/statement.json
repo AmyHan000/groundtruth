@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "离线保存文章",
-    "business_scenario": "用户点击保存图标将文章缓存至本地设备以供离线阅读，文章内容、图片和CSS样式通过OkHttp离线缓存拦截器缓存，页面元数据持久化至本地Room数据库。",
-    "data_types_info": "文章内容(一般), 页面标题(一般), 页面ID(一般), 下载状态(一般), 图片文件(一般)",
-    "processing_method": "本地存储",
-    "permissions_info": "WAKE_LOCK(后台同步离线内容时); WRITE_EXTERNAL_STORAGE(保存文件至外部存储时)"
-  }
-]

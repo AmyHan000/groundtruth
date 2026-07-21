@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "编辑文章描述",
-    "business_scenario": "用户添加或编辑Wikipedia文章的简短描述，描述文本、语言代码、页面标题和CSRF令牌发送至Wikidata API（wbsetdescription）或本地Wiki编辑API。支持图片说明编辑和机器学习自动建议功能。",
-    "data_types_info": "描述文本(一般), 语言代码(一般), 页面标题(一般), 编辑摘要(一般), 图片说明(一般), CSRF令牌(一般)",
-    "processing_method": "上传云端",
-    "permissions_info": "无"
-  }
-]
