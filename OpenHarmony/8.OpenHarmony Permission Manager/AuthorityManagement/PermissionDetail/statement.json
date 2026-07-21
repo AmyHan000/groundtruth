@@ -1,0 +1,16 @@
+[
+  {
+    "business_function": "权限详情",
+    "business_scenario": "用户从二级页面点击某个权限进入详情页，系统加载拥有该权限的所有应用列表。，最终用户可切换应用的权限开关，调用系统API进行权限授予或撤销操作。",
+    "data_types_info": "单个权限的详细信息（权限名称、授予状态、权限标记位、拥有该权限的所有应用列表及授予状态）(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "locationInfoPage.aboutToAppear (authority-tertiary-groups) (Trigger：用户从二级页面点击某个权限进入详情页，系统加载拥有该权限的所有应用列表。); locationInfoPage verifyAccessTokenSync (Data Processing：对每个应用调用系统API verifyAccessTokenSync查询特"
+  },
+  {
+    "business_function": "权限详情",
+    "business_scenario": "用户从次级页面点击特定权限项进入单权限详情页。，最终用户点击授权/撤销按钮，通过系统API修改特定accessTokenId的权限标记位。",
+    "data_types_info": "单个应用对特定权限的详细信息（权限名、授予状态、权限标记位、权限描述）(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "locationInfoPage.aboutToAppear (authority-tertiary) (Trigger：用户从次级页面点击特定权限项进入单权限详情页。); grantUserGrantedPermission / revokeUserGrantedPermission (Data Processing：用户点击授权/撤销按钮，通过系统API修改特定accessTokenId的权限"
+  }
+]

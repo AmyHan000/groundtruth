@@ -1,0 +1,14 @@
+1 我们如何收集和使用您的个人信息：
+
+[1] 权限概览，用户进入权限管理主页，触发数据加载。，每个权限组以列表项形式展示，显示权限组图标、名称、关联应用数量。用户可点击进入二级页面。。为提供此功能，我们会收集您的已安装应用列表（包名、应用名称、图标、请求的权限列表、权限声明详情）、权限组配置信息、权限授予状态(一般)。采集频率：用户触发时单次采集。处理方式说明：本地处理/本地加密存储。
+
+[2] 权限概览，点击全局开关项，触发当前麦克风/相机全局状态读取和页面跳转。，权限管理主页顶部展示全局开关状态的视觉指示（颜色/图标变化），点击后跳转到全局开关详情页。。为提供此功能，我们会收集您的全局开关状态（麦克风静音状态、**相机禁用状态）**(敏感)。采集频率：用户设置时触发。处理方式说明：本地处理/本地加密存储。数据仅本地处理，使用硬件加密存储。
+
+2 设备权限调用：
+
+- authorityManagementPage.aboutToAppear (Trigger：用户进入权限管理主页，触发数据加载。)
+- authorityManagementPage.getAllGroupPermission (Data Assembly：遍历所有已安装应用，读取每个应用的权限声明信息和权限授予状态，构建按权限组分类的展示数据。)
+- authorityManagementPage
+- authorityManagementPage.ListItemLayout (global switch tap) (Trigger：点击全局开关项，触发当前麦克风/相机全局状态读取和页面跳转。)
+- GlobalDialogModel.getMuteState (Data Retrieval：GlobalDialogModel通过系统API查询当前麦克风静音状态和相机禁用状态。)
+- author

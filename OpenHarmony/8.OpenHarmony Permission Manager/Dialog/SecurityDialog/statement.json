@@ -1,0 +1,16 @@
+[
+  {
+    "business_function": "安全确认",
+    "business_scenario": "应用执行敏感操作时，系统启动SecurityExtAbility。，最终用户确认或取消安全操作，结果通知系统权限管理服务。",
+    "data_types_info": "安全弹窗参数（调用方UID、窗口ID、安全类型、NavigationBarRect）、用户确认结果（RPC回传）(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "SecurityExtAbility.onRequest (Trigger：应用执行敏感操作时，系统启动SecurityExtAbility。); SecurityExtAbility.createWindow (Data Reception：从Want中解析调用方UID和窗口ID，创建安全弹窗。); CustomDialogWearable struct (Data Display：展示安全确认"
+  },
+  {
+    "business_function": "安全确认",
+    "business_scenario": "每次创建安全弹窗前检查是否已存在同名的弹窗实例。，最终安全弹窗关闭或销毁时，从全局Set中移除对应的弹窗名称，允许后续再次弹出。",
+    "data_types_info": "弹窗去重集合（dialogSet: Set<String>(一般)、以弹窗名称去重）(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "SecurityExtAbility.createWindow (Trigger：每次创建安全弹窗前检查是否已存在同名的弹窗实例。); SecurityExtAbility dialogSet check (Data Processing：从全局上下文加载已显示弹窗的Set集合。如果已存在同名弹窗，则跳过创建；否则将弹窗名加入集合。); securityDialog onClose cleanup"
+  }
+]

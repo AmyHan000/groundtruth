@@ -1,0 +1,98 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_GRANT_DIALOG_HANDLE_REQUEST",
+      "data_type": "调用方应用信息（bundleName、tokenId、请求的权限列表、权限状态、权限详情、callback代理）、用户授权选择结果",
+      "description": "某应用请求权限时，系统拦截请求并显示授权弹窗，用户做出选择后将结果返回给调用方。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "ServiceExtAbility.onRequest",
+          "file": "permissionmanager/src/main/ets/ServiceExtAbility/ServiceExtAbility.ets",
+          "line": 38,
+          "code": "onRequest(want: Want, startId: number): void { ... grantDialogModel.createWindow(...) }",
+          "details": "应用A请求权限时，系统启动ServiceExtAbility，传递调用方信息和请求权限列表。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "GrantDialogModel.getCallerAppInfo",
+          "file": "permissionmanager/src/main/ets/ServiceExtAbility/GrantDialogModel.ets",
+          "line": 30,
+          "code": "public async getCallerAppInfo(want: Want): Promise<CallerAppInfo> { let bundleName = want.parameters['ohos.aafwk.param.callerBundleName']; ... }",
+          "details": "从Want中解析调用方应用信息：包名、tokenId、权限列表、callback代理对象。"
+        },
+        {
+          "step": "Data Display",
+          "function": "dialogPlusPage struct",
+          "file": "permissionmanager/src/main/ets/pages/dialogPlus.ets",
+          "line": 51,
+          "code": "@LocalStorageLink('callerAppInfo') callerAppInfo: CallerAppInfo; @State viewModel: GrantDialogViewModel",
+          "details": "显示授权弹窗，展示请求权限的应用名称、图标、权限列表及用途说明。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "dialogPlusPage.processClick",
+          "file": "permissionmanager/src/main/ets/pages/dialogPlus.ets",
+          "line": 259,
+          "code": "new GrantDialogIntent.ClickIntent(this.context, groupConfig, this.callerAppInfo, buttonStatus);",
+          "details": "用户点击授权按钮后，根据按钮状态执行对应操作。"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "GrantDialogIntent grant/revokePermissionWithResult",
+          "file": "permissionmanager/src/main/ets/ServiceExtAbility/GrantDialogIntent.ets",
+          "line": 1,
+          "code": "通过系统API执行权限授予/撤销操作，并通过RPC callback将结果回传给请求方应用。",
+          "details": "系统修改权限状态，并通过RPC callback通知调用方应用授权结果。"
+        },
+        {
+          "step": "Data Deletion",
+          "function": "GrantDialogIntent.terminateWithResult",
+          "file": "permissionmanager/src/main/ets/ServiceExtAbility/GrantDialogIntent.ets",
+          "line": 1,
+          "code": "terminateWithResult(callback, grantResult);",
+          "details": "授权弹窗处理完成后关闭，释放资源。"
+        }
+      ]
+    },
+    {
+      "id": "FLOW_GRANT_DIALOG_PASTEBOARD_CHECK",
+      "data_type": "剪贴板来源信息（当请求剪贴板权限时检测来源）",
+      "description": "当应用请求读取剪贴板权限时，系统检测剪贴板数据来源用于授权决策。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "GrantDialogModel.preProcessPermission (pasteboard case)",
+          "file": "permissionmanager/src/main/ets/ServiceExtAbility/GrantDialogModel.ets",
+          "line": 1,
+          "code": "当请求权限包含 READ_PASTEBOARD 时触发剪贴板来源检测",
+          "details": "GrantDialogModel在预处理权限请求时检测到剪贴板权限，触发数据来源检查。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "GrantDialogModel pasteboard check",
+          "file": "permissionmanager/src/main/ets/ServiceExtAbility/GrantDialogModel.ets",
+          "line": 1,
+          "code": "pasteboard.getSystemPasteboard().getDataSource()",
+          "details": "系统检测当前剪贴板中的数据来源应用包名，用于判断是否需要额外授权提示。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "GrantDialogModel decision logic",
+          "file": "permissionmanager/src/main/ets/ServiceExtAbility/GrantDialogModel.ets",
+          "line": 1,
+          "code": "对比剪贴板来源包名与请求应用包名，决定是否显示额外提示信息",
+          "details": "如果剪贴板数据来源不同于请求应用，系统在授权弹窗中显示额外的数据来源提示。"
+        },
+        {
+          "step": "Data Display",
+          "function": "dialogPlusPage pasteboard warning",
+          "file": "permissionmanager/src/main/ets/pages/dialogPlus.ets",
+          "line": 1,
+          "code": "在授权弹窗中显示剪贴板数据来源提示文本",
+          "details": "授权弹窗中展示剪贴板数据来源应用名称，提示用户注意数据共享。"
+        }
+      ]
+    }
+  ]
+}

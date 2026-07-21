@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "权限详情",
+    "business_scenario": "用户从应用列表点击某个应用，进入该应用的权限详情页。，最终用户可撤销或授予该应用的特定权限，调用系统API修改权限标记位。",
+    "data_types_info": "单个应用的详细信息（包名、应用名称、图标、accessTokenId、所有权限声明）、每个权限的授予状态（verifyAccessTokenSync结果）、权限(敏感)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "mediaDocumentPage.aboutToAppear (Trigger：用户从应用列表点击某个应用，进入该应用的权限详情页。); mediaDocumentPage.aboutToAppear (Data Reception：读取应用的BundleInfo获取accessTokenId，然后对每个权限调用系统API查询授予状); verifyAccessTokenSync (Data P"
+  }
+]

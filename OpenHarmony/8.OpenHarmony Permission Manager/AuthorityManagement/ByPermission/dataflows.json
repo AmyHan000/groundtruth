@@ -1,0 +1,35 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_AM_BY_PERMISSION_LOAD_APPS",
+      "data_type": "权限组内所有应用的权限信息（应用名称、图标、包名、权限授予状态等）",
+      "description": "用户点击某个权限组，查看所有申请了该权限的应用列表及授予状态。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "appNamePage.aboutToAppear",
+          "file": "permissionmanager/src/main/ets/pages/authority-secondary.ets",
+          "line": 26,
+          "code": "aboutToAppear(): void { ... }",
+          "details": "用户从权限管理主页点击某个权限组，进入按权限查看应用列表页。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "appNamePage route params",
+          "file": "permissionmanager/src/main/ets/pages/authority-secondary.ets",
+          "line": 63,
+          "code": "private group: string = (this.getUIContext().getRouter().getParams() as RouterParams1).group;",
+          "details": "从上页获取当前权限组名称，用于过滤应用列表。"
+        },
+        {
+          "step": "Data Display",
+          "function": "appNamePage ForEach",
+          "file": "permissionmanager/src/main/ets/pages/authority-secondary.ets",
+          "line": 137,
+          "code": "new CalendarObj(permissionInfo.permissionName, permissionInfo.groupName, permissionInfo.label, i)",
+          "details": "展示该权限组下的所有应用，每个应用显示名称、图标和权限授予状态（允许/拒绝/询问）。用户可点击进入应用权限详情页。"
+        }
+      ]
+    }
+  ]
+}

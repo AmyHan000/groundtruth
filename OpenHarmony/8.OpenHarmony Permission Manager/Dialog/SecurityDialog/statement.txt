@@ -1,0 +1,14 @@
+1 我们如何收集和使用您的个人信息：
+
+[1] 安全确认，应用执行敏感操作时，系统启动SecurityExtAbility。，用户确认或取消安全操作，结果通知系统权限管理服务。。为提供此功能，我们会收集您的安全弹窗参数（调用方UID、窗口ID、安全类型、NavigationBarRect）、用户确认结果（RPC回传）(一般)。采集频率：系统推送时实时接收。处理方式说明：本地处理/本地加密存储。
+
+[2] 安全确认，每次创建安全弹窗前检查是否已存在同名的弹窗实例。，安全弹窗关闭或销毁时，从全局Set中移除对应的弹窗名称，允许后续再次弹出。。为提供此功能，我们会收集您的弹窗去重集合（dialogSet: Set<String>(一般)、以弹窗名称去重）(一般)。采集频率：用户设置时触发。处理方式说明：本地处理/本地加密存储。
+
+2 设备权限调用：
+
+- SecurityExtAbility.onRequest (Trigger：应用执行敏感操作时，系统启动SecurityExtAbility。)
+- SecurityExtAbility.createWindow (Data Reception：从Want中解析调用方UID和窗口ID，创建安全弹窗。)
+- CustomDialogWearable struct (Data Display：展示安全确认
+- SecurityExtAbility.createWindow (Trigger：每次创建安全弹窗前检查是否已存在同名的弹窗实例。)
+- SecurityExtAbility dialogSet check (Data Processing：从全局上下文加载已显示弹窗的Set集合。如果已存在同名弹窗，则跳过创建；否则将弹窗名加入集合。)
+- securityDialog onClose cleanup

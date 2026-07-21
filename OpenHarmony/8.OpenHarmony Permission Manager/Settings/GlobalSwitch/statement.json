@@ -1,0 +1,23 @@
+[
+  {
+    "business_function": "全局开关",
+    "business_scenario": "用户点击麦克风全局开关项，弹窗显示当前麦克风状态和操作按钮。，最终用户点击开启/关闭麦克风静音，系统修改全局麦克风禁用状态。",
+    "data_types_info": "麦克风全局静音状态（boolean）、MICROPHONE_CONTROL权限状态(敏感)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "GlobalSwitchSheetDialog.aboutToAppear (Trigger：用户点击麦克风全局开关项，弹窗显示当前麦克风状态和操作按钮。); GlobalSwitchSheetDialog setMuteState (MICROPHONE) (Sensitive Operation：用户点击开启/关闭麦克风静音，系统修改全局麦克风禁用状态。)"
+  },
+  {
+    "business_function": "全局开关",
+    "business_scenario": "用户点击相机全局开关项，弹窗显示当前相机状态。，最终用户点击开启/关闭相机禁用，系统修改全局相机禁用状态。",
+    "data_types_info": "相机全局禁用状态（boolean）(敏感)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "GlobalSwitchSheetDialog.aboutToAppear (CAMERA) (Trigger：用户点击相机全局开关项，弹窗显示当前相机状态。); GlobalSwitchSheetDialog setMuteState (CAMERA) (Sensitive Operation：用户点击开启/关闭相机禁用，系统修改全局相机禁用状态。)"
+  },
+  {
+    "business_function": "全局开关",
+    "business_scenario": "页面加载时通过GlobalDialogModel查询当前麦克风静音和相机禁用的系统状态。，最终全局开关页面展示麦克风和相机的当前状态（开启/关闭），并提供切换按钮。状态变化时UI颜色随之更新。",
+    "data_types_info": "全局开关UI状态（相机状态文本、麦克风状态文本、开关颜色）(敏感)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "globalSwitch.aboutToAppear (Data Retrieval：页面加载时通过GlobalDialogModel查询当前麦克风静音和相机禁用的系统状态。); globalSwitch struct build (Data Display：全局开关页面展示麦克风和相机的当前状态（开启/关闭），并提供切换按钮。状态变化时UI颜色随之更新。)"
+  }
+]

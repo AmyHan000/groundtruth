@@ -1,0 +1,73 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_GLOBAL_SWITCH_MICROPHONE",
+      "data_type": "麦克风全局静音状态（boolean）、MICROPHONE_CONTROL权限状态",
+      "description": "用户设置麦克风全局静音开关，禁止所有应用使用麦克风。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "GlobalSwitchSheetDialog.aboutToAppear",
+          "file": "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetDialog.ets",
+          "line": 79,
+          "code": "async aboutToAppear() { if (globalSwitch === Constants.GLOBAL_SWITCH_MICROPHONE) { this.groupName = PermissionGroup.MICROPHONE; } }",
+          "details": "用户点击麦克风全局开关项，弹窗显示当前麦克风状态和操作按钮。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "GlobalSwitchSheetDialog setMuteState (MICROPHONE)",
+          "file": "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetDialog.ets",
+          "line": 171,
+          "code": "if (this.currentGroup == 'MICROPHONE') { ... GlobalDialogModel.getInstance().setMuteState(this.context, this.globalState, false, true) }",
+          "details": "用户点击开启/关闭麦克风静音，系统修改全局麦克风禁用状态。"
+        }
+      ]
+    },
+    {
+      "id": "FLOW_GLOBAL_SWITCH_CAMERA",
+      "data_type": "相机全局禁用状态（boolean）",
+      "description": "用户设置相机全局禁用开关，禁止所有应用使用相机。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "GlobalSwitchSheetDialog.aboutToAppear (CAMERA)",
+          "file": "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetDialog.ets",
+          "line": 276,
+          "code": "async aboutToAppear() { ... if (this.currentGroup == 'CAMERA') { ... } }",
+          "details": "用户点击相机全局开关项，弹窗显示当前相机状态。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "GlobalSwitchSheetDialog setMuteState (CAMERA)",
+          "file": "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetDialog.ets",
+          "line": 197,
+          "code": "if (this.currentGroup == 'CAMERA') { ... GlobalDialogModel.getInstance().setMuteState(this.context, this.globalState, true, false) }",
+          "details": "用户点击开启/关闭相机禁用，系统修改全局相机禁用状态。"
+        }
+      ]
+    },
+    {
+      "id": "FLOW_GLOBAL_SWITCH_UI_DISPLAY",
+      "data_type": "全局开关UI状态（相机状态文本、麦克风状态文本、开关颜色）",
+      "description": "全局开关页展示当前麦克风和相机的全局开关状态。",
+      "flow_steps": [
+        {
+          "step": "Data Retrieval",
+          "function": "globalSwitch.aboutToAppear",
+          "file": "permissionmanager/src/main/ets/pages/globalSwitch.ets",
+          "line": 82,
+          "code": "aboutToAppear() { ... globalDialogModel.setMuteState(this.context, this.globalState, false, true) }",
+          "details": "页面加载时通过GlobalDialogModel查询当前麦克风静音和相机禁用的系统状态。"
+        },
+        {
+          "step": "Data Display",
+          "function": "globalSwitch struct build",
+          "file": "permissionmanager/src/main/ets/pages/globalSwitch.ets",
+          "line": 26,
+          "code": "struct globalSwitch { ... build() { ... globalDialogModel.setMuteState(this.context, this.globalState, false, true); ... } }",
+          "details": "全局开关页面展示麦克风和相机的当前状态（开启/关闭），并提供切换按钮。状态变化时UI颜色随之更新。"
+        }
+      ]
+    }
+  ]
+}

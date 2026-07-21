@@ -1,0 +1,13 @@
+1 我们如何收集和使用您的个人信息：
+
+[1] 授权弹窗，应用A请求权限时，系统启动ServiceExtAbility，传递调用方信息和请求权限列表。，授权弹窗处理完成后关闭，释放资源。。为提供此功能，我们会收集您的调用方应用信息（bundleName、tokenId、请求的权限列表、权限状态、权限详情、callback代理）、**用户授权选择结果**(敏感)。采集频率：用户触发时单次采集。处理方式说明：本地处理/本地加密存储。数据仅本地处理，使用硬件加密存储。
+
+[2] 授权弹窗，GrantDialogModel在预处理权限请求时检测到剪贴板权限，触发数据来源检查。，授权弹窗中展示剪贴板数据来源应用名称，提示用户注意数据共享。。为提供此功能，我们会收集您的**剪贴板来源信息（当请求剪贴板权限时检测来源）**(敏感)。采集频率：用户触发时单次采集。处理方式说明：本地处理/本地加密存储。数据仅本地处理，使用硬件加密存储。
+
+2 设备权限调用：
+
+- ServiceExtAbility.onRequest (Trigger：应用A请求权限时，系统启动ServiceExtAbility，传递调用方信息和请求权限列表。)
+- GrantDialogModel.getCallerAppInfo (Data Reception：从Want中解析调用方应用信息：包名、tokenId、权限列表、callback代理对象。)
+- dialogPlusPage s
+- GrantDialogModel.preProcessPermission (pasteboard case) (Trigger：GrantDialogModel在预处理权限请求时检测到剪贴板权限，触发数据来源检查。)
+- GrantDialogModel pasteboard check (Sensitive Operation：系统检测当前剪贴板中的数据来源应用包名，用于判断是否需要额外授权提示

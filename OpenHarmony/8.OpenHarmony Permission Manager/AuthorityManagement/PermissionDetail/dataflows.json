@@ -1,0 +1,58 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_AM_PERMISSION_DETAIL_LOAD",
+      "data_type": "单个权限的详细信息（权限名称、授予状态、权限标记位、拥有该权限的所有应用列表及授予状态）",
+      "description": "用户查看特定权限的详情页，可以看到哪些应用拥有该权限并可进行授予/撤销操作。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "locationInfoPage.aboutToAppear (authority-tertiary-groups)",
+          "file": "permissionmanager/src/main/ets/pages/authority-tertiary-groups.ets",
+          "line": 52,
+          "code": "aboutToAppear(): void { ... this.list.forEach(permissionManager => { permissionManager.bundleNames.forEach(bundleName => { ... }) }) }",
+          "details": "用户从二级页面点击某个权限进入详情页，系统加载拥有该权限的所有应用列表。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "locationInfoPage verifyAccessTokenSync",
+          "file": "permissionmanager/src/main/ets/pages/authority-tertiary-groups.ets",
+          "line": 139,
+          "code": "let access = acManager.verifyAccessTokenSync(res.appInfo.accessTokenId, this.list[j].permission);",
+          "details": "对每个应用调用系统API verifyAccessTokenSync查询特定权限的授予状态（授予/拒绝/未决定）。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "grantUserGrantedPermission / revokeUserGrantedPermission",
+          "file": "permissionmanager/src/main/ets/pages/authority-tertiary-groups.ets",
+          "line": 281,
+          "code": "grantUserGrantedPermission(accessTokenId, it.permission, resolve); revokeUserGrantedPermission(accessTokenId, it.permission, resolve);",
+          "details": "用户可切换应用的权限开关，调用系统API进行权限授予或撤销操作。"
+        }
+      ]
+    },
+    {
+      "id": "FLOW_AM_SINGLE_PERMISSION_DETAIL",
+      "data_type": "单个应用对特定权限的详细信息（权限名、授予状态、权限标记位、权限描述）",
+      "description": "查看单个权限的详细信息页面，展示该权限的对象、来源和状态。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "locationInfoPage.aboutToAppear (authority-tertiary)",
+          "file": "permissionmanager/src/main/ets/pages/authority-tertiary.ets",
+          "line": 45,
+          "code": "aboutToAppear(): void { ... }",
+          "details": "用户从次级页面点击特定权限项进入单权限详情页。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "grantUserGrantedPermission / revokeUserGrantedPermission",
+          "file": "permissionmanager/src/main/ets/pages/authority-tertiary.ets",
+          "line": 157,
+          "code": "grantUserGrantedPermission(accessTokenId, permission, Constants.PERMISSION_FLAG).then(() => { ... this.permissionNum = num })",
+          "details": "用户点击授权/撤销按钮，通过系统API修改特定accessTokenId的权限标记位。"
+        }
+      ]
+    }
+  ]
+}

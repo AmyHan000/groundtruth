@@ -1,0 +1,74 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SECURITY_DIALOG_HANDLE",
+      "data_type": "安全弹窗参数（调用方UID、窗口ID、安全类型、NavigationBarRect）、用户确认结果（RPC回传）",
+      "description": "安全敏感操作时显示安全确认弹窗，用户确认后结果回传给调用方。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "SecurityExtAbility.onRequest",
+          "file": "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ets",
+          "line": 39,
+          "code": "onRequest(want: Want, startId: number): void { ... this.createWindow(...) }",
+          "details": "应用执行敏感操作时，系统启动SecurityExtAbility。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "SecurityExtAbility.createWindow",
+          "file": "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ets",
+          "line": 68,
+          "code": "private async createWindow(...) { let callerToken = want.parameters['ohos.caller.uid']; ... }",
+          "details": "从Want中解析调用方UID和窗口ID，创建安全弹窗。"
+        },
+        {
+          "step": "Data Display",
+          "function": "CustomDialogWearable struct",
+          "file": "permissionmanager/src/main/ets/pages/securityDialog.ets",
+          "line": 1,
+          "code": "@Entry({ useSharedStorage: true }) struct CustomDialogWearable { ... }",
+          "details": "展示安全确认弹窗，显示操作名称和确认/取消按钮。适配穿戴设备。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "securityDialog user action",
+          "file": "permissionmanager/src/main/ets/pages/securityDialog.ets",
+          "line": 1,
+          "code": "用户点击确认/取消，结果通过RPC回传给调用方应用。",
+          "details": "用户确认或取消安全操作，结果通知系统权限管理服务。"
+        }
+      ]
+    },
+    {
+      "id": "FLOW_SECURITY_DIALOG_DEDUP",
+      "data_type": "弹窗去重集合（dialogSet: Set<String>，以弹窗名称去重）",
+      "description": "防止同一安全弹窗重复弹出。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "SecurityExtAbility.createWindow",
+          "file": "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ets",
+          "line": 68,
+          "code": "private async createWindow(name, windowType, rect, want) { ... }",
+          "details": "每次创建安全弹窗前检查是否已存在同名的弹窗实例。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "SecurityExtAbility dialogSet check",
+          "file": "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ets",
+          "line": 71,
+          "code": "let dialogSet = GlobalContext.load('dialogSet'); if (!dialogSet) { dialogSet = new Set(); GlobalContext.store('dialogSet', dialogSet); }",
+          "details": "从全局上下文加载已显示弹窗的Set集合。如果已存在同名弹窗，则跳过创建；否则将弹窗名加入集合。"
+        },
+        {
+          "step": "Data Deletion",
+          "function": "securityDialog onClose cleanup",
+          "file": "permissionmanager/src/main/ets/pages/securityDialog.ets",
+          "line": 1,
+          "code": "弹窗关闭时从 dialogSet 中移除对应的弹窗名称",
+          "details": "安全弹窗关闭或销毁时，从全局Set中移除对应的弹窗名称，允许后续再次弹出。"
+        }
+      ]
+    }
+  ]
+}
