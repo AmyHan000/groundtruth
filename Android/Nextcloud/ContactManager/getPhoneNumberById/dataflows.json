@@ -1,0 +1,22 @@
+[
+  {
+    "id": 11,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/ContactManager.kt",
+        "line": 90,
+        "code": "private fun getPhoneNumberById(contactId: Long): String? {"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/ContactManager.kt",
+        "line": 97,
+        "code": "ContactsContract.CommonDataKinds.Phone.CONTENT_URI,"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/ContactManager.kt",
+        "line": 105,
+        "code": "val phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)"
+      }
+    ]
+  }
+]

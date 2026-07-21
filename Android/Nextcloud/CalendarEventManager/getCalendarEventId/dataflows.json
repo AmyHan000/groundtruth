@@ -1,0 +1,27 @@
+[
+  {
+    "id": 6,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/CalendarEventManager.kt",
+        "line": 48,
+        "code": "private fun getCalendarEventId(eventTitle: String, eventStartDate: Long): Long? {"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/CalendarEventManager.kt",
+        "line": 59,
+        "code": "CalendarContract.Events.CONTENT_URI,"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/CalendarEventManager.kt",
+        "line": 68,
+        "code": "val idIndex = cursor.getColumnIndex(CalendarContract.Events._ID)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/CalendarEventManager.kt",
+        "line": 69,
+        "code": "return cursor.getLong(idIndex)"
+      }
+    ]
+  }
+]

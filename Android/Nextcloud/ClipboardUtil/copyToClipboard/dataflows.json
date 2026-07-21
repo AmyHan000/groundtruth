@@ -1,0 +1,17 @@
+[
+  {
+    "id": 8,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/utils/ClipboardUtil.kt",
+        "line": 34,
+        "code": "fun copyToClipboard(activity: Activity, text: String?, showToast: Boolean = true) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/utils/ClipboardUtil.kt",
+        "line": 48,
+        "code": "clipboardManager.setPrimaryClip(clip)"
+      }
+    ]
+  }
+]

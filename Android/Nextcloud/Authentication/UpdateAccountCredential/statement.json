@@ -1,0 +1,28 @@
+[
+  {
+    "id": 4,
+    "data": [
+      {
+        "scene": "现有账号的登录令牌更新后，应用将新凭证写入 Android AccountManager，清理旧客户端会话并把认证结果返回给系统认证器。",
+        "purpose": "更新账号访问凭证",
+        "source": "重新登录或服务器认证结果",
+        "item": "账号名称、账号类型和新的访问凭证",
+        "frequency": "凭证过期后用户重新认证时",
+        "processing": "在本地更新系统账号密码/令牌并重建客户端会话",
+        "storage": "存入 Android 系统账号存储",
+        "recipient": "本应用、Android AccountManager 和用户配置的 Nextcloud 服务器",
+        "thirdparty": "凭证仅用于用户配置的 Nextcloud 服务认证",
+        "switchpath": "可删除账号或退出登录；停止后无法继续访问该账号"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "账号认证能力",
+        "scene": "账号凭证过期并重新认证时",
+        "authorization": "用户主动认证/系统账号能力",
+        "purpose": "更新访问令牌并恢复账号会话",
+        "impact": "认证失败后无法继续访问该账号内容"
+      }
+    ]
+  }
+]

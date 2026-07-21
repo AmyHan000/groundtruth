@@ -1,0 +1,32 @@
+[
+  {
+    "id": 22,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/autoUpload/AutoUploadHelper.kt",
+        "line": 33,
+        "code": "fun insertEntries(folder: SyncedFolder) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/autoUpload/AutoUploadHelper.kt",
+        "line": 36,
+        "code": "repository.insertFromUri(MediaStore.Images.Media.INTERNAL_CONTENT_URI, folder)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/autoUpload/AutoUploadHelper.kt",
+        "line": 37,
+        "code": "repository.insertFromUri(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, folder)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/autoUpload/AutoUploadHelper.kt",
+        "line": 41,
+        "code": "repository.insertFromUri(MediaStore.Video.Media.INTERNAL_CONTENT_URI, folder)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/autoUpload/AutoUploadHelper.kt",
+        "line": 42,
+        "code": "repository.insertFromUri(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, folder)"
+      }
+    ]
+  }
+]

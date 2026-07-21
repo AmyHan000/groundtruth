@@ -1,0 +1,42 @@
+[
+  {
+    "id": 5,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/BackgroundJobManagerImpl.kt",
+        "line": 467,
+        "code": "override fun scheduleContentObserverJob() {"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/BackgroundJobManagerImpl.kt",
+        "line": 469,
+        "code": ".addContentUriTrigger(MediaStore.Images.Media.INTERNAL_CONTENT_URI, true)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/BackgroundJobManagerImpl.kt",
+        "line": 470,
+        "code": ".addContentUriTrigger(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/BackgroundJobManagerImpl.kt",
+        "line": 471,
+        "code": ".addContentUriTrigger(MediaStore.Video.Media.INTERNAL_CONTENT_URI, true)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/BackgroundJobManagerImpl.kt",
+        "line": 472,
+        "code": ".addContentUriTrigger(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, true)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/BackgroundJobManagerImpl.kt",
+        "line": 478,
+        "code": "val request = oneTimeRequestBuilder(ContentObserverWork::class, JOB_CONTENT_OBSERVER)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/BackgroundJobManagerImpl.kt",
+        "line": 482,
+        "code": "workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)"
+      }
+    ]
+  }
+]

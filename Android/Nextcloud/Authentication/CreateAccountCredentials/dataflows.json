@@ -1,0 +1,52 @@
+[
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1477,
+        "code": "protected boolean createAccount(RemoteOperationResult<UserInfo> authResult) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1489,
+        "code": "String loginName = webViewUser;"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1491,
+        "code": "String accountName = AccountUtils.buildAccountName(uri, loginName);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1492,
+        "code": "Account newAccount = new Account(accountName, accountType);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1511,
+        "code": "mAccountMgr.addAccountExplicitly(mAccount, webViewPassword, null);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1512,
+        "code": "mAccountMgr.notifyAccountAuthenticated(mAccount);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1517,
+        "code": "SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1518,
+        "code": "editor.putString(\"select_oc_account\", accountName);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1519,
+        "code": "editor.apply();"
+      }
+    ]
+  }
+]

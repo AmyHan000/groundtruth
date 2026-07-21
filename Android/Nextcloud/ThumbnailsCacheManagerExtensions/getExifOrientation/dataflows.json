@@ -1,0 +1,27 @@
+[
+  {
+    "id": 20,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/extensions/ThumbnailsCacheManagerExtensions.kt",
+        "line": 35,
+        "code": "fun getExifOrientation(path: String): Int {"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/extensions/ThumbnailsCacheManagerExtensions.kt",
+        "line": 57,
+        "code": "val projection = arrayOf(MediaStore.Images.Media.ORIENTATION)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/extensions/ThumbnailsCacheManagerExtensions.kt",
+        "line": 61,
+        "code": "val orientationIndex = cursor.getColumnIndexOrThrow(projection[0])"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/extensions/ThumbnailsCacheManagerExtensions.kt",
+        "line": 62,
+        "code": "val degrees = cursor.getInt(orientationIndex)"
+      }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 12,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/ContactManager.kt",
+        "line": 23,
+        "code": "fun openContact(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/ContactManager.kt",
+        "line": 43,
+        "code": "val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contactId.toString())"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/ContactManager.kt",
+        "line": 44,
+        "code": "val intent = Intent(Intent.ACTION_VIEW).apply {"
+      }
+    ]
+  }
+]

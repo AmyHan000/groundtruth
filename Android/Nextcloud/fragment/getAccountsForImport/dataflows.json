@@ -1,0 +1,37 @@
+[
+  {
+    "id": 23,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/fragment/contactsbackup/BackupListAdapter.kt",
+        "line": 311,
+        "code": "private fun getAccountsForImport(): List<ContactsAccount> {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/fragment/contactsbackup/BackupListAdapter.kt",
+        "line": 317,
+        "code": "ContactsContract.RawContacts.CONTENT_URI,"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/fragment/contactsbackup/BackupListAdapter.kt",
+        "line": 323,
+        "code": "val nameIndex = cursor.getColumnIndexOrThrow(ContactsContract.RawContacts.ACCOUNT_NAME)"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/fragment/contactsbackup/BackupListAdapter.kt",
+        "line": 324,
+        "code": "val typeIndex = cursor.getColumnIndexOrThrow(ContactsContract.RawContacts.ACCOUNT_TYPE)"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/fragment/contactsbackup/BackupListAdapter.kt",
+        "line": 327,
+        "code": "val name = cursor.getString(nameIndex)"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/fragment/contactsbackup/BackupListAdapter.kt",
+        "line": 328,
+        "code": "val type = cursor.getString(typeIndex)"
+      }
+    ]
+  }
+]

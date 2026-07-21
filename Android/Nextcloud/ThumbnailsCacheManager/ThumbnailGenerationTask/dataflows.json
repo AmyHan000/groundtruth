@@ -1,0 +1,17 @@
+[
+  {
+    "id": 19,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/datamodel/ThumbnailsCacheManager.java",
+        "line": 486,
+        "code": "public ThumbnailGenerationTask(ImageView imageView) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/datamodel/ThumbnailsCacheManager.java",
+        "line": 607,
+        "code": "MediaStore.Images.Thumbnails.MINI_KIND);"
+      }
+    ]
+  }
+]

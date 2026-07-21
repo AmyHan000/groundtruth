@@ -1,0 +1,32 @@
+[
+  {
+    "id": 15,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/ContactsImportWork.kt",
+        "line": 50,
+        "code": "override fun doWork(): Result {"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/ContactsImportWork.kt",
+        "line": 81,
+        "code": "ContactsContract.Contacts.CONTENT_URI,"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/ContactsImportWork.kt",
+        "line": 87,
+        "code": "val ownContactMap = TreeMap<VCard, Long?>(VCardComparator())"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/ContactsImportWork.kt",
+        "line": 91,
+        "code": "val vCard = getContactFromCursor(cursor)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/ContactsImportWork.kt",
+        "line": 109,
+        "code": "operations.insertContact(vCard) // Insert All the contacts without name"
+      }
+    ]
+  }
+]

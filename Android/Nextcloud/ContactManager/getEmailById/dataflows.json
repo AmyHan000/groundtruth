@@ -1,0 +1,22 @@
+[
+  {
+    "id": 10,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/ContactManager.kt",
+        "line": 66,
+        "code": "private fun getEmailById(contactId: Long): String? {"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/ContactManager.kt",
+        "line": 73,
+        "code": "ContactsContract.CommonDataKinds.Email.CONTENT_URI,"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/ContactManager.kt",
+        "line": 81,
+        "code": "val emailIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)"
+      }
+    ]
+  }
+]

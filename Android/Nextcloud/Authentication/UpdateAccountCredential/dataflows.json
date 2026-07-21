@@ -1,0 +1,52 @@
+[
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1451,
+        "code": "private void updateAccountAuthentication() throws AccountNotFoundException {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1452,
+        "code": "Bundle response = new Bundle();"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1453,
+        "code": "response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1455,
+        "code": "response.putString(AccountManager.KEY_AUTHTOKEN, webViewPassword);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1456,
+        "code": "mAccountMgr.setPassword(mAccount, webViewPassword);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1460,
+        "code": "OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1462,
+        "code": "setAccountAuthenticatorResult(response);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1464,
+        "code": "intent.putExtras(response);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AuthenticatorActivity.java",
+        "line": 1465,
+        "code": "setResult(RESULT_OK, intent);"
+      }
+    ]
+  }
+]
