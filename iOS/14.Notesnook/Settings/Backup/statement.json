@@ -1,0 +1,16 @@
+[
+  {
+    "business_function": "数据备份",
+    "business_scenario": "用户在设置中触发数据备份，所有笔记、笔记本、标签、设置和附件加密数据导出为.nnbackupz文件，通过Android Scoped Storage保存到用户选择的目录，支持可选加密",
+    "data_types_info": "所有笔记数据(一般), 附件加密数据(一般)",
+    "processing_method": "本地处理（导出为加密zip文件保存到用户选择的目录）",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "数据恢复",
+    "business_scenario": "用户通过文件选择器选择备份文件进行恢复，如备份已加密需输入密码或密钥进行解密，然后将所有数据导入本地加密数据库",
+    "data_types_info": "备份文件数据(一般), 备份解密密码/密钥(敏感)",
+    "processing_method": "本地处理（从备份文件解密后导入本地加密数据库）",
+    "permissions_info": "无"
+  }
+]

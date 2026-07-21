@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "会话过期重新验证",
+    "business_scenario": "当认证令牌过期时（通过API响应检测），应用提示用户重新输入密码以更新会话令牌",
+    "data_types_info": "密码(敏感)",
+    "processing_method": "上传云端（发送至 auth.streetwriters.co）",
+    "permissions_info": "无"
+  }
+]

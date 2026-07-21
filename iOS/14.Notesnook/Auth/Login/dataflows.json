@@ -1,0 +1,51 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_AUTH_LOGIN",
+      "data_type": "User Credentials (Email + Password), 2FA Token",
+      "description": "User logs in with email and password. Supports multi-factor authentication (SMS/Email/TOTP). Credentials sent to auth.streetwriters.co.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "useLogin.login (step: emailAuth)",
+          "file": "apps/mobile/app/components/auth/use-login.ts",
+          "line": 56,
+          "code": "const mfaInfo = await db.user.authenticateEmail(formRef.current.getValue(\"email\"));",
+          "details": "Email sent to authentication server to check if 2FA is required."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "useLogin.login (step: mfaCodeAuth)",
+          "file": "apps/mobile/app/components/auth/use-login.ts",
+          "line": 72,
+          "code": "const success = await db.user.authenticateMultiFactorCode(mfa.code, mfa.method);",
+          "details": "If 2FA enabled, user's 2FA code sent to authentication server."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "useLogin.login (step: passwordAuth)",
+          "file": "apps/mobile/app/components/auth/use-login.ts",
+          "line": 113,
+          "code": "await db.user.authenticatePassword(values.email, values.password, undefined, sessionExpired);",
+          "details": "Password sent to authentication server for verification."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "database index (AUTH_HOST)",
+          "file": "apps/mobile/app/common/database/index.ts",
+          "line": 54,
+          "code": "AUTH_HOST: \"https://auth.streetwriters.co\"",
+          "details": "All authentication requests go to auth.streetwriters.co over HTTPS."
+        },
+        {
+          "step": "Post-Login",
+          "function": "Login component",
+          "file": "apps/mobile/app/components/auth/login.tsx",
+          "line": 80,
+          "code": "Sync.run(\"global\", false, \"full\");",
+          "details": "Full data sync triggered after successful login to pull latest data from server."
+        }
+      ]
+    }
+  ]
+}

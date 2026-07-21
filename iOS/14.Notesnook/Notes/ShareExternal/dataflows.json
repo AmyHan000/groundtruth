@@ -1,0 +1,51 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SHARE_EXTERNAL",
+      "data_type": "External Content (Text, Images, Videos, Files from other apps)",
+      "description": "App registers as share target to receive content from other Android apps. Received content saved as new note or attachment via encrypted storage.",
+      "flow_steps": [
+        {
+          "step": "Intent Filter",
+          "function": "AndroidManifest ShareActivity intent filters",
+          "file": "apps/mobile/android/app/src/main/AndroidManifest.xml",
+          "line": 171,
+          "code": "<activity android:name=\".ShareActivity\" ...> <intent-filter android:label=\"Make Note\"> <action android:name=\"android.intent.action.SEND\" /> <data android:mimeType=\"text/*\" /> <data android:mimeType=\"image/*\" /> <data android:mimeType=\"video/*\" /> <data android:mimeType=\"application/*\" /> </intent-filter>",
+          "details": "App registers for ACTION_SEND, ACTION_SEND_MULTIPLE, and ACTION_PROCESS_TEXT intents. Accepts text, images, videos, and application files."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "ShareActivity.onCreate",
+          "file": "apps/mobile/android/app/src/main/java/com/streetwriters/notesnook/ShareActivity.java",
+          "line": 9,
+          "code": "protected String getMainComponentName() { return \"NotesnookShare\"; }",
+          "details": "ShareActivity launches React Native component (NotesnookShare) to process incoming shared content."
+        },
+        {
+          "step": "Data Transmission (Internal)",
+          "function": "RCTNNativeModule.getIntent",
+          "file": "apps/mobile/android/app/src/main/java/com/streetwriters/notesnook/RCTNNativeModule.java",
+          "line": 129,
+          "code": "public WritableMap getIntent() { ... Intent intent = getCurrentActivity().getIntent(); Bundle extras = getCurrentActivity().getIntent().getExtras(); ... }",
+          "details": "Shared data (text, image URIs, etc.) extracted from Intent extras and passed to React Native via native bridge."
+        },
+        {
+          "step": "Deep Links",
+          "function": "AndroidManifest MainActivity intent filters",
+          "file": "apps/mobile/android/app/src/main/AndroidManifest.xml",
+          "line": 138,
+          "code": "<data android:host=\"app.notesnook.com\" android:scheme=\"https\" /> <data android:scheme=\"notesnook\" /> <data android:scheme=\"nn\" />",
+          "details": "App also handles deep links (https://app.notesnook.com, notesnook://, nn://) to open specific notes, notebooks, or tags."
+        },
+        {
+          "step": "Data Storage",
+          "function": "notes.add",
+          "file": "apps/mobile/app/services/notifications.ts",
+          "line": 222,
+          "code": "const id = await db.notes?.add({ content: { type: \"tiptap\", data: textToHTML(input as string) } });",
+          "details": "Received content saved as encrypted note in local database."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_APP_LOCK_BIOMETRIC",
+      "data_type": "Biometric Credentials (Fingerprint/Face ID)",
+      "description": "User unlocks app using device biometric authentication. Biometric credentials verified by Android BiometricPrompt/FingerprintManager. Encryption key stored in Android KeyStore.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "AppLocked.onUnlockAppRequested",
+          "file": "apps/mobile/app/components/app-lock/index.tsx",
+          "line": 112,
+          "code": "const unlocked = await BiometricService.validateUser(\"Unlock to access your notes\", \"\");",
+          "details": "App lock screen triggers biometric authentication when app returns to foreground."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "BiometricService.validateUser",
+          "file": "apps/mobile/app/services/biometrics.ts",
+          "line": 125,
+          "code": "await FingerprintScanner.authenticate(Platform.select({...}))",
+          "details": "Native fingerprint scanner invoked. Biometric data processed by device hardware, never leaves device."
+        },
+        {
+          "step": "Key Storage",
+          "function": "BiometricService.storeCredentials",
+          "file": "apps/mobile/app/services/biometrics.ts",
+          "line": 56,
+          "code": "await Keychain.setInternetCredentials(\"nn_vault\", \"notesnookvault\", password, KeychainConfig);",
+          "details": "Encryption credentials stored in Android KeyStore/iOS Keychain for biometric-secured retrieval."
+        },
+        {
+          "step": "State Check",
+          "function": "BiometricService.isFingerprintAuthEnabled",
+          "file": "apps/mobile/app/services/biometrics.ts",
+          "line": 52,
+          "code": "return await MMKV.getStringAsync(\"fingerprintAuthEnabled\");",
+          "details": "Biometric auth enabled state stored in MMKV."
+        },
+        {
+          "step": "Permission",
+          "function": "AndroidManifest",
+          "file": "apps/mobile/android/app/src/main/AndroidManifest.xml",
+          "line": 9,
+          "code": "<uses-permission android:name=\"android.permission.USE_FINGERPRINT\" />",
+          "details": "Fingerprint permission declared."
+        },
+        {
+          "step": "Permission",
+          "function": "AndroidManifest",
+          "file": "apps/mobile/android/app/src/main/AndroidManifest.xml",
+          "line": 10,
+          "code": "<uses-permission android:name=\"android.permission.USE_BIOMETRIC\" />",
+          "details": "Biometric permission declared."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_APP_LOCK_PASSWORD",
+      "data_type": "App Lock Password/PIN",
+      "description": "User sets a password or PIN for app lock. Password encrypted using libsodium and stored in MMKV.",
+      "flow_steps": [
+        {
+          "step": "Encryption",
+          "function": "encryption.setAppLockVerificationCipher",
+          "file": "apps/mobile/app/common/database/encryption.ts",
+          "line": 114,
+          "code": "const encrypted = (await encrypt(appLockCredentials, generatePassword())) as Cipher; CipherStorage.setMap(APPLOCK_CIPHER, encrypted);",
+          "details": "App lock password encrypted with libsodium using derived key. Stored in MMKV cipher storage."
+        },
+        {
+          "step": "Verification",
+          "function": "encryption.validateAppLockPassword",
+          "file": "apps/mobile/app/common/database/encryption.ts",
+          "line": 135,
+          "code": "const key = await Sodium.deriveKey(appLockPassword, appLockCipher.salt); const decrypted = await decrypt(key, appLockCipher);",
+          "details": "Password verified by decrypting stored cipher with derived key. Only the hash/verification is stored."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_PRIVACY_SCREEN",
+      "data_type": "Screen Content (FLAG_SECURE)",
+      "description": "Prevents screen capture and hides app content from recent apps list using Android FLAG_SECURE.",
+      "flow_steps": [
+        {
+          "step": "Sensitive Operation",
+          "function": "RCTNNativeModule.setSecureMode",
+          "file": "apps/mobile/android/app/src/main/java/com/streetwriters/notesnook/RCTNNativeModule.java",
+          "line": 77,
+          "code": "getCurrentActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);",
+          "details": "Android FLAG_SECURE set to prevent screenshots and hide content in recent apps."
+        },
+        {
+          "step": "Bridge Call",
+          "function": "SettingsService.setPrivacyScreen",
+          "file": "apps/mobile/app/services/settings.ts",
+          "line": 138,
+          "code": "NotesnookModule.setSecureMode(true);",
+          "details": "React Native bridge calls native FLAG_SECURE method."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_APP_STATE_GUARD",
+      "data_type": "App State (Foreground/Background)",
+      "description": "Monitors app state transitions to trigger app lock when app returns from background.",
+      "flow_steps": [
+        {
+          "step": "Event Listener",
+          "function": "AppLocked useEffect",
+          "file": "apps/mobile/app/components/app-lock/index.tsx",
+          "line": 180,
+          "code": "if (appState === \"active\" && prevState === \"background\") { if (SettingsService.shouldLockAppOnEnterForeground()) { useUserStore.getState().lockApp(true); } }",
+          "details": "AppState listener detects transition from background to foreground and triggers app lock."
+        },
+        {
+          "step": "Timer",
+          "function": "SettingsService.appEnteredBackground",
+          "file": "apps/mobile/app/services/settings.ts",
+          "line": 237,
+          "code": "backgroundEnterTime = Date.now();",
+          "details": "Records timestamp when app enters background to enforce lock timeout."
+        }
+      ]
+    }
+  ]
+}

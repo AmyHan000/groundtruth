@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SETTINGS_DELETE_ACCOUNT",
+      "data_type": "User Password, All Account Data",
+      "description": "User permanently deletes account. Password required for verification. All remote data irreversibly deleted. Local data cleared including biometric credentials.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "SettingsData delete-account handler",
+          "file": "apps/mobile/app/screens/settings/settings-data.tsx",
+          "line": 540,
+          "code": "{ id: \"delete-account\", type: \"danger\", name: strings.deleteAccount(), ... }",
+          "details": "User taps 'Delete Account' in settings. Dangerous action with confirmation dialog."
+        },
+        {
+          "step": "Password Verification",
+          "function": "SettingsData delete-account dialog",
+          "file": "apps/mobile/app/screens/settings/settings-data.tsx",
+          "line": 552,
+          "code": "input: true, secureTextEntry: true",
+          "details": "User must enter account password in a secure text field for verification."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "db.user?.deleteUser",
+          "file": "apps/mobile/app/screens/settings/settings-data.tsx",
+          "line": 575,
+          "code": "await db.user?.deleteUser(value);",
+          "details": "Password sent to auth server. All account data on server permanently deleted."
+        },
+        {
+          "step": "Local Cleanup",
+          "function": "BiometricService.resetCredentials",
+          "file": "apps/mobile/app/screens/settings/settings-data.tsx",
+          "line": 578,
+          "code": "await BiometricService.resetCredentials();",
+          "details": "Biometric credentials and local encryption keys cleared after account deletion."
+        }
+      ]
+    }
+  ]
+}

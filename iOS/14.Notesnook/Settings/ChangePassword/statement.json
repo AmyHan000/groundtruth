@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "修改密码",
+    "business_scenario": "用户在设置中修改账号密码，系统会自动触发数据备份作为安全措施，新旧密码均通过HTTPS发送至认证服务器完成变更",
+    "data_types_info": "当前密码(敏感), 新密码(敏感)",
+    "processing_method": "上传云端（发送至 auth.streetwriters.co）",
+    "permissions_info": "无"
+  }
+]
