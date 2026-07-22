@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "配置网络设置",
+        "purpose": "配置代理和网络连接参数",
+        "source": "用户配置",
+        "item": "代理地址、端口、SOCKS5设置",
+        "frequency": "用户主动配置",
+        "processing": "本地存储配置",
+        "storage": "本地配置文件",
+        "recipient": "仅本机",
+        "thirdparty": "无",
+        "switchpath": "设置页面 - 网络设置"
+      }
+    ],
+    "permissions": []
+  }
+]

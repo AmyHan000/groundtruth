@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "浏览音频",
+        "purpose": "展示本地音频文件列表供用户浏览",
+        "source": "系统媒体库API",
+        "item": "音频文件列表（标题、艺术家、专辑）",
+        "frequency": "每次打开页面",
+        "processing": "本地读取并展示",
+        "storage": "不存储，仅内存缓存",
+        "recipient": "仅本应用",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "scene": "读取音频文件列表",
+        "authorization": "动态授权",
+        "purpose": "从媒体库查询音频文件",
+        "impact": "无法显示音频文件列表"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "浏览音频",
+        "purpose": "显示音频文件的封面图片",
+        "source": "系统媒体库API",
+        "item": "音频缩略图",
+        "frequency": "每次打开页面",
+        "processing": "本地读取并展示",
+        "storage": "不存储，仅内存缓存",
+        "recipient": "仅本应用",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "scene": "读取音频文件列表",
+        "authorization": "动态授权",
+        "purpose": "从媒体库查询音频文件",
+        "impact": "无法显示音频文件列表"
+      }
+    ]
+  }
+]

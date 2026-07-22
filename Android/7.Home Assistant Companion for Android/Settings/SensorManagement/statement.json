@@ -1,27 +1,52 @@
-{
-  "id": "SETTINGS_SENSOR",
-  "feature_name": "Sensor Management",
-  "description": "The settings page provides centralized management of all sensor toggles. Users can enable or disable various device sensors (location, health, notification listener, activity recognition, etc.) individually. This page itself does not collect any data; it serves as the control interface for sensor features. The specific data collection behavior of each sensor is described in its corresponding background service documentation.",
-  "data": [
-    {
-      "data_type": "Sensor Configuration State",
-      "category": "App Settings / Preferences",
-      "detail": "enable/disable settings per server for all device sensors",
-      "storage": "Local Room database (Sensor table)",
-      "retention": "Persistent until user changes setting",
-      "shared_with": "None (local only)",
-      "data_flows": [
-        "FLOW_SENSOR_ENABLE_STATE_READ",
-        "FLOW_SENSOR_ENABLE_STATE_WRITE"
-      ]
-    }
-  ],
-  "permissions": [
-    {
-      "permission": "N/A",
-      "purpose": "No runtime permissions are declared or requested by this screen itself. Sensor-specific permissions are handled by individual sensor managers.",
-      "required": false,
-      "data_flows": []
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_SENSOR_ENABLE_STATE_READ",
+    "data": [
+      {
+        "data_type": "Sensor Configuration State",
+        "category": "App Settings / Preferences",
+        "detail": "enable/disable settings per server for all device sensors",
+        "storage": "Local Room database (Sensor table)",
+        "retention": "Persistent until user changes setting",
+        "shared_with": "None (local only)",
+        "data_flows": [
+          "FLOW_SENSOR_ENABLE_STATE_READ",
+          "FLOW_SENSOR_ENABLE_STATE_WRITE"
+        ]
+      }
+    ],
+    "permissions": [
+      {
+        "permission": "N/A",
+        "purpose": "No runtime permissions are declared or requested by this screen itself. Sensor-specific permissions are handled by individual sensor managers.",
+        "required": false,
+        "data_flows": []
+      }
+    ]
+  },
+  {
+    "id": "FLOW_SENSOR_ENABLE_STATE_WRITE",
+    "data": [
+      {
+        "scene": "Sensor Configuration State (enable/disable toggle)",
+        "purpose": "When the user toggles a sensor's enabled state in Sensor Management, the change is persisted to the Room database and propagated to the sensor manager which may start or stop data collection.",
+        "source": "Home Assistant Companion",
+        "item": "Sensor Configuration State (enable/disable toggle)",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": [
+      {
+        "permission": "N/A",
+        "purpose": "No runtime permissions are declared or requested by this screen itself. Sensor-specific permissions are handled by individual sensor managers.",
+        "required": false,
+        "data_flows": []
+      }
+    ]
+  }
+]

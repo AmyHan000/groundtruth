@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "浏览时间线",
+        "purpose": "显示社交内容",
+        "source": "服务器API",
+        "item": "帖子内容",
+        "frequency": "每次刷新",
+        "processing": "本地处理",
+        "storage": "缓存存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "浏览时间线",
+        "purpose": "身份验证",
+        "source": "本地存储",
+        "item": "访问令牌",
+        "frequency": "每次请求",
+        "processing": "加密存储",
+        "storage": "Keychain",
+        "recipient": "服务器",
+        "thirdparty": "无",
+        "switchpath": "退出登录"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "检测设备类型",
+        "purpose": "根据设备类型调整界面布局",
+        "source": "系统信息",
+        "item": "设备界面类型（iPhone/iPad）",
+        "frequency": "每次界面加载",
+        "processing": "本地读取UIDevice信息",
+        "storage": "不存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": []
+  }
+]

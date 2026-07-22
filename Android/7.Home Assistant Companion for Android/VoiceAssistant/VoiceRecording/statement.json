@@ -1,27 +1,20 @@
-{
-  "id": "VOICE_ASSIST_RECORDING",
-  "feature_name": "Voice Recording",
-  "data": [
-    {
-      "scene": "User taps the microphone button on the Assist screen or triggers voice input via wake word.",
-      "purpose": "Transcribe voice commands and execute smart home control actions.",
-      "source": "Device microphone (via Android AudioRecord API)",
-      "item": "User voice audio (voice command content)",
-      "frequency": "On-demand (each time the user initiates a voice session)",
-      "processing": "Uploaded to cloud/server",
-      "storage": "Not stored; audio is discarded after streaming processing",
-      "recipient": "Home Assistant server (user self-hosted)",
-      "thirdparty": "No third-party involvement; voice data is sent to the user's self-hosted Home Assistant server",
-      "switchpath": "Assist screen top-right settings -> Input mode selection"
-    }
-  ],
-  "permissions": [
-    {
-      "name": "RECORD_AUDIO",
-      "scene": "When user first taps the microphone button",
-      "authorization": "Runtime",
-      "purpose": "Record user voice commands for the voice assistant",
-      "impact": "If denied, voice input will be unavailable; text input can still be used"
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_VOICE_RECORDING_ASSIST",
+    "data": [
+      {
+        "scene": "Voice Audio Recording (Biometric/Sensitive)",
+        "purpose": "The user taps the microphone button on the Assist screen. The app records voice audio via Android AudioRecord API and streams it through WebSocket to the Home Assistant server's Assist Pipeline for speech-to-text processing.",
+        "source": "Home Assistant Companion",
+        "item": "Voice Audio Recording (Biometric/Sensitive)",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": []
+  }
+]

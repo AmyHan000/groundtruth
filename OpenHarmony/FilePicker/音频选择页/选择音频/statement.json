@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "选择音频",
+        "purpose": "将用户选择的音频文件URI返回给调用方应用",
+        "source": "用户操作",
+        "item": "音频文件URI",
+        "frequency": "每次选择",
+        "processing": "本地生成并返回",
+        "storage": "不存储",
+        "recipient": "调用方应用",
+        "thirdparty": "调用方应用",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "scene": "读取音频文件",
+        "authorization": "动态授权",
+        "purpose": "读取用户选择的音频文件",
+        "impact": "无法选择音频文件"
+      },
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "scene": "授权音频文件写入",
+        "authorization": "动态授权",
+        "purpose": "授予调用方音频文件写入权限",
+        "impact": "调用方无法修改音频文件"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "选择音频",
+        "purpose": "授予调用方音频文件访问权限",
+        "source": "系统权限API",
+        "item": "音频文件URI权限",
+        "frequency": "每次选择",
+        "processing": "系统授权",
+        "storage": "系统记录",
+        "recipient": "调用方应用",
+        "thirdparty": "调用方应用",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "scene": "读取音频文件",
+        "authorization": "动态授权",
+        "purpose": "读取用户选择的音频文件",
+        "impact": "无法选择音频文件"
+      },
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "scene": "授权音频文件写入",
+        "authorization": "动态授权",
+        "purpose": "授予调用方音频文件写入权限",
+        "impact": "调用方无法修改音频文件"
+      }
+    ]
+  }
+]

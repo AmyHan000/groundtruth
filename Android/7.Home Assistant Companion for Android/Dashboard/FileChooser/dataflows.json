@@ -1,35 +1,33 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_WEBVIEW_FILE_UPLOAD",
-      "data_type": "User-Selected Files (Documents, photos, any file content)",
-      "description": "The WebView frontend triggers a file chooser. The app opens the Android system file picker (type */*) allowing the user to select any file from device storage. The selected file URIs are returned to the WebView's JavaScript context for upload to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "FileChooserManager.pickFiles",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/filechooser/FileChooserManager.kt",
-          "line": 46,
-          "code": "suspend fun pickFiles(params: FileChooserParams): Array<Uri>?",
-          "details": "WebView triggers a file upload input. The app creates a FileChooserRequest and emits it to the UI."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "Android system file picker (Intent)",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/filechooser/FileChooserEffect.kt",
-          "line": 30,
-          "code": "activityResultLauncher.launch(chooserIntent)",
-          "details": "The Android system file picker (type */*) opens, allowing the user to select any file from their device (photos, documents, downloads, etc.)."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "WebView.FileChooserParams.parseResult",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/FrontendScreen.kt",
-          "line": 450,
-          "code": "webView.webChromeClient.onShowFileChooser(webView, filePathCallback, fileChooserParams)",
-          "details": "Selected file URIs are returned to the WebView's JavaScript context, which uploads the file content to the Home Assistant server via the frontend's own upload mechanism."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_WEBVIEW_FILE_UPLOAD",
+    "data_type": "User-Selected Files (Documents, photos, any file content)",
+    "description": "The WebView frontend triggers a file chooser. The app opens the Android system file picker (type */*) allowing the user to select any file from device storage. The selected file URIs are returned to the WebView's JavaScript context for upload to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "FileChooserManager.pickFiles",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/filechooser/FileChooserManager.kt",
+        "line": 46,
+        "code": "suspend fun pickFiles(params: FileChooserParams): Array<Uri>?",
+        "details": "WebView triggers a file upload input. The app creates a FileChooserRequest and emits it to the UI."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "Android system file picker (Intent)",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/filechooser/FileChooserEffect.kt",
+        "line": 30,
+        "code": "activityResultLauncher.launch(chooserIntent)",
+        "details": "The Android system file picker (type */*) opens, allowing the user to select any file from their device (photos, documents, downloads, etc.)."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "WebView.FileChooserParams.parseResult",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/FrontendScreen.kt",
+        "line": 450,
+        "code": "webView.webChromeClient.onShowFileChooser(webView, filePathCallback, fileChooserParams)",
+        "details": "Selected file URIs are returned to the WebView's JavaScript context, which uploads the file content to the Home Assistant server via the frontend's own upload mechanism."
+      }
+    ]
+  }
+]

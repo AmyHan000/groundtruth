@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/OAuthActivity.java",
+        "line": 43,
+        "code": "String code=uri.getQueryParameter(\"code\");"
+      },
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/OAuthActivity.java",
+        "line": 58,
+        "code": "new GetOauthToken(app.clientId, app.clientSecret, code, AccountSessionManager.getInstance().getAuthenticatingCodeVerifier(), GetOauthToken.GrantType.AUTHORIZATION_CODE)"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/OAuthActivity.java",
+        "line": 62,
+        "code": "new GetOwnAccount()"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/session/AccountSessionManager.java",
+        "line": 138,
+        "code": "AccountSession session=new AccountSession(token, self, app, instance.getDomain(), activationInfo==null, activationInfo);"
+      },
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/session/AccountSessionManager.java",
+        "line": 145,
+        "code": "db.insertWithOnConflict(\"accounts\", null, values, SQLiteDatabase.CONFLICT_REPLACE);"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/session/AccountSessionManager.java",
+        "line": 148,
+        "code": "session.getPushSubscriptionManager().registerFCM();"
+      }
+    ]
+  }
+]

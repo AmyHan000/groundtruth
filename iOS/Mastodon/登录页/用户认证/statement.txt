@@ -1,0 +1,9 @@
+用户认证
+
+1 我们如何收集和使用您的个人信息：
+OAuth认证，通过 Mastodon+API+OAuth.swift，向Mastodon服务器发起OAuth认证请求以获取访问令牌。采集频率：每次登录。处理方式：加密传输（HTTPS），涉及第三方OAuth认证服务，退出登录则清除令牌。
+
+安全存储认证信息，通过 AuthenticationServiceProvider.swift，将您的访问令牌和认证信息加密存储于系统Keychain中（服务名：org.joinmastodon.app.authentications）。采集频率：每次登录。处理方式：本地加密存储于Keychain，退出登录后清除。
+
+2 设备权限调用：
+本功能无特殊权限请求。

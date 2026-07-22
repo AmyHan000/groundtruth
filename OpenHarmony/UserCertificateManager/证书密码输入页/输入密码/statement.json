@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "输入证书密码",
+        "purpose": "验证凭证文件密码",
+        "source": "用户输入",
+        "item": "证书密码",
+        "frequency": "用户主动输入",
+        "processing": "本地处理",
+        "storage": "内存中临时存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "密码输入页面"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "屏幕截图保护权限",
+        "scene": "防止密码截图",
+        "authorization": "预授权",
+        "purpose": "启用防截图功能",
+        "impact": "无法保护密码安全"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "输入证书密码",
+        "purpose": "防止密码被截图窃取",
+        "source": "系统功能",
+        "item": "防截图保护",
+        "frequency": "每次输入",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（安全要求）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "屏幕截图保护权限",
+        "scene": "防止密码截图",
+        "authorization": "预授权",
+        "purpose": "启用防截图功能",
+        "impact": "无法保护密码安全"
+      }
+    ]
+  }
+]

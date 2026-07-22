@@ -1,58 +1,101 @@
-{
-  "id": "BACKGROUND_LOCATION",
-  "feature_name": "Background Location Tracking",
-  "data": [
-    {
-      "scene": "User enables location sensors; the app periodically collects device location in the background.",
-      "purpose": "Implement presence detection, geofencing automation, and location history tracking.",
-      "source": "Google Play Services FusedLocationProviderClient (GPS/Network)",
-      "item": "Precise GPS location (latitude, longitude, accuracy, speed, bearing)",
-      "frequency": "Every 5-60 seconds (depends on configured background location interval)",
-      "processing": "Uploaded to server",
-      "storage": "Local Room database storage + server-side storage",
-      "recipient": "Home Assistant server (user self-hosted)",
-      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
-      "switchpath": "Settings -> Sensor Management -> Location Sensors -> Enable/Disable"
-    },
-    {
-      "scene": "The geocoded location sensor is enabled; GPS coordinates are reverse-geocoded into a human-readable address via Android Geocoder API.",
-      "purpose": "Provide a human-readable street address sensor in Home Assistant for location-aware automations and dashboards.",
-      "source": "Android Geocoder API (uses GPS coordinates from FusedLocationProviderClient)",
-      "item": "Street address, city, administrative area, country, phone number, URL, plus underlying GPS coordinates",
-      "frequency": "Periodic (triggered on each location sensor update cycle)",
-      "processing": "Uploaded to server",
-      "storage": "Server-side storage",
-      "recipient": "Home Assistant server (user self-hosted)",
-      "thirdparty": "Android Geocoder API may use network services for reverse geocoding; resolved address data is sent only to the user's self-hosted Home Assistant server",
-      "switchpath": "Settings -> Sensor Management -> Geocoded Location Sensor -> Enable/Disable"
-    },
-    {
-      "scene": "High-accuracy mode is enabled by the user setting, a server command, or a geofence enter/exit event; a foreground service collects continuous GPS updates.",
-      "purpose": "Provide precise continuous location tracking for accurate presence detection and geofence transition monitoring.",
-      "source": "Google Play Services FusedLocationProviderClient (GPS, PRIORITY_HIGH_ACCURACY)",
-      "item": "Precise GPS location (latitude, longitude, accuracy, speed, bearing) at high frequency",
-      "frequency": "Continuous (every 1-5 seconds) while high-accuracy mode is active",
-      "processing": "Uploaded to server",
-      "storage": "Server-side storage",
-      "recipient": "Home Assistant server (user self-hosted)",
-      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
-      "switchpath": "Settings -> Sensor Management -> Location Sensors -> High Accuracy Mode -> Enable/Disable"
-    }
-  ],
-  "permissions": [
-    {
-      "name": "ACCESS_FINE_LOCATION",
-      "scene": "When enabling location sensors or during onboarding location request",
-      "authorization": "Runtime",
-      "purpose": "Obtain precise GPS location for presence detection and geofencing",
-      "impact": "If denied, location sensors will not work; location-based automations will be unavailable"
-    },
-    {
-      "name": "ACCESS_BACKGROUND_LOCATION",
-      "scene": "When enabling background location updates (Android 10+)",
-      "authorization": "Runtime",
-      "purpose": "Allow location updates when the app is in the background",
-      "impact": "If denied, location cannot be updated when the app is running in the background"
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_BACKGROUND_LOCATION_COLLECTION",
+    "data": [
+      {
+        "scene": "User enables location sensors; the app periodically collects device location in the background.",
+        "purpose": "Implement presence detection, geofencing automation, and location history tracking.",
+        "source": "Google Play Services FusedLocationProviderClient (GPS/Network)",
+        "item": "Precise GPS location (latitude, longitude, accuracy, speed, bearing)",
+        "frequency": "Every 5-60 seconds (depends on configured background location interval)",
+        "processing": "Uploaded to server",
+        "storage": "Local Room database storage + server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+        "switchpath": "Settings -> Sensor Management -> Location Sensors -> Enable/Disable"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ACCESS_FINE_LOCATION",
+        "scene": "When enabling location sensors or during onboarding location request",
+        "authorization": "Runtime",
+        "purpose": "Obtain precise GPS location for presence detection and geofencing",
+        "impact": "If denied, location sensors will not work; location-based automations will be unavailable"
+      },
+      {
+        "name": "ACCESS_BACKGROUND_LOCATION",
+        "scene": "When enabling background location updates (Android 10+)",
+        "authorization": "Runtime",
+        "purpose": "Allow location updates when the app is in the background",
+        "impact": "If denied, location cannot be updated when the app is running in the background"
+      }
+    ]
+  },
+  {
+    "id": "FLOW_GEOCODED_LOCATION",
+    "data": [
+      {
+        "scene": "The geocoded location sensor is enabled; GPS coordinates are reverse-geocoded into a human-readable address via Android Geocoder API.",
+        "purpose": "Provide a human-readable street address sensor in Home Assistant for location-aware automations and dashboards.",
+        "source": "Android Geocoder API (uses GPS coordinates from FusedLocationProviderClient)",
+        "item": "Street address, city, administrative area, country, phone number, URL, plus underlying GPS coordinates",
+        "frequency": "Periodic (triggered on each location sensor update cycle)",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "Android Geocoder API may use network services for reverse geocoding; resolved address data is sent only to the user's self-hosted Home Assistant server",
+        "switchpath": "Settings -> Sensor Management -> Geocoded Location Sensor -> Enable/Disable"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ACCESS_FINE_LOCATION",
+        "scene": "When enabling location sensors or during onboarding location request",
+        "authorization": "Runtime",
+        "purpose": "Obtain precise GPS location for presence detection and geofencing",
+        "impact": "If denied, location sensors will not work; location-based automations will be unavailable"
+      },
+      {
+        "name": "ACCESS_BACKGROUND_LOCATION",
+        "scene": "When enabling background location updates (Android 10+)",
+        "authorization": "Runtime",
+        "purpose": "Allow location updates when the app is in the background",
+        "impact": "If denied, location cannot be updated when the app is running in the background"
+      }
+    ]
+  },
+  {
+    "id": "FLOW_HIGH_ACCURACY_LOCATION_MODE",
+    "data": [
+      {
+        "scene": "High-accuracy mode is enabled by the user setting, a server command, or a geofence enter/exit event; a foreground service collects continuous GPS updates.",
+        "purpose": "Provide precise continuous location tracking for accurate presence detection and geofence transition monitoring.",
+        "source": "Google Play Services FusedLocationProviderClient (GPS, PRIORITY_HIGH_ACCURACY)",
+        "item": "Precise GPS location (latitude, longitude, accuracy, speed, bearing) at high frequency",
+        "frequency": "Continuous (every 1-5 seconds) while high-accuracy mode is active",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server",
+        "switchpath": "Settings -> Sensor Management -> Location Sensors -> High Accuracy Mode -> Enable/Disable"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ACCESS_FINE_LOCATION",
+        "scene": "When enabling location sensors or during onboarding location request",
+        "authorization": "Runtime",
+        "purpose": "Obtain precise GPS location for presence detection and geofencing",
+        "impact": "If denied, location sensors will not work; location-based automations will be unavailable"
+      },
+      {
+        "name": "ACCESS_BACKGROUND_LOCATION",
+        "scene": "When enabling background location updates (Android 10+)",
+        "authorization": "Runtime",
+        "purpose": "Allow location updates when the app is in the background",
+        "impact": "If denied, location cannot be updated when the app is running in the background"
+      }
+    ]
+  }
+]

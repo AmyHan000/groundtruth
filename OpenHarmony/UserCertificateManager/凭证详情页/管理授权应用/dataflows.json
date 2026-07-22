@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/AuthorizedAppManagementPage.ets",
+        "line": 106,
+        "code": "ForEach(this.presenter.appInfoList, (item: AppAuthorVo, index) => {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 227,
+        "code": "this.getAuthorizedAppList(uri, (errCode: CMModelErrorCode, appUidList: Array<string>) => {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 656,
+        "code": "private async getAuthorizedAppList(uri: string, callback: Function): Promise<void> {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 659,
+        "code": "let result = await CertManager.getAuthorizedAppList(uri);"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/AuthorizedAppManagementPage.ets",
+        "line": 111,
+        "code": "await this.presenter.removeGrantedAppList(this.presenter.credInfo.keyUri);"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 684,
+        "code": "await CertManager.removeGrantedPublicCertificate(uri, appUid);"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/model/BundleModel.ets",
+        "line": 35,
+        "code": "let appCloneIdentity = await bundleManager.getAppCloneIdentity(appUid);"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/BundleModel.ets",
+        "line": 39,
+        "code": "let resourceInfo = bundleResManager.getBundleResourceInfo(appCloneIdentity.bundleName, bundleFlags, appCloneIdentity.appIndex);"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/BundleModel.ets",
+        "line": 41,
+        "code": "appInfo.appName = resourceInfo.label;"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/BundleModel.ets",
+        "line": 42,
+        "code": "appInfo.appImage = resourceInfo.icon;"
+      }
+    ]
+  }
+]

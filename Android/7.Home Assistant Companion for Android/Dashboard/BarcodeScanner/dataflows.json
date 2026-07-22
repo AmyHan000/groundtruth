@@ -1,35 +1,33 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_CAMERA_BARCODE_SCAN",
-      "data_type": "Camera Feed / QR Code Content",
-      "description": "When the frontend WebView requests a barcode scan, the app activates the rear camera via CameraX API, uses local ZXing/MLKit libraries to decode barcode content, and returns the result to the frontend.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "FrontendScreen.FrontendBarcodeOverlay",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/FrontendScreen.kt",
-          "line": 942,
-          "code": "@Composable private fun FrontendBarcodeOverlay(barcodeScanner: BarcodeScannerUiState?, ...) { BarcodeScanner(...) }",
-          "details": "The frontend WebView requests a barcode scan via external bus message, and the BarcodeScanner overlay is displayed over the WebView."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "BarcodeScanner composable",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/barcode/ui/BarcodeScanner.kt",
-          "line": 30,
-          "code": "@Composable fun BarcodeScanner(...) { ... CameraX composable for live preview ... }",
-          "details": "The device rear camera is activated via CameraX API, displaying a live viewfinder preview on screen."
-        },
-        {
-          "step": "Data Processing",
-          "function": "FrontendBarcodeScannerHandler.handleScanResult",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/barcode/FrontendBarcodeScannerHandler.kt",
-          "line": 40,
-          "code": "fun handleScanResult(rawValue: String, format: BarcodeFormat) { sendScanResultToFrontend(rawValue, format) }",
-          "details": "The decoded barcode content is extracted and sent back to the frontend WebView via external bus."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_CAMERA_BARCODE_SCAN",
+    "data_type": "Camera Feed / QR Code Content",
+    "description": "When the frontend WebView requests a barcode scan, the app activates the rear camera via CameraX API, uses local ZXing/MLKit libraries to decode barcode content, and returns the result to the frontend.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "FrontendScreen.FrontendBarcodeOverlay",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/FrontendScreen.kt",
+        "line": 942,
+        "code": "@Composable private fun FrontendBarcodeOverlay(barcodeScanner: BarcodeScannerUiState?, ...) { BarcodeScanner(...) }",
+        "details": "The frontend WebView requests a barcode scan via external bus message, and the BarcodeScanner overlay is displayed over the WebView."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "BarcodeScanner composable",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/barcode/ui/BarcodeScanner.kt",
+        "line": 30,
+        "code": "@Composable fun BarcodeScanner(...) { ... CameraX composable for live preview ... }",
+        "details": "The device rear camera is activated via CameraX API, displaying a live viewfinder preview on screen."
+      },
+      {
+        "step": "Data Processing",
+        "function": "FrontendBarcodeScannerHandler.handleScanResult",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/barcode/FrontendBarcodeScannerHandler.kt",
+        "line": 40,
+        "code": "fun handleScanResult(rawValue: String, format: BarcodeFormat) { sendScanResultToFrontend(rawValue, format) }",
+        "details": "The decoded barcode content is extracted and sent back to the frontend WebView via external bus."
+      }
+    ]
+  }
+]

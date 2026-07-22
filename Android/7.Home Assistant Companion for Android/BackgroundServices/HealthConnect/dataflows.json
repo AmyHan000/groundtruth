@@ -1,160 +1,158 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_HEALTH_CONNECT_HEART_RATE",
-      "data_type": "Heart Rate (Health data)",
-      "description": "The app reads heart rate data from Google Health Connect and sends it to the Home Assistant server as a sensor.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "HealthConnectSensorManager.updateHeartRateSensor",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 736,
-          "code": "private suspend fun updateHeartRateSensor() { ... }",
-          "details": "The sensor update cycle triggers heart rate reading."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "HealthConnectClient.readRecords",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 739,
-          "code": "val response = healthConnectClient.readRecordsOrNull(heartRateRequest)",
-          "details": "Reads the latest heart rate record from Health Connect, requiring Health Connect permission."
-        },
-        {
-          "step": "Data Processing",
-          "function": "HealthConnectSensorManager.updateHeartRateSensor",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 743,
-          "code": "onSensorUpdated(heartRate, response.records.last().samples.last().beatsPerMinute, ..., mapOf(\"date\" to ..., \"source\" to ...))",
-          "details": "Extracts heart rate (bpm) and source application information."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "HealthConnectSensorManager.onSensorUpdated",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 743,
-          "code": "onSensorUpdated(heartRate, beatsPerMinute, heartRate.statelessIcon, attributes = mapOf(...))",
-          "details": "Heart rate data, timestamp, and source are sent to the Home Assistant server via WebSocket."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_HEALTH_CONNECT_BLOOD_PRESSURE",
-      "data_type": "Blood Pressure (Health data - Systolic/Diastolic)",
-      "description": "The app reads blood pressure records from Health Connect and sends systolic/diastolic values to the Home Assistant server as separate sensors.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "HealthConnectSensorManager.updateBloodPressureSensors",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 596,
-          "code": "private suspend fun updateBloodPressureSensors(isDiastolic: Boolean) { ... }",
-          "details": "The sensor update cycle triggers blood pressure reading."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "HealthConnectClient.readRecords",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 599,
-          "code": "val response = healthConnectClient.readRecordsOrNull(bloodPressureRequest)",
-          "details": "Reads blood pressure records from Health Connect."
-        },
-        {
-          "step": "Data Processing",
-          "function": "HealthConnectSensorManager.updateBloodPressureSensors",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 603,
-          "code": "onSensorUpdated(if (isDiastolic) diastolicBloodPressure else systolicBloodPressure, ...)",
-          "details": "Extracts systolic and diastolic pressure values (mmHg)."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "HealthConnectSensorManager.onSensorUpdated",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 611,
-          "code": "attributes = mapOf(\"bodyPosition\" to ..., \"date\" to ..., \"measurementLocation\" to ..., \"source\" to ...)",
-          "details": "Blood pressure data along with body position, measurement location and source are transmitted to the server."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_HEALTH_CONNECT_SLEEP",
-      "data_type": "Sleep Duration and Stages (Health data)",
-      "description": "The app reads sleep records from Health Connect, calculates actual sleep duration (excluding awake time), and sends it to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "HealthConnectSensorManager.updateSleepDurationSensor",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 875,
-          "code": "private suspend fun updateSleepDurationSensor() { ... }",
-          "details": "The sensor update cycle triggers sleep duration reading."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "HealthConnectClient.readRecords",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 878,
-          "code": "val sleepRecords = healthConnectClient.readRecordsOrNull(sleepRequest)",
-          "details": "Reads SleepSessionRecord including detailed sleep stage timing."
-        },
-        {
-          "step": "Data Processing",
-          "function": "HealthConnectSensorManager.calculateSleepDurationInMinutes",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 898,
-          "code": "internal fun calculateSleepDurationInMinutes(stages: List<Stage>): Long = stages.filter { it.stage != STAGE_TYPE_AWAKE && ... }.sumOf { ... }",
-          "details": "Calculates actual sleep duration by filtering out awake stages from raw sleep session data."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "HealthConnectSensorManager.onSensorUpdated",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 884,
-          "code": "onSensorUpdated(sleepDuration, sleepRecordDuration, ..., mapOf(\"endTime\" to ..., \"startTime\" to ..., \"sources\" to ...))",
-          "details": "Sleep duration with start/end times is transmitted to the Home Assistant server."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_HEALTH_CONNECT_BLOOD_GLUCOSE",
-      "data_type": "Blood Glucose Level (Health data - Sensitive)",
-      "description": "The app reads blood glucose records from Health Connect and sends the levels along with meal context to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "HealthConnectSensorManager.updateBloodGlucoseSensor",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 575,
-          "code": "private suspend fun updateBloodGlucoseSensor() { ... }",
-          "details": "The sensor update cycle triggers blood glucose reading."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "HealthConnectClient.readRecords",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 578,
-          "code": "val response = healthConnectClient.readRecordsOrNull(bloodGlucoseRequest)",
-          "details": "Reads blood glucose records from Health Connect."
-        },
-        {
-          "step": "Data Processing",
-          "function": "HealthConnectSensorManager.updateBloodGlucoseSensor",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 582,
-          "code": "onSensorUpdated(bloodGlucose, ..., mapOf(\"mealType\" to ..., \"relationToMeal\" to ..., \"specimenSource\" to ...))",
-          "details": "Extracts blood glucose level (mg/dL) with medical context: meal type, relation to meal, and specimen source."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "HealthConnectSensorManager.onSensorUpdated",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
-          "line": 582,
-          "code": "attributes = mapOf(\"date\" to ..., \"mealType\" to ..., \"specimenSource\" to ..., \"source\" to ...)",
-          "details": "Blood glucose data with full medical context is transmitted to the Home Assistant server."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_HEALTH_CONNECT_HEART_RATE",
+    "data_type": "Heart Rate (Health data)",
+    "description": "The app reads heart rate data from Google Health Connect and sends it to the Home Assistant server as a sensor.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "HealthConnectSensorManager.updateHeartRateSensor",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 736,
+        "code": "private suspend fun updateHeartRateSensor() { ... }",
+        "details": "The sensor update cycle triggers heart rate reading."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "HealthConnectClient.readRecords",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 739,
+        "code": "val response = healthConnectClient.readRecordsOrNull(heartRateRequest)",
+        "details": "Reads the latest heart rate record from Health Connect, requiring Health Connect permission."
+      },
+      {
+        "step": "Data Processing",
+        "function": "HealthConnectSensorManager.updateHeartRateSensor",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 743,
+        "code": "onSensorUpdated(heartRate, response.records.last().samples.last().beatsPerMinute, ..., mapOf(\"date\" to ..., \"source\" to ...))",
+        "details": "Extracts heart rate (bpm) and source application information."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "HealthConnectSensorManager.onSensorUpdated",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 743,
+        "code": "onSensorUpdated(heartRate, beatsPerMinute, heartRate.statelessIcon, attributes = mapOf(...))",
+        "details": "Heart rate data, timestamp, and source are sent to the Home Assistant server via WebSocket."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_HEALTH_CONNECT_BLOOD_PRESSURE",
+    "data_type": "Blood Pressure (Health data - Systolic/Diastolic)",
+    "description": "The app reads blood pressure records from Health Connect and sends systolic/diastolic values to the Home Assistant server as separate sensors.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "HealthConnectSensorManager.updateBloodPressureSensors",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 596,
+        "code": "private suspend fun updateBloodPressureSensors(isDiastolic: Boolean) { ... }",
+        "details": "The sensor update cycle triggers blood pressure reading."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "HealthConnectClient.readRecords",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 599,
+        "code": "val response = healthConnectClient.readRecordsOrNull(bloodPressureRequest)",
+        "details": "Reads blood pressure records from Health Connect."
+      },
+      {
+        "step": "Data Processing",
+        "function": "HealthConnectSensorManager.updateBloodPressureSensors",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 603,
+        "code": "onSensorUpdated(if (isDiastolic) diastolicBloodPressure else systolicBloodPressure, ...)",
+        "details": "Extracts systolic and diastolic pressure values (mmHg)."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "HealthConnectSensorManager.onSensorUpdated",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 611,
+        "code": "attributes = mapOf(\"bodyPosition\" to ..., \"date\" to ..., \"measurementLocation\" to ..., \"source\" to ...)",
+        "details": "Blood pressure data along with body position, measurement location and source are transmitted to the server."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_HEALTH_CONNECT_SLEEP",
+    "data_type": "Sleep Duration and Stages (Health data)",
+    "description": "The app reads sleep records from Health Connect, calculates actual sleep duration (excluding awake time), and sends it to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "HealthConnectSensorManager.updateSleepDurationSensor",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 875,
+        "code": "private suspend fun updateSleepDurationSensor() { ... }",
+        "details": "The sensor update cycle triggers sleep duration reading."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "HealthConnectClient.readRecords",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 878,
+        "code": "val sleepRecords = healthConnectClient.readRecordsOrNull(sleepRequest)",
+        "details": "Reads SleepSessionRecord including detailed sleep stage timing."
+      },
+      {
+        "step": "Data Processing",
+        "function": "HealthConnectSensorManager.calculateSleepDurationInMinutes",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 898,
+        "code": "internal fun calculateSleepDurationInMinutes(stages: List<Stage>): Long = stages.filter { it.stage != STAGE_TYPE_AWAKE && ... }.sumOf { ... }",
+        "details": "Calculates actual sleep duration by filtering out awake stages from raw sleep session data."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "HealthConnectSensorManager.onSensorUpdated",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 884,
+        "code": "onSensorUpdated(sleepDuration, sleepRecordDuration, ..., mapOf(\"endTime\" to ..., \"startTime\" to ..., \"sources\" to ...))",
+        "details": "Sleep duration with start/end times is transmitted to the Home Assistant server."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_HEALTH_CONNECT_BLOOD_GLUCOSE",
+    "data_type": "Blood Glucose Level (Health data - Sensitive)",
+    "description": "The app reads blood glucose records from Health Connect and sends the levels along with meal context to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "HealthConnectSensorManager.updateBloodGlucoseSensor",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 575,
+        "code": "private suspend fun updateBloodGlucoseSensor() { ... }",
+        "details": "The sensor update cycle triggers blood glucose reading."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "HealthConnectClient.readRecords",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 578,
+        "code": "val response = healthConnectClient.readRecordsOrNull(bloodGlucoseRequest)",
+        "details": "Reads blood glucose records from Health Connect."
+      },
+      {
+        "step": "Data Processing",
+        "function": "HealthConnectSensorManager.updateBloodGlucoseSensor",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 582,
+        "code": "onSensorUpdated(bloodGlucose, ..., mapOf(\"mealType\" to ..., \"relationToMeal\" to ..., \"specimenSource\" to ...))",
+        "details": "Extracts blood glucose level (mg/dL) with medical context: meal type, relation to meal, and specimen source."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "HealthConnectSensorManager.onSensorUpdated",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/HealthConnectSensorManager.kt",
+        "line": 582,
+        "code": "attributes = mapOf(\"date\" to ..., \"mealType\" to ..., \"specimenSource\" to ..., \"source\" to ...)",
+        "details": "Blood glucose data with full medical context is transmitted to the Home Assistant server."
+      }
+    ]
+  }
+]

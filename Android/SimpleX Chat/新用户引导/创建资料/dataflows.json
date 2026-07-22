@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/views/onboarding/OnboardingView.kt",
+        "line": 1,
+        "code": "package chat.simplex.common.views.onboarding"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/platform/Core.kt",
+        "line": 25,
+        "code": "external fun chatMigrateInit(dbPath: String, dbKey: String, confirm: String): Array<Any>"
+      },
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/platform/Core.kt",
+        "line": 70,
+        "code": "val dbKey = useKey ?: DatabaseUtils.useDatabaseKey()"
+      },
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/platform/Core.kt",
+        "line": 75,
+        "code": "chatMigrateInit(dbAbsolutePrefixPath, dbKey, MigrationConfirmation.Error.value)"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/model/SimpleXAPI.kt",
+        "line": 874,
+        "code": "suspend fun apiCreateActiveUser(rh: Long?, p: Profile?, pastTimestamp: Boolean = false, ctrl: ChatCtrl? = null): User? {\n    val r = sendCmd(rh, CC.CreateActiveUser(p, pastTimestamp = pastTimestamp), ctrl)\n    if (r is API.Result && r.res is CR.ActiveUser) return r.res.user.updateRemoteHostId(rh)\n    ...\n  }"
+      }
+    ]
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "audiopicker/src/main/ets/localresource/localaudio/LocalAudioManager.ets",
+        "line": 39,
+        "code": "fetchColumns: [userFileManager.AudioKey.TITLE.toString(), userFileManager.AudioKey.ARTIST.toString(), userFileManager.AudioKey.AUDIOALBUM.toString()]"
+      },
+      {
+        "filePath": "audiopicker/src/main/ets/localresource/localaudio/LocalAudioManager.ets",
+        "line": 79,
+        "code": "let name = fileAsset.get(userFileManager.AudioKey.TITLE.toString()).toString()"
+      },
+      {
+        "filePath": "audiopicker/src/main/ets/localresource/localaudio/LocalAudioManager.ets",
+        "line": 80,
+        "code": "let artist = fileAsset.get(userFileManager.AudioKey.ARTIST.toString()).toString()"
+      },
+      {
+        "filePath": "audiopicker/src/main/ets/localresource/localaudio/LocalAudioManager.ets",
+        "line": 81,
+        "code": "let album = fileAsset.get(userFileManager.AudioKey.AUDIOALBUM.toString()).toString()"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "audiopicker/src/main/ets/localresource/localaudio/LocalAudioManager.ets",
+        "line": 85,
+        "code": "getThumbnail = await fileAsset.getThumbnail()"
+      }
+    ]
+  }
+]

@@ -13,7 +13,28 @@
         "recipient": "仅本地显示",
         "thirdparty": "无",
         "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.GET_BUNDLE_INFO",
+        "scene": "验证调用方应用",
+        "authorization": "预授权",
+        "purpose": "验证调用方应用身份",
+        "impact": "无法验证调用方应用"
       },
+      {
+        "name": "ohos.permission.DLP_FILE_OPERATE",
+        "scene": "操作DLP文件",
+        "authorization": "预授权",
+        "purpose": "打开和解密DLP保护文件",
+        "impact": "无法打开DLP保护文件"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
       {
         "scene": "打开文件",
         "purpose": "验证调用方应用信息",
@@ -25,7 +46,28 @@
         "recipient": "仅本地显示",
         "thirdparty": "无",
         "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.GET_BUNDLE_INFO",
+        "scene": "验证调用方应用",
+        "authorization": "预授权",
+        "purpose": "验证调用方应用身份",
+        "impact": "无法验证调用方应用"
       },
+      {
+        "name": "ohos.permission.DLP_FILE_OPERATE",
+        "scene": "操作DLP文件",
+        "authorization": "预授权",
+        "purpose": "打开和解密DLP保护文件",
+        "impact": "无法打开DLP保护文件"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
       {
         "scene": "打开文件",
         "purpose": "管理文件解密状态",
@@ -37,7 +79,28 @@
         "recipient": "仅本地显示",
         "thirdparty": "无",
         "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.GET_BUNDLE_INFO",
+        "scene": "验证调用方应用",
+        "authorization": "预授权",
+        "purpose": "验证调用方应用身份",
+        "impact": "无法验证调用方应用"
       },
+      {
+        "name": "ohos.permission.DLP_FILE_OPERATE",
+        "scene": "操作DLP文件",
+        "authorization": "预授权",
+        "purpose": "打开和解密DLP保护文件",
+        "impact": "无法打开DLP保护文件"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "data": [
       {
         "scene": "打开文件",
         "purpose": "上报文件打开安全事件",

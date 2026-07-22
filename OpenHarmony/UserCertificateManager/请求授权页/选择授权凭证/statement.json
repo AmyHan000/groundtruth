@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "选择授权凭证",
+        "purpose": "显示应用凭证列表供选择",
+        "source": "本地存储",
+        "item": "应用凭证列表",
+        "frequency": "每次请求",
+        "processing": "本地处理",
+        "storage": "系统安全存储",
+        "recipient": "仅本地",
+        "thirdparty": "请求授权的应用",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "证书管理权限",
+        "scene": "授权应用使用凭证",
+        "authorization": "用户授权",
+        "purpose": "授予应用使用凭证的权限",
+        "impact": "无法授权应用使用凭证"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "选择授权凭证",
+        "purpose": "授权应用使用指定凭证",
+        "source": "本地存储",
+        "item": "应用授权操作",
+        "frequency": "用户主动操作",
+        "processing": "本地处理",
+        "storage": "系统安全存储",
+        "recipient": "请求授权的应用",
+        "thirdparty": "请求授权的应用",
+        "switchpath": "授权确认弹窗"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "证书管理权限",
+        "scene": "授权应用使用凭证",
+        "authorization": "用户授权",
+        "purpose": "授予应用使用凭证的权限",
+        "impact": "无法授权应用使用凭证"
+      }
+    ]
+  }
+]

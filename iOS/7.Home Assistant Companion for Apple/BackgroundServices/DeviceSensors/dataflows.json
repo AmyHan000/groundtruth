@@ -1,115 +1,113 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_DEVICE_SENSORS",
-      "data_type": "Device Sensor Data (Motion, Activity, Battery, Connectivity, Barometer, Pedometer)",
-      "description": "SensorContainer periodically collects all sensor data and sends to HA server. Includes motion activity, pedometer, battery, connectivity (SSID/BSSID/cellular), barometer, and app state sensors.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "SensorContainer.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/SensorContainer.swift",
-          "line": 30,
-          "code": "func sensors() -> Promise<[WebhookSensor]>",
-          "details": "All sensor providers triggered by periodic update, signaled update, or registration."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "ActivitySensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/ActivitySensor.swift",
-          "line": 17,
-          "code": "public func sensors() -> Promise<[WebhookSensor]> { Self.latestMotionActivity() }",
-          "details": "CMMotionActivityManager queried for activity type (stationary, walking, running, automotive, cycling) and confidence level."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "PedometerSensor.latestPedometerData",
-          "file": "Sources/Shared/API/Webhook/Sensors/PedometerSensor.swift",
-          "line": 42,
-          "code": "private func latestPedometerData() -> Promise<CMPedometerData> { Current.pedometer.queryStartEndHandler(start, end) { data, error in ... } }",
-          "details": "CMPedometer reads steps, distance, floors ascended/descended, average pace, current pace, and cadence since start of day."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "BarometerSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/BarometerSensor.swift",
-          "line": 134,
-          "code": "public func sensors() -> Promise<[WebhookSensor]> { signaler.latestPressureKpa ?? signaler.oneShotReading() }",
-          "details": "CMAltimeter reads barometric pressure in kPa, converted to hPa for HA pressure sensor."
-        },
-        {
-          "step": "Data Collection",
-          "function": "BatterySensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/BatterySensor.swift",
-          "line": 38,
-          "code": "public func sensors() -> Promise<[WebhookSensor]> { Current.device.batteries().flatMap { Self.sensors(battery: $0) } }",
-          "details": "Battery level (%) and state (charging/unplugged/full) for all device batteries."
-        },
-        {
-          "step": "Data Collection",
-          "function": "ConnectivitySensor.ssid",
-          "file": "Sources/Shared/API/Webhook/Sensors/ConnectivitySensor.swift",
-          "line": 90,
-          "code": "private func ssid() -> Promise<[WebhookSensor]> { networkState.ssid; networkState.bssid }",
-          "details": "WiFi SSID and BSSID collected from current network. Requires com.apple.developer.networking.wifi-info entitlement."
-        },
-        {
-          "step": "Data Collection",
-          "function": "ConnectivitySensor.connectionType",
-          "file": "Sources/Shared/API/Webhook/Sensors/ConnectivitySensor.swift",
-          "line": 106,
-          "code": "private func connectionType() -> Promise<[WebhookSensor]> { Current.connectivity.simpleNetworkType() }",
-          "details": "Connection type (WiFi/cellular/ethernet) and cellular technology (LTE/5G/NR) collected."
-        },
-        {
-          "step": "Data Collection",
-          "function": "ConnectivitySensor.cellularProviders",
-          "file": "Sources/Shared/API/Webhook/Sensors/ConnectivitySensor.swift",
-          "line": 120,
-          "code": "private func cellularProviders() -> Promise<[WebhookSensor]> { Current.connectivity.telephonyCarriers() }",
-          "details": "Cellular carrier info from CoreTelephony: carrier name, MCC, MNC, ISO country code, allows VoIP."
-        },
-        {
-          "step": "Data Collection",
-          "function": "ActiveSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/ActiveSensor.swift",
-          "line": 1,
-          "code": "class ActiveSensor: SensorProvider",
-          "details": "Reports whether app is currently in foreground (active) or background."
-        },
-        {
-          "step": "Data Collection",
-          "function": "FrontmostAppSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/FrontmostAppSensor.swift",
-          "line": 1,
-          "code": "class FrontmostAppSensor: SensorProvider",
-          "details": "Reports frontmost app name (macOS Catalyst only)."
-        },
-        {
-          "step": "Data Collection",
-          "function": "LastUpdateSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/LastUpdateSensor.swift",
-          "line": 1,
-          "code": "class LastUpdateSensor: SensorProvider",
-          "details": "Reports timestamp of last sensor update."
-        },
-        {
-          "step": "Data Collection",
-          "function": "AppVersionSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/AppVersionSensor.swift",
-          "line": 1,
-          "code": "class AppVersionSensor: SensorProvider",
-          "details": "Reports app version and build number."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "WebhookResponseUpdateSensors.handle",
-          "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
-          "line": 40,
-          "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
-          "details": "All sensor data sent to HA server via webhook (update_sensor_states)."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_DEVICE_SENSORS",
+    "data_type": "Device Sensor Data (Motion, Activity, Battery, Connectivity, Barometer, Pedometer)",
+    "description": "SensorContainer periodically collects all sensor data and sends to HA server. Includes motion activity, pedometer, battery, connectivity (SSID/BSSID/cellular), barometer, and app state sensors.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "SensorContainer.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/SensorContainer.swift",
+        "line": 30,
+        "code": "func sensors() -> Promise<[WebhookSensor]>",
+        "details": "All sensor providers triggered by periodic update, signaled update, or registration."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "ActivitySensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/ActivitySensor.swift",
+        "line": 17,
+        "code": "public func sensors() -> Promise<[WebhookSensor]> { Self.latestMotionActivity() }",
+        "details": "CMMotionActivityManager queried for activity type (stationary, walking, running, automotive, cycling) and confidence level."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "PedometerSensor.latestPedometerData",
+        "file": "Sources/Shared/API/Webhook/Sensors/PedometerSensor.swift",
+        "line": 42,
+        "code": "private func latestPedometerData() -> Promise<CMPedometerData> { Current.pedometer.queryStartEndHandler(start, end) { data, error in ... } }",
+        "details": "CMPedometer reads steps, distance, floors ascended/descended, average pace, current pace, and cadence since start of day."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "BarometerSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/BarometerSensor.swift",
+        "line": 134,
+        "code": "public func sensors() -> Promise<[WebhookSensor]> { signaler.latestPressureKpa ?? signaler.oneShotReading() }",
+        "details": "CMAltimeter reads barometric pressure in kPa, converted to hPa for HA pressure sensor."
+      },
+      {
+        "step": "Data Collection",
+        "function": "BatterySensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/BatterySensor.swift",
+        "line": 38,
+        "code": "public func sensors() -> Promise<[WebhookSensor]> { Current.device.batteries().flatMap { Self.sensors(battery: $0) } }",
+        "details": "Battery level (%) and state (charging/unplugged/full) for all device batteries."
+      },
+      {
+        "step": "Data Collection",
+        "function": "ConnectivitySensor.ssid",
+        "file": "Sources/Shared/API/Webhook/Sensors/ConnectivitySensor.swift",
+        "line": 90,
+        "code": "private func ssid() -> Promise<[WebhookSensor]> { networkState.ssid; networkState.bssid }",
+        "details": "WiFi SSID and BSSID collected from current network. Requires com.apple.developer.networking.wifi-info entitlement."
+      },
+      {
+        "step": "Data Collection",
+        "function": "ConnectivitySensor.connectionType",
+        "file": "Sources/Shared/API/Webhook/Sensors/ConnectivitySensor.swift",
+        "line": 106,
+        "code": "private func connectionType() -> Promise<[WebhookSensor]> { Current.connectivity.simpleNetworkType() }",
+        "details": "Connection type (WiFi/cellular/ethernet) and cellular technology (LTE/5G/NR) collected."
+      },
+      {
+        "step": "Data Collection",
+        "function": "ConnectivitySensor.cellularProviders",
+        "file": "Sources/Shared/API/Webhook/Sensors/ConnectivitySensor.swift",
+        "line": 120,
+        "code": "private func cellularProviders() -> Promise<[WebhookSensor]> { Current.connectivity.telephonyCarriers() }",
+        "details": "Cellular carrier info from CoreTelephony: carrier name, MCC, MNC, ISO country code, allows VoIP."
+      },
+      {
+        "step": "Data Collection",
+        "function": "ActiveSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/ActiveSensor.swift",
+        "line": 1,
+        "code": "class ActiveSensor: SensorProvider",
+        "details": "Reports whether app is currently in foreground (active) or background."
+      },
+      {
+        "step": "Data Collection",
+        "function": "FrontmostAppSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/FrontmostAppSensor.swift",
+        "line": 1,
+        "code": "class FrontmostAppSensor: SensorProvider",
+        "details": "Reports frontmost app name (macOS Catalyst only)."
+      },
+      {
+        "step": "Data Collection",
+        "function": "LastUpdateSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/LastUpdateSensor.swift",
+        "line": 1,
+        "code": "class LastUpdateSensor: SensorProvider",
+        "details": "Reports timestamp of last sensor update."
+      },
+      {
+        "step": "Data Collection",
+        "function": "AppVersionSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/AppVersionSensor.swift",
+        "line": 1,
+        "code": "class AppVersionSensor: SensorProvider",
+        "details": "Reports app version and build number."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "WebhookResponseUpdateSensors.handle",
+        "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
+        "line": 40,
+        "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
+        "details": "All sensor data sent to HA server via webhook (update_sensor_states)."
+      }
+    ]
+  }
+]

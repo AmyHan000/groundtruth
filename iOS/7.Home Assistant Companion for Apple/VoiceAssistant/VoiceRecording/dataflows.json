@@ -1,67 +1,65 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_VOICE_RECORDING",
-      "data_type": "Voice Audio Recording (Biometric Audio Data)",
-      "description": "User taps microphone. AVFoundation records audio via AVCaptureSession/AVCaptureAudioDataOutput. Audio streamed via WebSocket to HA server Assist Pipeline. Raw PCM audio at 16kHz sample rate.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "AssistViewModel.assistWithAudio",
-          "file": "Sources/App/Assist/AssistViewModel.swift",
-          "line": 111,
-          "code": "@MainActor func assistWithAudio() { audioRecorder.startRecording() }",
-          "details": "User taps microphone button in Assist UI."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "AudioRecorder.startRecording",
-          "file": "Sources/App/Assist/Audio/AudioRecorder.swift",
-          "line": 41,
-          "code": "func startRecording() { setupAudioRecorder(); captureSession.startRunning() }",
-          "details": "AVCaptureSession starts with microphone input device."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "AudioRecorder.setupAudioRecorder",
-          "file": "Sources/App/Assist/Audio/AudioRecorder.swift",
-          "line": 59,
-          "code": "private func setupAudioRecorder() { let audioSession = AVAudioSession.sharedInstance(); try audioSession.setCategory(.record); captureSession.addInput(audioInput); captureSession.addOutput(audioOutput) }",
-          "details": "AVAudioSession configured for recording. AVCaptureAudioDataOutput set up with 16kHz preferred sample rate. AVCaptureDeviceInput for microphone."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "AudioRecorder.captureOutput:didOutput:fromConnection",
-          "file": "Sources/App/Assist/Audio/AudioRecorder.swift",
-          "line": 106,
-          "code": "func captureOutput(_:, didOutput sampleBuffer:, from:) -> Void { delegate?.didOutputSample(data: data) }",
-          "details": "Raw audio PCM sample buffers captured from microphone and forwarded to ViewModel."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "AssistViewModel.didOutputSample",
-          "file": "Sources/App/Assist/AssistViewModel.swift",
-          "line": 183,
-          "code": "func didOutputSample(data:) { assistService.sendAudioData(data) }",
-          "details": "Audio data streamed via WebSocket to HA server Assist Pipeline for STT and intent processing."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "AssistService.finishSendingAudio",
-          "file": "Sources/App/Assist/AssistViewModel.swift",
-          "line": 132,
-          "code": "assistService.finishSendingAudio()",
-          "details": "End-of-audio signal sent to server; server processes complete utterance."
-        },
-        {
-          "step": "Data Processing",
-          "function": "AssistViewModel.didReceiveTtsMediaUrl",
-          "file": "Sources/App/Assist/AssistViewModel.swift",
-          "line": 230,
-          "code": "func didReceiveTtsMediaUrl(_ mediaUrl:) { audioPlayer.play(url: mediaUrl) }",
-          "details": "TTS audio response received from HA server and played locally via AudioPlayer."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_VOICE_RECORDING",
+    "data_type": "Voice Audio Recording (Biometric Audio Data)",
+    "description": "User taps microphone. AVFoundation records audio via AVCaptureSession/AVCaptureAudioDataOutput. Audio streamed via WebSocket to HA server Assist Pipeline. Raw PCM audio at 16kHz sample rate.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "AssistViewModel.assistWithAudio",
+        "file": "Sources/App/Assist/AssistViewModel.swift",
+        "line": 111,
+        "code": "@MainActor func assistWithAudio() { audioRecorder.startRecording() }",
+        "details": "User taps microphone button in Assist UI."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "AudioRecorder.startRecording",
+        "file": "Sources/App/Assist/Audio/AudioRecorder.swift",
+        "line": 41,
+        "code": "func startRecording() { setupAudioRecorder(); captureSession.startRunning() }",
+        "details": "AVCaptureSession starts with microphone input device."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "AudioRecorder.setupAudioRecorder",
+        "file": "Sources/App/Assist/Audio/AudioRecorder.swift",
+        "line": 59,
+        "code": "private func setupAudioRecorder() { let audioSession = AVAudioSession.sharedInstance(); try audioSession.setCategory(.record); captureSession.addInput(audioInput); captureSession.addOutput(audioOutput) }",
+        "details": "AVAudioSession configured for recording. AVCaptureAudioDataOutput set up with 16kHz preferred sample rate. AVCaptureDeviceInput for microphone."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "AudioRecorder.captureOutput:didOutput:fromConnection",
+        "file": "Sources/App/Assist/Audio/AudioRecorder.swift",
+        "line": 106,
+        "code": "func captureOutput(_:, didOutput sampleBuffer:, from:) -> Void { delegate?.didOutputSample(data: data) }",
+        "details": "Raw audio PCM sample buffers captured from microphone and forwarded to ViewModel."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "AssistViewModel.didOutputSample",
+        "file": "Sources/App/Assist/AssistViewModel.swift",
+        "line": 183,
+        "code": "func didOutputSample(data:) { assistService.sendAudioData(data) }",
+        "details": "Audio data streamed via WebSocket to HA server Assist Pipeline for STT and intent processing."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "AssistService.finishSendingAudio",
+        "file": "Sources/App/Assist/AssistViewModel.swift",
+        "line": 132,
+        "code": "assistService.finishSendingAudio()",
+        "details": "End-of-audio signal sent to server; server processes complete utterance."
+      },
+      {
+        "step": "Data Processing",
+        "function": "AssistViewModel.didReceiveTtsMediaUrl",
+        "file": "Sources/App/Assist/AssistViewModel.swift",
+        "line": 230,
+        "code": "func didReceiveTtsMediaUrl(_ mediaUrl:) { audioPlayer.play(url: mediaUrl) }",
+        "details": "TTS audio response received from HA server and played locally via AudioPlayer."
+      }
+    ]
+  }
+]

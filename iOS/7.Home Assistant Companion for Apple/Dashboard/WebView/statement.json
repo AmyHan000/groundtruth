@@ -1,55 +1,92 @@
-{
-  "id": "DASHBOARD_WEBVIEW",
-  "feature_name": "WebView 仪表盘",
-  "data": [
-    {
-      "scene": "用户打开主页面",
-      "purpose": "加载并展示 Home Assistant 前端界面",
-      "source": "Home Assistant 服务器",
-      "item": "WKWebView Cookie、磁盘缓存、内存缓存、本地存储、Service Worker",
-      "frequency": "每次应用启动和页面加载时",
-      "processing": "仅本地存储",
-      "storage": "WKWebsiteDataStore（系统 WebKit 数据存储）",
-      "recipient": "设备本地",
-      "thirdparty": "内容来自用户自托管的 Home Assistant 服务器",
-      "switchpath": "应用主界面"
-    },
-    {
-      "scene": "用户下拉刷新页面",
-      "purpose": "清除前端缓存后重新加载以获取最新内容",
-      "source": "WKWebsiteDataStore",
-      "item": "磁盘缓存、内存缓存、Fetch 缓存、Service Worker 注册信息",
-      "frequency": "用户触发",
-      "processing": "本地缓存清理",
-      "storage": "缓存被清除",
-      "recipient": "设备本地",
-      "thirdparty": "无第三方",
-      "switchpath": "在页面上下拉即可触发"
-    },
-    {
-      "scene": "前端页面通过 JavaScript Bridge 与原生应用通信",
-      "purpose": "获取外部认证令牌、触发触觉反馈、发送 Assist 请求等",
-      "source": "WKUserContentController",
-      "item": "外部认证令牌、Assist 语音数据（经由桥接）",
-      "frequency": "按需",
-      "processing": "在原生端处理",
-      "storage": "仅运行时使用",
-      "recipient": "设备本地",
-      "thirdparty": "无第三方",
-      "switchpath": "不适用"
-    },
-    {
-      "scene": "用户切换设备时通过 Handoff 继续浏览",
-      "purpose": "在 Apple 设备间同步当前打开的页面 URL",
-      "source": "WKWebView 当前 URL",
-      "item": "当前页面 URL",
-      "frequency": "每次页面导航变化时",
-      "processing": "仅用于 Handoff 投递",
-      "storage": "NSUserActivity（临时）",
-      "recipient": "Apple 设备间（Handoff）",
-      "thirdparty": "Apple Handoff 服务",
-      "switchpath": "系统设置 -> 通用 -> 允许接力"
-    }
-  ],
-  "permissions": []
-}
+[
+  {
+    "id": "FLOW_WEBVIEW_DASHBOARD",
+    "data": [
+      {
+        "scene": "用户打开主页面",
+        "purpose": "加载并展示 Home Assistant 前端界面",
+        "source": "Home Assistant 服务器",
+        "item": "WKWebView Cookie、磁盘缓存、内存缓存、本地存储、Service Worker",
+        "frequency": "每次应用启动和页面加载时",
+        "processing": "仅本地存储",
+        "storage": "WKWebsiteDataStore（系统 WebKit 数据存储）",
+        "recipient": "设备本地",
+        "thirdparty": "内容来自用户自托管的 Home Assistant 服务器",
+        "switchpath": "应用主界面"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": "FLOW_WEBVIEW_JAVASCRIPT_BRIDGE",
+    "data": [
+      {
+        "scene": "用户下拉刷新页面",
+        "purpose": "清除前端缓存后重新加载以获取最新内容",
+        "source": "WKWebsiteDataStore",
+        "item": "磁盘缓存、内存缓存、Fetch 缓存、Service Worker 注册信息",
+        "frequency": "用户触发",
+        "processing": "本地缓存清理",
+        "storage": "缓存被清除",
+        "recipient": "设备本地",
+        "thirdparty": "无第三方",
+        "switchpath": "在页面上下拉即可触发"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": "FLOW_WEBVIEW_HANDOFF",
+    "data": [
+      {
+        "scene": "前端页面通过 JavaScript Bridge 与原生应用通信",
+        "purpose": "获取外部认证令牌、触发触觉反馈、发送 Assist 请求等",
+        "source": "WKUserContentController",
+        "item": "外部认证令牌、Assist 语音数据（经由桥接）",
+        "frequency": "按需",
+        "processing": "在原生端处理",
+        "storage": "仅运行时使用",
+        "recipient": "设备本地",
+        "thirdparty": "无第三方",
+        "switchpath": "不适用"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": "FLOW_WEBVIEW_CROSS_SITE_TRACKING",
+    "data": [
+      {
+        "scene": "用户切换设备时通过 Handoff 继续浏览",
+        "purpose": "在 Apple 设备间同步当前打开的页面 URL",
+        "source": "WKWebView 当前 URL",
+        "item": "当前页面 URL",
+        "frequency": "每次页面导航变化时",
+        "processing": "仅用于 Handoff 投递",
+        "storage": "NSUserActivity（临时）",
+        "recipient": "Apple 设备间（Handoff）",
+        "thirdparty": "Apple Handoff 服务",
+        "switchpath": "系统设置 -> 通用 -> 允许接力"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": "FLOW_WEBVIEW_PULL_TO_REFRESH",
+    "data": [
+      {
+        "scene": "Frontend Cache Clear",
+        "purpose": "Pull-to-refresh clears frontend asset cache (disk cache, memory cache, fetch cache, service worker registrations) then reloads.",
+        "source": "Home Assistant Companion",
+        "item": "Frontend Cache Clear",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": []
+  }
+]

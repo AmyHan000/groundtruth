@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/base/utils/AbilityCommonUtil.ts",
+        "line": 122,
+        "code": "let wants = await fileAccess.getFileAccessAbilityInfo()"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/AbilityCommonUtil.ts",
+        "line": 125,
+        "code": "const rootIterator: fileAccess.RootIterator = await globalThis.fileAcsHelper.getRoots()"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/base/utils/FileAccessExec.ets",
+        "line": 106,
+        "code": "tempFile.fileName = data.fileName"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/FileAccessExec.ets",
+        "line": 107,
+        "code": "tempFile.relativePath = data.relativePath"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/FileAccessExec.ets",
+        "line": 108,
+        "code": "tempFile.uri = data.uri"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/FileAccessExec.ets",
+        "line": 110,
+        "code": "tempFile.size = data.size"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/FileAccessExec.ets",
+        "line": 111,
+        "code": "tempFile.mtime = data.mtime * 1000"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/FileAccessExec.ets",
+        "line": 112,
+        "code": "tempFile.mimeType = data.mimeType"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/base/utils/AbilityCommonUtil.ts",
+        "line": 175,
+        "code": "let atManager = abilityAccessCtrl.createAtManager()"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/AbilityCommonUtil.ts",
+        "line": 177,
+        "code": "return atManager.requestPermissionsFromUser(globalThis.abilityContext, PERMISSION_LIST)"
+      }
+    ]
+  }
+]

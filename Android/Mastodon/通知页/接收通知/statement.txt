@@ -1,0 +1,13 @@
+接收通知
+
+1 我们如何收集和使用您的个人信息：
+接收社交互动通知，通过 Google FCM，收集您的**推送令牌、账户标识**。采集频率：持续监听。处理方式说明：服务器端推送——服务器。涉及第三方：Google Cloud Messaging
+
+获取发送通知权限，通过 系统权限，收集您的**通知权限状态**。采集频率：首次启动时。处理方式说明：系统权限请求
+
+2 设备权限调用：
+android.permission.INTERNET（网络访问）权限：进行网络通信。拒绝后无法接收推送通知。
+
+android.permission.POST_NOTIFICATIONS（通知）权限：发送通知。拒绝后无法在通知栏显示新消息提醒。
+
+com.google.android.c2dm.permission.RECEIVE（未知）权限：com.google.android.c2dm.permission.RECEIVE。拒绝后无法通过Google云消息服务接收通知。

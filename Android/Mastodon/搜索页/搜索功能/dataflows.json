@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/CacheController.java",
+        "line": 343,
+        "code": "public void getRecentSearches(Consumer<List<SearchResult>> callback){"
+      },
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/CacheController.java",
+        "line": 357,
+        "code": "public void putRecentSearch(SearchResult result){"
+      }
+    ]
+  }
+]

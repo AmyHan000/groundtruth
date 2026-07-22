@@ -1,51 +1,54 @@
-{
-  "id": "SETTINGS_NOTIFICATION",
-  "feature_name": "Notification Settings",
-  "data": [
-    {
-      "scene": "User views notification history on the Notification History screen.",
-      "purpose": "Display previously received push notifications (title, message, image URLs) for user review.",
-      "source": "Local Room database (notification table), populated by MessagingManager upon receiving FCM push messages.",
-      "item": "Push notification title, message body, image URLs, and tag",
-      "frequency": "On-demand when user opens the Notification History screen",
-      "processing": "Local only (Room database query via DAO)",
-      "storage": "Stored locally in Room database (notification table) until deleted by user or system",
-      "recipient": "Device-local only (displayed within the app UI)",
-      "thirdparty": "No third-party involvement; push notifications originate from Home Assistant server but history is stored and viewed locally",
-      "switchpath": "Settings -> Notification Settings -> Notification History"
-    },
-    {
-      "scene": "User manages notification channels in Notification Settings.",
-      "purpose": "Read, create, and delete Android notification channels to control how different categories of notifications behave (sound, vibration, importance).",
-      "source": "Android system NotificationManager",
-      "item": "Notification channel configuration (channel ID, name, description, importance level, sound settings, vibration pattern)",
-      "frequency": "On-demand when user opens the Notification Settings screen",
-      "processing": "Local only (system API calls)",
-      "storage": "Managed by Android system; no additional storage by the app",
-      "recipient": "Device-local only (Android system notification infrastructure)",
-      "thirdparty": "No third-party involvement",
-      "switchpath": "Settings -> Notification Settings -> Notification Channels"
-    },
-    {
-      "scene": "App receives a push notification via Firebase Cloud Messaging (FCM).",
-      "purpose": "Deliver timely information from the user's Home Assistant instance to the device.",
-      "source": "Home Assistant server via Firebase Cloud Messaging",
-      "item": "Notification title, message body, image URLs, channel tag, optional action data (e.g., deep link URL)",
-      "frequency": "As triggered by Home Assistant automations or integrations",
-      "processing": "Processed by FCM service; MessagingManager handles the incoming message, shows the system notification, and stores a record in the local Room database",
-      "storage": "Transient (system notification) + persistent (notification history in Room DB)",
-      "recipient": "Android system notification tray and optionally the Notification History screen within the app",
-      "thirdparty": "Firebase Cloud Messaging (Google) facilitates delivery; Home Assistant server is the originator",
-      "switchpath": "Settings -> Notification Settings (configure which notifications appear)"
-    }
-  ],
-  "permissions": [
-    {
-      "name": "POST_NOTIFICATIONS (Android 13+)",
-      "scene": "When the app needs to display a push notification for the first time, or when the user enables notifications for the app in Settings.",
-      "authorization": "Android runtime permission dialog at first notification, or system Settings -> App -> Notifications",
-      "purpose": "Allow the app to show push notifications in the system notification tray",
-      "impact": "If denied, the app cannot display push notifications; notifications will be silently dropped; notification history will not be populated"
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_NOTIFICATION_HISTORY_VIEW",
+    "data": [
+      {
+        "scene": "User views notification history on the Notification History screen.",
+        "purpose": "Display previously received push notifications (title, message, image URLs) for user review.",
+        "source": "Local Room database (notification table), populated by MessagingManager upon receiving FCM push messages.",
+        "item": "Push notification title, message body, image URLs, and tag",
+        "frequency": "On-demand when user opens the Notification History screen",
+        "processing": "Local only (Room database query via DAO)",
+        "storage": "Stored locally in Room database (notification table) until deleted by user or system",
+        "recipient": "Device-local only (displayed within the app UI)",
+        "thirdparty": "No third-party involvement; push notifications originate from Home Assistant server but history is stored and viewed locally",
+        "switchpath": "Settings -> Notification Settings -> Notification History"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "POST_NOTIFICATIONS (Android 13+)",
+        "scene": "When the app needs to display a push notification for the first time, or when the user enables notifications for the app in Settings.",
+        "authorization": "Android runtime permission dialog at first notification, or system Settings -> App -> Notifications",
+        "purpose": "Allow the app to show push notifications in the system notification tray",
+        "impact": "If denied, the app cannot display push notifications; notifications will be silently dropped; notification history will not be populated"
+      }
+    ]
+  },
+  {
+    "id": "FLOW_NOTIFICATION_CHANNEL_MANAGEMENT",
+    "data": [
+      {
+        "scene": "User manages notification channels in Notification Settings.",
+        "purpose": "Read, create, and delete Android notification channels to control how different categories of notifications behave (sound, vibration, importance).",
+        "source": "Android system NotificationManager",
+        "item": "Notification channel configuration (channel ID, name, description, importance level, sound settings, vibration pattern)",
+        "frequency": "On-demand when user opens the Notification Settings screen",
+        "processing": "Local only (system API calls)",
+        "storage": "Managed by Android system; no additional storage by the app",
+        "recipient": "Device-local only (Android system notification infrastructure)",
+        "thirdparty": "No third-party involvement",
+        "switchpath": "Settings -> Notification Settings -> Notification Channels"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "POST_NOTIFICATIONS (Android 13+)",
+        "scene": "When the app needs to display a push notification for the first time, or when the user enables notifications for the app in Settings.",
+        "authorization": "Android runtime permission dialog at first notification, or system Settings -> App -> Notifications",
+        "purpose": "Allow the app to show push notifications in the system notification tray",
+        "impact": "If denied, the app cannot display push notifications; notifications will be silently dropped; notification history will not be populated"
+      }
+    ]
+  }
+]

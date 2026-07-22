@@ -1,35 +1,33 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_BIOMETRIC_APP_LOCK",
-      "data_type": "Biometric Authentication Result (Fingerprint/Face)",
-      "description": "When the user enables app lock, the app calls Android BiometricPrompt API to verify identity via system-level fingerprint or face recognition. Access is granted only on successful verification. The app only receives the success/failure result and never accesses raw biometric data.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "Authenticator.authenticate",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/authenticator/Authenticator.kt",
-          "line": 45,
-          "code": "fun authenticate(title: String) { biometricPrompt.authenticate(promptDialog) }",
-          "details": "When the user opens the app or returns from background (based on timeout config), the BiometricPrompt system dialog is shown."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "Authenticator.AuthenticationCallback.onAuthenticationSucceeded",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/authenticator/Authenticator.kt",
-          "line": 38,
-          "code": "override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) { callback(AuthenticationResult.SUCCESS) }",
-          "details": "The Android BiometricPrompt handles fingerprint/face recognition through the TEE (Trusted Execution Environment). The app only receives the callback result."
-        },
-        {
-          "step": "Data Processing",
-          "function": "AppLockStateManager.handleAuthenticationResult",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/applock/AppLockStateManager.kt",
-          "line": 30,
-          "code": "fun handleAuthenticationResult(result: AuthenticationResult) { if (result == SUCCESS) { unlockApp() } }",
-          "details": "The app processes the verification result: unlocks the UI on success, stays locked otherwise. Biometric data is neither stored nor transmitted."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_BIOMETRIC_APP_LOCK",
+    "data_type": "Biometric Authentication Result (Fingerprint/Face)",
+    "description": "When the user enables app lock, the app calls Android BiometricPrompt API to verify identity via system-level fingerprint or face recognition. Access is granted only on successful verification. The app only receives the success/failure result and never accesses raw biometric data.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "Authenticator.authenticate",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/authenticator/Authenticator.kt",
+        "line": 45,
+        "code": "fun authenticate(title: String) { biometricPrompt.authenticate(promptDialog) }",
+        "details": "When the user opens the app or returns from background (based on timeout config), the BiometricPrompt system dialog is shown."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "Authenticator.AuthenticationCallback.onAuthenticationSucceeded",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/authenticator/Authenticator.kt",
+        "line": 38,
+        "code": "override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) { callback(AuthenticationResult.SUCCESS) }",
+        "details": "The Android BiometricPrompt handles fingerprint/face recognition through the TEE (Trusted Execution Environment). The app only receives the callback result."
+      },
+      {
+        "step": "Data Processing",
+        "function": "AppLockStateManager.handleAuthenticationResult",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/applock/AppLockStateManager.kt",
+        "line": 30,
+        "code": "fun handleAuthenticationResult(result: AuthenticationResult) { if (result == SUCCESS) { unlockApp() } }",
+        "details": "The app processes the verification result: unlocks the UI on success, stays locked otherwise. Biometric data is neither stored nor transmitted."
+      }
+    ]
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "查看通知",
+        "purpose": "显示通知内容",
+        "source": "服务器API",
+        "item": "通知列表",
+        "frequency": "每次刷新",
+        "processing": "本地渲染",
+        "storage": "内存缓存",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "管理通知",
+        "purpose": "筛选通知",
+        "source": "用户设置",
+        "item": "通知筛选规则",
+        "frequency": "每次修改",
+        "processing": "加密传输",
+        "storage": "服务器存储",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "恢复默认"
+      }
+    ],
+    "permissions": []
+  }
+]

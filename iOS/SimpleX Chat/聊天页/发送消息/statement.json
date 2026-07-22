@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "发送文本消息",
+        "purpose": "端到端加密通讯",
+        "source": "用户输入",
+        "item": "消息内容",
+        "frequency": "每次发送",
+        "processing": "Haskell核心进行端到端加密后通过SMP协议发送",
+        "storage": "本地加密存储",
+        "recipient": "仅接收方",
+        "thirdparty": "SMP中继服务器（仅转发加密数据，无法读取内容）",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "NSMicrophoneUsageDescription"
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "发送文件",
+        "purpose": "端到端加密文件传输",
+        "source": "用户选择的文件",
+        "item": "文件内容",
+        "frequency": "每次发送",
+        "processing": "XFTP协议加密传输，本地文件可选加密存储",
+        "storage": "本地加密存储（可选）",
+        "recipient": "仅接收方",
+        "thirdparty": "XFTP服务器（仅存储加密分片，无法读取内容）",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "NSMicrophoneUsageDescription"
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "录制语音消息",
+        "purpose": "录制语音用于发送",
+        "source": "设备麦克风",
+        "item": "语音数据",
+        "frequency": "每次录制语音时",
+        "processing": "使用AVAudioRecorder录制音频",
+        "storage": "临时文件，发送后可删除",
+        "recipient": "仅本机",
+        "thirdparty": "无",
+        "switchpath": "可选择不使用语音消息功能"
+      }
+    ],
+    "permissions": [
+      "NSMicrophoneUsageDescription"
+    ]
+  }
+]

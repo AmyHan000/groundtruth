@@ -1,7 +1,19 @@
-应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
---- | --- | --- | --- | --- | ---
-https://gitcode.com/openharmony/applications_dlp_manager | 文件加密分享页 | 加密分享 | 联系人应用→联系人信息→显示 | 见statement.json | 本功能从联系人应用获取手机号，用于选择文件分享接收人
-https://gitcode.com/openharmony/applications_dlp_manager | 文件加密分享页 | 加密分享 | 系统API→设备信息→显示 | 见statement.json | 本功能获取设备类型信息，用于判断是否显示联系人选择器
-https://gitcode.com/openharmony/applications_dlp_manager | 文件加密分享页 | 加密分享 | 系统API→云账号信息→显示 | 见statement.json | 本功能获取当前云账号信息，用于文件分享授权
-https://gitcode.com/openharmony/applications_dlp_manager | 文件加密分享页 | 加密分享 | 系统API→网络信息→显示 | 见statement.json | 本功能检查网络连接状态，确保云账号服务可用
-https://gitcode.com/openharmony/applications_dlp_manager | 文件加密分享页 | 加密分享 | 文件系统→文件信息→加密处理 | 见statement.json | 本功能获取文件信息，用于DLP加密处理
+加密分享
+
+1 我们如何收集和使用您的个人信息：
+从联系人应用获取手机号用于选择文件分享接收人，通过 联系人应用，收集您的**联系人信息**。采集频率：每次分享。处理方式说明：本地显示
+
+获取设备类型信息用于判断是否显示联系人选择器，通过 系统API，收集您的**设备信息**。采集频率：每次打开页面。处理方式说明：本地判断
+
+获取当前云账号信息用于文件分享授权，通过 系统API，收集您的**云账号信息**。采集频率：每次分享。处理方式说明：本地授权
+
+检查网络连接状态确保云账号服务可用，通过 系统API，收集您的**网络信息**。采集频率：每次分享。处理方式说明：本地检查
+
+获取文件信息用于DLP加密处理，通过 文件系统，收集您的**文件信息**。采集频率：每次分享。处理方式说明：本地加密处理
+
+2 设备权限调用：
+ohos.permission.READ_CONTACT（联系人读取）权限：获取联系人手机号用于分享。如您拒绝授权，将无法通过联系人选择分享接收人
+
+ohos.permission.READ_FILE（文件读取）权限：读取文件信息进行加密处理。如您拒绝授权，将无法进行文件加密分享
+
+ohos.permission.INTERNET（网络访问）权限：检查网络连接状态。如您拒绝授权，将无法使用云账号分享功能

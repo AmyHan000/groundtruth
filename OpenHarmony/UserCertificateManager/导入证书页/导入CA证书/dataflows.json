@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/certInstallFromStorage.ets",
+        "line": 150,
+        "code": "documentPicker.select(documentSelectOptions).then((documentSelectResult) => {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/FileIoModel.ets",
+        "line": 24,
+        "code": "getMediaFileData(mediaUri: string, callback: Function): void {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/FileIoModel.ets",
+        "line": 28,
+        "code": "file = fs.openSync(mediaUri, fs.OpenMode.READ_ONLY);"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/FileIoModel.ets",
+        "line": 31,
+        "code": "let num = fs.readSync(file.fd, buf);"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/certInstallFromStorage.ets",
+        "line": 123,
+        "code": "checkUserAuthModel.auth(titleStr, (authResult: boolean) => {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CheckUserAuthModel.ets",
+        "line": 54,
+        "code": "public auth(titleStr: string, callback: (authResult: boolean) => void): void {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CheckUserAuthModel.ets",
+        "line": 89,
+        "code": "let userAuthInstance = userAuth.getUserAuthInstance(authParam, widgetParam);"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/presenter/CmInstallPresenter.ets",
+        "line": 154,
+        "code": "installCert(uri: string, suffix: string, isNeedJumpBack: boolean): Promise<CMModelErrorCode> {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 707,
+        "code": "let result = await CertManager.installUserTrustedCertificate({"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 707,
+        "code": "certData: data, certFormat: certFormat, certScope: CertManager.CertScope.CURRENT_USER"
+      }
+    ]
+  }
+]

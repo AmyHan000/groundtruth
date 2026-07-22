@@ -1,35 +1,33 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_SHARE_TO_HOME_ASSISTANT",
-      "data_type": "User-Shared Content (text, URLs, subject from any app)",
-      "description": "The user shares text, URLs, or subjects from any Android app to Home Assistant via the Android share intent. The app receives the shared content and fires it as a mobile_app.share event to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "ShareActivity.onCreate",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/share/ShareActivity.kt",
-          "line": 22,
-          "code": "intent.action == Intent.ACTION_SEND",
-          "details": "User selects 'Share to Home Assistant' from any Android app's share sheet. The app receives ACTION_SEND intent."
-        },
-        {
-          "step": "Data Processing",
-          "function": "ShareActivity.onCreate - extract data",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/share/ShareActivity.kt",
-          "line": 25,
-          "code": "val data = mutableMapOf(\"caller\" to ActivityCompat.getReferrer(this).toString())",
-          "details": "The app extracts the caller app identity (referrer) and shared content: EXTRA_SUBJECT, EXTRA_TEXT (which may be text or a URL)."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "IntegrationRepository.fireEvent",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/data/integration/IntegrationRepository.kt",
-          "line": 80,
-          "code": "serverManager.integrationRepository().fireEvent(\"mobile_app.share\", data)",
-          "details": "The shared content (caller, subject, text/URL) is immediately sent to the Home Assistant server via REST API as a 'mobile_app.share' event. No local storage."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_SHARE_TO_HOME_ASSISTANT",
+    "data_type": "User-Shared Content (text, URLs, subject from any app)",
+    "description": "The user shares text, URLs, or subjects from any Android app to Home Assistant via the Android share intent. The app receives the shared content and fires it as a mobile_app.share event to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "ShareActivity.onCreate",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/share/ShareActivity.kt",
+        "line": 22,
+        "code": "intent.action == Intent.ACTION_SEND",
+        "details": "User selects 'Share to Home Assistant' from any Android app's share sheet. The app receives ACTION_SEND intent."
+      },
+      {
+        "step": "Data Processing",
+        "function": "ShareActivity.onCreate - extract data",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/share/ShareActivity.kt",
+        "line": 25,
+        "code": "val data = mutableMapOf(\"caller\" to ActivityCompat.getReferrer(this).toString())",
+        "details": "The app extracts the caller app identity (referrer) and shared content: EXTRA_SUBJECT, EXTRA_TEXT (which may be text or a URL)."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "IntegrationRepository.fireEvent",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/data/integration/IntegrationRepository.kt",
+        "line": 80,
+        "code": "serverManager.integrationRepository().fireEvent(\"mobile_app.share\", data)",
+        "details": "The shared content (caller, subject, text/URL) is immediately sent to the Home Assistant server via REST API as a 'mobile_app.share' event. No local storage."
+      }
+    ]
+  }
+]

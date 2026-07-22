@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "处理推送通知",
+        "purpose": "解密通知内容",
+        "source": "Apple推送服务",
+        "item": "加密通知数据",
+        "frequency": "每次推送",
+        "processing": "本地解密",
+        "storage": "临时存储",
+        "recipient": "仅本地",
+        "thirdparty": "Apple推送服务",
+        "switchpath": "关闭通知"
+      }
+    ],
+    "permissions": [
+      "通知"
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "处理推送通知",
+        "purpose": "下载通知图标",
+        "source": "服务器",
+        "item": "通知图标",
+        "frequency": "每次推送",
+        "processing": "网络下载",
+        "storage": "临时目录",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "关闭通知"
+      }
+    ],
+    "permissions": [
+      "通知"
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "存储通知计数",
+        "purpose": "记录未读通知数量",
+        "source": "本地计算",
+        "item": "通知计数",
+        "frequency": "每次推送",
+        "processing": "本地存储",
+        "storage": "UserDefaults",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "关闭通知"
+      }
+    ],
+    "permissions": [
+      "通知"
+    ]
+  },
+  {
+    "id": 4,
+    "data": [
+      {
+        "scene": "下载通知图标",
+        "purpose": "下载推送通知中引用的图标图片",
+        "source": "服务器URL",
+        "item": "图标图片数据",
+        "frequency": "每次推送",
+        "processing": "网络下载并缓存",
+        "storage": "临时目录",
+        "recipient": "仅本地显示",
+        "thirdparty": "无",
+        "switchpath": "关闭通知"
+      }
+    ],
+    "permissions": [
+      "通知"
+    ]
+  },
+  {
+    "id": 5,
+    "data": [
+      {
+        "scene": "更新通知计数",
+        "purpose": "记录未读通知数量",
+        "source": "本地计算",
+        "item": "通知计数",
+        "frequency": "每次推送",
+        "processing": "增加UserDefaults中的计数",
+        "storage": "UserDefaults",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "关闭通知"
+      }
+    ],
+    "permissions": [
+      "通知"
+    ]
+  }
+]

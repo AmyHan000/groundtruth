@@ -1,43 +1,92 @@
-{
-  "id": "SETTINGS_NOTIFICATION",
-  "feature_name": "通知设置",
-  "data": [
-    {
-      "scene": "用户配置通知分类和操作按钮",
-      "purpose": "自定义推送通知的行为类别和关联操作",
-      "source": "用户配置",
-      "item": "通知分类名称、操作按钮标识符、操作类型（前台/后台/需要认证）",
-      "frequency": "用户按需配置",
-      "processing": "上传至服务器同步",
-      "storage": "本地数据库 + 服务器端存储",
-      "recipient": "Home Assistant 服务器",
-      "thirdparty": "无第三方",
-      "switchpath": "设置 -> 通知"
-    },
-    {
-      "scene": "通知历史记录",
-      "purpose": "记录收到的推送通知以便用户查看历史",
-      "source": "APNs / Firebase Cloud Messaging",
-      "item": "通知标题、通知正文、推送负载数据",
-      "frequency": "每次收到推送通知时",
-      "processing": "仅本地记录",
-      "storage": "本地数据库",
-      "recipient": "设备本地",
-      "thirdparty": "APNs + Firebase 用于推送投递",
-      "switchpath": "设置 -> 通知 -> 通知历史"
-    },
-    {
-      "scene": "用户配置自定义通知声音",
-      "purpose": "为不同通知类别设置不同的提示音",
-      "source": "用户选择",
-      "item": "声音文件名",
-      "frequency": "用户按需配置",
-      "processing": "仅本地处理",
-      "storage": "本地存储",
-      "recipient": "设备本地",
-      "thirdparty": "无第三方",
-      "switchpath": "设置 -> 通知 -> 通知声音"
-    }
-  ],
-  "permissions": []
-}
+[
+  {
+    "id": "FLOW_NOTIFICATION_SETTINGS_MANAGEMENT",
+    "data": [
+      {
+        "scene": "用户配置通知分类和操作按钮",
+        "purpose": "自定义推送通知的行为类别和关联操作",
+        "source": "用户配置",
+        "item": "通知分类名称、操作按钮标识符、操作类型（前台/后台/需要认证）",
+        "frequency": "用户按需配置",
+        "processing": "上传至服务器同步",
+        "storage": "本地数据库 + 服务器端存储",
+        "recipient": "Home Assistant 服务器",
+        "thirdparty": "无第三方",
+        "switchpath": "设置 -> 通知"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": "FLOW_NOTIFICATION_HISTORY",
+    "data": [
+      {
+        "scene": "通知历史记录",
+        "purpose": "记录收到的推送通知以便用户查看历史",
+        "source": "APNs / Firebase Cloud Messaging",
+        "item": "通知标题、通知正文、推送负载数据",
+        "frequency": "每次收到推送通知时",
+        "processing": "仅本地记录",
+        "storage": "本地数据库",
+        "recipient": "设备本地",
+        "thirdparty": "APNs + Firebase 用于推送投递",
+        "switchpath": "设置 -> 通知 -> 通知历史"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": "FLOW_NOTIFICATION_SOUNDS",
+    "data": [
+      {
+        "scene": "用户配置自定义通知声音",
+        "purpose": "为不同通知类别设置不同的提示音",
+        "source": "用户选择",
+        "item": "声音文件名",
+        "frequency": "用户按需配置",
+        "processing": "仅本地处理",
+        "storage": "本地存储",
+        "recipient": "设备本地",
+        "thirdparty": "无第三方",
+        "switchpath": "设置 -> 通知 -> 通知声音"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": "FLOW_NOTIFICATION_RATE_LIMITS",
+    "data": [
+      {
+        "scene": "Push Notification Rate Limit Data",
+        "purpose": "Notification rate limit monitoring displays current rate limit status and resets.",
+        "source": "Home Assistant Companion",
+        "item": "Push Notification Rate Limit Data",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": "FLOW_NOTIFICATION_ACTION_SHORTCUT",
+    "data": [
+      {
+        "scene": "Notification Action Shortcut Name",
+        "purpose": "Notification actions can trigger shortcuts via callback URL scheme.",
+        "source": "Home Assistant Companion",
+        "item": "Notification Action Shortcut Name",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": []
+  }
+]

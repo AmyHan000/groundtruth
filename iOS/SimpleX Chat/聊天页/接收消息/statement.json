@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "接收消息",
+        "purpose": "端到端加密通讯",
+        "source": "SMP服务器",
+        "item": "加密的消息数据",
+        "frequency": "实时接收",
+        "processing": "Haskell核心解密并存入本地数据库",
+        "storage": "本地加密数据库",
+        "recipient": "仅本机用户",
+        "thirdparty": "SMP中继服务器（仅转发加密数据）",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "NSUserNotifications"
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "APNs推送通知",
+        "purpose": "提醒用户有新消息",
+        "source": "APNs服务器",
+        "item": "设备令牌和加密通知",
+        "frequency": "每次新消息",
+        "processing": "本地处理",
+        "storage": "设备令牌存储在Keychain",
+        "recipient": "仅本机显示",
+        "thirdparty": "Apple APNs（仅传递加密通知）",
+        "switchpath": "可选择关闭推送通知"
+      }
+    ],
+    "permissions": [
+      "NSUserNotifications"
+    ]
+  }
+]

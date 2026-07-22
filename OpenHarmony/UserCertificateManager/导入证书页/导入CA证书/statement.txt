@@ -1,0 +1,9 @@
+导入CA证书
+
+1 我们如何收集和使用您的个人信息：
+本功能用于从本地存储导入CA证书。通过系统文件选择器（DocumentViewPicker），用户选择本地证书文件（支持cer、pem、crt、der、p7b、spc格式）。文件选择后，读取文件内容并调用证书管理API（CertManager）的installUserTrustedCertificate接口进行安装。采集频率：仅在用户主动触发导入操作时执行。处理方式：本地读取和安装，不涉及网络传输。安装前需要进行身份验证（指纹或PIN）。
+
+2 设备权限调用：
+ohos.permission.ACCESS_CERT_MANAGER权限：用于访问证书管理服务，安装证书。拒绝后将无法导入证书。
+ohos.permission.ACCESS_USER_TRUSTED_CERT权限：用于访问用户可信证书存储，安装新证书。拒绝后无法导入CA证书。
+ohos.permission.ACCESS_BIOMETRIC权限：用于进行身份验证（指纹识别）。拒绝后可能无法完成身份验证流程。

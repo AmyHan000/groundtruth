@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/model/SimpleXAPI.kt",
+        "line": 1102,
+        "code": "private suspend fun processSendMessageCmd(rh: Long?, cmd: CC): List<AChatItem>? {\n    val r = sendCmd(rh, cmd)\n    return when {\n      r is API.Result && r.res is CR.NewChatItems -> r.res.chatItems\n      ...\n    }\n  }"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/android/src/main/java/chat/simplex/app/model/NtfManager.android.kt",
+        "line": 1,
+        "code": "package chat.simplex.app.model"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/android/src/main/AndroidManifest.xml",
+        "line": 19,
+        "code": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"\n      tools:ignore=\"ScopedStorage\" />"
+      },
+      {
+        "filePath": "apps/multiplatform/common/src/androidMain/kotlin/chat/simplex/common/views/chat/item/ChatItemView.android.kt",
+        "line": 30,
+        "code": "val writePermissionState = rememberPermissionState(permission = Manifest.permission.WRITE_EXTERNAL_STORAGE)"
+      }
+    ]
+  }
+]

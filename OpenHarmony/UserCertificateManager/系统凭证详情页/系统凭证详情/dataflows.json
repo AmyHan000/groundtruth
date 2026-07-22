@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/presenter/CmShowSysCredPresenter.ets",
+        "line": 89,
+        "code": "getSystemCred(uri: string, callback: Function): void {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 135,
+        "code": "this.getSystemCredential(uri, (errCode: CMModelErrorCode, credInfo: CredentialVo) => {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 582,
+        "code": "private async getSystemCredential(certUri: string, callback: Function): Promise<void> {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 585,
+        "code": "let result = await CertManager.getSystemAppCertificate(certUri);"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CredSystemDetailPage.ets",
+        "line": 152,
+        "code": "Text(this.presenter.credInfo.alias)"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CredSystemDetailPage.ets",
+        "line": 173,
+        "code": "Text($r('app.string.keyNum', String(this.presenter.credInfo.keyNum)))"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CredSystemDetailPage.ets",
+        "line": 184,
+        "code": "Text($r('app.string.userCerNum', String(this.presenter.credInfo.certNum)))"
+      }
+    ]
+  }
+]

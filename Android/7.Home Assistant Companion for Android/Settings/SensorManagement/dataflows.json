@@ -1,42 +1,40 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_SENSOR_ENABLE_STATE_READ",
-      "data_type": "Sensor Configuration State (enable/disable settings per server)",
-      "description": "The Sensor Management screen reads the current enabled/disabled state of all sensors from the local Room database (Sensor table) and displays them grouped by sensor manager type. It allows the user to toggle sensor enable states and view individual sensor details.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "SensorSettingsViewModel.init",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/settings/sensor/SensorSettingsViewModel.kt",
-          "line": 50,
-          "code": "sensorRepository.getAllFlow().collect { sensorsList = it; filterSensorsList() }",
-          "details": "User opens Sensor Management screen. The app queries all sensor enable states from the local Room database."
-        },
-        {
-          "step": "Data Processing",
-          "function": "SensorSettingsViewModel.filterSensorsList",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/settings/sensor/SensorSettingsViewModel.kt",
-          "line": 77,
-          "code": "sensors = managers.filter { it.hasSensor() }.flatMap { manager -> manager.getAvailableSensors() ... }",
-          "details": "Sensor states are loaded from the database, filtered by search query and enable filter, and grouped by sensor manager for display."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_SENSOR_ENABLE_STATE_WRITE",
-      "data_type": "Sensor Configuration State (enable/disable toggle)",
-      "description": "When the user toggles a sensor's enabled state in Sensor Management, the change is persisted to the Room database and propagated to the sensor manager which may start or stop data collection.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "SensorDetailView composable - sensor enabled toggle",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/settings/sensor/views/SensorDetailView.kt",
-          "line": 45,
-          "code": "sensorRepository.setSensorsEnabled(listOf(sensor.id), serverId, enabled)",
-          "details": "User toggles a sensor's enabled state. The change is written to the local Room database Sensor table."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_SENSOR_ENABLE_STATE_READ",
+    "data_type": "Sensor Configuration State (enable/disable settings per server)",
+    "description": "The Sensor Management screen reads the current enabled/disabled state of all sensors from the local Room database (Sensor table) and displays them grouped by sensor manager type. It allows the user to toggle sensor enable states and view individual sensor details.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "SensorSettingsViewModel.init",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/settings/sensor/SensorSettingsViewModel.kt",
+        "line": 50,
+        "code": "sensorRepository.getAllFlow().collect { sensorsList = it; filterSensorsList() }",
+        "details": "User opens Sensor Management screen. The app queries all sensor enable states from the local Room database."
+      },
+      {
+        "step": "Data Processing",
+        "function": "SensorSettingsViewModel.filterSensorsList",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/settings/sensor/SensorSettingsViewModel.kt",
+        "line": 77,
+        "code": "sensors = managers.filter { it.hasSensor() }.flatMap { manager -> manager.getAvailableSensors() ... }",
+        "details": "Sensor states are loaded from the database, filtered by search query and enable filter, and grouped by sensor manager for display."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_SENSOR_ENABLE_STATE_WRITE",
+    "data_type": "Sensor Configuration State (enable/disable toggle)",
+    "description": "When the user toggles a sensor's enabled state in Sensor Management, the change is persisted to the Room database and propagated to the sensor manager which may start or stop data collection.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "SensorDetailView composable - sensor enabled toggle",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/settings/sensor/views/SensorDetailView.kt",
+        "line": 45,
+        "code": "sensorRepository.setSensorsEnabled(listOf(sensor.id), serverId, enabled)",
+        "details": "User toggles a sensor's enabled state. The change is written to the local Room database Sensor table."
+      }
+    ]
+  }
+]

@@ -13,7 +13,28 @@
         "recipient": "系统事件服务",
         "thirdparty": "无",
         "switchpath": "设置页→数据收集"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.HIVIEW_FAULT",
+        "scene": "上报故障事件",
+        "authorization": "预授权",
+        "purpose": "上报应用故障信息用于问题诊断",
+        "impact": "无法上报故障信息"
       },
+      {
+        "name": "ohos.permission.HIVIEW_BEHAVIOR",
+        "scene": "上报行为事件",
+        "authorization": "预授权",
+        "purpose": "上报用户行为用于功能优化",
+        "impact": "无法上报行为数据"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
       {
         "scene": "事件上报",
         "purpose": "上报故障事件",
@@ -25,7 +46,28 @@
         "recipient": "系统事件服务",
         "thirdparty": "无",
         "switchpath": "设置页→数据收集"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.HIVIEW_FAULT",
+        "scene": "上报故障事件",
+        "authorization": "预授权",
+        "purpose": "上报应用故障信息用于问题诊断",
+        "impact": "无法上报故障信息"
       },
+      {
+        "name": "ohos.permission.HIVIEW_BEHAVIOR",
+        "scene": "上报行为事件",
+        "authorization": "预授权",
+        "purpose": "上报用户行为用于功能优化",
+        "impact": "无法上报行为数据"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
       {
         "scene": "事件上报",
         "purpose": "上报文件操作事件",

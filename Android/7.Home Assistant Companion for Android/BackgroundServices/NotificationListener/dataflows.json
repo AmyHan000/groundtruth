@@ -1,74 +1,72 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_FCM_NOTIFICATION_RECEIVE",
-      "data_type": "Notification Content and Push Messages",
-      "description": "The app receives push notifications from the Home Assistant server via Firebase Cloud Messaging, processes message content and images, and displays them through Android NotificationManager.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "MessagingManager.handleMessage",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/notifications/MessagingManager.kt",
-          "line": 300,
-          "code": "fun handleMessage(notificationData: Map<String, String>, source: String) { mainScope.launch { ... } }",
-          "details": "A push notification is received via FCM. The notification data map contains title, content, image URLs, etc."
-        },
-        {
-          "step": "Storage",
-          "function": "NotificationDao.add",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/database/notification/NotificationDao.kt",
-          "line": 15,
-          "code": "@Insert fun add(notificationItem: NotificationItem): Long",
-          "details": "Notification content (message, title, image URLs) is stored in the local Room database notification table."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "MessagingManager.getImageBitmap",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/notifications/MessagingManager.kt",
-          "line": 1391,
-          "code": "private suspend fun getImageBitmap(serverId: Int, url: URL?, requiresAuth: Boolean): Bitmap? { okHttpClientProvider().newCall(request).execute() }",
-          "details": "Notification images are downloaded from the Home Assistant server via OkHttp (with Bearer Token authentication)."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_NOTIFICATION_LISTENER",
-      "data_type": "Other Apps' Notification Content",
-      "description": "The app reads all notifications posted by other apps on the device via Android NotificationListenerService and sends their metadata (package name, title, text) to the Home Assistant server for automation rules.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "NotificationSensorManager.onNotificationPosted",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/NotificationSensorManager.kt",
-          "line": 34,
-          "code": "override fun onNotificationPosted(sbn: StatusBarNotification) { notificationListenerSensorManager.onNotificationPosted(sbn, activeNotifications) }",
-          "details": "When any app on the device posts a notification, the NotificationListenerService callback is triggered."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "NotificationListenerSensorManager.onNotificationPosted",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NotificationListenerSensorManager.kt",
-          "line": 45,
-          "code": "fun onNotificationPosted(sbn: StatusBarNotification, activeNotifications: Array<StatusBarNotification>) { ... extract data from sbn }",
-          "details": "Extracts package name, title, and text content from the notification."
-        },
-        {
-          "step": "Data Processing",
-          "function": "NotificationListenerSensorManager.onNotificationPosted",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NotificationListenerSensorManager.kt",
-          "line": 70,
-          "code": "val notificationData = mapOf(\"package\" to sbn.packageName, \"title\" to sbn.notification.extras.getString(Notification.EXTRA_TITLE), \"text\" to sbn.notification.extras.getString(Notification.EXTRA_TEXT))",
-          "details": "Notification content is structured: app package name, title, notification text."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "NotificationListenerSensorManager.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NotificationListenerSensorManager.kt",
-          "line": 95,
-          "code": "onSensorUpdated(notificationSensor, notificationData, ...)",
-          "details": "Extracted notification data from other apps is sent to the Home Assistant server via WebSocket."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_FCM_NOTIFICATION_RECEIVE",
+    "data_type": "Notification Content and Push Messages",
+    "description": "The app receives push notifications from the Home Assistant server via Firebase Cloud Messaging, processes message content and images, and displays them through Android NotificationManager.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "MessagingManager.handleMessage",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/notifications/MessagingManager.kt",
+        "line": 300,
+        "code": "fun handleMessage(notificationData: Map<String, String>, source: String) { mainScope.launch { ... } }",
+        "details": "A push notification is received via FCM. The notification data map contains title, content, image URLs, etc."
+      },
+      {
+        "step": "Storage",
+        "function": "NotificationDao.add",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/database/notification/NotificationDao.kt",
+        "line": 15,
+        "code": "@Insert fun add(notificationItem: NotificationItem): Long",
+        "details": "Notification content (message, title, image URLs) is stored in the local Room database notification table."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "MessagingManager.getImageBitmap",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/notifications/MessagingManager.kt",
+        "line": 1391,
+        "code": "private suspend fun getImageBitmap(serverId: Int, url: URL?, requiresAuth: Boolean): Bitmap? { okHttpClientProvider().newCall(request).execute() }",
+        "details": "Notification images are downloaded from the Home Assistant server via OkHttp (with Bearer Token authentication)."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_NOTIFICATION_LISTENER",
+    "data_type": "Other Apps' Notification Content",
+    "description": "The app reads all notifications posted by other apps on the device via Android NotificationListenerService and sends their metadata (package name, title, text) to the Home Assistant server for automation rules.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "NotificationSensorManager.onNotificationPosted",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/NotificationSensorManager.kt",
+        "line": 34,
+        "code": "override fun onNotificationPosted(sbn: StatusBarNotification) { notificationListenerSensorManager.onNotificationPosted(sbn, activeNotifications) }",
+        "details": "When any app on the device posts a notification, the NotificationListenerService callback is triggered."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "NotificationListenerSensorManager.onNotificationPosted",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NotificationListenerSensorManager.kt",
+        "line": 45,
+        "code": "fun onNotificationPosted(sbn: StatusBarNotification, activeNotifications: Array<StatusBarNotification>) { ... extract data from sbn }",
+        "details": "Extracts package name, title, and text content from the notification."
+      },
+      {
+        "step": "Data Processing",
+        "function": "NotificationListenerSensorManager.onNotificationPosted",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NotificationListenerSensorManager.kt",
+        "line": 70,
+        "code": "val notificationData = mapOf(\"package\" to sbn.packageName, \"title\" to sbn.notification.extras.getString(Notification.EXTRA_TITLE), \"text\" to sbn.notification.extras.getString(Notification.EXTRA_TEXT))",
+        "details": "Notification content is structured: app package name, title, notification text."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "NotificationListenerSensorManager.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NotificationListenerSensorManager.kt",
+        "line": 95,
+        "code": "onSensorUpdated(notificationSensor, notificationData, ...)",
+        "details": "Extracted notification data from other apps is sent to the Home Assistant server via WebSocket."
+      }
+    ]
+  }
+]

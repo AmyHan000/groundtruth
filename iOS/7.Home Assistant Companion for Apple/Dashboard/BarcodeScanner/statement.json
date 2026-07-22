@@ -1,27 +1,20 @@
-{
-  "id": "DASHBOARD_BARCODE",
-  "feature_name": "条码扫描",
-  "data": [
-    {
-      "scene": "用户在前端页面触发扫描操作",
-      "purpose": "扫描 QR 码、条码等用于设备配网或触发自动化",
-      "source": "后置摄像头（AVFoundation AVCaptureSession）",
-      "item": "摄像头实时画面（仅用于取景预览）、解码后的条码/二维码内容",
-      "frequency": "用户按需触发",
-      "processing": "设备端解码，仅条码内容传递给前端",
-      "storage": "不存储",
-      "recipient": "Home Assistant 前端 WebView",
-      "thirdparty": "无第三方",
-      "switchpath": "系统设置 -> 隐私 -> 相机"
-    }
-  ],
-  "permissions": [
-    {
-      "name": "NSCameraUsageDescription",
-      "scene": "用户首次使用扫描功能时",
-      "authorization": "运行时",
-      "purpose": "开启后置摄像头进行条码扫描",
-      "impact": "如果拒绝，条码扫描功能不可用"
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_CAMERA_BARCODE_SCAN",
+    "data": [
+      {
+        "scene": "Camera Video Feed / QR Code / Barcode Content",
+        "purpose": "AVFoundation rear camera activated for barcode scanning via AVCaptureMetadataOutput. Camera preview displayed as CIImage stream. Detected barcode value returned to frontend.",
+        "source": "Home Assistant Companion",
+        "item": "Camera Video Feed / QR Code / Barcode Content",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": []
+  }
+]

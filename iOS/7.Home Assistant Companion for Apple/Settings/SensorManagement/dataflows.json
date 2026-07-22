@@ -1,205 +1,203 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_SENSOR_MANAGEMENT_DISPLAY",
-      "data_type": "Display Information (Screen count, names, IDs)",
-      "description": "DisplaySensor reports connected display count, names, and identifiers. Updates on screen configuration changes.",
-      "flow_steps": [
-        {
-          "step": "Data Collection",
-          "function": "DisplaySensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/DisplaySensor.swift",
-          "line": 62,
-          "code": "func sensors() -> Promise<[WebhookSensor]> { guard let screens = Current.device.screens() else { ... } }",
-          "details": "Queries display information: screen count, display names, display IDs."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "WebhookResponseUpdateSensors.handle",
-          "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
-          "line": 40,
-          "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
-          "details": "Display sensor data sent to HA server via webhook."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_SENSOR_MANAGEMENT_FOCUS",
-      "data_type": "Focus Status (User's current focus/session mode)",
-      "description": "FocusSensor reads the device's current Focus (Do Not Disturb) status via private API. Requires NSFocusStatusUsageDescription.",
-      "flow_steps": [
-        {
-          "step": "Data Collection",
-          "function": "FocusSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/FocusSensor.swift",
-          "line": 56,
-          "code": "func sensors() -> Promise<[WebhookSensor]> { let focusState = Current.focusStatus.status(); sensors.append(WebhookSensor(name: \"Focus\", state: isFocused)) }",
-          "details": "Reads device's Focus status (active/inactive) and reports as binary_sensor."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "WebhookResponseUpdateSensors.handle",
-          "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
-          "line": 40,
-          "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
-          "details": "Focus sensor state sent to HA server."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_SENSOR_MANAGEMENT_STORAGE",
-      "data_type": "Device Storage Information (Total, Available, Used)",
-      "description": "StorageSensor reads volume capacity data via URLResourceKey queries. Reports total, available, and opportunistic capacity.",
-      "flow_steps": [
-        {
-          "step": "Data Collection",
-          "function": "StorageSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/StorageSensor.swift",
-          "line": 32,
-          "code": "public func sensors() -> Promise<[WebhookSensor]> { Current.device.volumes() }",
-          "details": "Queries device volume capacities: total, available, important, opportunistic storage."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "WebhookResponseUpdateSensors.handle",
-          "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
-          "line": 40,
-          "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
-          "details": "Storage sensor data sent to HA server."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_SENSOR_MANAGEMENT_LOCATION_PERMISSION",
-      "data_type": "Location Authorization Status",
-      "description": "LocationPermissionSensor reports the current CLAuthorizationStatus to HA server.",
-      "flow_steps": [
-        {
-          "step": "Data Collection",
-          "function": "LocationPermissionSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/LocationPermissionSensor.swift",
-          "line": 1,
-          "code": "class LocationPermissionSensor: SensorProvider",
-          "details": "Reads CLLocationManager authorization status and reports to server."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "WebhookResponseUpdateSensors.handle",
-          "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
-          "line": 40,
-          "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
-          "details": "Location permission status sent to HA server."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_SENSOR_MANAGEMENT_GEOCODED_LOCATION",
-      "data_type": "Geocoded Address (Street-level, reverse geocoded)",
-      "description": "GPS coordinates reverse-geocoded via CLGeocoder. Address sent to Apple's geocoding service; result includes street, city, state, country, postal code, timezone, and zone information.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "GeocoderSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/GeocoderSensor.swift",
-          "line": 26,
-          "code": "public func sensors() -> Promise<[WebhookSensor]> { firstly { Current.geocoder.geocode(location) } }",
-          "details": "Sensor update triggers reverse geocoding of current GPS location."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "CLGeocoder.reverseGeocodeLocation",
-          "file": "Sources/Shared/API/Webhook/Sensors/GeocoderSensor.swift",
-          "line": 19,
-          "code": "geocoder.reverseGeocodeLocation(location, preferredLocale: nil, completionHandler: completionHandler)",
-          "details": "GPS coordinates sent to Apple's CLGeocoder service. Returns CLPlacemark with street-level address."
-        },
-        {
-          "step": "Data Processing",
-          "function": "GeocoderSensor.sensors result",
-          "file": "Sources/Shared/API/Webhook/Sensors/GeocoderSensor.swift",
-          "line": 65,
-          "code": "var attributes = Self.attributes(for: placemarks); attributes[\"Zones\"] = Array(insideZones)",
-          "details": "Address attributes extracted from CLPlacemark: administrative area, locality, country, postal code, thoroughfare, time zone, zones."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "GeocoderSensor.sensors return",
-          "file": "Sources/Shared/API/Webhook/Sensors/GeocoderSensor.swift",
-          "line": 80,
-          "code": "sensor.Attributes = attributes; return [sensor]",
-          "details": "Geocoded address sensor sent to HA server via webhook."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_SENSOR_MANAGEMENT_AUDIO_OUTPUT",
-      "data_type": "Audio Output Device Information",
-      "description": "AudioOutputSensor reports current audio output device name, type, and routing.",
-      "flow_steps": [
-        {
-          "step": "Data Collection",
-          "function": "AudioOutputSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/AudioOutputSensor.swift",
-          "line": 1,
-          "code": "class AudioOutputSensor: SensorProvider",
-          "details": "Reads current audio output route via AVAudioSession."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "WebhookResponseUpdateSensors.handle",
-          "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
-          "line": 40,
-          "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
-          "details": "Audio output sensor data sent to HA server."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_SENSOR_MANAGEMENT_KIOSK",
-      "data_type": "Kiosk Settings (Brightness, Volume, Screensaver, Mode)",
-      "description": "Kiosk sensors report display brightness, system volume, screensaver state, and kiosk mode status.",
-      "flow_steps": [
-        {
-          "step": "Data Collection",
-          "function": "KioskModeSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/KioskModeSensor.swift",
-          "line": 1,
-          "code": "class KioskModeSensor: SensorProvider",
-          "details": "Reads kiosk mode enabled/disabled state."
-        },
-        {
-          "step": "Data Collection",
-          "function": "KioskScreensaverSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/KioskScreensaverSensor.swift",
-          "line": 1,
-          "code": "class KioskScreensaverSensor: SensorProvider",
-          "details": "Reads screensaver active/inactive state."
-        },
-        {
-          "step": "Data Collection",
-          "function": "KioskBrightnessSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/KioskBrightnessSensor.swift",
-          "line": 1,
-          "code": "class KioskBrightnessSensor: SensorProvider",
-          "details": "Reads current screen brightness level."
-        },
-        {
-          "step": "Data Collection",
-          "function": "KioskVolumeSensor.sensors",
-          "file": "Sources/Shared/API/Webhook/Sensors/KioskVolumeSensor.swift",
-          "line": 1,
-          "code": "class KioskVolumeSensor: SensorProvider",
-          "details": "Reads current system volume level."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "WebhookResponseUpdateSensors.handle",
-          "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
-          "line": 40,
-          "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
-          "details": "Kiosk sensor data sent to HA server."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_SENSOR_MANAGEMENT_DISPLAY",
+    "data_type": "Display Information (Screen count, names, IDs)",
+    "description": "DisplaySensor reports connected display count, names, and identifiers. Updates on screen configuration changes.",
+    "flow_steps": [
+      {
+        "step": "Data Collection",
+        "function": "DisplaySensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/DisplaySensor.swift",
+        "line": 62,
+        "code": "func sensors() -> Promise<[WebhookSensor]> { guard let screens = Current.device.screens() else { ... } }",
+        "details": "Queries display information: screen count, display names, display IDs."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "WebhookResponseUpdateSensors.handle",
+        "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
+        "line": 40,
+        "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
+        "details": "Display sensor data sent to HA server via webhook."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_SENSOR_MANAGEMENT_FOCUS",
+    "data_type": "Focus Status (User's current focus/session mode)",
+    "description": "FocusSensor reads the device's current Focus (Do Not Disturb) status via private API. Requires NSFocusStatusUsageDescription.",
+    "flow_steps": [
+      {
+        "step": "Data Collection",
+        "function": "FocusSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/FocusSensor.swift",
+        "line": 56,
+        "code": "func sensors() -> Promise<[WebhookSensor]> { let focusState = Current.focusStatus.status(); sensors.append(WebhookSensor(name: \"Focus\", state: isFocused)) }",
+        "details": "Reads device's Focus status (active/inactive) and reports as binary_sensor."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "WebhookResponseUpdateSensors.handle",
+        "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
+        "line": 40,
+        "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
+        "details": "Focus sensor state sent to HA server."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_SENSOR_MANAGEMENT_STORAGE",
+    "data_type": "Device Storage Information (Total, Available, Used)",
+    "description": "StorageSensor reads volume capacity data via URLResourceKey queries. Reports total, available, and opportunistic capacity.",
+    "flow_steps": [
+      {
+        "step": "Data Collection",
+        "function": "StorageSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/StorageSensor.swift",
+        "line": 32,
+        "code": "public func sensors() -> Promise<[WebhookSensor]> { Current.device.volumes() }",
+        "details": "Queries device volume capacities: total, available, important, opportunistic storage."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "WebhookResponseUpdateSensors.handle",
+        "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
+        "line": 40,
+        "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
+        "details": "Storage sensor data sent to HA server."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_SENSOR_MANAGEMENT_LOCATION_PERMISSION",
+    "data_type": "Location Authorization Status",
+    "description": "LocationPermissionSensor reports the current CLAuthorizationStatus to HA server.",
+    "flow_steps": [
+      {
+        "step": "Data Collection",
+        "function": "LocationPermissionSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/LocationPermissionSensor.swift",
+        "line": 1,
+        "code": "class LocationPermissionSensor: SensorProvider",
+        "details": "Reads CLLocationManager authorization status and reports to server."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "WebhookResponseUpdateSensors.handle",
+        "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
+        "line": 40,
+        "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
+        "details": "Location permission status sent to HA server."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_SENSOR_MANAGEMENT_GEOCODED_LOCATION",
+    "data_type": "Geocoded Address (Street-level, reverse geocoded)",
+    "description": "GPS coordinates reverse-geocoded via CLGeocoder. Address sent to Apple's geocoding service; result includes street, city, state, country, postal code, timezone, and zone information.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "GeocoderSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/GeocoderSensor.swift",
+        "line": 26,
+        "code": "public func sensors() -> Promise<[WebhookSensor]> { firstly { Current.geocoder.geocode(location) } }",
+        "details": "Sensor update triggers reverse geocoding of current GPS location."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "CLGeocoder.reverseGeocodeLocation",
+        "file": "Sources/Shared/API/Webhook/Sensors/GeocoderSensor.swift",
+        "line": 19,
+        "code": "geocoder.reverseGeocodeLocation(location, preferredLocale: nil, completionHandler: completionHandler)",
+        "details": "GPS coordinates sent to Apple's CLGeocoder service. Returns CLPlacemark with street-level address."
+      },
+      {
+        "step": "Data Processing",
+        "function": "GeocoderSensor.sensors result",
+        "file": "Sources/Shared/API/Webhook/Sensors/GeocoderSensor.swift",
+        "line": 65,
+        "code": "var attributes = Self.attributes(for: placemarks); attributes[\"Zones\"] = Array(insideZones)",
+        "details": "Address attributes extracted from CLPlacemark: administrative area, locality, country, postal code, thoroughfare, time zone, zones."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "GeocoderSensor.sensors return",
+        "file": "Sources/Shared/API/Webhook/Sensors/GeocoderSensor.swift",
+        "line": 80,
+        "code": "sensor.Attributes = attributes; return [sensor]",
+        "details": "Geocoded address sensor sent to HA server via webhook."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_SENSOR_MANAGEMENT_AUDIO_OUTPUT",
+    "data_type": "Audio Output Device Information",
+    "description": "AudioOutputSensor reports current audio output device name, type, and routing.",
+    "flow_steps": [
+      {
+        "step": "Data Collection",
+        "function": "AudioOutputSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/AudioOutputSensor.swift",
+        "line": 1,
+        "code": "class AudioOutputSensor: SensorProvider",
+        "details": "Reads current audio output route via AVAudioSession."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "WebhookResponseUpdateSensors.handle",
+        "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
+        "line": 40,
+        "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
+        "details": "Audio output sensor data sent to HA server."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_SENSOR_MANAGEMENT_KIOSK",
+    "data_type": "Kiosk Settings (Brightness, Volume, Screensaver, Mode)",
+    "description": "Kiosk sensors report display brightness, system volume, screensaver state, and kiosk mode status.",
+    "flow_steps": [
+      {
+        "step": "Data Collection",
+        "function": "KioskModeSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/KioskModeSensor.swift",
+        "line": 1,
+        "code": "class KioskModeSensor: SensorProvider",
+        "details": "Reads kiosk mode enabled/disabled state."
+      },
+      {
+        "step": "Data Collection",
+        "function": "KioskScreensaverSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/KioskScreensaverSensor.swift",
+        "line": 1,
+        "code": "class KioskScreensaverSensor: SensorProvider",
+        "details": "Reads screensaver active/inactive state."
+      },
+      {
+        "step": "Data Collection",
+        "function": "KioskBrightnessSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/KioskBrightnessSensor.swift",
+        "line": 1,
+        "code": "class KioskBrightnessSensor: SensorProvider",
+        "details": "Reads current screen brightness level."
+      },
+      {
+        "step": "Data Collection",
+        "function": "KioskVolumeSensor.sensors",
+        "file": "Sources/Shared/API/Webhook/Sensors/KioskVolumeSensor.swift",
+        "line": 1,
+        "code": "class KioskVolumeSensor: SensorProvider",
+        "details": "Reads current system volume level."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "WebhookResponseUpdateSensors.handle",
+        "file": "Sources/Shared/API/Webhook/Networking/WebhookResponseUpdateSensors.swift",
+        "line": 40,
+        "code": "func handle(sensors:) { api.sendWebhook(sensors) }",
+        "details": "Kiosk sensor data sent to HA server."
+      }
+    ]
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "查看证书详情",
+        "purpose": "显示证书详细信息（别名、颁发者、使用者、有效期、指纹等）",
+        "source": "本地存储",
+        "item": "证书详细信息",
+        "frequency": "每次查看",
+        "processing": "本地处理",
+        "storage": "系统安全存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "证书管理权限",
+        "scene": "查看和修改证书状态",
+        "authorization": "预授权",
+        "purpose": "访问和管理用户证书",
+        "impact": "无法查看或修改证书"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "启用/禁用证书",
+        "purpose": "设置证书信任状态",
+        "source": "本地存储",
+        "item": "证书启用/禁用状态",
+        "frequency": "用户主动操作",
+        "processing": "本地处理",
+        "storage": "系统安全存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "状态切换开关"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "证书管理权限",
+        "scene": "查看和修改证书状态",
+        "authorization": "预授权",
+        "purpose": "访问和管理用户证书",
+        "impact": "无法查看或修改证书"
+      }
+    ]
+  }
+]

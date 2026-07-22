@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/presenter/CmShowSysCaPresenter.ets",
+        "line": 71,
+        "code": "getSystemTrustedCertificate(uri: string, callback: Function): void {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 120,
+        "code": "this.getSystemTrustedCertificate(uri, (errCode: CMModelErrorCode, certInfo: CertInfoVo) => {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 385,
+        "code": "private async getSystemTrustedCertificate(certUri: string, callback: Function): Promise<void> {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 388,
+        "code": "let result = await CertManager.getSystemTrustedCertificate(certUri);"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CaSystemDetailPage.ets",
+        "line": 351,
+        "code": "Text(this.mShowSysCaPresenter.certInfo.certAlias)"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CaSystemDetailPage.ets",
+        "line": 366,
+        "code": "DialogSubjectComponent({ map: this.mShowSysCaPresenter.certInfo.subjectNameMap })"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CaSystemDetailPage.ets",
+        "line": 376,
+        "code": "DialogIssuerComponent({ map: this.mShowSysCaPresenter.certInfo.issuerNameMap })"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CaSystemDetailPage.ets",
+        "line": 386,
+        "code": "DialogDateComponent({ map: this.mShowSysCaPresenter.certInfo.dateMap })"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CaSystemDetailPage.ets",
+        "line": 396,
+        "code": "DialogFingerPrintComponent({ fingerprintSha256: this.mShowSysCaPresenter.certInfo.fingerprintSha256 })"
+      }
+    ]
+  }
+]

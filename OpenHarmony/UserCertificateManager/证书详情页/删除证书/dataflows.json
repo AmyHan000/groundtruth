@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CaUserDetailPage.ets",
+        "line": 101,
+        "code": "this.showUserCaPresenter.deleteUserCertificate(this.showUserCaPresenter.certInfo.uri, callback)"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/presenter/CmShowUserCaPresenter.ets",
+        "line": 99,
+        "code": "deleteUserCertificate(uri: string, callback: Function): void {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 150,
+        "code": "this.deleteUserTrustedCertificate(uri, (errCode: CMModelErrorCode) => {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 485,
+        "code": "private async deleteUserTrustedCertificate(certUri: string, callback: Function): Promise<void> {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 488,
+        "code": "CertManager.uninstallUserTrustedCertificateSync(certUri);"
+      }
+    ]
+  }
+]

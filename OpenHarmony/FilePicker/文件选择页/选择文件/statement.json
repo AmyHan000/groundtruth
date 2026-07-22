@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "选择文件",
+        "purpose": "将用户选择的文件URI返回给调用方应用",
+        "source": "用户操作",
+        "item": "文件URI",
+        "frequency": "每次选择",
+        "processing": "本地生成并返回",
+        "storage": "不存储",
+        "recipient": "调用方应用",
+        "thirdparty": "调用方应用",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "scene": "读取媒体文件",
+        "authorization": "动态授权",
+        "purpose": "读取用户选择的媒体文件",
+        "impact": "无法选择媒体文件"
+      },
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "scene": "授权文件写入",
+        "authorization": "动态授权",
+        "purpose": "授予调用方写入权限",
+        "impact": "调用方无法写入文件"
+      },
+      {
+        "name": "ohos.permission.MEDIA_LOCATION",
+        "scene": "读取媒体位置信息",
+        "authorization": "动态授权",
+        "purpose": "读取媒体文件的位置元数据",
+        "impact": "无法获取文件位置信息"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "选择文件",
+        "purpose": "识别调用方应用身份以完成授权",
+        "source": "系统API",
+        "item": "调用方应用信息（包名、UID、Token）",
+        "frequency": "每次启动",
+        "processing": "本地使用",
+        "storage": "不存储",
+        "recipient": "仅本应用",
+        "thirdparty": "无",
+        "switchpath": "无（系统行为）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "scene": "读取媒体文件",
+        "authorization": "动态授权",
+        "purpose": "读取用户选择的媒体文件",
+        "impact": "无法选择媒体文件"
+      },
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "scene": "授权文件写入",
+        "authorization": "动态授权",
+        "purpose": "授予调用方写入权限",
+        "impact": "调用方无法写入文件"
+      },
+      {
+        "name": "ohos.permission.MEDIA_LOCATION",
+        "scene": "读取媒体位置信息",
+        "authorization": "动态授权",
+        "purpose": "读取媒体文件的位置元数据",
+        "impact": "无法获取文件位置信息"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "选择文件",
+        "purpose": "授予调用方文件访问权限",
+        "source": "系统权限API",
+        "item": "文件URI权限",
+        "frequency": "每次选择",
+        "processing": "系统授权",
+        "storage": "系统记录",
+        "recipient": "调用方应用",
+        "thirdparty": "调用方应用",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "scene": "读取媒体文件",
+        "authorization": "动态授权",
+        "purpose": "读取用户选择的媒体文件",
+        "impact": "无法选择媒体文件"
+      },
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "scene": "授权文件写入",
+        "authorization": "动态授权",
+        "purpose": "授予调用方写入权限",
+        "impact": "调用方无法写入文件"
+      },
+      {
+        "name": "ohos.permission.MEDIA_LOCATION",
+        "scene": "读取媒体位置信息",
+        "authorization": "动态授权",
+        "purpose": "读取媒体文件的位置元数据",
+        "impact": "无法获取文件位置信息"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "data": [
+      {
+        "scene": "选择文件",
+        "purpose": "判断是否为隐私空间模式",
+        "source": "系统API",
+        "item": "账号管理信息",
+        "frequency": "每次启动",
+        "processing": "本地判断",
+        "storage": "不存储",
+        "recipient": "仅本应用",
+        "thirdparty": "无",
+        "switchpath": "无（系统行为）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "scene": "读取媒体文件",
+        "authorization": "动态授权",
+        "purpose": "读取用户选择的媒体文件",
+        "impact": "无法选择媒体文件"
+      },
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "scene": "授权文件写入",
+        "authorization": "动态授权",
+        "purpose": "授予调用方写入权限",
+        "impact": "调用方无法写入文件"
+      },
+      {
+        "name": "ohos.permission.MEDIA_LOCATION",
+        "scene": "读取媒体位置信息",
+        "authorization": "动态授权",
+        "purpose": "读取媒体文件的位置元数据",
+        "impact": "无法获取文件位置信息"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "data": [
+      {
+        "scene": "选择文件",
+        "purpose": "收集设备信息用于日志和问题追踪",
+        "source": "系统API",
+        "item": "设备信息收集",
+        "frequency": "每次操作",
+        "processing": "本地使用",
+        "storage": "不存储",
+        "recipient": "仅本应用",
+        "thirdparty": "无",
+        "switchpath": "无（系统行为）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "scene": "读取媒体文件",
+        "authorization": "动态授权",
+        "purpose": "读取用户选择的媒体文件",
+        "impact": "无法选择媒体文件"
+      },
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "scene": "授权文件写入",
+        "authorization": "动态授权",
+        "purpose": "授予调用方写入权限",
+        "impact": "调用方无法写入文件"
+      },
+      {
+        "name": "ohos.permission.MEDIA_LOCATION",
+        "scene": "读取媒体位置信息",
+        "authorization": "动态授权",
+        "purpose": "读取媒体文件的位置元数据",
+        "impact": "无法获取文件位置信息"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "data": [
+      {
+        "scene": "选择文件",
+        "purpose": "提供跨进程文件管理服务",
+        "source": "系统IPC",
+        "item": "IPC通信",
+        "frequency": "每次调用",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "调用方应用",
+        "thirdparty": "调用方应用",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "scene": "读取媒体文件",
+        "authorization": "动态授权",
+        "purpose": "读取用户选择的媒体文件",
+        "impact": "无法选择媒体文件"
+      },
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "scene": "授权文件写入",
+        "authorization": "动态授权",
+        "purpose": "授予调用方写入权限",
+        "impact": "调用方无法写入文件"
+      },
+      {
+        "name": "ohos.permission.MEDIA_LOCATION",
+        "scene": "读取媒体位置信息",
+        "authorization": "动态授权",
+        "purpose": "读取媒体文件的位置元数据",
+        "impact": "无法获取文件位置信息"
+      }
+    ]
+  }
+]

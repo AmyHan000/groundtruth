@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/androidMain/kotlin/chat/simplex/common/views/onboarding/SetNotificationsMode.android.kt",
+        "line": 12,
+        "code": "actual fun SetNotificationsModeAdditions() {\n  if (Build.VERSION.SDK_INT >= 33) {\n    val notificationsPermissionState = rememberPermissionState(Manifest.permission.POST_NOTIFICATIONS)\n    LaunchedEffect(notificationsPermissionState.status == PermissionStatus.Granted) {"
+      }
+    ]
+  }
+]

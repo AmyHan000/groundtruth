@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "查看个人资料",
+        "purpose": "显示用户信息",
+        "source": "服务器API",
+        "item": "账户资料（头像、简介、帖子列表）",
+        "frequency": "每次访问",
+        "processing": "本地显示",
+        "storage": "无",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.WRITE_EXTERNAL_STORAGE"
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "保存二维码",
+        "purpose": "保存用户二维码到设备",
+        "source": "本地生成",
+        "item": "二维码图片",
+        "frequency": "用户主动操作",
+        "processing": "本地保存",
+        "storage": "外部存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "需要存储权限"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.WRITE_EXTERNAL_STORAGE"
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "保存媒体文件",
+        "purpose": "保存查看的媒体文件到设备",
+        "source": "服务器下载",
+        "item": "媒体文件",
+        "frequency": "用户主动操作",
+        "processing": "本地保存",
+        "storage": "外部存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "需要存储权限"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.WRITE_EXTERNAL_STORAGE"
+    ]
+  },
+  {
+    "id": 4,
+    "data": [
+      {
+        "scene": "扫描条码",
+        "purpose": "扫描二维码获取链接",
+        "source": "相机输入",
+        "item": "条码数据",
+        "frequency": "用户主动操作",
+        "processing": "本地处理",
+        "storage": "无",
+        "recipient": "仅本地",
+        "thirdparty": "Google ML Kit",
+        "switchpath": "无（用户主动触发）"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.WRITE_EXTERNAL_STORAGE"
+    ]
+  },
+  {
+    "id": 5,
+    "data": [
+      {
+        "scene": "扫描二维码",
+        "purpose": "扫描用户二维码获取链接",
+        "source": "相机输入",
+        "item": "条码数据",
+        "frequency": "用户主动操作",
+        "processing": "调用Google ML Kit识别二维码",
+        "storage": "不存储",
+        "recipient": "仅本地",
+        "thirdparty": "Google ML Kit",
+        "switchpath": "无（用户主动触发）"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.WRITE_EXTERNAL_STORAGE"
+    ]
+  }
+]

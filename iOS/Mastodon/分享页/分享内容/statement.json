@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "分享内容",
+        "purpose": "发布分享内容",
+        "source": "其他应用",
+        "item": "文本/URL/媒体",
+        "frequency": "每次分享",
+        "processing": "加密传输",
+        "storage": "服务器存储",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "取消分享"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "处理媒体分享",
+        "purpose": "解析其他应用分享的媒体内容",
+        "source": "其他应用分享的数据",
+        "item": "图片或视频数据",
+        "frequency": "用户主动分享",
+        "processing": "通过Image/Video Provider获取媒体数据",
+        "storage": "不存储",
+        "recipient": "仅本地处理",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "发送分享请求",
+        "purpose": "向服务器发送包含User-Agent的分享请求",
+        "source": "本地配置",
+        "item": "User-Agent字符串",
+        "frequency": "每次分享",
+        "processing": "本地添加到HTTP请求头",
+        "storage": "不存储",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": []
+  }
+]

@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "查看证书",
+        "purpose": "显示用户已安装的证书和凭证列表",
+        "source": "本地存储",
+        "item": "用户证书列表",
+        "frequency": "每次打开页面",
+        "processing": "本地处理",
+        "storage": "系统安全存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "证书管理权限",
+        "scene": "查看用户证书列表",
+        "authorization": "预授权",
+        "purpose": "访问本地证书存储",
+        "impact": "无法查看证书列表"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "查看证书",
+        "purpose": "显示应用凭证列表",
+        "source": "本地存储",
+        "item": "应用凭证列表",
+        "frequency": "每次打开页面",
+        "processing": "本地处理",
+        "storage": "系统安全存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "证书管理权限",
+        "scene": "查看用户证书列表",
+        "authorization": "预授权",
+        "purpose": "访问本地证书存储",
+        "impact": "无法查看证书列表"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "查看证书",
+        "purpose": "根据设备类型调整UI布局",
+        "source": "系统API",
+        "item": "设备信息收集",
+        "frequency": "每次打开页面",
+        "processing": "本地判断",
+        "storage": "不存储",
+        "recipient": "仅本应用",
+        "thirdparty": "无",
+        "switchpath": "无（系统行为）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "证书管理权限",
+        "scene": "查看用户证书列表",
+        "authorization": "预授权",
+        "purpose": "访问本地证书存储",
+        "impact": "无法查看证书列表"
+      }
+    ]
+  }
+]

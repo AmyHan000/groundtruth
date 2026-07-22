@@ -1,89 +1,87 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_CAMERA_STREAMING_WEBRTC",
-      "data_type": "Camera Video/Audio Stream (Received from HA server)",
-      "description": "Live camera streaming via WebRTC. Video received from HA server via ICE/TURN; rendered locally via RTCMTLVideoView. Audio playback only — microphone never used. PlaybackOnlyRTCAudioDevice explicitly disables audio input.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "CameraPlayerView.init",
-          "file": "Sources/App/Cameras/CameraPlayer/CameraPlayerView.swift",
-          "line": 35,
-          "code": "init(server:, cameraEntityId:, cameraName:)",
-          "details": "User taps camera entity; player view initialized with server and entity ID."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "WebRTCClient.init",
-          "file": "Sources/App/Cameras/CameraPlayer/WebRTC/WebRTCClient.swift",
-          "line": 92,
-          "code": "required init(iceServers:) { config.iceServers = [RTCIceServer(urlStrings: iceServers)]; peerConnection = factory.peerConnection(with: config, constraints:) }",
-          "details": "WebRTC peer connection established with HA server via ICE/TURN for NAT traversal."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "PlaybackOnlyRTCAudioDevice",
-          "file": "Sources/App/Cameras/CameraPlayer/WebRTC/WebRTCClient.swift",
-          "line": 28,
-          "code": "final class PlaybackOnlyRTCAudioDevice: NSObject, RTCAudioDevice { var inputNumberOfChannels: Int { 0 }; func startRecording() -> Bool { isRecording = false; return true } }",
-          "details": "Custom RTCAudioDevice that explicitly disables microphone input. Playback-only audio for camera streams."
-        },
-        {
-          "step": "Data Processing",
-          "function": "WebRTCClient.createMediaTracks",
-          "file": "Sources/App/Cameras/CameraPlayer/WebRTC/WebRTCClient.swift",
-          "line": 186,
-          "code": "private func createMediaTracks() { let videoTrack = createVideoTrack(); peerConnection.add(videoTrack, streamIds: [\"stream\"]) }",
-          "details": "Remote video track received and rendered via RTCVideoRenderer (RTCMTLVideoView). Remote audio track received and played via system audio."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_CAMERA_STREAMING_MJPEG",
-      "data_type": "Camera MJPEG Stream (Received from HA server)",
-      "description": "MJPEG camera stream fetched via HTTP request. Frames rendered as UIImage sequence from received JPEG data.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "CameraMJPEGPlayerView",
-          "file": "Sources/App/Cameras/CameraPlayer/CameraMJPEGPlayerView.swift",
-          "line": 1,
-          "code": "struct CameraMJPEGPlayerView: View",
-          "details": "User views MJPEG camera stream."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "MJPEGStreamer",
-          "file": "Sources/Shared/API/MJPEGStreamer.swift",
-          "line": 1,
-          "code": "class MJPEGStreamer",
-          "details": "HTTP connection to HA camera proxy. MJPEG boundary-delimited JPEG frames received and rendered."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_CAMERA_STREAMING_HLS",
-      "data_type": "Camera HLS Stream (Received from HA server)",
-      "description": "HLS camera stream played via AVPlayer. Video/audio segments fetched from HA server over HTTPS.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "CameraStreamHLSView",
-          "file": "Sources/App/Cameras/CameraPlayer/CameraStreamHLSView.swift",
-          "line": 1,
-          "code": "struct CameraStreamHLSView: View",
-          "details": "User views HLS camera stream."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "AVPlayer (HLS)",
-          "file": "Sources/App/Cameras/CameraPlayer/CameraStreamHLSView.swift",
-          "line": 1,
-          "code": "AVPlayer(url: streamURL)",
-          "details": "HLS stream URL loaded into AVPlayer. Video/audio segments fetched from HA server."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_CAMERA_STREAMING_WEBRTC",
+    "data_type": "Camera Video/Audio Stream (Received from HA server)",
+    "description": "Live camera streaming via WebRTC. Video received from HA server via ICE/TURN; rendered locally via RTCMTLVideoView. Audio playback only — microphone never used. PlaybackOnlyRTCAudioDevice explicitly disables audio input.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "CameraPlayerView.init",
+        "file": "Sources/App/Cameras/CameraPlayer/CameraPlayerView.swift",
+        "line": 35,
+        "code": "init(server:, cameraEntityId:, cameraName:)",
+        "details": "User taps camera entity; player view initialized with server and entity ID."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "WebRTCClient.init",
+        "file": "Sources/App/Cameras/CameraPlayer/WebRTC/WebRTCClient.swift",
+        "line": 92,
+        "code": "required init(iceServers:) { config.iceServers = [RTCIceServer(urlStrings: iceServers)]; peerConnection = factory.peerConnection(with: config, constraints:) }",
+        "details": "WebRTC peer connection established with HA server via ICE/TURN for NAT traversal."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "PlaybackOnlyRTCAudioDevice",
+        "file": "Sources/App/Cameras/CameraPlayer/WebRTC/WebRTCClient.swift",
+        "line": 28,
+        "code": "final class PlaybackOnlyRTCAudioDevice: NSObject, RTCAudioDevice { var inputNumberOfChannels: Int { 0 }; func startRecording() -> Bool { isRecording = false; return true } }",
+        "details": "Custom RTCAudioDevice that explicitly disables microphone input. Playback-only audio for camera streams."
+      },
+      {
+        "step": "Data Processing",
+        "function": "WebRTCClient.createMediaTracks",
+        "file": "Sources/App/Cameras/CameraPlayer/WebRTC/WebRTCClient.swift",
+        "line": 186,
+        "code": "private func createMediaTracks() { let videoTrack = createVideoTrack(); peerConnection.add(videoTrack, streamIds: [\"stream\"]) }",
+        "details": "Remote video track received and rendered via RTCVideoRenderer (RTCMTLVideoView). Remote audio track received and played via system audio."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_CAMERA_STREAMING_MJPEG",
+    "data_type": "Camera MJPEG Stream (Received from HA server)",
+    "description": "MJPEG camera stream fetched via HTTP request. Frames rendered as UIImage sequence from received JPEG data.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "CameraMJPEGPlayerView",
+        "file": "Sources/App/Cameras/CameraPlayer/CameraMJPEGPlayerView.swift",
+        "line": 1,
+        "code": "struct CameraMJPEGPlayerView: View",
+        "details": "User views MJPEG camera stream."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "MJPEGStreamer",
+        "file": "Sources/Shared/API/MJPEGStreamer.swift",
+        "line": 1,
+        "code": "class MJPEGStreamer",
+        "details": "HTTP connection to HA camera proxy. MJPEG boundary-delimited JPEG frames received and rendered."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_CAMERA_STREAMING_HLS",
+    "data_type": "Camera HLS Stream (Received from HA server)",
+    "description": "HLS camera stream played via AVPlayer. Video/audio segments fetched from HA server over HTTPS.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "CameraStreamHLSView",
+        "file": "Sources/App/Cameras/CameraPlayer/CameraStreamHLSView.swift",
+        "line": 1,
+        "code": "struct CameraStreamHLSView: View",
+        "details": "User views HLS camera stream."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "AVPlayer (HLS)",
+        "file": "Sources/App/Cameras/CameraPlayer/CameraStreamHLSView.swift",
+        "line": 1,
+        "code": "AVPlayer(url: streamURL)",
+        "details": "HLS stream URL loaded into AVPlayer. Video/audio segments fetched from HA server."
+      }
+    ]
+  }
+]

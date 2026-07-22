@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/PathPicker.ets",
+        "line": 122,
+        "code": "successArr.push(result.uri)"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/AbilityCommonUtil.ts",
+        "line": 234,
+        "code": "'ability.params.stream': result,"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/PathPicker.ets",
+        "line": 52,
+        "code": "let fileNameList = this.startModeOptions.newFileNames"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/PathPicker.ets",
+        "line": 55,
+        "code": "fileNameList = [res.fileName]"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/PathPicker.ets",
+        "line": 116,
+        "code": "result = await FileUtil.createFile(fileAccessHelper, dirPath, currName)"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/base/utils/AbilityCommonUtil.ts",
+        "line": 232,
+        "code": "flags: wantConstant.Flags.FLAG_AUTH_WRITE_URI_PERMISSION"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/AbilityCommonUtil.ts",
+        "line": 238,
+        "code": "returnAbilityResult(want, resultCode, startModeOptions)"
+      }
+    ]
+  }
+]

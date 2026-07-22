@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/PathPicker.ets",
+        "line": 98,
+        "code": "let dirPath = path"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/PathPicker.ets",
+        "line": 100,
+        "code": "dirPath = (await FileUtil.getFileInfoByRelativePath('Documents/', fileAccessHelper)).uri"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/base/utils/AbilityCommonUtil.ts",
+        "line": 175,
+        "code": "let atManager = abilityAccessCtrl.createAtManager()"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/AbilityCommonUtil.ts",
+        "line": 177,
+        "code": "return atManager.requestPermissionsFromUser(globalThis.abilityContext, PERMISSION_LIST)"
+      }
+    ]
+  }
+]

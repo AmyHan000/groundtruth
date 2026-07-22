@@ -1,0 +1,132 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/databases/model/FileData.ets",
+        "line": 209,
+        "code": "FilePickerUtil.terminateFilePicker([this.uri], ResultCodePicker.SUCCESS, startModeOptions)"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/FilePickerUtil.ets",
+        "line": 223,
+        "code": "parameters: { 'ability.params.stream': result }"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/base/utils/FilePickerUtil.ets",
+        "line": 77,
+        "code": "options.callerAbilityName = want.parameters?.['ohos.aafwk.param.callerAbilityName']"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/FilePickerUtil.ets",
+        "line": 78,
+        "code": "options.callerBundleName = want.parameters?.['ohos.aafwk.param.callerBundleName']"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/FilePickerUtil.ets",
+        "line": 79,
+        "code": "options.callerUid = want?.parameters?.[AbilityCommonUtil.CALLER_UID]"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/FilePickerUtil.ets",
+        "line": 98,
+        "code": "options.tokenID = want.parameters ? want.parameters?.[AbilityCommonUtil.CALLER_TOKEN] : 0"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/base/utils/FilePickerUtil.ets",
+        "line": 135,
+        "code": "let flag: wantConstant.Flags = wantConstant.Flags.FLAG_AUTH_READ_URI_PERMISSION | wantConstant.Flags.FLAG_AUTH_WRITE_URI_PERMISSION | wantConstant.Flags.FLAG_AUTH_PERSISTABLE_URI_PERMISSION"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/FilePickerUtil.ets",
+        "line": 138,
+        "code": "await uriPermissionManager.grantUriPermissionByKey(udKey, flag, callerId)"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "oh_filemanger_6.1/filemanager/common/src/main/ets/utils/CommonUtil.ets",
+        "line": 143,
+        "code": "let accountManager: account_osAccount.AccountManager = account_osAccount.getAccountManager();"
+      },
+      {
+        "filePath": "oh_filemanger_6.1/filemanager/common/src/main/ets/utils/CommonUtil.ets",
+        "line": 144,
+        "code": "let osAccountType: account_osAccount.OsAccountType = await accountManager.getOsAccountType();"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "dataflow": [
+      {
+        "filePath": "oh_filemanger_6.1/filemanager/common/src/main/ets/utils/DeviceInfoUtil.ts",
+        "line": 79,
+        "code": "return deviceInfo.udid;"
+      },
+      {
+        "filePath": "oh_filemanger_6.1/filemanager/common/src/main/ets/utils/DeviceInfoUtil.ts",
+        "line": 87,
+        "code": "return deviceInfo.deviceType;"
+      },
+      {
+        "filePath": "oh_filemanger_6.1/filemanager/common/src/main/ets/utils/DeviceInfoUtil.ts",
+        "line": 95,
+        "code": "return deviceInfo.brand;"
+      },
+      {
+        "filePath": "oh_filemanger_6.1/filemanager/common/src/main/ets/utils/DeviceInfoUtil.ts",
+        "line": 103,
+        "code": "return deviceInfo.manufacture;"
+      },
+      {
+        "filePath": "oh_filemanger_6.1/filemanager/common/src/main/ets/utils/DeviceInfoUtil.ts",
+        "line": 112,
+        "code": "return deviceInfo.displayVersion;"
+      },
+      {
+        "filePath": "oh_filemanger_6.1/filemanager/common/src/main/ets/utils/DeviceInfoUtil.ts",
+        "line": 119,
+        "code": "return deviceInfo.productModel;"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "dataflow": [
+      {
+        "filePath": "oh_filemanger_6.1/filemanager/products/phone/src/main/ets/abilities/ServiceExtAbility/FileManagerServiceExtAbility.ets",
+        "line": 38,
+        "code": "async onConnect(want: Want): Promise<rpc.RemoteObject> {"
+      },
+      {
+        "filePath": "oh_filemanger_6.1/filemanager/products/phone/src/main/ets/abilities/ServiceExtAbility/FileManagerServiceExtAbility.ets",
+        "line": 44,
+        "code": "let remoteObj: RemoteObjectHandler = new RemoteObjectHandler('FileManagerServiceExtAbility');"
+      },
+      {
+        "filePath": "oh_filemanger_6.1/filemanager/products/phone/src/main/ets/abilities/ServiceExtAbility/FileManagerServiceExtAbility.ets",
+        "line": 92,
+        "code": "class RemoteObjectHandler extends rpc.RemoteObject {"
+      },
+      {
+        "filePath": "oh_filemanger_6.1/filemanager/products/phone/src/main/ets/abilities/ServiceExtAbility/FileManagerServiceExtAbility.ets",
+        "line": 98,
+        "code": "async onRemoteMessageRequest(code: number, data: rpc.MessageSequence, reply: rpc.MessageSequence, option: rpc.MessageOption): Promise<boolean> {"
+      }
+    ]
+  }
+]

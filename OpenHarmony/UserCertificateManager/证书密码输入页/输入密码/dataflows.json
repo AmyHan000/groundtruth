@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/certPwdInput.ets",
+        "line": 74,
+        "code": "TextInput({ text: this.certPwd }).type(InputType.Password)"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/certPwdInput.ets",
+        "line": 88,
+        "code": "onChange((value: string) => { this.certPwd = value; })"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/certPwdInput.ets",
+        "line": 144,
+        "code": "GlobalContext.getContext().getPwdStore().setCertPwd(this.certPwd);"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/presenter/CmInstallPresenter.ets",
+        "line": 159,
+        "code": "GlobalContext.getContext().getPwdStore().getCertPwd()"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/certPwdInput.ets",
+        "line": 41,
+        "code": "this.mPreventScreenshotsPresenter.PreventScreenshots(true, GlobalContext.getContext().getSession());"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/PreventScreenshotsModel.ets",
+        "line": 25,
+        "code": "export default class PreventScreenshotsModel {"
+      }
+    ]
+  }
+]

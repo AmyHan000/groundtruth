@@ -1,72 +1,143 @@
-{
-  "id": "BACKGROUND_BLUETOOTH_BEACONS",
-  "feature_name": "Bluetooth BLE Beacon Monitoring & Transmitting",
-  "data": [
-    {
-      "scene": "The user enables BLE beacon monitoring in sensor settings; the app passively scans for nearby BLE iBeacons using the AltBeacon library.",
-      "purpose": "Enable Bluetooth-based presence detection and beacon-triggered automations in Home Assistant.",
-      "source": "AltBeacon library BLE scan (Android BluetoothAdapter / BluetoothLeScanner)",
-      "item": "Detected iBeacon UUID, major/minor values, estimated distance in meters, RSSI signal strength, beacon MAC addresses",
-      "frequency": "Continuous background BLE scan (update on each beacon detection cycle)",
-      "processing": "Uploaded to server",
-      "storage": "Server-side storage",
-      "recipient": "Home Assistant server (user self-hosted)",
-      "thirdparty": "AltBeacon library used for BLE scanning; detected beacon data is sent only to the user's self-hosted Home Assistant server",
-      "switchpath": "Settings -> Sensor Management -> Bluetooth Sensors -> Beacon Monitoring -> Enable/Disable"
-    },
-    {
-      "scene": "The user enables the BLE transmitter in Bluetooth sensor settings; the app broadcasts a user-configured iBeacon identifier via BLE advertising.",
-      "purpose": "Allow other Home Assistant companion devices or third-party BLE scanners to detect this device as a known iBeacon for presence detection.",
-      "source": "Android BluetoothAdapter BLE Advertising (AdvertisingSet / BluetoothLeAdvertiser)",
-      "item": "User-configured iBeacon UUID, major/minor values (broadcast outward; no data read from device)",
-      "frequency": "Continuous BLE advertising while transmitter is enabled",
-      "processing": "Broadcast only (no data uploaded to server)",
-      "storage": "No storage; broadcast is ephemeral",
-      "recipient": "Any nearby BLE scanner scanning for the configured iBeacon pattern",
-      "thirdparty": "No third-party involvement; the user configures the beacon identity and broadcasts it locally",
-      "switchpath": "Settings -> Sensor Management -> Bluetooth Sensors -> BLE Transmitter -> Enable/Disable"
-    },
-    {
-      "scene": "The app periodically reads paired and connected Bluetooth devices via Android BluetoothAdapter.",
-      "purpose": "Provide a list of paired/connected Bluetooth devices for presence detection and automation rules based on device connections.",
-      "source": "Android BluetoothAdapter (bondedDevices) and BluetoothManager (getConnectedDevices)",
-      "item": "Paired Bluetooth device names and MAC addresses, currently connected GATT device names and MAC addresses",
-      "frequency": "Periodic and on Bluetooth state change",
-      "processing": "Uploaded to server",
-      "storage": "Server-side storage",
-      "recipient": "Home Assistant server (user self-hosted)",
-      "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server. BLUETOOTH_CONNECT permission required on Android 12+.",
-      "switchpath": "Settings -> Sensor Management -> Bluetooth Sensors -> Bluetooth Connection Sensor -> Enable/Disable"
-    }
-  ],
-  "permissions": [
-    {
-      "name": "BLUETOOTH_SCAN",
-      "scene": "When enabling BLE beacon monitoring on Android 12+",
-      "authorization": "Runtime",
-      "purpose": "Scan for nearby BLE iBeacons for presence detection and beacon-triggered automations",
-      "impact": "If denied, BLE beacon monitoring will not detect nearby beacons"
-    },
-    {
-      "name": "BLUETOOTH_CONNECT",
-      "scene": "When enabling Bluetooth connection sensor on Android 12+",
-      "authorization": "Runtime",
-      "purpose": "Read paired/connected Bluetooth device names and MAC addresses for presence detection",
-      "impact": "If denied, Bluetooth connection sensor will not report paired/connected device data"
-    },
-    {
-      "name": "BLUETOOTH_ADVERTISE",
-      "scene": "When enabling BLE transmitter on Android 12+",
-      "authorization": "Runtime",
-      "purpose": "Broadcast the device as a BLE iBeacon so other devices can detect it for presence detection",
-      "impact": "If denied, BLE transmitter will not be able to advertise the device as a beacon"
-    },
-    {
-      "name": "ACCESS_FINE_LOCATION",
-      "scene": "When enabling BLE beacon monitoring on Android 9-11 (required by Android for BLE scans)",
-      "authorization": "Runtime",
-      "purpose": "Enable BLE beacon scanning (required by Android platform for Bluetooth LE scans prior to Android 12)",
-      "impact": "If denied, BLE beacon scanning will not be available on Android 9-11 devices"
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_BLE_BEACON_MONITORING",
+    "data": [
+      {
+        "scene": "The user enables BLE beacon monitoring in sensor settings; the app passively scans for nearby BLE iBeacons using the AltBeacon library.",
+        "purpose": "Enable Bluetooth-based presence detection and beacon-triggered automations in Home Assistant.",
+        "source": "AltBeacon library BLE scan (Android BluetoothAdapter / BluetoothLeScanner)",
+        "item": "Detected iBeacon UUID, major/minor values, estimated distance in meters, RSSI signal strength, beacon MAC addresses",
+        "frequency": "Continuous background BLE scan (update on each beacon detection cycle)",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "AltBeacon library used for BLE scanning; detected beacon data is sent only to the user's self-hosted Home Assistant server",
+        "switchpath": "Settings -> Sensor Management -> Bluetooth Sensors -> Beacon Monitoring -> Enable/Disable"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "BLUETOOTH_SCAN",
+        "scene": "When enabling BLE beacon monitoring on Android 12+",
+        "authorization": "Runtime",
+        "purpose": "Scan for nearby BLE iBeacons for presence detection and beacon-triggered automations",
+        "impact": "If denied, BLE beacon monitoring will not detect nearby beacons"
+      },
+      {
+        "name": "BLUETOOTH_CONNECT",
+        "scene": "When enabling Bluetooth connection sensor on Android 12+",
+        "authorization": "Runtime",
+        "purpose": "Read paired/connected Bluetooth device names and MAC addresses for presence detection",
+        "impact": "If denied, Bluetooth connection sensor will not report paired/connected device data"
+      },
+      {
+        "name": "BLUETOOTH_ADVERTISE",
+        "scene": "When enabling BLE transmitter on Android 12+",
+        "authorization": "Runtime",
+        "purpose": "Broadcast the device as a BLE iBeacon so other devices can detect it for presence detection",
+        "impact": "If denied, BLE transmitter will not be able to advertise the device as a beacon"
+      },
+      {
+        "name": "ACCESS_FINE_LOCATION",
+        "scene": "When enabling BLE beacon monitoring on Android 9-11 (required by Android for BLE scans)",
+        "authorization": "Runtime",
+        "purpose": "Enable BLE beacon scanning (required by Android platform for Bluetooth LE scans prior to Android 12)",
+        "impact": "If denied, BLE beacon scanning will not be available on Android 9-11 devices"
+      }
+    ]
+  },
+  {
+    "id": "FLOW_BLE_IBEACON_TRANSMITTING",
+    "data": [
+      {
+        "scene": "The user enables the BLE transmitter in Bluetooth sensor settings; the app broadcasts a user-configured iBeacon identifier via BLE advertising.",
+        "purpose": "Allow other Home Assistant companion devices or third-party BLE scanners to detect this device as a known iBeacon for presence detection.",
+        "source": "Android BluetoothAdapter BLE Advertising (AdvertisingSet / BluetoothLeAdvertiser)",
+        "item": "User-configured iBeacon UUID, major/minor values (broadcast outward; no data read from device)",
+        "frequency": "Continuous BLE advertising while transmitter is enabled",
+        "processing": "Broadcast only (no data uploaded to server)",
+        "storage": "No storage; broadcast is ephemeral",
+        "recipient": "Any nearby BLE scanner scanning for the configured iBeacon pattern",
+        "thirdparty": "No third-party involvement; the user configures the beacon identity and broadcasts it locally",
+        "switchpath": "Settings -> Sensor Management -> Bluetooth Sensors -> BLE Transmitter -> Enable/Disable"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "BLUETOOTH_SCAN",
+        "scene": "When enabling BLE beacon monitoring on Android 12+",
+        "authorization": "Runtime",
+        "purpose": "Scan for nearby BLE iBeacons for presence detection and beacon-triggered automations",
+        "impact": "If denied, BLE beacon monitoring will not detect nearby beacons"
+      },
+      {
+        "name": "BLUETOOTH_CONNECT",
+        "scene": "When enabling Bluetooth connection sensor on Android 12+",
+        "authorization": "Runtime",
+        "purpose": "Read paired/connected Bluetooth device names and MAC addresses for presence detection",
+        "impact": "If denied, Bluetooth connection sensor will not report paired/connected device data"
+      },
+      {
+        "name": "BLUETOOTH_ADVERTISE",
+        "scene": "When enabling BLE transmitter on Android 12+",
+        "authorization": "Runtime",
+        "purpose": "Broadcast the device as a BLE iBeacon so other devices can detect it for presence detection",
+        "impact": "If denied, BLE transmitter will not be able to advertise the device as a beacon"
+      },
+      {
+        "name": "ACCESS_FINE_LOCATION",
+        "scene": "When enabling BLE beacon monitoring on Android 9-11 (required by Android for BLE scans)",
+        "authorization": "Runtime",
+        "purpose": "Enable BLE beacon scanning (required by Android platform for Bluetooth LE scans prior to Android 12)",
+        "impact": "If denied, BLE beacon scanning will not be available on Android 9-11 devices"
+      }
+    ]
+  },
+  {
+    "id": "FLOW_BLUETOOTH_PAIRED_DEVICES",
+    "data": [
+      {
+        "scene": "The app periodically reads paired and connected Bluetooth devices via Android BluetoothAdapter.",
+        "purpose": "Provide a list of paired/connected Bluetooth devices for presence detection and automation rules based on device connections.",
+        "source": "Android BluetoothAdapter (bondedDevices) and BluetoothManager (getConnectedDevices)",
+        "item": "Paired Bluetooth device names and MAC addresses, currently connected GATT device names and MAC addresses",
+        "frequency": "Periodic and on Bluetooth state change",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing; data sent to the user's self-hosted Home Assistant server. BLUETOOTH_CONNECT permission required on Android 12+.",
+        "switchpath": "Settings -> Sensor Management -> Bluetooth Sensors -> Bluetooth Connection Sensor -> Enable/Disable"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "BLUETOOTH_SCAN",
+        "scene": "When enabling BLE beacon monitoring on Android 12+",
+        "authorization": "Runtime",
+        "purpose": "Scan for nearby BLE iBeacons for presence detection and beacon-triggered automations",
+        "impact": "If denied, BLE beacon monitoring will not detect nearby beacons"
+      },
+      {
+        "name": "BLUETOOTH_CONNECT",
+        "scene": "When enabling Bluetooth connection sensor on Android 12+",
+        "authorization": "Runtime",
+        "purpose": "Read paired/connected Bluetooth device names and MAC addresses for presence detection",
+        "impact": "If denied, Bluetooth connection sensor will not report paired/connected device data"
+      },
+      {
+        "name": "BLUETOOTH_ADVERTISE",
+        "scene": "When enabling BLE transmitter on Android 12+",
+        "authorization": "Runtime",
+        "purpose": "Broadcast the device as a BLE iBeacon so other devices can detect it for presence detection",
+        "impact": "If denied, BLE transmitter will not be able to advertise the device as a beacon"
+      },
+      {
+        "name": "ACCESS_FINE_LOCATION",
+        "scene": "When enabling BLE beacon monitoring on Android 9-11 (required by Android for BLE scans)",
+        "authorization": "Runtime",
+        "purpose": "Enable BLE beacon scanning (required by Android platform for Bluetooth LE scans prior to Android 12)",
+        "impact": "If denied, BLE beacon scanning will not be available on Android 9-11 devices"
+      }
+    ]
+  }
+]

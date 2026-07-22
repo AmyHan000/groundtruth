@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "浏览时间线",
+        "purpose": "显示社交内容",
+        "source": "服务器API",
+        "item": "帖子内容",
+        "frequency": "每次刷新",
+        "processing": "本地缓存",
+        "storage": "HTTP缓存（10MB）",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET"
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "发送请求头",
+        "purpose": "向服务器发送认证信息",
+        "source": "本地存储的访问令牌",
+        "item": "OAuth访问令牌",
+        "frequency": "每次API请求",
+        "processing": "本地添加到HTTP请求头",
+        "storage": "内存中",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET"
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "加载首页时间线",
+        "purpose": "获取用户的首页时间线内容",
+        "source": "服务器API",
+        "item": "时间线帖子列表",
+        "frequency": "每次打开首页",
+        "processing": "本地解析JSON响应",
+        "storage": "HTTP缓存",
+        "recipient": "仅本地显示",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET"
+    ]
+  },
+  {
+    "id": 4,
+    "data": [
+      {
+        "scene": "配置HTTP缓存",
+        "purpose": "缓存API响应以提高性能",
+        "source": "本地配置",
+        "item": "缓存目录路径和大小限制",
+        "frequency": "应用启动时",
+        "processing": "OkHttp缓存初始化",
+        "storage": "本地文件缓存（10MB）",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET"
+    ]
+  }
+]

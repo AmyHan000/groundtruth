@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "导入CA证书",
+        "purpose": "从存储设备读取并安装CA证书",
+        "source": "用户文件",
+        "item": "证书文件读取",
+        "frequency": "用户主动操作",
+        "processing": "本地处理",
+        "storage": "系统安全存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "文件选择器"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "文件读取权限",
+        "scene": "读取证书文件",
+        "authorization": "用户授权",
+        "purpose": "从存储设备读取证书文件",
+        "impact": "无法选择证书文件"
+      },
+      {
+        "name": "身份认证权限",
+        "scene": "验证用户身份",
+        "authorization": "系统授权",
+        "purpose": "确保操作者为设备所有者",
+        "impact": "无法完成身份验证"
+      },
+      {
+        "name": "证书管理权限",
+        "scene": "安装证书",
+        "authorization": "预授权",
+        "purpose": "将证书安装到系统存储",
+        "impact": "无法安装证书"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "导入CA证书",
+        "purpose": "验证用户身份",
+        "source": "生物识别",
+        "item": "用户身份认证",
+        "frequency": "每次导入",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（安全要求）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "文件读取权限",
+        "scene": "读取证书文件",
+        "authorization": "用户授权",
+        "purpose": "从存储设备读取证书文件",
+        "impact": "无法选择证书文件"
+      },
+      {
+        "name": "身份认证权限",
+        "scene": "验证用户身份",
+        "authorization": "系统授权",
+        "purpose": "确保操作者为设备所有者",
+        "impact": "无法完成身份验证"
+      },
+      {
+        "name": "证书管理权限",
+        "scene": "安装证书",
+        "authorization": "预授权",
+        "purpose": "将证书安装到系统存储",
+        "impact": "无法安装证书"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "导入CA证书",
+        "purpose": "将证书安装到系统存储",
+        "source": "用户文件",
+        "item": "证书安装操作",
+        "frequency": "用户主动操作",
+        "processing": "本地处理",
+        "storage": "系统安全存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "安装确认弹窗"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "文件读取权限",
+        "scene": "读取证书文件",
+        "authorization": "用户授权",
+        "purpose": "从存储设备读取证书文件",
+        "impact": "无法选择证书文件"
+      },
+      {
+        "name": "身份认证权限",
+        "scene": "验证用户身份",
+        "authorization": "系统授权",
+        "purpose": "确保操作者为设备所有者",
+        "impact": "无法完成身份验证"
+      },
+      {
+        "name": "证书管理权限",
+        "scene": "安装证书",
+        "authorization": "预授权",
+        "purpose": "将证书安装到系统存储",
+        "impact": "无法安装证书"
+      }
+    ]
+  }
+]

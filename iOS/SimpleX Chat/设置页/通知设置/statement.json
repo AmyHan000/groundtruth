@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "配置通知模式",
+        "purpose": "管理应用通知行为",
+        "source": "用户选择",
+        "item": "通知模式设置",
+        "frequency": "用户主动操作",
+        "processing": "本地存储",
+        "storage": "UserDefaults",
+        "recipient": "仅本机",
+        "thirdparty": "Apple APNs（如果启用推送）",
+        "switchpath": "可选择关闭通知（OFF模式）"
+      }
+    ],
+    "permissions": [
+      "UIBackgroundModes.remote-notification"
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "注册推送令牌",
+        "purpose": "接收APNs推送通知",
+        "source": "APNs",
+        "item": "设备令牌",
+        "frequency": "首次启用推送时",
+        "processing": "本地存储令牌，发送给SimpleX核心",
+        "storage": "Keychain",
+        "recipient": "SimpleX通知服务器",
+        "thirdparty": "Apple APNs, SimpleX通知服务器",
+        "switchpath": "可选择关闭推送通知"
+      }
+    ],
+    "permissions": [
+      "UIBackgroundModes.remote-notification"
+    ]
+  }
+]

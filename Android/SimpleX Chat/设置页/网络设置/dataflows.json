@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/model/SimpleXAPI.kt",
+        "line": 150,
+        "code": "val networkUseSocksProxy = mkBoolPreference(SHARED_PREFS_NETWORK_USE_SOCKS_PROXY, false)\n  val networkShowSubscriptionPercentage = mkBoolPreference(SHARED_PREFS_NETWORK_SHOW_SUBSCRIPTION_PERCENTAGE, false)\n  private val _networkProxy = mkStrPreference(SHARED_PREFS_NETWORK_PROXY_HOST_PORT, json.encodeToString(NetworkProxy()))\n  val networkProxy: SharedPreference<NetworkProxy> = SharedPreference(\n    get = fun(): NetworkProxy {"
+      }
+    ]
+  }
+]

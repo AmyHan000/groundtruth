@@ -13,7 +13,28 @@
         "recipient": "仅本地显示",
         "thirdparty": "无",
         "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.GET_BUNDLE_INFO",
+        "scene": "获取应用信息",
+        "authorization": "预授权",
+        "purpose": "获取DLP管理器自身包信息用于事件上报",
+        "impact": "无法获取应用版本信息"
       },
+      {
+        "name": "ohos.permission.GET_ACCOUNT_INFO",
+        "scene": "获取账号信息",
+        "authorization": "预授权",
+        "purpose": "获取当前域账号信息用于设置文件所有者",
+        "impact": "无法获取当前登录账号"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
       {
         "scene": "保护文件",
         "purpose": "获取文件大小和类型用于加密",
@@ -25,7 +46,28 @@
         "recipient": "仅本地显示",
         "thirdparty": "无",
         "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.GET_BUNDLE_INFO",
+        "scene": "获取应用信息",
+        "authorization": "预授权",
+        "purpose": "获取DLP管理器自身包信息用于事件上报",
+        "impact": "无法获取应用版本信息"
       },
+      {
+        "name": "ohos.permission.GET_ACCOUNT_INFO",
+        "scene": "获取账号信息",
+        "authorization": "预授权",
+        "purpose": "获取当前域账号信息用于设置文件所有者",
+        "impact": "无法获取当前登录账号"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
       {
         "scene": "保护文件",
         "purpose": "获取当前登录账号信息",
@@ -37,7 +79,28 @@
         "recipient": "仅本地显示",
         "thirdparty": "无",
         "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.GET_BUNDLE_INFO",
+        "scene": "获取应用信息",
+        "authorization": "预授权",
+        "purpose": "获取DLP管理器自身包信息用于事件上报",
+        "impact": "无法获取应用版本信息"
       },
+      {
+        "name": "ohos.permission.GET_ACCOUNT_INFO",
+        "scene": "获取账号信息",
+        "authorization": "预授权",
+        "purpose": "获取当前域账号信息用于设置文件所有者",
+        "impact": "无法获取当前登录账号"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "data": [
       {
         "scene": "保护文件",
         "purpose": "记录操作日志",

@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "MastodonSDK/Sources/MastodonCore/Service/PhotoLibraryService.swift",
+        "line": 131,
+        "code": "guard PHPhotoLibrary.authorizationStatus(for: .addOnly) != .denied else {"
+      }
+    ]
+  }
+]

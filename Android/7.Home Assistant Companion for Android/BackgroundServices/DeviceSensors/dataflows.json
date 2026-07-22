@@ -1,508 +1,506 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_NETWORK_CONNECTIVITY_SENSORS",
-      "data_type": "WiFi Network Information (SSID, BSSID, IP addresses)",
-      "description": "The app reads WiFi connection details (SSID, BSSID, IP address) and network type via WifiManager and ConnectivityManager, then sends them to the Home Assistant server as sensors via REST API. SSID and BSSID require location permission on Android 9+.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "SensorWorker.doWork / SensorReceiver.onReceive",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/SensorWorker.kt",
-          "line": 30,
-          "code": "sensorUpdater.updateSensors()",
-          "details": "Periodic WorkManager worker (every 15 min) or Android broadcast intent triggers sensor update cycle."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "NetworkSensorManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NetworkSensorManager.kt",
-          "line": 45,
-          "code": "wifiManager.connectionInfo.ssid; wifiManager.connectionInfo.bssid; ConnectivityManager.activeNetwork; OkHttpClient(api.ipify.org)",
-          "details": "Reads WiFi SSID, BSSID (router MAC), local IP address, and public IP address via api.ipify.org. SSID/BSSID require ACCESS_FINE_LOCATION on API 29+."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "SensorRepositoryImpl.update / syncSensorsWithServer",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/SensorRepositoryImpl.kt",
-          "line": 80,
-          "code": "integrationRepository.updateSensors(listOf(sensorRegistration))",
-          "details": "Network sensor data (SSID, BSSID, IP addresses, network type) is sent to the Home Assistant server via REST API."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_BLUETOOTH_DEVICE_SENSORS",
-      "data_type": "Bluetooth Device Information (Paired/Connected device names, BLE beacons)",
-      "description": "The app scans for connected and paired Bluetooth devices, monitors BLE iBeacons, and reports device names/addresses to the Home Assistant server as sensors.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "BluetoothSensorManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/BluetoothSensorManager.kt",
-          "line": 120,
-          "code": "updateBluetoothConnectionSensor(); updateBluetoothStateSensor()",
-          "details": "Bluetooth state change broadcast or periodic sensor update triggers Bluetooth data collection."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "BluetoothUtils.getBluetoothDevices",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/bluetooth/BluetoothUtils.kt",
-          "line": 50,
-          "code": "BluetoothAdapter.getDefaultAdapter().bondedDevices; BluetoothManager.getConnectedDevices",
-          "details": "Reads list of paired/connected Bluetooth devices including device names and MAC addresses."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "IBeaconMonitor.setBeacons / MonitoringManager",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/bluetooth/ble/IBeaconMonitor.kt",
-          "line": 43,
-          "code": "val beacon = IBeacon(uuid, major, minor, distance, rssi, 0); sensorManager.updateBeaconMonitoringSensor()",
-          "details": "Scans for nearby BLE iBeacons, tracking UUID, major/minor values, distance estimate, and RSSI signal strength."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "BluetoothSensorManager.sendBluetoothSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/BluetoothSensorManager.kt",
-          "line": 200,
-          "code": "onSensorUpdated(bluetoothConnection, deviceList); onSensorUpdated(beaconMonitor, beaconData)",
-          "details": "Bluetooth device information (connected/paired device names, beacon UUIDs/proximity) is sent to the Home Assistant server via REST API."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_PHONE_STATE_SENSORS",
-      "data_type": "Phone State and SIM Information (Call state, carrier names, signal strength)",
-      "description": "The app reads telephony state (call status, SIM carrier info, signal strength) via TelephonyManager and sends this data to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "PhoneStateSensorManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/PhoneStateSensorManager.kt",
-          "line": 110,
-          "code": "updatePhoneStateSensor(); updateSimSensor(); updateSignalStrength()",
-          "details": "Phone state change broadcast intent (call state, SIM state) triggers telephony data collection."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "TelephonyManager.listen / SubscriptionManager",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/PhoneStateSensorManager.kt",
-          "line": 150,
-          "code": "telephonyManager.callState; subscriptionManager.activeSubscriptionInfoList; telephonyManager.signalStrength",
-          "details": "Reads call state (idle/ringing/offhook), SIM carrier names, country ISO, MCC/MNC codes, and cellular signal strength (dBm). Requires READ_PHONE_STATE permission."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "PhoneStateSensorManager.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/PhoneStateSensorManager.kt",
-          "line": 180,
-          "code": "onSensorUpdated(phoneState, state); onSensorUpdated(sim_1, carrierName); onSensorUpdated(sim1SignalStrength, signalDbm)",
-          "details": "Phone state, SIM carrier names, and signal strength data are sent to the Home Assistant server via REST API."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_STEP_COUNT_SENSOR",
-      "data_type": "Step Count (Pedometer / Health data)",
-      "description": "The app reads the device's built-in step counter sensor (TYPE_STEP_COUNTER) and sends the cumulative step count to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "StepsSensorManager.updateStepsSensor",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/StepsSensorManager.kt",
-          "line": 80,
-          "code": "mySensorManager.registerListener(this, stepsSensors, SENSOR_DELAY_NORMAL)",
-          "details": "Periodic sensor update or sensor listener registration triggers step counter reading."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "StepsSensorManager.onSensorChanged",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/StepsSensorManager.kt",
-          "line": 95,
-          "code": "val steps = event.values[0].roundToInt(); onSensorUpdated(stepsSensor, steps)",
-          "details": "Reads cumulative step count from the hardware step counter sensor. Requires ACTIVITY_RECOGNITION permission on API 29+."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "StepsSensorManager.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/StepsSensorManager.kt",
-          "line": 100,
-          "code": "onSensorUpdated(stepsSensor, steps, stepsSensor.statelessIcon)",
-          "details": "Step count data is sent to the Home Assistant server via REST API as a total_increasing sensor."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_ACTIVITY_RECOGNITION_SENSOR",
-      "data_type": "Activity Recognition Data (Walking, Running, In Vehicle, etc.)",
-      "description": "The app receives activity updates from Google Play Services ActivityRecognition API and sends the detected activity type to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "ActivitySensorReceiver.onActivityUpdate",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/ActivitySensorReceiver.kt",
-          "line": 25,
-          "code": "override fun onActivityUpdate(activity: DetectedActivity) { sensorManager.updateActivitySensor(activity) }",
-          "details": "Google Play Services ActivityRecognition API sends activity update (in_vehicle, walking, running, still, etc.)."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "ActivitySensorManager.updateActivitySensor (full flavor)",
-          "file": "app/src/full/kotlin/io/homeassistant/companion/android/sensors/LocationSensorManager.kt",
-          "line": 340,
-          "code": "ActivityRecognitionClient; onSensorUpdated(activitySensor, activityType)",
-          "details": "Extracts detected activity type (still, walking, running, in_vehicle, on_bicycle, tilting, unknown). Requires ACTIVITY_RECOGNITION permission."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "ActivitySensorManager.onSensorUpdated",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/ActivitySensorReceiver.kt",
-          "line": 30,
-          "code": "sensorManager.onSensorUpdated(activitySensor, activityType, icon, attributes)",
-          "details": "Activity type and confidence are sent to the Home Assistant server via REST API."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_BATTERY_AND_POWER_SENSORS",
-      "data_type": "Battery and Power State (Level, charging status, temperature, power consumption)",
-      "description": "The app monitors battery level, charging state, temperature, power consumption, and remaining charge time via BatteryManager, sending these diagnostics to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "BatterySensorManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/BatterySensorManager.kt",
-          "line": 55,
-          "code": "updateBatteryLevelSensor(); updateBatteryStateSensor(); updateBatteryTemperature()",
-          "details": "ACTION_BATTERY_CHANGED sticky broadcast or periodic worker triggers battery data collection."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "BatteryManager.getIntProperty / Intent.batteryChanged extras",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/BatterySensorManager.kt",
-          "line": 80,
-          "code": "batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY); intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1)",
-          "details": "Reads battery level (%), charging status, charger type, health, temperature (Celsius), power (watts), remaining charge time."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "BatterySensorManager.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/BatterySensorManager.kt",
-          "line": 120,
-          "code": "onSensorUpdated(batteryLevel, level); onSensorUpdated(batteryTemperature, temp); onSensorUpdated(batteryPower, power)",
-          "details": "Battery metrics are sent to the Home Assistant server via REST API for dashboard display and automations."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_AUDIO_STATE_SENSORS",
-      "data_type": "Audio Device State (Ringer mode, headphone state, volume levels, microphone mute state)",
-      "description": "The app reads audio state (ringer mode, headphone connection, volume levels, microphone mute) via AudioManager and sends these to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "AudioSensorManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/AudioSensorManager.kt",
-          "line": 40,
-          "code": "updateRingerMode(); updateHeadphoneState(); updateVolumeLevels()",
-          "details": "Audio broadcast intents (volume change, ringer mode, headphone plug) trigger audio state collection."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "AudioManager methods",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/AudioSensorManager.kt",
-          "line": 65,
-          "code": "audioManager.ringerMode; audioManager.isWiredHeadsetOn; audioManager.isMicrophoneMute; audioManager.getStreamVolume(streamType)",
-          "details": "Reads ringer mode (normal/silent/vibrate), headphone state, microphone mute, music active, speakerphone state, and all stream volume levels."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "AudioSensorManager.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/AudioSensorManager.kt",
-          "line": 100,
-          "code": "onSensorUpdated(audioSensor, ringerMode); onSensorUpdated(headphoneState, state); onSensorUpdated(volumeMusic, level)",
-          "details": "Audio device states and volume levels are sent to the Home Assistant server via REST API."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_DISPLAY_AND_SCREEN_SENSORS",
-      "data_type": "Display Configuration (Brightness, orientation, screen timeout)",
-      "description": "The app reads display settings (brightness, orientation, screen timeout, rotation) via Settings.System and DisplayManager, sending them to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "DisplaySensorManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/DisplaySensorManager.kt",
-          "line": 35,
-          "code": "updateScreenBrightnessSensor(); updateScreenOrientationSensor()",
-          "details": "Periodic sensor update or configuration change triggers display data collection."
-        },
-        {
-          "step": "Data Processing",
-          "function": "Settings.System / Display / Configuration reads",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/DisplaySensorManager.kt",
-          "line": 55,
-          "code": "Settings.System.getInt(SCREEN_BRIGHTNESS); Display.getRotation(); resources.configuration.orientation",
-          "details": "Reads screen brightness (0-255), screen off timeout, screen orientation (portrait/landscape), and rotation (0/90/180/270 degrees)."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "DisplaySensorManager.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/DisplaySensorManager.kt",
-          "line": 80,
-          "code": "onSensorUpdated(screenBrightness, brightness); onSensorUpdated(screenOrientation, orientation)",
-          "details": "Display configuration data is sent to the Home Assistant server via REST API."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_DOZE_AND_INTERACTIVE_STATE_SENSORS",
-      "data_type": "Device Power State (Screen on/off, doze mode, power save mode)",
-      "description": "The app reads device interactive state, doze mode, and power save mode via PowerManager, and reports these to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "PowerSensorManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/PowerSensorManager.kt",
-          "line": 30,
-          "code": "updateInteractiveSensor(); updateIdleSensor(); updatePowerSaveSensor()",
-          "details": "Screen on/off and power state change broadcasts trigger power state collection."
-        },
-        {
-          "step": "Data Processing",
-          "function": "PowerManager methods",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/PowerSensorManager.kt",
-          "line": 55,
-          "code": "powerManager.isInteractive; powerManager.isDeviceIdleMode; powerManager.isPowerSaveMode",
-          "details": "Reads whether screen is on/off, device is in doze mode, and power saver is active."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "PowerSensorManager.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/PowerSensorManager.kt",
-          "line": 70,
-          "code": "onSensorUpdated(isInteractive, state); onSensorUpdated(powerSave, state)",
-          "details": "Device power state data is sent to the Home Assistant server via REST API."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_ENVIRONMENTAL_SENSORS",
-      "data_type": "Environmental Sensor Data (Light, pressure, proximity)",
-      "description": "The app reads ambient light sensor (lux), barometric pressure (hPa), and proximity sensor data from the device's hardware sensors via android.hardware.SensorManager, sending them to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "LightSensorManager / PressureSensorManager / ProximitySensorManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/LightSensorManager.kt",
-          "line": 40,
-          "code": "sensorManager.registerListener(this, lightSensor, SENSOR_DELAY_NORMAL)",
-          "details": "Periodic sensor update or sensor listener triggers environmental sensor data collection."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "SensorEventListener.onSensorChanged",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/LightSensorManager.kt",
-          "line": 65,
-          "code": "event.values[0]; onSensorUpdated(lightSensor, luxValue)",
-          "details": "Reads ambient light (lux), atmospheric pressure (hPa), and proximity values from hardware sensors."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "Light/Pressure/ProximitySensorManager.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/LightSensorManager.kt",
-          "line": 75,
-          "code": "onSensorUpdated(lightSensor, event.values[0])",
-          "details": "Environmental sensor readings are sent to the Home Assistant server via REST API."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_STORAGE_SENSOR",
-      "data_type": "Device Storage Usage (Internal and external storage capacity %)",
-      "description": "The app reads internal and external storage usage statistics via StatFs and Environment APIs, sending storage capacity percentages to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "StorageSensorManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/StorageSensorManager.kt",
-          "line": 30,
-          "code": "updateStorageSensor(); updateExternalStorageSensor()",
-          "details": "Periodic sensor update triggers storage data collection."
-        },
-        {
-          "step": "Data Processing",
-          "function": "StatFs / Environment APIs",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/StorageSensorManager.kt",
-          "line": 55,
-          "code": "StatFs(Environment.getDataDirectory()); StatFs(environment.getExternalStorageDirectory())",
-          "details": "Reads internal and external (SD card) storage: total space, free space, calculates usage percentage."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "StorageSensorManager.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/StorageSensorManager.kt",
-          "line": 75,
-          "code": "onSensorUpdated(storageSensor, usedPercentage); onSensorUpdated(externalStorage, extUsedPercentage)",
-          "details": "Storage usage percentage data is sent to the Home Assistant server via REST API."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_NEXT_ALARM_SENSOR",
-      "data_type": "Next Alarm Clock Time (Timestamp and source app)",
-      "description": "The app reads the next scheduled alarm from the system AlarmManager and sends the alarm time and source app to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "NextAlarmManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NextAlarmManager.kt",
-          "line": 25,
-          "code": "updateNextAlarmSensor()",
-          "details": "Periodic sensor update or alarm clock change broadcast triggers alarm data collection."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "AlarmManager.nextAlarmClock",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NextAlarmManager.kt",
-          "line": 45,
-          "code": "alarmManager.nextAlarmClock; alarmClockInfo.triggerTime; alarmClockInfo.creatorPackage",
-          "details": "Reads the timestamp of the next scheduled alarm and the package name of the app that set it."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "NextAlarmManager.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NextAlarmManager.kt",
-          "line": 60,
-          "code": "onSensorUpdated(nextAlarm, alarmTime); onSensorUpdated(nextAlarm, packageName)",
-          "details": "Next alarm time and source app package name are sent to the Home Assistant server via REST API."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_DND_AND_KEYGUARD_SENSORS",
-      "data_type": "Do Not Disturb and Lock Screen State (DND mode, device lock status, keyguard state)",
-      "description": "The app reads Do Not Disturb mode and device lock/keyguard state via NotificationManager and KeyguardManager, sending them to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "DNDSensorManager / KeyguardSensorManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/DNDSensorManager.kt",
-          "line": 25,
-          "code": "notificationManager.currentInterruptionFilter",
-          "details": "DND mode change or keyguard state change broadcast triggers data collection."
-        },
-        {
-          "step": "Data Processing",
-          "function": "KeyguardManager methods",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/KeyguardSensorManager.kt",
-          "line": 30,
-          "code": "keyguardManager.isDeviceLocked; keyguardManager.isDeviceSecure; keyguardManager.isKeyguardLocked; keyguardManager.isKeyguardSecure",
-          "details": "Reads DND interrupt filter (off/alarms/priority/total_silence), device lock status, device security state, and keyguard locked state."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "DNDSensorManager / KeyguardSensorManager.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/DNDSensorManager.kt",
-          "line": 45,
-          "code": "onSensorUpdated(dndSensor, state); onSensorUpdated(deviceLocked, locked)",
-          "details": "DND mode and lock screen state data are sent to the Home Assistant server via REST API."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_NETWORK_USAGE_STATS_SENSORS",
-      "data_type": "Network Traffic Statistics (Mobile and total data TX/RX in GB)",
-      "description": "The app reads aggregate network traffic statistics (mobile and total bytes sent/received) via TrafficStats API and sends them to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "TrafficStatsManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/TrafficStatsManager.kt",
-          "line": 30,
-          "code": "updateMobileDataUsage(); updateTotalDataUsage()",
-          "details": "Periodic sensor update triggers network usage data collection."
-        },
-        {
-          "step": "Data Processing",
-          "function": "TrafficStats API",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/TrafficStatsManager.kt",
-          "line": 55,
-          "code": "TrafficStats.getMobileRxBytes(); TrafficStats.getMobileTxBytes(); TrafficStats.getTotalRxBytes(); TrafficStats.getTotalTxBytes()",
-          "details": "Reads cumulative mobile and total data bytes received/transmitted since device boot."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "TrafficStatsManager.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/TrafficStatsManager.kt",
-          "line": 70,
-          "code": "onSensorUpdated(mobileRxGb, rxGb); onSensorUpdated(totalTxGb, txGb)",
-          "details": "Network traffic statistics (GB) are sent to the Home Assistant server via REST API."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_TIMEZONE_SENSOR",
-      "data_type": "Device Timezone and DST Status",
-      "description": "The app reads the device's current timezone, daylight saving time status, and UTC offset via java.util.TimeZone, sending this data to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "TimeZoneManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/TimeZoneManager.kt",
-          "line": 20,
-          "code": "updateTimeZoneSensor()",
-          "details": "Periodic sensor update or timezone change broadcast triggers timezone data collection."
-        },
-        {
-          "step": "Data Processing",
-          "function": "TimeZone API",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/TimeZoneManager.kt",
-          "line": 35,
-          "code": "TimeZone.getDefault().displayName; TimeZone.inDaylightTime; TimeZone.getOffset(System.currentTimeMillis())",
-          "details": "Reads device timezone display name, whether DST is active, and UTC offset in milliseconds."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "TimeZoneManager.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/TimeZoneManager.kt",
-          "line": 50,
-          "code": "onSensorUpdated(currentTimeZone, timezoneData)",
-          "details": "Timezone data is sent to the Home Assistant server via REST API."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_APP_DIAGNOSTIC_SENSORS",
-      "data_type": "App Diagnostic Data (App version, memory usage, network usage, inactive state, standby bucket)",
-      "description": "The app reads its own diagnostic information (version, memory, network usage per app) for debugging purposes and sends it to the Home Assistant server.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "AppSensorManagerBase / AppSensorManager.requestSensorUpdate",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/AppSensorManagerBase.kt",
-          "line": 30,
-          "code": "updateAppVersion(); updateAppMemory(); updateAppNetworkUsage()",
-          "details": "Periodic sensor update triggers app diagnostic data collection."
-        },
-        {
-          "step": "Data Processing",
-          "function": "TrafficStats / Runtime / UsageStatsManager APIs",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/AppSensorManagerBase.kt",
-          "line": 60,
-          "code": "TrafficStats.getUidRxBytes(uid); Runtime.getRuntime().freeMemory(); usageStatsManager.isAppInactive(packageName)",
-          "details": "Reads app version code, network RX/TX per app, app memory usage, app inactive state, and standby bucket."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "AppSensorManagerBase.onSensorUpdated",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/AppSensorManagerBase.kt",
-          "line": 90,
-          "code": "onSensorUpdated(currentVersion, versionCode); onSensorUpdated(appMemory, memUsage)",
-          "details": "App diagnostic data is sent to the Home Assistant server via REST API."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_NETWORK_CONNECTIVITY_SENSORS",
+    "data_type": "WiFi Network Information (SSID, BSSID, IP addresses)",
+    "description": "The app reads WiFi connection details (SSID, BSSID, IP address) and network type via WifiManager and ConnectivityManager, then sends them to the Home Assistant server as sensors via REST API. SSID and BSSID require location permission on Android 9+.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "SensorWorker.doWork / SensorReceiver.onReceive",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/SensorWorker.kt",
+        "line": 30,
+        "code": "sensorUpdater.updateSensors()",
+        "details": "Periodic WorkManager worker (every 15 min) or Android broadcast intent triggers sensor update cycle."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "NetworkSensorManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NetworkSensorManager.kt",
+        "line": 45,
+        "code": "wifiManager.connectionInfo.ssid; wifiManager.connectionInfo.bssid; ConnectivityManager.activeNetwork; OkHttpClient(api.ipify.org)",
+        "details": "Reads WiFi SSID, BSSID (router MAC), local IP address, and public IP address via api.ipify.org. SSID/BSSID require ACCESS_FINE_LOCATION on API 29+."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "SensorRepositoryImpl.update / syncSensorsWithServer",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/SensorRepositoryImpl.kt",
+        "line": 80,
+        "code": "integrationRepository.updateSensors(listOf(sensorRegistration))",
+        "details": "Network sensor data (SSID, BSSID, IP addresses, network type) is sent to the Home Assistant server via REST API."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_BLUETOOTH_DEVICE_SENSORS",
+    "data_type": "Bluetooth Device Information (Paired/Connected device names, BLE beacons)",
+    "description": "The app scans for connected and paired Bluetooth devices, monitors BLE iBeacons, and reports device names/addresses to the Home Assistant server as sensors.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "BluetoothSensorManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/BluetoothSensorManager.kt",
+        "line": 120,
+        "code": "updateBluetoothConnectionSensor(); updateBluetoothStateSensor()",
+        "details": "Bluetooth state change broadcast or periodic sensor update triggers Bluetooth data collection."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "BluetoothUtils.getBluetoothDevices",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/bluetooth/BluetoothUtils.kt",
+        "line": 50,
+        "code": "BluetoothAdapter.getDefaultAdapter().bondedDevices; BluetoothManager.getConnectedDevices",
+        "details": "Reads list of paired/connected Bluetooth devices including device names and MAC addresses."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "IBeaconMonitor.setBeacons / MonitoringManager",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/bluetooth/ble/IBeaconMonitor.kt",
+        "line": 43,
+        "code": "val beacon = IBeacon(uuid, major, minor, distance, rssi, 0); sensorManager.updateBeaconMonitoringSensor()",
+        "details": "Scans for nearby BLE iBeacons, tracking UUID, major/minor values, distance estimate, and RSSI signal strength."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "BluetoothSensorManager.sendBluetoothSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/BluetoothSensorManager.kt",
+        "line": 200,
+        "code": "onSensorUpdated(bluetoothConnection, deviceList); onSensorUpdated(beaconMonitor, beaconData)",
+        "details": "Bluetooth device information (connected/paired device names, beacon UUIDs/proximity) is sent to the Home Assistant server via REST API."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_PHONE_STATE_SENSORS",
+    "data_type": "Phone State and SIM Information (Call state, carrier names, signal strength)",
+    "description": "The app reads telephony state (call status, SIM carrier info, signal strength) via TelephonyManager and sends this data to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "PhoneStateSensorManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/PhoneStateSensorManager.kt",
+        "line": 110,
+        "code": "updatePhoneStateSensor(); updateSimSensor(); updateSignalStrength()",
+        "details": "Phone state change broadcast intent (call state, SIM state) triggers telephony data collection."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "TelephonyManager.listen / SubscriptionManager",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/PhoneStateSensorManager.kt",
+        "line": 150,
+        "code": "telephonyManager.callState; subscriptionManager.activeSubscriptionInfoList; telephonyManager.signalStrength",
+        "details": "Reads call state (idle/ringing/offhook), SIM carrier names, country ISO, MCC/MNC codes, and cellular signal strength (dBm). Requires READ_PHONE_STATE permission."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "PhoneStateSensorManager.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/PhoneStateSensorManager.kt",
+        "line": 180,
+        "code": "onSensorUpdated(phoneState, state); onSensorUpdated(sim_1, carrierName); onSensorUpdated(sim1SignalStrength, signalDbm)",
+        "details": "Phone state, SIM carrier names, and signal strength data are sent to the Home Assistant server via REST API."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_STEP_COUNT_SENSOR",
+    "data_type": "Step Count (Pedometer / Health data)",
+    "description": "The app reads the device's built-in step counter sensor (TYPE_STEP_COUNTER) and sends the cumulative step count to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "StepsSensorManager.updateStepsSensor",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/StepsSensorManager.kt",
+        "line": 80,
+        "code": "mySensorManager.registerListener(this, stepsSensors, SENSOR_DELAY_NORMAL)",
+        "details": "Periodic sensor update or sensor listener registration triggers step counter reading."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "StepsSensorManager.onSensorChanged",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/StepsSensorManager.kt",
+        "line": 95,
+        "code": "val steps = event.values[0].roundToInt(); onSensorUpdated(stepsSensor, steps)",
+        "details": "Reads cumulative step count from the hardware step counter sensor. Requires ACTIVITY_RECOGNITION permission on API 29+."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "StepsSensorManager.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/StepsSensorManager.kt",
+        "line": 100,
+        "code": "onSensorUpdated(stepsSensor, steps, stepsSensor.statelessIcon)",
+        "details": "Step count data is sent to the Home Assistant server via REST API as a total_increasing sensor."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_ACTIVITY_RECOGNITION_SENSOR",
+    "data_type": "Activity Recognition Data (Walking, Running, In Vehicle, etc.)",
+    "description": "The app receives activity updates from Google Play Services ActivityRecognition API and sends the detected activity type to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "ActivitySensorReceiver.onActivityUpdate",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/ActivitySensorReceiver.kt",
+        "line": 25,
+        "code": "override fun onActivityUpdate(activity: DetectedActivity) { sensorManager.updateActivitySensor(activity) }",
+        "details": "Google Play Services ActivityRecognition API sends activity update (in_vehicle, walking, running, still, etc.)."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "ActivitySensorManager.updateActivitySensor (full flavor)",
+        "file": "app/src/full/kotlin/io/homeassistant/companion/android/sensors/LocationSensorManager.kt",
+        "line": 340,
+        "code": "ActivityRecognitionClient; onSensorUpdated(activitySensor, activityType)",
+        "details": "Extracts detected activity type (still, walking, running, in_vehicle, on_bicycle, tilting, unknown). Requires ACTIVITY_RECOGNITION permission."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "ActivitySensorManager.onSensorUpdated",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/sensors/ActivitySensorReceiver.kt",
+        "line": 30,
+        "code": "sensorManager.onSensorUpdated(activitySensor, activityType, icon, attributes)",
+        "details": "Activity type and confidence are sent to the Home Assistant server via REST API."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_BATTERY_AND_POWER_SENSORS",
+    "data_type": "Battery and Power State (Level, charging status, temperature, power consumption)",
+    "description": "The app monitors battery level, charging state, temperature, power consumption, and remaining charge time via BatteryManager, sending these diagnostics to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "BatterySensorManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/BatterySensorManager.kt",
+        "line": 55,
+        "code": "updateBatteryLevelSensor(); updateBatteryStateSensor(); updateBatteryTemperature()",
+        "details": "ACTION_BATTERY_CHANGED sticky broadcast or periodic worker triggers battery data collection."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "BatteryManager.getIntProperty / Intent.batteryChanged extras",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/BatterySensorManager.kt",
+        "line": 80,
+        "code": "batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY); intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1)",
+        "details": "Reads battery level (%), charging status, charger type, health, temperature (Celsius), power (watts), remaining charge time."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "BatterySensorManager.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/BatterySensorManager.kt",
+        "line": 120,
+        "code": "onSensorUpdated(batteryLevel, level); onSensorUpdated(batteryTemperature, temp); onSensorUpdated(batteryPower, power)",
+        "details": "Battery metrics are sent to the Home Assistant server via REST API for dashboard display and automations."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_AUDIO_STATE_SENSORS",
+    "data_type": "Audio Device State (Ringer mode, headphone state, volume levels, microphone mute state)",
+    "description": "The app reads audio state (ringer mode, headphone connection, volume levels, microphone mute) via AudioManager and sends these to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "AudioSensorManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/AudioSensorManager.kt",
+        "line": 40,
+        "code": "updateRingerMode(); updateHeadphoneState(); updateVolumeLevels()",
+        "details": "Audio broadcast intents (volume change, ringer mode, headphone plug) trigger audio state collection."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "AudioManager methods",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/AudioSensorManager.kt",
+        "line": 65,
+        "code": "audioManager.ringerMode; audioManager.isWiredHeadsetOn; audioManager.isMicrophoneMute; audioManager.getStreamVolume(streamType)",
+        "details": "Reads ringer mode (normal/silent/vibrate), headphone state, microphone mute, music active, speakerphone state, and all stream volume levels."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "AudioSensorManager.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/AudioSensorManager.kt",
+        "line": 100,
+        "code": "onSensorUpdated(audioSensor, ringerMode); onSensorUpdated(headphoneState, state); onSensorUpdated(volumeMusic, level)",
+        "details": "Audio device states and volume levels are sent to the Home Assistant server via REST API."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_DISPLAY_AND_SCREEN_SENSORS",
+    "data_type": "Display Configuration (Brightness, orientation, screen timeout)",
+    "description": "The app reads display settings (brightness, orientation, screen timeout, rotation) via Settings.System and DisplayManager, sending them to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "DisplaySensorManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/DisplaySensorManager.kt",
+        "line": 35,
+        "code": "updateScreenBrightnessSensor(); updateScreenOrientationSensor()",
+        "details": "Periodic sensor update or configuration change triggers display data collection."
+      },
+      {
+        "step": "Data Processing",
+        "function": "Settings.System / Display / Configuration reads",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/DisplaySensorManager.kt",
+        "line": 55,
+        "code": "Settings.System.getInt(SCREEN_BRIGHTNESS); Display.getRotation(); resources.configuration.orientation",
+        "details": "Reads screen brightness (0-255), screen off timeout, screen orientation (portrait/landscape), and rotation (0/90/180/270 degrees)."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "DisplaySensorManager.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/DisplaySensorManager.kt",
+        "line": 80,
+        "code": "onSensorUpdated(screenBrightness, brightness); onSensorUpdated(screenOrientation, orientation)",
+        "details": "Display configuration data is sent to the Home Assistant server via REST API."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_DOZE_AND_INTERACTIVE_STATE_SENSORS",
+    "data_type": "Device Power State (Screen on/off, doze mode, power save mode)",
+    "description": "The app reads device interactive state, doze mode, and power save mode via PowerManager, and reports these to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "PowerSensorManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/PowerSensorManager.kt",
+        "line": 30,
+        "code": "updateInteractiveSensor(); updateIdleSensor(); updatePowerSaveSensor()",
+        "details": "Screen on/off and power state change broadcasts trigger power state collection."
+      },
+      {
+        "step": "Data Processing",
+        "function": "PowerManager methods",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/PowerSensorManager.kt",
+        "line": 55,
+        "code": "powerManager.isInteractive; powerManager.isDeviceIdleMode; powerManager.isPowerSaveMode",
+        "details": "Reads whether screen is on/off, device is in doze mode, and power saver is active."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "PowerSensorManager.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/PowerSensorManager.kt",
+        "line": 70,
+        "code": "onSensorUpdated(isInteractive, state); onSensorUpdated(powerSave, state)",
+        "details": "Device power state data is sent to the Home Assistant server via REST API."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_ENVIRONMENTAL_SENSORS",
+    "data_type": "Environmental Sensor Data (Light, pressure, proximity)",
+    "description": "The app reads ambient light sensor (lux), barometric pressure (hPa), and proximity sensor data from the device's hardware sensors via android.hardware.SensorManager, sending them to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "LightSensorManager / PressureSensorManager / ProximitySensorManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/LightSensorManager.kt",
+        "line": 40,
+        "code": "sensorManager.registerListener(this, lightSensor, SENSOR_DELAY_NORMAL)",
+        "details": "Periodic sensor update or sensor listener triggers environmental sensor data collection."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "SensorEventListener.onSensorChanged",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/LightSensorManager.kt",
+        "line": 65,
+        "code": "event.values[0]; onSensorUpdated(lightSensor, luxValue)",
+        "details": "Reads ambient light (lux), atmospheric pressure (hPa), and proximity values from hardware sensors."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "Light/Pressure/ProximitySensorManager.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/LightSensorManager.kt",
+        "line": 75,
+        "code": "onSensorUpdated(lightSensor, event.values[0])",
+        "details": "Environmental sensor readings are sent to the Home Assistant server via REST API."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_STORAGE_SENSOR",
+    "data_type": "Device Storage Usage (Internal and external storage capacity %)",
+    "description": "The app reads internal and external storage usage statistics via StatFs and Environment APIs, sending storage capacity percentages to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "StorageSensorManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/StorageSensorManager.kt",
+        "line": 30,
+        "code": "updateStorageSensor(); updateExternalStorageSensor()",
+        "details": "Periodic sensor update triggers storage data collection."
+      },
+      {
+        "step": "Data Processing",
+        "function": "StatFs / Environment APIs",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/StorageSensorManager.kt",
+        "line": 55,
+        "code": "StatFs(Environment.getDataDirectory()); StatFs(environment.getExternalStorageDirectory())",
+        "details": "Reads internal and external (SD card) storage: total space, free space, calculates usage percentage."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "StorageSensorManager.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/StorageSensorManager.kt",
+        "line": 75,
+        "code": "onSensorUpdated(storageSensor, usedPercentage); onSensorUpdated(externalStorage, extUsedPercentage)",
+        "details": "Storage usage percentage data is sent to the Home Assistant server via REST API."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_NEXT_ALARM_SENSOR",
+    "data_type": "Next Alarm Clock Time (Timestamp and source app)",
+    "description": "The app reads the next scheduled alarm from the system AlarmManager and sends the alarm time and source app to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "NextAlarmManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NextAlarmManager.kt",
+        "line": 25,
+        "code": "updateNextAlarmSensor()",
+        "details": "Periodic sensor update or alarm clock change broadcast triggers alarm data collection."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "AlarmManager.nextAlarmClock",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NextAlarmManager.kt",
+        "line": 45,
+        "code": "alarmManager.nextAlarmClock; alarmClockInfo.triggerTime; alarmClockInfo.creatorPackage",
+        "details": "Reads the timestamp of the next scheduled alarm and the package name of the app that set it."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "NextAlarmManager.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/NextAlarmManager.kt",
+        "line": 60,
+        "code": "onSensorUpdated(nextAlarm, alarmTime); onSensorUpdated(nextAlarm, packageName)",
+        "details": "Next alarm time and source app package name are sent to the Home Assistant server via REST API."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_DND_AND_KEYGUARD_SENSORS",
+    "data_type": "Do Not Disturb and Lock Screen State (DND mode, device lock status, keyguard state)",
+    "description": "The app reads Do Not Disturb mode and device lock/keyguard state via NotificationManager and KeyguardManager, sending them to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "DNDSensorManager / KeyguardSensorManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/DNDSensorManager.kt",
+        "line": 25,
+        "code": "notificationManager.currentInterruptionFilter",
+        "details": "DND mode change or keyguard state change broadcast triggers data collection."
+      },
+      {
+        "step": "Data Processing",
+        "function": "KeyguardManager methods",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/KeyguardSensorManager.kt",
+        "line": 30,
+        "code": "keyguardManager.isDeviceLocked; keyguardManager.isDeviceSecure; keyguardManager.isKeyguardLocked; keyguardManager.isKeyguardSecure",
+        "details": "Reads DND interrupt filter (off/alarms/priority/total_silence), device lock status, device security state, and keyguard locked state."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "DNDSensorManager / KeyguardSensorManager.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/DNDSensorManager.kt",
+        "line": 45,
+        "code": "onSensorUpdated(dndSensor, state); onSensorUpdated(deviceLocked, locked)",
+        "details": "DND mode and lock screen state data are sent to the Home Assistant server via REST API."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_NETWORK_USAGE_STATS_SENSORS",
+    "data_type": "Network Traffic Statistics (Mobile and total data TX/RX in GB)",
+    "description": "The app reads aggregate network traffic statistics (mobile and total bytes sent/received) via TrafficStats API and sends them to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "TrafficStatsManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/TrafficStatsManager.kt",
+        "line": 30,
+        "code": "updateMobileDataUsage(); updateTotalDataUsage()",
+        "details": "Periodic sensor update triggers network usage data collection."
+      },
+      {
+        "step": "Data Processing",
+        "function": "TrafficStats API",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/TrafficStatsManager.kt",
+        "line": 55,
+        "code": "TrafficStats.getMobileRxBytes(); TrafficStats.getMobileTxBytes(); TrafficStats.getTotalRxBytes(); TrafficStats.getTotalTxBytes()",
+        "details": "Reads cumulative mobile and total data bytes received/transmitted since device boot."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "TrafficStatsManager.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/TrafficStatsManager.kt",
+        "line": 70,
+        "code": "onSensorUpdated(mobileRxGb, rxGb); onSensorUpdated(totalTxGb, txGb)",
+        "details": "Network traffic statistics (GB) are sent to the Home Assistant server via REST API."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_TIMEZONE_SENSOR",
+    "data_type": "Device Timezone and DST Status",
+    "description": "The app reads the device's current timezone, daylight saving time status, and UTC offset via java.util.TimeZone, sending this data to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "TimeZoneManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/TimeZoneManager.kt",
+        "line": 20,
+        "code": "updateTimeZoneSensor()",
+        "details": "Periodic sensor update or timezone change broadcast triggers timezone data collection."
+      },
+      {
+        "step": "Data Processing",
+        "function": "TimeZone API",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/TimeZoneManager.kt",
+        "line": 35,
+        "code": "TimeZone.getDefault().displayName; TimeZone.inDaylightTime; TimeZone.getOffset(System.currentTimeMillis())",
+        "details": "Reads device timezone display name, whether DST is active, and UTC offset in milliseconds."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "TimeZoneManager.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/TimeZoneManager.kt",
+        "line": 50,
+        "code": "onSensorUpdated(currentTimeZone, timezoneData)",
+        "details": "Timezone data is sent to the Home Assistant server via REST API."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_APP_DIAGNOSTIC_SENSORS",
+    "data_type": "App Diagnostic Data (App version, memory usage, network usage, inactive state, standby bucket)",
+    "description": "The app reads its own diagnostic information (version, memory, network usage per app) for debugging purposes and sends it to the Home Assistant server.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "AppSensorManagerBase / AppSensorManager.requestSensorUpdate",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/AppSensorManagerBase.kt",
+        "line": 30,
+        "code": "updateAppVersion(); updateAppMemory(); updateAppNetworkUsage()",
+        "details": "Periodic sensor update triggers app diagnostic data collection."
+      },
+      {
+        "step": "Data Processing",
+        "function": "TrafficStats / Runtime / UsageStatsManager APIs",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/AppSensorManagerBase.kt",
+        "line": 60,
+        "code": "TrafficStats.getUidRxBytes(uid); Runtime.getRuntime().freeMemory(); usageStatsManager.isAppInactive(packageName)",
+        "details": "Reads app version code, network RX/TX per app, app memory usage, app inactive state, and standby bucket."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "AppSensorManagerBase.onSensorUpdated",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/sensors/AppSensorManagerBase.kt",
+        "line": 90,
+        "code": "onSensorUpdated(currentVersion, versionCode); onSensorUpdated(appMemory, memUsage)",
+        "details": "App diagnostic data is sent to the Home Assistant server via REST API."
+      }
+    ]
+  }
+]

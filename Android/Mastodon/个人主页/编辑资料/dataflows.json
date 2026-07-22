@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/fragments/profile/ProfileEditFragment.java",
+        "line": 1,
+        "code": "package org.joinmastodon.android.fragments.profile;"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/fragments/profile/ProfileEditFragment.java",
+        "line": 31,
+        "code": "import org.joinmastodon.android.api.requests.accounts.UpdateAccountCredentials;"
+      }
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "audiopicker/src/main/ets/localresource/LocalResourceManager.ets",
+        "line": 48,
+        "code": "uriList.push(item.uri)"
+      },
+      {
+        "filePath": "audiopicker/src/main/ets/localresource/LocalResourceManager.ets",
+        "line": 58,
+        "code": "resolve(uriList)"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "audiopicker/src/main/ets/localresource/LocalResourceManager.ets",
+        "line": 46,
+        "code": "await fileShare.grantUriPermission(item.uri, Constants.AUDIO_PICKER_BUNDLE, wantConstant.Flags.FLAG_AUTH_READ_URI_PERMISSION | wantConstant.Flags.FLAG_AUTH_WRITE_URI_PERMISSION)"
+      }
+    ]
+  }
+]

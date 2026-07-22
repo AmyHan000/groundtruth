@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "MastodonSDK/Sources/MastodonSDK/API/Mastodon+API+OAuth.swift",
+        "line": 34,
+        "code": "static func accessTokenEndpointURL(domain: String) -> URL {"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "MastodonSDK/Sources/MastodonCore/Service/API/APIService.swift",
+        "line": 32,
+        "code": "configuration.httpAdditionalHeaders = [\"User-Agent\" : \"mastodon-ios/\" + appVersion]"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "MastodonSDK/Sources/MastodonCore/AuthenticationServiceProvider.swift",
+        "line": 18,
+        "code": "private static let keychain = Keychain(service: \"org.joinmastodon.app.authentications\", accessGroup: AppName.groupID)"
+      }
+    ]
+  }
+]

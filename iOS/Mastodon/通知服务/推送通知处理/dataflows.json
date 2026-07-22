@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "NotificationService/NotificationService.swift",
+        "line": 46,
+        "code": "guard let plaintextData = NotificationService.decrypt(payload: payload, salt: salt, auth: auth, privateKey: privateKey, publicKey: publicKey),"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "NotificationService/NotificationService.swift",
+        "line": 70,
+        "code": "ImageDownloader.default.download(URLRequest(url: url), completion: { [weak self] response in"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "NotificationService/NotificationService.swift",
+        "line": 59,
+        "code": "UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "NotificationService/NotificationService.swift",
+        "line": 70,
+        "code": "ImageDownloader.default.download(URLRequest(url: url), completion: { [weak self] response in"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "dataflow": [
+      {
+        "filePath": "NotificationService/NotificationService.swift",
+        "line": 59,
+        "code": "UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)"
+      }
+    ]
+  }
+]

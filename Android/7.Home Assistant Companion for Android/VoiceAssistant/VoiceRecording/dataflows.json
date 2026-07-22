@@ -1,43 +1,41 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_VOICE_RECORDING_ASSIST",
-      "data_type": "Voice Audio Recording (Biometric/Sensitive)",
-      "description": "The user taps the microphone button on the Assist screen. The app records voice audio via Android AudioRecord API and streams it through WebSocket to the Home Assistant server's Assist Pipeline for speech-to-text processing.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "AssistViewModel.onMicrophoneInput",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/assist/AssistViewModel.kt",
-          "line": 387,
-          "code": "fun onMicrophoneInput(proactive: Boolean? = false) { if (!hasPermission) { requestPermission?.let { it() }; return } ... audioStrategy.requestFocus(); setupRecorder(...) }",
-          "details": "User taps the microphone button or triggers voice input. The app checks RECORD_AUDIO permission, requests audio focus, and sets up the recorder."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "AssistViewModelBase.setupRecorder",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/assist/AssistViewModelBase.kt",
-          "line": 180,
-          "code": "voiceAudioRecorder.startRecording { buffer -> ... }",
-          "details": "The app starts recording microphone audio via VoiceAudioRecorder using Android AudioRecord API."
-        },
-        {
-          "step": "Data Processing",
-          "function": "AssistViewModelBase.runAssistPipelineInternal",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/assist/AssistViewModelBase.kt",
-          "line": 230,
-          "code": "webSocketRepository(serverId).sendAssistPipeline(assistPipelineData)",
-          "details": "Recorded audio data is streamed via WebSocket to the Home Assistant server's Assist Pipeline for processing."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "AssistViewModelBase.sendPipelineEvent",
-          "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/assist/AssistViewModelBase.kt",
-          "line": 320,
-          "code": "webSocketRepository.sendAssistPipeline(audioData, pipelineId, ...)",
-          "details": "Audio data is streamed via persistent WebSocket connection to the configured Home Assistant server."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_VOICE_RECORDING_ASSIST",
+    "data_type": "Voice Audio Recording (Biometric/Sensitive)",
+    "description": "The user taps the microphone button on the Assist screen. The app records voice audio via Android AudioRecord API and streams it through WebSocket to the Home Assistant server's Assist Pipeline for speech-to-text processing.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "AssistViewModel.onMicrophoneInput",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/assist/AssistViewModel.kt",
+        "line": 387,
+        "code": "fun onMicrophoneInput(proactive: Boolean? = false) { if (!hasPermission) { requestPermission?.let { it() }; return } ... audioStrategy.requestFocus(); setupRecorder(...) }",
+        "details": "User taps the microphone button or triggers voice input. The app checks RECORD_AUDIO permission, requests audio focus, and sets up the recorder."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "AssistViewModelBase.setupRecorder",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/assist/AssistViewModelBase.kt",
+        "line": 180,
+        "code": "voiceAudioRecorder.startRecording { buffer -> ... }",
+        "details": "The app starts recording microphone audio via VoiceAudioRecorder using Android AudioRecord API."
+      },
+      {
+        "step": "Data Processing",
+        "function": "AssistViewModelBase.runAssistPipelineInternal",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/assist/AssistViewModelBase.kt",
+        "line": 230,
+        "code": "webSocketRepository(serverId).sendAssistPipeline(assistPipelineData)",
+        "details": "Recorded audio data is streamed via WebSocket to the Home Assistant server's Assist Pipeline for processing."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "AssistViewModelBase.sendPipelineEvent",
+        "file": "common/src/main/kotlin/io/homeassistant/companion/android/common/assist/AssistViewModelBase.kt",
+        "line": 320,
+        "code": "webSocketRepository.sendAssistPipeline(audioData, pipelineId, ...)",
+        "details": "Audio data is streamed via persistent WebSocket connection to the configured Home Assistant server."
+      }
+    ]
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "上传媒体",
+        "purpose": "上传图片/视频附件",
+        "source": "设备相册",
+        "item": "媒体文件",
+        "frequency": "用户主动上传",
+        "processing": "服务器端处理",
+        "storage": "服务器存储",
+        "recipient": "服务器",
+        "thirdparty": "无",
+        "switchpath": "可选功能"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.WRITE_EXTERNAL_STORAGE"
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "读取媒体文件元数据",
+        "purpose": "获取上传媒体文件的大小信息",
+        "source": "设备存储",
+        "item": "文件大小",
+        "frequency": "每次上传媒体时",
+        "processing": "通过ContentResolver查询文件元数据",
+        "storage": "不存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.WRITE_EXTERNAL_STORAGE"
+    ]
+  }
+]

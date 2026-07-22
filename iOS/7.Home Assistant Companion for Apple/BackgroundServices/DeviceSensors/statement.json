@@ -1,70 +1,20 @@
-{
-  "id": "BACKGROUND_DEVICE_SENSORS",
-  "feature_name": "设备传感器",
-  "data": [
-    {
-      "scene": "传感器定期上报数据",
-      "purpose": "将设备传感器数据同步至 Home Assistant 服务器用于自动化和仪表板展示",
-      "source": "CMMotionActivityManager、CMPedometer、CMAltimeter、UIDevice、NWPathMonitor、CoreTelephony",
-      "item": "运动活动类型（静止/步行/跑步/驾驶）及置信度（敏感）、步数/距离/爬楼/步频/步速（敏感）、气压与海拔、电池电量与充电状态、WiFi SSID（敏感）和 BSSID（敏感）、网络连接类型、蜂窝运营商和技术类型",
-      "frequency": "定期采集（默认周期性和事件驱动）",
-      "processing": "上传至服务器",
-      "storage": "服务器端存储",
-      "recipient": "Home Assistant 服务器（自托管）",
-      "thirdparty": "无第三方",
-      "switchpath": "设置 -> 传感器"
-    },
-    {
-      "scene": "显示传感器采集",
-      "purpose": "采集设备连接的显示器信息",
-      "source": "系统显示 API",
-      "item": "显示器数量、显示器名称、显示器 ID",
-      "frequency": "显示器连接变化时",
-      "processing": "上传至服务器",
-      "storage": "服务器端存储",
-      "recipient": "Home Assistant 服务器",
-      "thirdparty": "无第三方",
-      "switchpath": "设置 -> 传感器"
-    },
-    {
-      "scene": "专注模式传感器采集",
-      "purpose": "采集设备当前的专注模式状态",
-      "source": "系统 FocusStatus API",
-      "item": "专注模式开关状态",
-      "frequency": "专注模式变化时",
-      "processing": "上传至服务器",
-      "storage": "服务器端存储",
-      "recipient": "Home Assistant 服务器",
-      "thirdparty": "无第三方",
-      "switchpath": "设置 -> 传感器 -> 专注模式"
-    },
-    {
-      "scene": "存储传感器采集",
-      "purpose": "采集设备存储容量信息",
-      "source": "系统文件卷 API（URLResourceKey）",
-      "item": "设备总存储容量、可用存储容量",
-      "frequency": "定期采集",
-      "processing": "上传至服务器",
-      "storage": "服务器端存储",
-      "recipient": "Home Assistant 服务器",
-      "thirdparty": "无第三方",
-      "switchpath": "设置 -> 传感器"
-    }
-  ],
-  "permissions": [
-    {
-      "name": "NSMotionUsageDescription",
-      "scene": "用户启用运动传感器时",
-      "authorization": "运行时",
-      "purpose": "访问运动活动数据和计步器数据",
-      "impact": "如果拒绝，活动/计步传感器不可用"
-    },
-    {
-      "name": "NSFocusStatusUsageDescription",
-      "scene": "启用专注模式传感器时",
-      "authorization": "运行时",
-      "purpose": "读取设备专注模式状态",
-      "impact": "如果拒绝，专注模式传感器不可用"
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_DEVICE_SENSORS",
+    "data": [
+      {
+        "scene": "Device Sensor Data (Motion, Activity, Battery, Connectivity, Barometer, Pedometer)",
+        "purpose": "SensorContainer periodically collects all sensor data and sends to HA server. Includes motion activity, pedometer, battery, connectivity (SSID/BSSID/cellular), barometer, and app state sensors.",
+        "source": "Home Assistant Companion",
+        "item": "Device Sensor Data (Motion, Activity, Battery, Connectivity, Barometer, Pedometer)",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": []
+  }
+]

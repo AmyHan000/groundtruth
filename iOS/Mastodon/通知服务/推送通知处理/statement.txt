@@ -1,0 +1,11 @@
+推送通知处理
+
+1 我们如何收集和使用您的个人信息：
+解密推送通知，通过 NotificationService.swift，使用CryptoKit对来自Apple推送服务（APNs）的加密通知数据进行本地解密。采集频率：每次推送。处理方式：本地解密，涉及第三方Apple推送服务（APNs），关闭通知则不接收。
+
+下载通知图标，通过 NotificationService.swift（ImageDownloader），从Mastodon服务器下载通知发送者的头像图片用于通知显示。采集频率：每次推送。处理方式：网络下载至临时目录，关闭通知则不下载。
+
+记录未读通知计数，通过 NotificationService.swift，将未读通知数量增加并存储于UserDefaults。采集频率：每次推送。处理方式：本地存储于UserDefaults，关闭通知则不记录。
+
+2 设备权限调用：
+通知权限：用于接收推送通知。如您拒绝授权，将无法接收推送通知，但可在应用内查看所有通知。

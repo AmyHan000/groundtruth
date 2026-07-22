@@ -1,19 +1,20 @@
-{
-  "id": "ONBOARDING_AUTH",
-  "feature_name": "User Authentication",
-  "data": [
-    {
-      "scene": "User enters the server URL and completes login during onboarding.",
-      "purpose": "Obtain API access tokens to authorize all subsequent data communications.",
-      "source": "Home Assistant server (OAuth2 authorization code flow)",
-      "item": "Bearer Token (access token), Refresh Token, authorization code",
-      "frequency": "One-time at first connection; tokens can be refreshed",
-      "processing": "Local only",
-      "storage": "Encrypted storage (EncryptedSharedPreferences, AES-256)",
-      "recipient": "Device-local encrypted storage only",
-      "thirdparty": "No third-party involvement",
-      "switchpath": "Settings -> Servers -> Log out and re-authenticate"
-    }
-  ],
-  "permissions": []
-}
+[
+  {
+    "id": "FLOW_USER_AUTH_TOKEN",
+    "data": [
+      {
+        "scene": "Bearer Token / Refresh Token (Credentials)",
+        "purpose": "The user enters a server URL during onboarding, completes OAuth2 authentication, and the app securely stores the obtained Bearer Token and Refresh Token in EncryptedSharedPreferences.",
+        "source": "Home Assistant Companion",
+        "item": "Bearer Token / Refresh Token (Credentials)",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": []
+  }
+]

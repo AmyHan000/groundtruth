@@ -1,46 +1,20 @@
-{
-  "id": "ONBOARDING_SERVER_DISCOVERY",
-  "feature_name": "Server Discovery & Connection",
-  "data": [
-    {
-      "scene": "User manually enters a Home Assistant server URL during onboarding.",
-      "purpose": "Establish a connection to the user's Home Assistant server for all subsequent app communications.",
-      "source": "User input (text entry field)",
-      "item": "Home Assistant server URL (manually entered by the user)",
-      "frequency": "One-time at first connection; URL can be changed later in server settings",
-      "processing": "Local only",
-      "storage": "Encrypted storage (EncryptedSharedPreferences, AES-256)",
-      "recipient": "Device-local encrypted storage only",
-      "thirdparty": "No third-party involvement",
-      "switchpath": "Settings -> Servers -> Add or change server URL"
-    },
-    {
-      "scene": "User discovers a Home Assistant server on the local network via Bonjour/mDNS during onboarding.",
-      "purpose": "Automatically detect and connect to a Home Assistant server on the local network for convenient onboarding.",
-      "source": "Local network (Android NsdManager for Bonjour/mDNS service discovery)",
-      "item": "Discovered server name, hostname, and URL from local network mDNS responses",
-      "frequency": "On-demand each time the user taps 'Search' on the server discovery screen",
-      "processing": "Local only (network discovery results are ephemeral; selected URL stored locally)",
-      "storage": "Discovered results transient; selected server URL stored in EncryptedSharedPreferences",
-      "recipient": "Device-local only",
-      "thirdparty": "No third-party involvement; mDNS discovery is confined to the local network",
-      "switchpath": "Settings -> Servers -> Reconnect or re-discover"
-    }
-  ],
-  "permissions": [
-    {
-      "name": "ACCESS_NETWORK_STATE",
-      "scene": "During server discovery and connection (determining network availability and connectivity type)",
-      "authorization": "Implicit (manifest-declared, auto-granted)",
-      "purpose": "Determine network availability and connectivity type before attempting server discovery or connection",
-      "impact": "If blocked, the app cannot verify network connectivity before attempting server connection; server discovery may fail silently"
-    },
-    {
-      "name": "ACCESS_WIFI_STATE",
-      "scene": "During Bonjour/mDNS server discovery on the local network",
-      "authorization": "Implicit (manifest-declared, auto-granted)",
-      "purpose": "Check if WiFi is enabled for local network Bonjour/mDNS service discovery",
-      "impact": "If blocked, the app cannot determine if WiFi is active for local network discovery; mDNS discovery may not function correctly"
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_SERVER_DISCOVERY",
+    "data": [
+      {
+        "scene": "Server URL / Network Info",
+        "purpose": "The user discovers a Home Assistant server on the local network via Bonjour/mDNS or enters a URL manually. The server URL is stored for subsequent connections.",
+        "source": "Home Assistant Companion",
+        "item": "Server URL / Network Info",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": []
+  }
+]

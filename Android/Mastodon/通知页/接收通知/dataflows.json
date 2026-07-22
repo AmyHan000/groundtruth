@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/PushSubscriptionManager.java",
+        "line": 118,
+        "code": "Intent intent=new Intent(\"com.google.android.c2dm.intent.REGISTER\");"
+      },
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/PushSubscriptionManager.java",
+        "line": 127,
+        "code": "String subtype=\"wp:https://\"+session.domain+\"/#\"+session.pushAccountID;"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/PushSubscriptionManager.java",
+        "line": 172,
+        "code": "private void registerAccountForPush(PushSubscription subscription){"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/MainActivity.java",
+        "line": 187,
+        "code": "requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 100);"
+      }
+    ]
+  }
+]

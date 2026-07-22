@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/MastodonAPIController.java",
+        "line": 93,
+        "code": "String token=null;\nif(session!=null)\n    token=session.token.accessToken;"
+      },
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/MastodonAPIController.java",
+        "line": 100,
+        "code": "builder.header(\"Authorization\", \"Bearer \"+token);"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/MastodonAPIController.java",
+        "line": 91,
+        "code": ".header(\"User-Agent\", \"MastodonAndroid/\"+BuildConfig.VERSION_NAME);"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/fragments/HomeTimelineFragment.java",
+        "line": 48,
+        "code": "import org.joinmastodon.android.api.requests.timelines.GetHomeTimeline;"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/MastodonAPIController.java",
+        "line": 66,
+        "code": ".cache(new Cache(new File(MastodonApp.context.getCacheDir(), \"http\"), 10*1024*1024))"
+      }
+    ]
+  }
+]

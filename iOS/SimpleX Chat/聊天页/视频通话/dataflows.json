@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Views/Call/WebRTCClient.swift",
+        "line": 7,
+        "code": "import WebRTC"
+      },
+      {
+        "filePath": "apps/ios/Shared/Views/Call/ActiveCallView.swift",
+        "line": 10,
+        "code": "import SwiftUI"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Views/Call/CallManager.swift",
+        "line": 12,
+        "code": "class CallManager {\n    func newOutgoingCall(_ contact: Contact, _ media: CallMediaType) -> String {\n        let uuid = UUID().uuidString.lowercased()\n        let call = Call(direction: .outgoing, contact: contact, callUUID: uuid, callState: .waitCapabilities, initialCallType: media)\n        call.speakerEnabled = media == .video\n        ChatModel.shared.activeCall = call\n        return uuid\n    }\n\n    func startOutgoingCall(callUUID: String) -> Bool {\n        let m = ChatModel.shared\n        if let call = m.activeCall, call.callUUID == callUUID {\n            m.showCallView = true\n            Task { await m.callCommand.processCommand(.capabilities(media: call.initialCallType)) }\n            return true\n        }\n        return false\n    }"
+      }
+    ]
+  }
+]

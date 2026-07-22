@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "处理网页链接",
+        "purpose": "搜索Mastodon内容",
+        "source": "其他应用",
+        "item": "网页URL",
+        "frequency": "每次使用",
+        "processing": "加密传输",
+        "storage": "服务器处理",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "不使用扩展"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "搜索Mastodon内容",
+        "purpose": "通过URL搜索Mastodon上的内容",
+        "source": "其他应用分享的URL",
+        "item": "网页URL",
+        "frequency": "用户主动操作",
+        "processing": "向服务器发送搜索请求",
+        "storage": "不存储",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "不使用扩展"
+      }
+    ],
+    "permissions": []
+  }
+]

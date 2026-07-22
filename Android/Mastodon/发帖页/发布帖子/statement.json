@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "发布帖子",
+        "purpose": "发布社交内容",
+        "source": "用户输入",
+        "item": "帖子文本、媒体附件",
+        "frequency": "用户主动发布",
+        "processing": "服务器端处理",
+        "storage": "服务器存储",
+        "recipient": "服务器",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET"
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "发送发布帖子请求",
+        "purpose": "向服务器发送发布帖子的认证请求",
+        "source": "本地存储的访问令牌",
+        "item": "OAuth访问令牌",
+        "frequency": "每次发布帖子",
+        "processing": "本地添加到HTTP请求头",
+        "storage": "内存中",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      "android.permission.INTERNET"
+    ]
+  }
+]

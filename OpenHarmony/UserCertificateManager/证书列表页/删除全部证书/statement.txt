@@ -1,0 +1,8 @@
+删除全部证书
+
+1 我们如何收集和使用您的个人信息：
+本功能用于删除用户安装的所有证书和凭证。通过证书管理API（CertManager），调用uninstallAllUserTrustedCertificate和uninstallAllAppCertificate接口，删除本地存储的所有用户可信证书和应用凭证。采集频率：仅在用户主动触发删除操作时执行。处理方式：本地直接删除，不涉及网络传输。删除操作不可撤销。
+
+2 设备权限调用：
+ohos.permission.ACCESS_CERT_MANAGER权限：用于访问证书管理服务，执行删除操作。拒绝后将无法删除证书。
+ohos.permission.ACCESS_USER_TRUSTED_CERT权限：用于访问用户可信证书存储，删除用户证书。拒绝后无法删除用户证书。

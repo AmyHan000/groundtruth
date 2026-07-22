@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/certManagerFa.ets",
+        "line": 233,
+        "code": "this.mFaPresenter.uninstallAllCert();"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/presenter/CmFaPresenter.ets",
+        "line": 159,
+        "code": "certManagerModel.delAllCertOrCred(CMModelOptType.CM_MODEL_OPT_USER_CA, callback);"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 630,
+        "code": "private async delAllUserCertificate(callback: Function): Promise<void> {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 633,
+        "code": "await CertManager.uninstallAllUserTrustedCertificate();"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/presenter/CmFaPresenter.ets",
+        "line": 167,
+        "code": "certManagerModel.delAllCertOrCred(CMModelOptType.CM_MODEL_OPT_APP_CRED, callback);"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 206,
+        "code": "this.delAllAppCredential((errCode: CMModelErrorCode) => {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 643,
+        "code": "await CertManager.uninstallAllAppCertificate();"
+      }
+    ]
+  }
+]

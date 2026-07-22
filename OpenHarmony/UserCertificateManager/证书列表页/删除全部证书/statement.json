@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "删除全部证书",
+        "purpose": "删除用户所有已安装的证书和凭证",
+        "source": "本地存储",
+        "item": "用户证书删除操作",
+        "frequency": "用户主动操作",
+        "processing": "本地处理",
+        "storage": "系统安全存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "删除确认弹窗"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "证书管理权限",
+        "scene": "删除用户证书",
+        "authorization": "预授权",
+        "purpose": "删除本地存储的证书",
+        "impact": "无法管理证书"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "删除全部应用凭证",
+        "purpose": "删除所有应用凭证数据",
+        "source": "用户操作",
+        "item": "删除操作确认",
+        "frequency": "用户主动操作",
+        "processing": "调用CertManager.uninstallAllAppCertificate()",
+        "storage": "删除后释放存储空间",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "用户主动确认删除"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "证书管理权限",
+        "scene": "删除用户证书",
+        "authorization": "预授权",
+        "purpose": "删除本地存储的证书",
+        "impact": "无法管理证书"
+      }
+    ]
+  }
+]

@@ -1,27 +1,106 @@
-{
-  "id": "BACKGROUND_HEALTH_CONNECT",
-  "feature_name": "Health Connect Data Collection",
-  "data": [
-    {
-      "scene": "User enables Health Connect sensors; the app reads authorized health data.",
-      "purpose": "Sync health metrics to Home Assistant for health monitoring and automation.",
-      "source": "Google Health Connect API (reads from device-local health database)",
-      "item": "Heart rate, blood pressure (systolic/diastolic), blood glucose, sleep duration, weight, body temperature, SpO2, respiratory rate, calories, steps, and 25+ other health metrics",
-      "frequency": "Per sensor update cycle (configurable, from minutes to tens of minutes)",
-      "processing": "Uploaded to server",
-      "storage": "App does not persist locally; data is sent to Home Assistant server for storage",
-      "recipient": "Home Assistant server (user self-hosted)",
-      "thirdparty": "Data source is Google Health Connect; after reading, data is sent to the user's self-hosted Home Assistant server",
-      "switchpath": "Settings -> Sensor Management -> Health Connect sensor group -> Enable/Disable individually"
-    }
-  ],
-  "permissions": [
-    {
-      "name": "Health Connect read permissions (25+ types)",
-      "scene": "When enabling Health Connect sensors in sensor settings",
-      "authorization": "Runtime (via Health Connect permission controller)",
-      "purpose": "Read user health data (heart rate, blood pressure, blood glucose, etc.) from Health Connect",
-      "impact": "If denied, the corresponding health sensors will not be able to retrieve data"
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_HEALTH_CONNECT_HEART_RATE",
+    "data": [
+      {
+        "scene": "User enables Health Connect sensors; the app reads authorized health data.",
+        "purpose": "Sync health metrics to Home Assistant for health monitoring and automation.",
+        "source": "Google Health Connect API (reads from device-local health database)",
+        "item": "Heart rate, blood pressure (systolic/diastolic), blood glucose, sleep duration, weight, body temperature, SpO2, respiratory rate, calories, steps, and 25+ other health metrics",
+        "frequency": "Per sensor update cycle (configurable, from minutes to tens of minutes)",
+        "processing": "Uploaded to server",
+        "storage": "App does not persist locally; data is sent to Home Assistant server for storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "Data source is Google Health Connect; after reading, data is sent to the user's self-hosted Home Assistant server",
+        "switchpath": "Settings -> Sensor Management -> Health Connect sensor group -> Enable/Disable individually"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Health Connect read permissions (25+ types)",
+        "scene": "When enabling Health Connect sensors in sensor settings",
+        "authorization": "Runtime (via Health Connect permission controller)",
+        "purpose": "Read user health data (heart rate, blood pressure, blood glucose, etc.) from Health Connect",
+        "impact": "If denied, the corresponding health sensors will not be able to retrieve data"
+      }
+    ]
+  },
+  {
+    "id": "FLOW_HEALTH_CONNECT_BLOOD_PRESSURE",
+    "data": [
+      {
+        "scene": "Blood Pressure (Health data - Systolic/Diastolic)",
+        "purpose": "The app reads blood pressure records from Health Connect and sends systolic/diastolic values to the Home Assistant server as separate sensors.",
+        "source": "Home Assistant Companion",
+        "item": "Blood Pressure (Health data - Systolic/Diastolic)",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Health Connect read permissions (25+ types)",
+        "scene": "When enabling Health Connect sensors in sensor settings",
+        "authorization": "Runtime (via Health Connect permission controller)",
+        "purpose": "Read user health data (heart rate, blood pressure, blood glucose, etc.) from Health Connect",
+        "impact": "If denied, the corresponding health sensors will not be able to retrieve data"
+      }
+    ]
+  },
+  {
+    "id": "FLOW_HEALTH_CONNECT_SLEEP",
+    "data": [
+      {
+        "scene": "Sleep Duration and Stages (Health data)",
+        "purpose": "The app reads sleep records from Health Connect, calculates actual sleep duration (excluding awake time), and sends it to the Home Assistant server.",
+        "source": "Home Assistant Companion",
+        "item": "Sleep Duration and Stages (Health data)",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Health Connect read permissions (25+ types)",
+        "scene": "When enabling Health Connect sensors in sensor settings",
+        "authorization": "Runtime (via Health Connect permission controller)",
+        "purpose": "Read user health data (heart rate, blood pressure, blood glucose, etc.) from Health Connect",
+        "impact": "If denied, the corresponding health sensors will not be able to retrieve data"
+      }
+    ]
+  },
+  {
+    "id": "FLOW_HEALTH_CONNECT_BLOOD_GLUCOSE",
+    "data": [
+      {
+        "scene": "Blood Glucose Level (Health data - Sensitive)",
+        "purpose": "The app reads blood glucose records from Health Connect and sends the levels along with meal context to the Home Assistant server.",
+        "source": "Home Assistant Companion",
+        "item": "Blood Glucose Level (Health data - Sensitive)",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Health Connect read permissions (25+ types)",
+        "scene": "When enabling Health Connect sensors in sensor settings",
+        "authorization": "Runtime (via Health Connect permission controller)",
+        "purpose": "Read user health data (heart rate, blood pressure, blood glucose, etc.) from Health Connect",
+        "impact": "If denied, the corresponding health sensors will not be able to retrieve data"
+      }
+    ]
+  }
+]

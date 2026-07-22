@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "删除证书",
+        "purpose": "删除指定的用户证书",
+        "source": "用户操作",
+        "item": "证书ID",
+        "frequency": "用户主动操作",
+        "processing": "从证书存储中删除指定记录",
+        "storage": "删除后释放存储空间",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "用户主动确认删除"
+      }
+    ],
+    "permissions": []
+  }
+]

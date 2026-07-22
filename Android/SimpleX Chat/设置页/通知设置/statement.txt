@@ -1,0 +1,29 @@
+通知设置
+
+1 我们如何收集和使用您的个人信息：
+管理应用通知行为，通过 用户选择，收集您的**通知模式设置**。采集频率：用户主动操作。处理方式说明：本地存储
+
+保持消息接收，通过 系统事件，收集您的**服务状态**。采集频率：持续运行。处理方式说明：本地前台服务
+
+声明应用使用的前台服务类型，通过 AndroidManifest.xml，收集您的**服务类型权限**。采集频率：应用安装时。处理方式说明：Android系统权限管理
+
+显示消息发送者信息，通过 联系人资料，收集您的**联系人显示名称**。采集频率：每次新消息。处理方式说明：本地处理，根据预览模式决定是否显示
+
+2 设备权限调用：
+android.permission.POST_NOTIFICATIONS（通知）权限：发送通知。如您拒绝授权，您将无法收到新消息通知提醒，但可以手动打开应用查看消息。
+
+android.permission.FOREGROUND_SERVICE（前台服务）权限：运行前台服务以保持消息接收。如您拒绝授权，应用可能无法在后台接收消息，需要保持打开状态才能收消息。
+
+android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING（未知）权限：android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING用于支持远程消息服务。如您拒绝授权，应用可能无法在后台可靠地接收消息。
+
+android.permission.FOREGROUND_SERVICE_MICROPHONE（前台麦克风服务）权限：运行前台麦克风服务以支持语音通话。如您拒绝授权，语音通话功能可能无法在后台正常工作。
+
+android.permission.FOREGROUND_SERVICE_CAMERA（前台相机服务）权限：运行前台相机服务以支持拍照功能。如您拒绝授权，相机相关功能可能无法在后台正常工作。
+
+android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK（未知）权限：android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK用于支持媒体播放服务。如您拒绝授权，媒体播放功能可能无法在后台正常工作。
+
+android.permission.WAKE_LOCK（唤醒锁）权限：保持设备唤醒以接收消息。如您拒绝授权，设备休眠时可能无法及时收到消息，需要手动唤醒设备才能查看。
+
+android.permission.RECEIVE_BOOT_COMPLETED（未知）权限：android.permission.RECEIVE_BOOT_COMPLETED用于开机后自动启动消息服务。如您拒绝授权，设备重启后应用不会自动启动，需要手动打开应用才能接收消息。
+
+android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS（未知）权限：android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS用于防止系统杀死后台服务。如您拒绝授权，应用可能被系统电池优化功能限制，影响后台消息接收的及时性。

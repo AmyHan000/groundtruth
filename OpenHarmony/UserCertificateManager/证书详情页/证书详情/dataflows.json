@@ -1,0 +1,77 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/presenter/CmShowUserCaPresenter.ets",
+        "line": 68,
+        "code": "getUserTrustedCertificate(uri: string, callback: Function): void {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 125,
+        "code": "this.getUserTrustedCertificate(uri, (errCode: CMModelErrorCode, certInfo: CertInfoVo) => {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 450,
+        "code": "private async getUserTrustedCertificate(certUri: string, callback: Function): Promise<void> {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 453,
+        "code": "let result = await CertManager.getUserTrustedCertificate(certUri);"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CaUserDetailPage.ets",
+        "line": 197,
+        "code": "Text(this.showUserCaPresenter.certInfo.certAlias)"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CaUserDetailPage.ets",
+        "line": 225,
+        "code": "DialogSubjectComponent({ map: this.showUserCaPresenter.certInfo.subjectNameMap })"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CaUserDetailPage.ets",
+        "line": 235,
+        "code": "DialogIssuerComponent({ map: this.showUserCaPresenter.certInfo.issuerNameMap })"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CaUserDetailPage.ets",
+        "line": 245,
+        "code": "DialogDateComponent({ map: this.showUserCaPresenter.certInfo.dateMap })"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CaUserDetailPage.ets",
+        "line": 256,
+        "code": "DialogFingerPrintComponent({ fingerprintSha256: this.showUserCaPresenter.certInfo.fingerprintSha256 })"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CaUserDetailPage.ets",
+        "line": 212,
+        "code": "this.showUserCaPresenter.setUserCertificateStatus(this.showUserCaPresenter.certInfo.uri, false);"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/presenter/CmShowUserCaPresenter.ets",
+        "line": 83,
+        "code": "setUserCertificateStatus(uri: string, status: boolean): Promise<boolean> {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 172,
+        "code": "setCertStatus(optType: CMModelOptType, uri: string, status: boolean, callback: Function): void {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 502,
+        "code": "await CertManager.setCertificateStatus(certUri, store, status);"
+      }
+    ]
+  }
+]

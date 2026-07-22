@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "管理授权应用",
+        "purpose": "显示和管理有权使用凭证的应用列表",
+        "source": "本地存储",
+        "item": "授权应用列表",
+        "frequency": "每次查看",
+        "processing": "本地处理",
+        "storage": "系统安全存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "证书管理权限",
+        "scene": "管理应用授权",
+        "authorization": "预授权",
+        "purpose": "查看和修改应用授权状态",
+        "impact": "无法管理应用授权"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "管理授权应用",
+        "purpose": "修改应用授权状态",
+        "source": "本地存储",
+        "item": "应用授权状态修改",
+        "frequency": "用户主动操作",
+        "processing": "本地处理",
+        "storage": "系统安全存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "授权状态切换开关"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "证书管理权限",
+        "scene": "管理应用授权",
+        "authorization": "预授权",
+        "purpose": "查看和修改应用授权状态",
+        "impact": "无法管理应用授权"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "管理授权应用",
+        "purpose": "获取授权应用的详细信息（名称、图标）",
+        "source": "系统API",
+        "item": "应用信息获取",
+        "frequency": "每次查看",
+        "processing": "本地处理",
+        "storage": "不存储",
+        "recipient": "仅本地显示",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "证书管理权限",
+        "scene": "管理应用授权",
+        "authorization": "预授权",
+        "purpose": "查看和修改应用授权状态",
+        "impact": "无法管理应用授权"
+      }
+    ]
+  }
+]

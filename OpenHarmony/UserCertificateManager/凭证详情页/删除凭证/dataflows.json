@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CredUserDetailPage.ets",
+        "line": 67,
+        "code": "this.presenter.deleteAppCred(this.presenter.credInfo.keyUri);"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 155,
+        "code": "this.deleteAppCredential(uri, (errCode: CMModelErrorCode) => {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 604,
+        "code": "private async deleteAppCredential(certUri: string, callback: Function): Promise<void> {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 607,
+        "code": "await CertManager.uninstallPublicCertificate(certUri);"
+      }
+    ]
+  }
+]

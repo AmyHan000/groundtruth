@@ -1,27 +1,25 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_WEBVIEW_DASHBOARD_LOAD",
-      "data_type": "WebView Cookies / Session Data",
-      "description": "The app loads the Home Assistant frontend through a WebView, managing session cookies via CookieManager and handling page navigation through the WebView client.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "FrontendScreen.WebViewEffects",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/FrontendScreen.kt",
-          "line": 728,
-          "code": "LaunchedEffect(webView, url) { frontendJsCallback.attachToWebView(webView); webView.loadUrl(url) }",
-          "details": "The FrontendScreen composable triggers WebView URL loading when created."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "WebView.configureForFrontend",
-          "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/FrontendScreen.kt",
-          "line": 675,
-          "code": "CookieManager.getInstance().apply { setAcceptCookie(true); setAcceptThirdPartyCookies(this@configureForFrontend, true) }",
-          "details": "The WebView is configured to accept cookies (including third-party cookies) to support embedded cross-origin content in frontend integrations."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_WEBVIEW_DASHBOARD_LOAD",
+    "data_type": "WebView Cookies / Session Data",
+    "description": "The app loads the Home Assistant frontend through a WebView, managing session cookies via CookieManager and handling page navigation through the WebView client.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "FrontendScreen.WebViewEffects",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/FrontendScreen.kt",
+        "line": 728,
+        "code": "LaunchedEffect(webView, url) { frontendJsCallback.attachToWebView(webView); webView.loadUrl(url) }",
+        "details": "The FrontendScreen composable triggers WebView URL loading when created."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "WebView.configureForFrontend",
+        "file": "app/src/main/kotlin/io/homeassistant/companion/android/frontend/FrontendScreen.kt",
+        "line": 675,
+        "code": "CookieManager.getInstance().apply { setAcceptCookie(true); setAcceptThirdPartyCookies(this@configureForFrontend, true) }",
+        "details": "The WebView is configured to accept cookies (including third-party cookies) to support embedded cross-origin content in frontend integrations."
+      }
+    ]
+  }
+]

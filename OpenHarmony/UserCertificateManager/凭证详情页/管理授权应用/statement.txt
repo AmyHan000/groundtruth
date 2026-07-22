@@ -1,0 +1,9 @@
+管理授权应用
+
+1 我们如何收集和使用您的个人信息：
+本功能用于管理凭证的授权应用。通过证书管理API（CertManager），获取指定凭证的授权应用列表（通过getAuthorizedAppList接口），并显示每个授权应用的名称和图标。应用信息通过BundleManager API获取。用户可以添加或移除应用的授权状态（通过grantPublicCertificate和removeGrantedPublicCertificate接口）。采集频率：每次打开管理页面时获取。处理方式：本地处理，不涉及网络传输。
+
+2 设备权限调用：
+ohos.permission.ACCESS_CERT_MANAGER权限：用于访问证书管理服务，获取和修改授权应用列表。拒绝后将无法管理授权应用。
+ohos.permission.GET_BUNDLE_INFO权限：用于获取应用信息（名称、图标）。拒绝后可能无法显示授权应用的详细信息。
+ohos.permission.GET_BUNDLE_RESOURCES权限：用于获取应用资源信息。拒绝后可能无法显示应用图标。

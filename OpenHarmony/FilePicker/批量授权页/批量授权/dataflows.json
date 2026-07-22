@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/base/utils/FilePickerUtil.ets",
+        "line": 89,
+        "code": "options.batchAuthUris = ObjectUtil.toArray<string>(want.parameters?.key_mult_uri_arr) ?? []"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/FilePickerUtil.ets",
+        "line": 129,
+        "code": "let udKey: string = await FilePickerUtil.insertDataToUdmf(fileUriList)"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/base/utils/FilePickerUtil.ets",
+        "line": 171,
+        "code": "const udKey = await unifiedDataChannel.insertData({ intention: unifiedDataChannel.Intention.PICKER }, unifiedData)"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/base/utils/FilePickerUtil.ets",
+        "line": 135,
+        "code": "let flag: wantConstant.Flags = wantConstant.Flags.FLAG_AUTH_READ_URI_PERMISSION | wantConstant.Flags.FLAG_AUTH_WRITE_URI_PERMISSION | wantConstant.Flags.FLAG_AUTH_PERSISTABLE_URI_PERMISSION"
+      },
+      {
+        "filePath": "entry/src/main/ets/base/utils/FilePickerUtil.ets",
+        "line": 138,
+        "code": "await uriPermissionManager.grantUriPermissionByKey(udKey, flag, callerId)"
+      }
+    ]
+  }
+]

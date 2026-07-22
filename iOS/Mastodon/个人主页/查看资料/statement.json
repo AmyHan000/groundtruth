@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "查看个人资料",
+        "purpose": "显示用户信息",
+        "source": "服务器API",
+        "item": "用户资料",
+        "frequency": "每次访问",
+        "processing": "本地渲染",
+        "storage": "内存缓存",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "编辑个人资料",
+        "purpose": "更新用户信息",
+        "source": "用户输入",
+        "item": "资料修改",
+        "frequency": "每次编辑",
+        "processing": "加密传输",
+        "storage": "服务器存储",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "不保存"
+      }
+    ],
+    "permissions": []
+  }
+]

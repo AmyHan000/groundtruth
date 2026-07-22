@@ -1,0 +1,97 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/views/chat/ComposeView.kt",
+        "line": 842,
+        "code": "if (chatController.appPrefs.privacyEncryptLocalFiles.get()) {\n    encryptCryptoFile(tmpFile.absolutePath, actualFile.absolutePath)\n  }"
+      },
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/platform/Core.kt",
+        "line": 39,
+        "code": "external fun chatEncryptFile(ctrl: ChatCtrl, fromPath: String, toPath: String): String"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/model/CryptoFile.kt",
+        "line": 36,
+        "code": "fun readCryptoFile(path: String, cryptoArgs: CryptoFileArgs): ByteArray {\n  val res: Array<Any> = chatReadFile(path, cryptoArgs.fileKey, cryptoArgs.fileNonce)\n  val status = (res[0] as Integer).toInt()\n  val arr = res[1] as ByteArray\n  if (status == 0) {\n    return arr\n  } else {\n    throw Exception(String(arr))\n  }\n}"
+      },
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/model/CryptoFile.kt",
+        "line": 47,
+        "code": "fun encryptCryptoFile(fromPath: String, toPath: String): CryptoFileArgs {\n  val ctrl = ChatController.getChatCtrl() ?: throw Exception(\"Controller is not initialized\")\n  val str = chatEncryptFile(ctrl, fromPath, toPath)\n  val d = json.decodeFromString(WriteFileResult.serializer(), str)\n  return when (d) {\n    is WriteFileResult.Result -> d.cryptoArgs\n    is WriteFileResult.Error -> throw Exception(d.writeError)\n  }\n}"
+      },
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/model/CryptoFile.kt",
+        "line": 57,
+        "code": "fun decryptCryptoFile(fromPath: String, cryptoArgs: CryptoFileArgs, toPath: String) {\n  val err = chatDecryptFile(fromPath, cryptoArgs.fileKey, cryptoArgs.fileNonce, toPath)\n  if (err != \"\") {\n    throw Exception(err)\n  }\n}"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/androidMain/kotlin/chat/simplex/common/platform/Files.android.kt",
+        "line": 15,
+        "code": "actual val tmpDir: File = androidAppContext.getDir(\"temp\", Application.MODE_PRIVATE)"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/android/src/main/AndroidManifest.xml",
+        "line": 155,
+        "code": "<provider\n        android:name=\"androidx.core.content.FileProvider\"\n        android:authorities=\"${provider_authorities}\"\n        android:exported=\"false\"\n        android:grantUriPermissions=\"true\">\n      <meta-data\n          android:name=\"android.support.FILE_PROVIDER_PATHS\"\n          android:resource=\"@xml/file_paths\" />\n    </provider>"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/androidMain/kotlin/chat/simplex/common/views/chat/ComposeView.android.kt",
+        "line": 24,
+        "code": "val cameraLauncher = rememberCameraLauncher { uri: Uri? ->\n    if (uri != null) {\n      val bitmap: ImageBitmap? = getBitmapFromUri(uri.toURI())\n      if (bitmap != null) {\n        val imagePreview = resizeImageToStrSize(bitmap, maxDataSize = 14000)\n        composeState.value = composeState.value.copy(preview = ComposePreview.MediaPreview(listOf(imagePreview), listOf(UploadContent.SimpleImage(uri.toURI()))))\n      }\n    }\n  }"
+      },
+      {
+        "filePath": "apps/multiplatform/common/src/androidMain/kotlin/chat/simplex/common/views/chat/ComposeView.android.kt",
+        "line": 40,
+        "code": "val galleryImageLauncher = rememberLauncherForActivityResult(contract = PickMultipleImagesFromGallery()) { processPickedMedia(it.map { it.toURI() }, null) }"
+      },
+      {
+        "filePath": "apps/multiplatform/common/src/androidMain/kotlin/chat/simplex/common/views/chat/ComposeView.android.kt",
+        "line": 42,
+        "code": "val galleryVideoLauncher = rememberLauncherForActivityResult(contract = PickMultipleVideosFromGallery()) { processPickedMedia(it.map { it.toURI() }, null) }"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/model/SimpleXAPI.kt",
+        "line": 3092,
+        "code": "is CR.RcvFileProgressXFTP -> {\n        if (r.chatItem_ != null) {\n          chatItemSimpleUpdate(rhId, r.user, r.chatItem_)\n        }\n      }"
+      },
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/model/SimpleXAPI.kt",
+        "line": 3120,
+        "code": "is CR.SndFileProgressXFTP -> {\n        if (r.chatItem_ != null) {\n          chatItemSimpleUpdate(rhId, r.user, r.chatItem_)\n        }\n      }"
+      },
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/model/SimpleXAPI.kt",
+        "line": 3125,
+        "code": "is CR.SndFileCompleteXFTP -> {\n        chatItemSimpleUpdate(rhId, r.user, r.chatItem)\n      }"
+      }
+    ]
+  }
+]

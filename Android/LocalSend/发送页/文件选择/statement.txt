@@ -1,13 +1,37 @@
-应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
---- | --- | --- | --- | --- | ---
-https://github.com/localsend/localsend | 发送页 | 文件选择 | 剪贴板文本→目标设备 | 见statement.json | 本功能获取用户剪贴板中的文本内容，用于用户主动选择发送文本消息
-https://github.com/localsend/localsend | 发送页 | 文件选择 | 剪贴板图片→目标设备 | 见statement.json | 本功能获取用户剪贴板中的图片内容，用于用户主动选择发送图片
-https://github.com/localsend/localsend | 发送页 | 文件选择 | 剪贴板文件列表→目标设备 | 见statement.json | 本功能获取用户剪贴板中的文件路径列表，用于用户主动选择发送文件
-https://github.com/localsend/localsend | 发送页 | 文件选择 | 用户选择的文件→目标设备 | 见statement.json | 本功能让用户从设备存储选择要发送的文件，需要存储权限
-https://github.com/localsend/localsend | 发送页 | 文件选择 | 媒体文件→目标设备 | 见statement.json | 本功能让用户从相册选择媒体文件进行发送，需要媒体读取权限
-https://github.com/localsend/localsend | 发送页 | 文件选择 | 目录路径→目标设备 | 见statement.json | 本功能让用户选择要发送的目录，需要存储读取权限
-https://github.com/localsend/localsend | 发送页 | 文件选择 | 用户输入文本→目标设备 | 见statement.json | 本功能让用户输入要发送的文本消息
-https://github.com/localsend/localsend | 发送页 | 文件选择 | 已安装应用列表→目标设备 | 见statement.json | 本功能获取设备上已安装的应用列表供用户选择发送
-https://github.com/localsend/localsend | 发送页 | 文件选择 | Android原生通道调用→不传输 | 见statement.json | 本功能通过原生通道调用Android系统功能
-https://github.com/localsend/localsend | 发送页 | 文件选择 | HTTP日志记录→不传输 | 见statement.json | 本功能记录HTTP请求/响应日志用于调试
-https://github.com/localsend/localsend | 发送页 | 文件选择 | 媒体权限请求（带位置信息）→不传输 | 见statement.json | 本功能请求媒体访问权限（包含位置信息权限）
+文件选择
+
+1 我们如何收集和使用您的个人信息：
+获取用户剪贴板中的文本内容用于用户主动选择发送文本消息，通过 Flutter SDK，收集您的**剪贴板文本数据**。采集频率：用户主动触发。处理方式：本地处理——用户选择的目标设备。
+
+获取用户剪贴板中的图片内容用于用户主动选择发送图片，通过 pasteboard，收集您的**剪贴板图片数据**。采集频率：用户主动触发。处理方式：本地处理——用户选择的目标设备。
+
+获取用户剪贴板中的文件路径列表用于用户主动选择发送文件，通过 pasteboard，收集您的**剪贴板文件列表**。采集频率：用户主动触发。处理方式：本地处理——用户选择的目标设备。
+
+让用户从设备存储选择要发送的文件，通过 file_selector，收集您的**用户选择的文件**。采集频率：用户主动触发。处理方式：本地处理——用户选择的目标设备。
+
+让用户从相册选择媒体文件进行发送，通过 wechat_assets_picker，收集您的**媒体文件**。采集频率：用户主动触发。处理方式：本地处理——用户选择的目标设备。
+
+让用户选择要发送的目录，通过 file_selector，收集您的**目录路径**。采集频率：用户主动触发。处理方式：本地处理——用户选择的目标设备。
+
+让用户输入要发送的文本消息，通过 用户输入，收集您的**用户输入文本**。采集频率：用户主动触发。处理方式：本地处理——用户选择的目标设备。
+
+获取设备上已安装的应用列表供用户选择发送，通过 device_apps，收集您的**已安装应用列表**。采集频率：用户选择APK发送时。处理方式：本地处理——用户选择的目标设备。
+
+通过原生通道调用Android系统功能，通过 Flutter MethodChannel，收集您的**Android原生通道调用**。采集频率：文件选择操作时。处理方式：本地处理——不传输。
+
+记录HTTP请求/响应日志用于调试，通过 logging，收集您的**HTTP日志记录**。采集频率：每次HTTP操作。处理方式：本地处理——不传输。
+
+请求媒体访问权限（包含位置信息权限），通过 photo_manager，收集您的**媒体权限请求（带位置信息）**。采集频率：首次选择媒体文件时。处理方式：本地处理——不传输。
+
+2 设备权限调用：
+android.permission.READ_EXTERNAL_STORAGE（存储读取）权限：读取用户选择的文件和目录。如您拒绝授权，您将无法选择和发送本地文件。
+
+android.permission.WRITE_EXTERNAL_STORAGE（存储写入）权限：写入临时文件用于发送。如您拒绝授权，文件发送功能可能受限。
+
+android.permission.READ_MEDIA_IMAGES（图片读取）权限：从相册选择图片进行发送。如您拒绝授权，您将无法从相册选择图片发送。
+
+android.permission.READ_MEDIA_VIDEO（视频读取）权限：从相册选择视频进行发送。如您拒绝授权，您将无法从相册选择视频发送。
+
+android.permission.QUERY_ALL_PACKAGES（应用查询）权限：获取已安装应用列表供用户选择发送APK。如您拒绝授权，您将无法发送已安装应用的APK文件。
+
+android.permission.ACCESS_MEDIA_LOCATION（媒体位置）权限：读取媒体文件的位置信息。如您拒绝授权，发送的媒体文件将不包含位置信息。

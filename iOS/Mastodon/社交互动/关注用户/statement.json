@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "关注用户",
+        "purpose": "建立社交关系",
+        "source": "用户操作",
+        "item": "关注请求",
+        "frequency": "每次操作",
+        "processing": "加密传输",
+        "storage": "服务器存储",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "取消关注"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "发送关注请求",
+        "purpose": "向服务器发送包含User-Agent的关注请求",
+        "source": "本地配置",
+        "item": "User-Agent字符串",
+        "frequency": "每次关注操作",
+        "processing": "本地添加到HTTP请求头",
+        "storage": "不存储",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": []
+  }
+]

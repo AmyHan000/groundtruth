@@ -1,19 +1,20 @@
-{
-  "id": "DASHBOARD_WEBVIEW",
-  "feature_name": "WebView Dashboard",
-  "data": [
-    {
-      "scene": "User opens the main app screen; the WebView loads the Home Assistant frontend.",
-      "purpose": "Display the smart home control panel for monitoring and controlling devices.",
-      "source": "Home Assistant server (frontend resources loaded via WebView)",
-      "item": "WebView cookies, session data, cached page resources",
-      "frequency": "Every time the app is opened",
-      "processing": "Local only",
-      "storage": "WebView cookies and cache stored locally on device via CookieManager and WebView cache",
-      "recipient": "Device-local only",
-      "thirdparty": "Frontend content comes from the user's self-hosted Home Assistant server; third-party cookies accepted for embedded cross-origin content in frontend integrations",
-      "switchpath": "N/A (dashboard is the main app screen)"
-    }
-  ],
-  "permissions": []
-}
+[
+  {
+    "id": "FLOW_WEBVIEW_DASHBOARD_LOAD",
+    "data": [
+      {
+        "scene": "WebView Cookies / Session Data",
+        "purpose": "The app loads the Home Assistant frontend through a WebView, managing session cookies via CookieManager and handling page navigation through the WebView client.",
+        "source": "Home Assistant Companion",
+        "item": "WebView Cookies / Session Data",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": []
+  }
+]

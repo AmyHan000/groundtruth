@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "导入用户凭证",
+        "purpose": "从存储设备读取并安装用户凭证",
+        "source": "用户文件",
+        "item": "凭证文件读取",
+        "frequency": "用户主动操作",
+        "processing": "本地处理",
+        "storage": "系统安全存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "文件选择器"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "文件读取权限",
+        "scene": "读取凭证文件",
+        "authorization": "用户授权",
+        "purpose": "从存储设备读取凭证文件",
+        "impact": "无法选择凭证文件"
+      },
+      {
+        "name": "证书管理权限",
+        "scene": "安装凭证",
+        "authorization": "预授权",
+        "purpose": "将凭证安装到系统存储",
+        "impact": "无法安装凭证"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "导入用户凭证",
+        "purpose": "验证凭证密码",
+        "source": "用户输入",
+        "item": "证书密码",
+        "frequency": "用户主动输入",
+        "processing": "本地处理",
+        "storage": "内存中临时存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "密码输入页面"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "文件读取权限",
+        "scene": "读取凭证文件",
+        "authorization": "用户授权",
+        "purpose": "从存储设备读取凭证文件",
+        "impact": "无法选择凭证文件"
+      },
+      {
+        "name": "证书管理权限",
+        "scene": "安装凭证",
+        "authorization": "预授权",
+        "purpose": "将凭证安装到系统存储",
+        "impact": "无法安装凭证"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "导入用户凭证",
+        "purpose": "将凭证安装到系统存储",
+        "source": "用户文件",
+        "item": "凭证安装操作",
+        "frequency": "用户主动操作",
+        "processing": "本地处理",
+        "storage": "系统安全存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "安装确认弹窗"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "文件读取权限",
+        "scene": "读取凭证文件",
+        "authorization": "用户授权",
+        "purpose": "从存储设备读取凭证文件",
+        "impact": "无法选择凭证文件"
+      },
+      {
+        "name": "证书管理权限",
+        "scene": "安装凭证",
+        "authorization": "预授权",
+        "purpose": "将凭证安装到系统存储",
+        "impact": "无法安装凭证"
+      }
+    ]
+  }
+]

@@ -1,0 +1,10 @@
+查看证书
+
+1 我们如何收集和使用您的个人信息：
+本功能用于展示用户已安装的证书和凭证列表。通过系统证书管理API（CertManager），从本地证书存储中获取系统可信证书列表、用户可信证书列表、应用凭证列表和系统凭证列表。采集频率：每次打开页面时获取。数据类型包括证书别名、主题名称、证书URI等证书元信息。所有数据仅在本地处理和展示，不涉及网络传输。
+
+2 设备权限调用：
+ohos.permission.ACCESS_CERT_MANAGER权限：用于访问证书管理服务，获取证书列表信息。拒绝后将无法查看证书列表。
+ohos.permission.ACCESS_USER_TRUSTED_CERT权限：用于访问用户可信证书存储。拒绝后无法查看用户安装的证书。
+ohos.permission.ACCESS_SYSTEM_APP_CERT权限：用于访问系统应用证书存储。拒绝后无法查看系统凭证。
+ohos.permission.GET_BUNDLE_INFO权限：用于获取应用信息。拒绝后可能影响应用名称和图标的显示。

@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/certInstallFromStorage.ets",
+        "line": 186,
+        "code": "documentPicker.select(documentSelectOptions).then((documentSelectResult) => {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/FileIoModel.ets",
+        "line": 24,
+        "code": "getMediaFileData(mediaUri: string, callback: Function): void {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/FileIoModel.ets",
+        "line": 28,
+        "code": "file = fs.openSync(mediaUri, fs.OpenMode.READ_ONLY);"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CredPwdInputPage.ets",
+        "line": 165,
+        "code": "TextInput({ text: this.certPwd })"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/pages/detail/CredPwdInputPage.ets",
+        "line": 114,
+        "code": "GlobalContext.getContext().getPwdStore().setCertPwd(this.certPwd);"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 296,
+        "code": "this.installPublicCertificate(data, pwd, (errCode: CMModelErrorCode, uri: string) => {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 734,
+        "code": "let result: CertManager.CMResult = await CertManager.installPublicCertificate(data, pwd);"
+      }
+    ]
+  }
+]

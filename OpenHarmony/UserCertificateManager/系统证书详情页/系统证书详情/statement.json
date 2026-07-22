@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "查看系统证书详情",
+        "purpose": "显示系统预置证书的详细信息",
+        "source": "系统证书存储",
+        "item": "证书名称、类型、颁发者、有效期、公钥",
+        "frequency": "用户点击查看",
+        "processing": "本地读取并解密显示",
+        "storage": "不存储",
+        "recipient": "仅本地显示",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": []
+  }
+]

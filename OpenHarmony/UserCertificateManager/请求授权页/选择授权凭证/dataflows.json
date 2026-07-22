@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/requestAuth.ets",
+        "line": 238,
+        "code": "this.mAppCredAuthPresenter.updateAppCredList();"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/presenter/CmAppCredAuthPresenter.ets",
+        "line": 31,
+        "code": "export default class CmAppCredAuthPresenter {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 512,
+        "code": "public async getAppCredList(): Promise<Array<CredentialAbstractVo>> {"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 516,
+        "code": "let result = await CertManager.getAllPublicCertificates();"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "certmanager/src/main/ets/pages/requestAuth.ets",
+        "line": 59,
+        "code": "this.mAppCredAuthPresenter.requestAuthorize(this.selectUri, appUidInfo.appUid);"
+      },
+      {
+        "filePath": "certmanager/src/main/ets/model/CertMangerModel.ets",
+        "line": 679,
+        "code": "let result = await CertManager.grantPublicCertificate(uri, appUid);"
+      }
+    ]
+  }
+]

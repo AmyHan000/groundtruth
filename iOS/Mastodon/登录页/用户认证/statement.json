@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "用户登录",
+        "purpose": "身份验证",
+        "source": "用户输入",
+        "item": "登录凭证",
+        "frequency": "每次登录",
+        "processing": "加密传输",
+        "storage": "Keychain存储",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "OAuth认证",
+        "switchpath": "退出登录"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "Keychain访问",
+        "purpose": "安全存储认证信息",
+        "source": "系统Keychain",
+        "item": "认证令牌",
+        "frequency": "每次启动",
+        "processing": "本地加密存储",
+        "storage": "Keychain",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "退出登录后清除"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "注册推送通知",
+        "purpose": "注册APNs推送通知服务",
+        "source": "APNs",
+        "item": "推送注册令牌",
+        "frequency": "登录时",
+        "processing": "向Apple服务器注册推送令牌",
+        "storage": "本地加密存储",
+        "recipient": "APNs服务器",
+        "thirdparty": "Apple Push Notification Service",
+        "switchpath": "可在设置中关闭"
+      }
+    ],
+    "permissions": []
+  }
+]

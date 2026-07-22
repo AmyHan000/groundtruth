@@ -1,0 +1,91 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "浏览时间线",
+        "purpose": "显示社交内容",
+        "source": "服务器API",
+        "item": "帖子内容",
+        "frequency": "每次刷新",
+        "processing": "本地处理",
+        "storage": "缓存存储",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "发布帖子",
+        "purpose": "发布用户内容",
+        "source": "用户输入",
+        "item": "帖子文本",
+        "frequency": "每次发布",
+        "processing": "加密传输",
+        "storage": "服务器存储",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "不发布"
+      },
+      {
+        "scene": "发布帖子",
+        "purpose": "上传媒体",
+        "source": "用户选择",
+        "item": "图片/视频",
+        "frequency": "每次上传",
+        "processing": "压缩处理",
+        "storage": "服务器存储",
+        "recipient": "Mastodon服务器",
+        "thirdparty": "无",
+        "switchpath": "不上传媒体"
+      }
+    ],
+    "permissions": [
+      "相机",
+      "相册"
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "查看个人资料",
+        "purpose": "显示用户信息",
+        "source": "服务器API",
+        "item": "用户资料",
+        "frequency": "每次访问",
+        "processing": "本地渲染",
+        "storage": "内存缓存",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": 4,
+    "data": [
+      {
+        "scene": "账户设置",
+        "purpose": "管理通知偏好",
+        "source": "用户设置",
+        "item": "通知设置",
+        "frequency": "每次修改",
+        "processing": "本地存储",
+        "storage": "UserDefaults",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "恢复默认"
+      }
+    ],
+    "permissions": [
+      "通知"
+    ]
+  }
+]

@@ -1,135 +1,133 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_WEBVIEW_DASHBOARD",
-      "data_type": "WKWebView Session Data (URLs, cookies, cache, local storage)",
-      "description": "WKWebView loads HA frontend dashboard. Cookies, local storage, and cache persisted via WKWebsiteDataStore. User-agent includes app name/version.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "WebViewController.init",
-          "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController.swift",
-          "line": 85,
-          "code": "init(server:, shouldLoadImmediately:)",
-          "details": "WebViewController initialized with server context; loads HA frontend URL."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "WebViewController.setupUserContentController",
-          "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController+WebViewSetup.swift",
-          "line": 15,
-          "code": "func setupUserContentController() -> WKUserContentController { userContentController.add(safeScriptMessageHandler, name: \"externalBus\") }",
-          "details": "WKUserContentController configured with message handlers: getExternalAuth, revokeExternalAuth, externalBus, updateThemeColors, logError."
-        },
-        {
-          "step": "Sensitive Operation",
-          "function": "WebViewController.viewDidLoad",
-          "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController.swift",
-          "line": 183,
-          "code": "override func viewDidLoad() { config.applicationNameForUserAgent = HomeAssistantAPI.applicationNameForUserAgent }",
-          "details": "WKWebView configured with app-specific user agent and content mode."
-        },
-        {
-          "step": "Data Processing",
-          "function": "WKWebViewConfiguration",
-          "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController.swift",
-          "line": 178,
-          "code": "static func makeWebViewConfiguration() -> WKWebViewConfiguration { config.allowsInlineMediaPlayback = true }",
-          "details": "WebView configuration allows inline media playback and sets media types requiring user action."
-        },
-        {
-          "step": "Data Processing",
-          "function": "WebsiteDataStoreHandler.cleanCache",
-          "file": "Sources/Shared/WebsiteDataStoreHandler.swift",
-          "line": 25,
-          "code": "func cleanCache(dataTypes:, completion:) { WKWebsiteDataStore.default().removeData(ofTypes: dataTypes, ...) }",
-          "details": "WKWebsiteDataStore manages cookies, disk cache, memory cache, fetch cache, and service worker registrations."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "WebViewController.setupURLObserver",
-          "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController+WebViewSetup.swift",
-          "line": 52,
-          "code": "func setupURLObserver() { urlObserver = webView.observe(\\.url) { ... userActivity?.webpageURL = cleanURL } }",
-          "details": "Current WebView URL observed and set on NSUserActivity for Handoff."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_WEBVIEW_JAVASCRIPT_BRIDGE",
-      "data_type": "External Auth Tokens / Internal Messages",
-      "description": "JavaScript bridge communicates between HA frontend and native app: external auth tokens, Haptics, Assist, and notifications.",
-      "flow_steps": [
-        {
-          "step": "Sensitive Operation",
-          "function": "WebViewScriptMessageHandler",
-          "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController.swift",
-          "line": 155,
-          "code": "let webViewScriptMessageHandler = WebViewScriptMessageHandler()",
-          "details": "Handles script messages from frontend JavaScript: getExternalAuth provides bearer token to web content, revokeExternalAuth clears session."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "WebViewExternalMessageHandler",
-          "file": "Sources/App/Frontend/ExternalMessageBus/WebViewExternalMessageHandler.swift",
-          "line": 1,
-          "code": "class WebViewExternalMessageHandler",
-          "details": "External message bus handles haptic feedback, assist requests, and Improv BLE scanning commands from frontend."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_WEBVIEW_HANDOFF",
-      "data_type": "Current URL (for Handoff/Universal Links)",
-      "description": "WebView URL is shared via NSUserActivity for Handoff between Apple devices. Associated domains declared for universal links.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "WebViewController.setupURLObserver",
-          "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController+WebViewSetup.swift",
-          "line": 60,
-          "code": "userActivity?.isEligibleForHandoff = true; userActivity?.webpageURL = cleanURL; userActivity?.becomeCurrent()",
-          "details": "Current frontend URL shared via NSUserActivity for cross-device Handoff."
-        },
-        {
-          "step": "Data Processing",
-          "function": "Info.plist associated-domains",
-          "file": "Configuration/Entitlements/App-ios.entitlements",
-          "line": 5,
-          "code": "<key>com.apple.developer.associated-domains</key><array><string>applinks:home-assistant.io</string>...</array>",
-          "details": "Associated domains declared for universal links to home-assistant.io."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_WEBVIEW_CROSS_SITE_TRACKING",
-      "data_type": "Cross-Website Tracking Preference",
-      "description": "App declares NSCrossWebsiteTrackingUsageDescription for optionally enabling cross-site tracking in WKWebView if user configuration requires it.",
-      "flow_steps": [
-        {
-          "step": "Data Collection",
-          "function": "Info.plist NSCrossWebsiteTrackingUsageDescription",
-          "file": "Sources/App/Resources/Info.plist",
-          "line": 1,
-          "code": "<key>NSCrossWebsiteTrackingUsageDescription</key><string>Optionally enable cross-website tracking if your configuration requires it.</string>",
-          "details": "Cross-website tracking declared in Info.plist for optional WKWebView tracking configuration."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_WEBVIEW_PULL_TO_REFRESH",
-      "data_type": "Frontend Cache Clear",
-      "description": "Pull-to-refresh clears frontend asset cache (disk cache, memory cache, fetch cache, service worker registrations) then reloads.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "HomeAssistantViewModel.performPullToRefresh",
-          "file": "Sources/App/Frontend/WebView/HomeAssistantView/HomeAssistantViewModel.swift",
-          "line": 118,
-          "code": "private func performPullToRefresh(using controller:) { Current.websiteDataStoreHandler.cleanCache(dataTypes: frontendAssetDataTypes) { ... } }",
-          "details": "User pulls to refresh; frontend asset cache is cleaned before reload."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_WEBVIEW_DASHBOARD",
+    "data_type": "WKWebView Session Data (URLs, cookies, cache, local storage)",
+    "description": "WKWebView loads HA frontend dashboard. Cookies, local storage, and cache persisted via WKWebsiteDataStore. User-agent includes app name/version.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "WebViewController.init",
+        "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController.swift",
+        "line": 85,
+        "code": "init(server:, shouldLoadImmediately:)",
+        "details": "WebViewController initialized with server context; loads HA frontend URL."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "WebViewController.setupUserContentController",
+        "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController+WebViewSetup.swift",
+        "line": 15,
+        "code": "func setupUserContentController() -> WKUserContentController { userContentController.add(safeScriptMessageHandler, name: \"externalBus\") }",
+        "details": "WKUserContentController configured with message handlers: getExternalAuth, revokeExternalAuth, externalBus, updateThemeColors, logError."
+      },
+      {
+        "step": "Sensitive Operation",
+        "function": "WebViewController.viewDidLoad",
+        "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController.swift",
+        "line": 183,
+        "code": "override func viewDidLoad() { config.applicationNameForUserAgent = HomeAssistantAPI.applicationNameForUserAgent }",
+        "details": "WKWebView configured with app-specific user agent and content mode."
+      },
+      {
+        "step": "Data Processing",
+        "function": "WKWebViewConfiguration",
+        "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController.swift",
+        "line": 178,
+        "code": "static func makeWebViewConfiguration() -> WKWebViewConfiguration { config.allowsInlineMediaPlayback = true }",
+        "details": "WebView configuration allows inline media playback and sets media types requiring user action."
+      },
+      {
+        "step": "Data Processing",
+        "function": "WebsiteDataStoreHandler.cleanCache",
+        "file": "Sources/Shared/WebsiteDataStoreHandler.swift",
+        "line": 25,
+        "code": "func cleanCache(dataTypes:, completion:) { WKWebsiteDataStore.default().removeData(ofTypes: dataTypes, ...) }",
+        "details": "WKWebsiteDataStore manages cookies, disk cache, memory cache, fetch cache, and service worker registrations."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "WebViewController.setupURLObserver",
+        "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController+WebViewSetup.swift",
+        "line": 52,
+        "code": "func setupURLObserver() { urlObserver = webView.observe(\\.url) { ... userActivity?.webpageURL = cleanURL } }",
+        "details": "Current WebView URL observed and set on NSUserActivity for Handoff."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_WEBVIEW_JAVASCRIPT_BRIDGE",
+    "data_type": "External Auth Tokens / Internal Messages",
+    "description": "JavaScript bridge communicates between HA frontend and native app: external auth tokens, Haptics, Assist, and notifications.",
+    "flow_steps": [
+      {
+        "step": "Sensitive Operation",
+        "function": "WebViewScriptMessageHandler",
+        "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController.swift",
+        "line": 155,
+        "code": "let webViewScriptMessageHandler = WebViewScriptMessageHandler()",
+        "details": "Handles script messages from frontend JavaScript: getExternalAuth provides bearer token to web content, revokeExternalAuth clears session."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "WebViewExternalMessageHandler",
+        "file": "Sources/App/Frontend/ExternalMessageBus/WebViewExternalMessageHandler.swift",
+        "line": 1,
+        "code": "class WebViewExternalMessageHandler",
+        "details": "External message bus handles haptic feedback, assist requests, and Improv BLE scanning commands from frontend."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_WEBVIEW_HANDOFF",
+    "data_type": "Current URL (for Handoff/Universal Links)",
+    "description": "WebView URL is shared via NSUserActivity for Handoff between Apple devices. Associated domains declared for universal links.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "WebViewController.setupURLObserver",
+        "file": "Sources/App/Frontend/WebView/WebViewController/WebViewController+WebViewSetup.swift",
+        "line": 60,
+        "code": "userActivity?.isEligibleForHandoff = true; userActivity?.webpageURL = cleanURL; userActivity?.becomeCurrent()",
+        "details": "Current frontend URL shared via NSUserActivity for cross-device Handoff."
+      },
+      {
+        "step": "Data Processing",
+        "function": "Info.plist associated-domains",
+        "file": "Configuration/Entitlements/App-ios.entitlements",
+        "line": 5,
+        "code": "<key>com.apple.developer.associated-domains</key><array><string>applinks:home-assistant.io</string>...</array>",
+        "details": "Associated domains declared for universal links to home-assistant.io."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_WEBVIEW_CROSS_SITE_TRACKING",
+    "data_type": "Cross-Website Tracking Preference",
+    "description": "App declares NSCrossWebsiteTrackingUsageDescription for optionally enabling cross-site tracking in WKWebView if user configuration requires it.",
+    "flow_steps": [
+      {
+        "step": "Data Collection",
+        "function": "Info.plist NSCrossWebsiteTrackingUsageDescription",
+        "file": "Sources/App/Resources/Info.plist",
+        "line": 1,
+        "code": "<key>NSCrossWebsiteTrackingUsageDescription</key><string>Optionally enable cross-website tracking if your configuration requires it.</string>",
+        "details": "Cross-website tracking declared in Info.plist for optional WKWebView tracking configuration."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_WEBVIEW_PULL_TO_REFRESH",
+    "data_type": "Frontend Cache Clear",
+    "description": "Pull-to-refresh clears frontend asset cache (disk cache, memory cache, fetch cache, service worker registrations) then reloads.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "HomeAssistantViewModel.performPullToRefresh",
+        "file": "Sources/App/Frontend/WebView/HomeAssistantView/HomeAssistantViewModel.swift",
+        "line": 118,
+        "code": "private func performPullToRefresh(using controller:) { Current.websiteDataStoreHandler.cleanCache(dataTypes: frontendAssetDataTypes) { ... } }",
+        "details": "User pulls to refresh; frontend asset cache is cleaned before reload."
+      }
+    ]
+  }
+]

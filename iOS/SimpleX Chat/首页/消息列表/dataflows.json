@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Model/NetworkObserver.swift",
+        "line": 32,
+        "code": "private func networkPathChanged(path: NWPath) {\n        let info = UserNetworkInfo(\n            networkType: networkTypeFromPath(path),\n            online: path.status == .satisfied\n        )\n        if (prevInfo != info) {\n            prevInfo = info\n            setNetworkInfo(info)\n        }\n    }"
+      },
+      {
+        "filePath": "apps/ios/Shared/Model/NetworkObserver.swift",
+        "line": 43,
+        "code": "private func networkTypeFromPath(_ path: NWPath) -> UserNetworkType {\n        if path.usesInterfaceType(.wiredEthernet) {\n            .ethernet\n        } else if path.usesInterfaceType(.wifi) {\n            .wifi\n        } else if path.usesInterfaceType(.cellular) {\n            .cellular\n        } else if path.usesInterfaceType(.other) {\n            .other\n        } else {\n            .none\n        }\n    }"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Views/RemoteAccess/ConnectDesktopView.swift",
+        "line": 17,
+        "code": "@AppStorage(DEFAULT_DEVICE_NAME_FOR_REMOTE_ACCESS) private var deviceName = UIDevice.current.name"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Model/SimpleXAPI.swift",
+        "line": 237,
+        "code": "func chatRecvMsg(_ ctrl: chat_ctrl? = nil) async -> APIResult<ChatEvent>? {\n    await withCheckedContinuation { cont in\n        _  = withBGTask(bgDelay: msgDelay) { () -> APIResult<ChatEvent>? in\n            let evt: APIResult<ChatEvent>? = recvSimpleXMsg(ctrl)\n            cont.resume(returning: evt)\n            return evt\n        }\n    }\n}"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Model/SimpleXAPI.swift",
+        "line": 93,
+        "code": "func chatSendCmdSync<R: ChatAPIResult>(_ cmd: ChatCommand, bgTask: Bool = true, bgDelay: Double? = nil, ctrl: chat_ctrl? = nil, log: Bool = true) throws -> R {\n    let res: APIResult<R> = chatApiSendCmdSync(cmd, bgTask: bgTask, bgDelay: bgDelay, ctrl: ctrl, log: log)\n    return try apiResult(res)\n}"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Model/SimpleXAPI.swift",
+        "line": 885,
+        "code": "func apiSetNetworkInfo(_ networkInfo: UserNetworkInfo) throws {\n    let r: ChatResponse2 = try chatSendCmdSync(.apiSetNetworkInfo(networkInfo: networkInfo))\n    if case .cmdOk = r { return }\n    throw r.unexpected\n}"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "dataflow": [
+      {
+        "filePath": "apps/ios/Shared/Views/NewChat/NewChatView.swift",
+        "line": 806,
+        "code": "let status = AVCaptureDevice.authorizationStatus(for: .video)"
+      }
+    ]
+  }
+]

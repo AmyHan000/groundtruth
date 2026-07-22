@@ -1,0 +1,10 @@
+选择授权凭证
+
+1 我们如何收集和使用您的个人信息：
+本功能用于响应其他应用的凭证授权请求。当其他应用请求使用凭证时，本页面显示可用的凭证列表供用户选择。通过证书管理API（CertManager），获取用户的凭证列表（通过getAllPublicCertificates接口）。用户选择凭证后，通过授权接口（grantPublicCertificate）将凭证授权给请求的应用。同时获取请求应用的名称和图标信息（通过BundleManager API）。采集频率：仅在收到授权请求时显示。处理方式：本地处理，不涉及网络传输。
+
+2 设备权限调用：
+ohos.permission.ACCESS_CERT_MANAGER权限：用于访问证书管理服务，获取凭证列表和执行授权操作。拒绝后将无法响应授权请求。
+ohos.permission.GET_BUNDLE_INFO权限：用于获取请求应用的信息（名称、图标）。拒绝后可能无法显示请求应用的详细信息。
+ohos.permission.GET_BUNDLE_RESOURCES权限：用于获取应用资源信息。拒绝后可能无法显示应用图标。
+ohos.permission.ACCESS_BIOMETRIC权限：用于进行身份验证（指纹识别）。拒绝后可能无法完成身份验证流程。

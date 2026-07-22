@@ -1,6 +1,15 @@
-应用链接 | 页面 | 功能 | 数据流 | 结构化隐私声明 | 自然语言隐私声明
---- | --- | --- | --- | --- | ---
-https://gitcode.com/openharmony/applications_dlp_manager | 文件保护页 | 保护文件 | 系统API→应用信息→显示 | 见statement.json | 本功能获取DLP管理器应用信息并显示给用户，用于事件上报
-https://gitcode.com/openharmony/applications_dlp_manager | 文件保护页 | 保护文件 | 文件系统→文件信息→加密处理 | 见statement.json | 本功能获取文件大小和类型信息，用于DLP加密处理
-https://gitcode.com/openharmony/applications_dlp_manager | 文件保护页 | 保护文件 | 系统API→账号信息→显示 | 见statement.json | 本功能获取当前登录的域账号信息，用于设置文件所有者
-https://gitcode.com/openharmony/applications_dlp_manager | 文件保护页 | 保护文件 | 系统API→用户ID→上报 | 见statement.json | 本功能获取用户ID并上报到系统事件服务，用于操作日志记录
+保护文件
+
+1 我们如何收集和使用您的个人信息：
+获取DLP管理器应用信息并显示给用户用于事件上报，通过 系统API，收集您的**应用信息**。采集频率：每次打开页面。处理方式说明：本地显示
+
+获取文件大小和类型信息用于DLP加密处理，通过 文件系统，收集您的**文件信息**。采集频率：每次保护文件。处理方式说明：本地加密处理
+
+获取当前登录的域账号信息用于设置文件所有者，通过 系统API，收集您的**域账号信息**。采集频率：每次保护文件。处理方式说明：本地显示
+
+获取用户ID用于操作日志记录，通过 系统API，收集您的**用户ID**。采集频率：每次操作。处理方式说明：上报至系统事件服务
+
+2 设备权限调用：
+ohos.permission.GET_ACCOUNT_INFO（获取账号信息）权限：获取当前登录的域账号信息。如您拒绝授权，将无法设置文件所有者
+
+ohos.permission.READ_FILE（文件读取）权限：读取文件大小和类型信息。如您拒绝授权，将无法进行DLP加密处理

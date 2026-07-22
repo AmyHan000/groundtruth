@@ -1,95 +1,93 @@
-{
-  "project_privacy_data_flows": [
-    {
-      "id": "FLOW_NOTIFICATION_SETTINGS_MANAGEMENT",
-      "data_type": "Notification Category/Action Configuration",
-      "description": "Notification settings UI allows users to configure notification categories, actions, and sounds. Settings stored in database and synced with HA server.",
-      "flow_steps": [
-        {
-          "step": "Data Transmission",
-          "function": "NotificationCategoryEditorView",
-          "file": "Sources/App/Settings/Notifications/NotificationCategoryEditorView.swift",
-          "line": 1,
-          "code": "struct NotificationCategoryEditorView: View",
-          "details": "User configures notification category with actions (foreground, background, authentication-required)."
-        },
-        {
-          "step": "Data Transmission",
-          "function": "MobileAppUpdateRegistrationRequest",
-          "file": "Sources/Shared/API/Requests/MobileAppUpdateRegistrationRequest.swift",
-          "line": 1,
-          "code": "struct MobileAppUpdateRegistrationRequest",
-          "details": "Updated notification categories/actions pushed to HA server via registration update endpoint."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_NOTIFICATION_HISTORY",
-      "data_type": "Push Notification Content (Message text, titles, metadata)",
-      "description": "Notification history records incoming push notifications content (title, body, userInfo) to local database for review.",
-      "flow_steps": [
-        {
-          "step": "Data Collection",
-          "function": "NotificationService.didReceive",
-          "file": "Sources/Extensions/NotificationService/NotificationService.swift",
-          "line": 12,
-          "code": "override func didReceive(_ request:, withContentHandler:) { Current.notificationHistoryStore.record(NotificationHistoryEntry(content: request.content, kind: .remote)) }",
-          "details": "Notification service extension records notification content (title, body, userInfo) to local database before delivery."
-        },
-        {
-          "step": "Data Collection",
-          "function": "NotificationHistoryView",
-          "file": "Sources/App/Settings/Notifications/NotificationHistoryView.swift",
-          "line": 1,
-          "code": "struct NotificationHistoryView: View",
-          "details": "User can view history of received push notifications with content details."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_NOTIFICATION_SOUNDS",
-      "data_type": "Custom Notification Sounds",
-      "description": "Custom notification sounds imported and managed for push notification categories.",
-      "flow_steps": [
-        {
-          "step": "Data Collection",
-          "function": "NotificationSoundsView",
-          "file": "Sources/App/Settings/Notifications/NotificationSoundsView.swift",
-          "line": 1,
-          "code": "struct NotificationSoundsView: View",
-          "details": "User manages custom notification sounds for categories."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_NOTIFICATION_RATE_LIMITS",
-      "data_type": "Push Notification Rate Limit Data",
-      "description": "Notification rate limit monitoring displays current rate limit status and resets.",
-      "flow_steps": [
-        {
-          "step": "Data Collection",
-          "function": "NotificationRateLimitsAPI",
-          "file": "Sources/App/Settings/Notifications/NotificationRateLimitsAPI.swift",
-          "line": 1,
-          "code": "class NotificationRateLimitsAPI",
-          "details": "Fetches push notification rate limit data from HA server."
-        }
-      ]
-    },
-    {
-      "id": "FLOW_NOTIFICATION_ACTION_SHORTCUT",
-      "data_type": "Notification Action Shortcut Name",
-      "description": "Notification actions can trigger shortcuts via callback URL scheme.",
-      "flow_steps": [
-        {
-          "step": "Trigger",
-          "function": "NotificationManager.handleShortcutNotification",
-          "file": "Sources/App/Notifications/NotificationManager.swift",
-          "line": 314,
-          "code": "fileprivate func handleShortcutNotification(_ shortcutName:, _ shortcutDict:) { var inputParams: CallbackURLKit.Parameters = shortcutDict }",
-          "details": "Notification action triggers CallbackURLKit shortcut with parameters from push payload."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "FLOW_NOTIFICATION_SETTINGS_MANAGEMENT",
+    "data_type": "Notification Category/Action Configuration",
+    "description": "Notification settings UI allows users to configure notification categories, actions, and sounds. Settings stored in database and synced with HA server.",
+    "flow_steps": [
+      {
+        "step": "Data Transmission",
+        "function": "NotificationCategoryEditorView",
+        "file": "Sources/App/Settings/Notifications/NotificationCategoryEditorView.swift",
+        "line": 1,
+        "code": "struct NotificationCategoryEditorView: View",
+        "details": "User configures notification category with actions (foreground, background, authentication-required)."
+      },
+      {
+        "step": "Data Transmission",
+        "function": "MobileAppUpdateRegistrationRequest",
+        "file": "Sources/Shared/API/Requests/MobileAppUpdateRegistrationRequest.swift",
+        "line": 1,
+        "code": "struct MobileAppUpdateRegistrationRequest",
+        "details": "Updated notification categories/actions pushed to HA server via registration update endpoint."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_NOTIFICATION_HISTORY",
+    "data_type": "Push Notification Content (Message text, titles, metadata)",
+    "description": "Notification history records incoming push notifications content (title, body, userInfo) to local database for review.",
+    "flow_steps": [
+      {
+        "step": "Data Collection",
+        "function": "NotificationService.didReceive",
+        "file": "Sources/Extensions/NotificationService/NotificationService.swift",
+        "line": 12,
+        "code": "override func didReceive(_ request:, withContentHandler:) { Current.notificationHistoryStore.record(NotificationHistoryEntry(content: request.content, kind: .remote)) }",
+        "details": "Notification service extension records notification content (title, body, userInfo) to local database before delivery."
+      },
+      {
+        "step": "Data Collection",
+        "function": "NotificationHistoryView",
+        "file": "Sources/App/Settings/Notifications/NotificationHistoryView.swift",
+        "line": 1,
+        "code": "struct NotificationHistoryView: View",
+        "details": "User can view history of received push notifications with content details."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_NOTIFICATION_SOUNDS",
+    "data_type": "Custom Notification Sounds",
+    "description": "Custom notification sounds imported and managed for push notification categories.",
+    "flow_steps": [
+      {
+        "step": "Data Collection",
+        "function": "NotificationSoundsView",
+        "file": "Sources/App/Settings/Notifications/NotificationSoundsView.swift",
+        "line": 1,
+        "code": "struct NotificationSoundsView: View",
+        "details": "User manages custom notification sounds for categories."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_NOTIFICATION_RATE_LIMITS",
+    "data_type": "Push Notification Rate Limit Data",
+    "description": "Notification rate limit monitoring displays current rate limit status and resets.",
+    "flow_steps": [
+      {
+        "step": "Data Collection",
+        "function": "NotificationRateLimitsAPI",
+        "file": "Sources/App/Settings/Notifications/NotificationRateLimitsAPI.swift",
+        "line": 1,
+        "code": "class NotificationRateLimitsAPI",
+        "details": "Fetches push notification rate limit data from HA server."
+      }
+    ]
+  },
+  {
+    "id": "FLOW_NOTIFICATION_ACTION_SHORTCUT",
+    "data_type": "Notification Action Shortcut Name",
+    "description": "Notification actions can trigger shortcuts via callback URL scheme.",
+    "flow_steps": [
+      {
+        "step": "Trigger",
+        "function": "NotificationManager.handleShortcutNotification",
+        "file": "Sources/App/Notifications/NotificationManager.swift",
+        "line": 314,
+        "code": "fileprivate func handleShortcutNotification(_ shortcutName:, _ shortcutDict:) { var inputParams: CallbackURLKit.Parameters = shortcutDict }",
+        "details": "Notification action triggers CallbackURLKit shortcut with parameters from push payload."
+      }
+    ]
+  }
+]

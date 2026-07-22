@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "保存文件",
+        "purpose": "创建新文件并返回URI给调用方应用",
+        "source": "用户操作",
+        "item": "新文件URI",
+        "frequency": "每次保存",
+        "processing": "本地创建并返回",
+        "storage": "不存储",
+        "recipient": "调用方应用",
+        "thirdparty": "调用方应用",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "scene": "创建新文件",
+        "authorization": "动态授权",
+        "purpose": "在选定目录创建新文件",
+        "impact": "无法创建文件"
+      },
+      {
+        "name": "ohos.permission.FILE_ACCESS_MANAGER",
+        "scene": "访问文件系统",
+        "authorization": "系统授权",
+        "purpose": "创建文件操作",
+        "impact": "无法创建文件"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "保存文件",
+        "purpose": "使用调用方指定的文件名创建文件",
+        "source": "调用方应用",
+        "item": "文件名",
+        "frequency": "每次保存",
+        "processing": "本地使用",
+        "storage": "不存储",
+        "recipient": "仅本应用",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "scene": "创建新文件",
+        "authorization": "动态授权",
+        "purpose": "在选定目录创建新文件",
+        "impact": "无法创建文件"
+      },
+      {
+        "name": "ohos.permission.FILE_ACCESS_MANAGER",
+        "scene": "访问文件系统",
+        "authorization": "系统授权",
+        "purpose": "创建文件操作",
+        "impact": "无法创建文件"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "保存文件",
+        "purpose": "授予调用方新创建文件的访问权限",
+        "source": "系统权限API",
+        "item": "文件创建权限",
+        "frequency": "每次保存",
+        "processing": "系统授权",
+        "storage": "系统记录",
+        "recipient": "调用方应用",
+        "thirdparty": "调用方应用",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "scene": "创建新文件",
+        "authorization": "动态授权",
+        "purpose": "在选定目录创建新文件",
+        "impact": "无法创建文件"
+      },
+      {
+        "name": "ohos.permission.FILE_ACCESS_MANAGER",
+        "scene": "访问文件系统",
+        "authorization": "系统授权",
+        "purpose": "创建文件操作",
+        "impact": "无法创建文件"
+      }
+    ]
+  }
+]

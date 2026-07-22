@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "MastodonSDK/Sources/MastodonCore/Service/API/APIService+Search.swift",
+        "line": 21,
+        "code": "let response = try await Mastodon.API.V2.Search.search(\n            session: session,\n            domain: domain,\n            query: query,\n            authorization: authorization\n        ).singleOutput()"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "MastodonSDK/Sources/MastodonCore/Service/API/APIService.swift",
+        "line": 32,
+        "code": "configuration.httpAdditionalHeaders = [\"User-Agent\" : \"mastodon-ios/\" + appVersion]"
+      }
+    ]
+  }
+]

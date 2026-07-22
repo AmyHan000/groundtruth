@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/fragments/discover/SearchQueryFragment.java",
+        "line": 353,
+        "code": "searchBtn.getLocationInWindow(loc);"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "mastodon/src/main/java/org/joinmastodon/android/api/MastodonAPIController.java",
+        "line": 100,
+        "code": "builder.header(\"Authorization\", \"Bearer \"+token);"
+      }
+    ]
+  }
+]

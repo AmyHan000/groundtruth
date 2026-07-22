@@ -1,19 +1,20 @@
-{
-  "id": "DASHBOARD_MEDIA_PLAYER",
-  "feature_name": "Media Player",
-  "data": [
-    {
-      "scene": "User clicks a media file (camera stream, doorbell video, audio) on the dashboard.",
-      "purpose": "Play surveillance camera streams, doorbell videos, and audio media from Home Assistant.",
-      "source": "Home Assistant server (streamed via HTTPS)",
-      "item": "Media stream content (audio/video) from HA server",
-      "frequency": "On-demand (each time the user taps a media item)",
-      "processing": "Local playback only; streamed over HTTPS from the user's Home Assistant server",
-      "storage": "Not stored on device; transient playback only",
-      "recipient": "Device-local only (rendered via native ExoPlayer overlay)",
-      "thirdparty": "No third-party involvement; media is streamed directly from the user's self-hosted Home Assistant server",
-      "switchpath": "N/A (media playback triggered per-item from the dashboard)"
-    }
-  ],
-  "permissions": []
-}
+[
+  {
+    "id": "FLOW_MEDIA_STREAMING",
+    "data": [
+      {
+        "scene": "Media Stream (Audio/Video from HA server)",
+        "purpose": "The app streams media files (camera streams, doorbell videos, audio) from the Home Assistant server via ExoPlayer, using the Bearer Token for authenticated access.",
+        "source": "Home Assistant Companion",
+        "item": "Media Stream (Audio/Video from HA server)",
+        "frequency": "Periodic",
+        "processing": "Uploaded to server",
+        "storage": "Server-side storage",
+        "recipient": "Home Assistant server (user self-hosted)",
+        "thirdparty": "No third-party data sharing",
+        "switchpath": "Settings -> Sensor Management"
+      }
+    ],
+    "permissions": []
+  }
+]

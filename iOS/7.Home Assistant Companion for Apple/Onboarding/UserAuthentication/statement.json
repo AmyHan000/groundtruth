@@ -1,43 +1,56 @@
-{
-  "id": "ONBOARDING_AUTH",
-  "feature_name": "用户身份认证",
-  "data": [
-    {
-      "scene": "用户登录 Home Assistant 服务器",
-      "purpose": "通过 OAuth2 协议获取访问令牌，用于后续 API 认证",
-      "source": "HA 服务器 (OAuth2 端点)",
-      "item": "Bearer Token、Refresh Token、授权码",
-      "frequency": "一次性（令牌刷新时自动更新）",
-      "processing": "本地加密存储",
-      "storage": "iOS Keychain（硬件加密）",
-      "recipient": "设备本地",
-      "thirdparty": "无第三方",
-      "switchpath": "设置 -> 服务器 -> 重新认证"
-    },
-    {
-      "scene": "mTLS 客户端证书认证",
-      "purpose": "可选的安全认证方式，使用客户端证书建立 HTTPS 连接",
-      "source": "iOS Keychain 中的客户端证书",
-      "item": "PKCS12 客户端证书",
-      "frequency": "每次 HTTPS 请求",
-      "processing": "本地处理，仅用于 TLS 握手",
-      "storage": "iOS Keychain（硬件加密）",
-      "recipient": "HA 服务器",
-      "thirdparty": "无第三方",
-      "switchpath": "设置 -> 服务器 -> 客户端证书"
-    },
-    {
-      "scene": "应用注册到 HA 服务器",
-      "purpose": "注册设备信息以便接收推送通知和识别设备",
-      "source": "应用本地",
-      "item": "设备名称、推送通知令牌、应用版本号、设备 ID",
-      "frequency": "首次注册和更新时触发",
-      "processing": "上传至服务器",
-      "storage": "服务器端存储",
-      "recipient": "HA 服务器（自托管）",
-      "thirdparty": "无第三方",
-      "switchpath": "设置 -> 服务器"
-    }
-  ],
-  "permissions": []
-}
+[
+  {
+    "id": "FLOW_USER_AUTH_TOKEN",
+    "data": [
+      {
+        "scene": "用户登录 Home Assistant 服务器",
+        "purpose": "通过 OAuth2 协议获取访问令牌，用于后续 API 认证",
+        "source": "HA 服务器 (OAuth2 端点)",
+        "item": "Bearer Token、Refresh Token、授权码",
+        "frequency": "一次性（令牌刷新时自动更新）",
+        "processing": "本地加密存储",
+        "storage": "iOS Keychain（硬件加密）",
+        "recipient": "设备本地",
+        "thirdparty": "无第三方",
+        "switchpath": "设置 -> 服务器 -> 重新认证"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": "FLOW_USER_AUTH_CLIENT_CERT",
+    "data": [
+      {
+        "scene": "mTLS 客户端证书认证",
+        "purpose": "可选的安全认证方式，使用客户端证书建立 HTTPS 连接",
+        "source": "iOS Keychain 中的客户端证书",
+        "item": "PKCS12 客户端证书",
+        "frequency": "每次 HTTPS 请求",
+        "processing": "本地处理，仅用于 TLS 握手",
+        "storage": "iOS Keychain（硬件加密）",
+        "recipient": "HA 服务器",
+        "thirdparty": "无第三方",
+        "switchpath": "设置 -> 服务器 -> 客户端证书"
+      }
+    ],
+    "permissions": []
+  },
+  {
+    "id": "FLOW_USER_AUTH_REGISTRATION",
+    "data": [
+      {
+        "scene": "应用注册到 HA 服务器",
+        "purpose": "注册设备信息以便接收推送通知和识别设备",
+        "source": "应用本地",
+        "item": "设备名称、推送通知令牌、应用版本号、设备 ID",
+        "frequency": "首次注册和更新时触发",
+        "processing": "上传至服务器",
+        "storage": "服务器端存储",
+        "recipient": "HA 服务器（自托管）",
+        "thirdparty": "无第三方",
+        "switchpath": "设置 -> 服务器"
+      }
+    ],
+    "permissions": []
+  }
+]

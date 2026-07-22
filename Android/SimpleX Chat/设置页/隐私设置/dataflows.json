@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/commonMain/kotlin/chat/simplex/common/model/SimpleXAPI.kt",
+        "line": 122,
+        "code": "val privacyProtectScreen = mkBoolPreference(SHARED_PREFS_PRIVACY_PROTECT_SCREEN, true)\n  val privacyAcceptImages = mkBoolPreference(SHARED_PREFS_PRIVACY_ACCEPT_IMAGES, true)\n  val privacyLinkPreviews = mkBoolPreference(SHARED_PREFS_PRIVACY_LINK_PREVIEWS, true)\n  val privacyLinkPreviewsShowAlert = mkBoolPreference(SHARED_PREFS_PRIVACY_LINK_PREVIEWS_SHOW_ALERT, true)\n  val privacySanitizeLinks = mkBoolPreference(SHARED_PREFS_PRIVACY_SANITIZE_LINKS, false)\n  // TODO remove\n  val privacyChatListOpenLinks = mkEnumPreference(SHARED_PREFS_PRIVACY_CHAT_LIST_OPEN_LINKS, PrivacyChatListOpenLinksMode.ASK) { PrivacyChatListOpenLinksMode.values().firstOrNull { it.name == this } }\n  val simplexLinkMode: SharedPreference<SimplexLinkMode> = mkSafeEnumPreference(SHARED_PREFS_PRIVACY_SIMPLEX_LINK_MODE, SimplexLinkMode.default)\n  val privacyShowChatPreviews = mkBoolPreference(SHARED_PREFS_PRIVACY_SHOW_CHAT_PREVIEWS, true)\n  val privacySaveLastDraft = mkBoolPreference(SHARED_PREFS_PRIVACY_SAVE_LAST_DRAFT, true)\n  val privacyDeliveryReceiptsSet = mkBoolPreference(SHARED_PREFS_PRIVACY_DELIVERY_RECEIPTS_SET, false)\n  val privacyEncryptLocalFiles = mkBoolPreference(SHARED_PREFS_PRIVACY_ENCRYPT_LOCAL_FILES, true)"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/androidMain/kotlin/chat/simplex/common/platform/Cryptor.android.kt",
+        "line": 60,
+        "code": "override fun encryptText(text: String, alias: String): Pair<ByteArray, ByteArray> {\n    val cipher: Cipher = Cipher.getInstance(TRANSFORMATION)\n    cipher.init(Cipher.ENCRYPT_MODE, createSecretKey(alias))\n    return Pair(cipher.doFinal(text.toByteArray(charset(\"UTF-8\"))), cipher.iv)\n  }"
+      },
+      {
+        "filePath": "apps/multiplatform/common/src/androidMain/kotlin/chat/simplex/common/platform/Cryptor.android.kt",
+        "line": 20,
+        "code": "override fun decryptData(data: ByteArray, iv: ByteArray, alias: String): String? {\n    val secretKey = getSecretKey(alias)\n    if (secretKey == null) {\n      if (!warningShown) {\n        // Repeated calls will not show the alert again\n        warningShown = true\n        AlertManager.shared.showAlertMsg(\n          title = generalGetString(MR.strings.wrong_passphrase),\n          text = generalGetString(MR.strings.restore_passphrase_not_found_desc)\n        )\n      }\n      return null\n    }\n\n    try {\n      val cipher: Cipher = Cipher.getInstance(TRANSFORMATION)\n      val spec = GCMParameterSpec(128, iv)\n      cipher.init(Cipher.DECRYPT_MODE, secretKey, spec)\n      return String(cipher.doFinal(data))\n    } catch (e: Throwable) {\n      Log.e(TAG, \"cipher.init: ${e.stackTraceToString()}\")"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "apps/multiplatform/common/src/androidMain/kotlin/chat/simplex/common/platform/Resources.android.kt",
+        "line": 40,
+        "code": "private val sharedPreferences: SharedPreferences by lazy { androidAppContext.getSharedPreferences(AppPreferences.SHARED_PREFS_ID, Context.MODE_PRIVATE) }"
+      },
+      {
+        "filePath": "apps/multiplatform/common/src/androidMain/kotlin/chat/simplex/common/platform/Resources.android.kt",
+        "line": 43,
+        "code": "actual val settings: Settings by lazy { SharedPreferencesSettings(sharedPreferences) }"
+      }
+    ]
+  }
+]

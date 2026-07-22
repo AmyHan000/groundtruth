@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "选择保存路径",
+        "purpose": "展示文件夹结构供用户选择保存位置",
+        "source": "用户操作",
+        "item": "文件夹路径信息",
+        "frequency": "每次选择",
+        "processing": "本地读取并展示",
+        "storage": "不存储，仅内存缓存",
+        "recipient": "仅本应用",
+        "thirdparty": "无",
+        "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.FILE_ACCESS_MANAGER",
+        "scene": "访问文件系统目录",
+        "authorization": "系统授权",
+        "purpose": "读取文件夹结构",
+        "impact": "无法选择保存路径"
+      },
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "scene": "写入媒体库",
+        "authorization": "动态授权",
+        "purpose": "在媒体库目录创建文件",
+        "impact": "无法在媒体库保存文件"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "请求权限",
+        "purpose": "获取文件系统访问和写入权限",
+        "source": "系统权限管理",
+        "item": "权限授权状态",
+        "frequency": "首次使用时",
+        "processing": "调用权限请求API",
+        "storage": "系统权限设置",
+        "recipient": "仅本地",
+        "thirdparty": "无",
+        "switchpath": "可在系统设置中管理"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.FILE_ACCESS_MANAGER",
+        "scene": "访问文件系统目录",
+        "authorization": "系统授权",
+        "purpose": "读取文件夹结构",
+        "impact": "无法选择保存路径"
+      },
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "scene": "写入媒体库",
+        "authorization": "动态授权",
+        "purpose": "在媒体库目录创建文件",
+        "impact": "无法在媒体库保存文件"
+      }
+    ]
+  }
+]

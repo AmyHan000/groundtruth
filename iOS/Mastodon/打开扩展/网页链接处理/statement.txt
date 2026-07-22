@@ -1,0 +1,9 @@
+网页链接处理
+
+1 我们如何收集和使用您的个人信息：
+搜索Mastodon内容，通过 ActionRequestHandler.swift，将您在其他应用中浏览的网页URL发送至Mastodon服务器进行搜索（resolve=true会解析URL内容）。采集频率：每次使用扩展。处理方式：加密传输（HTTPS），不使用扩展则不传输。
+
+获取输入URL，通过 ActionRequestHandler.swift，从系统扩展接口获取您当前浏览的网页URL。采集频率：每次使用扩展。处理方式：本地读取，不使用扩展则不读取。
+
+2 设备权限调用：
+本功能无特殊权限请求。

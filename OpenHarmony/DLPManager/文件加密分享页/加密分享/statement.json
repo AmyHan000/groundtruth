@@ -13,7 +13,28 @@
         "recipient": "仅本地显示",
         "thirdparty": "无",
         "switchpath": "设置页→联系人权限"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_CONTACTS",
+        "scene": "读取联系人",
+        "authorization": "运行时授权",
+        "purpose": "获取联系人手机号用于文件分享",
+        "impact": "无法从联系人列表选择接收人"
       },
+      {
+        "name": "ohos.permission.GET_NETWORK_INFO",
+        "scene": "获取网络信息",
+        "authorization": "预授权",
+        "purpose": "检查网络连接状态",
+        "impact": "无法检查网络连接"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": [
       {
         "scene": "加密分享",
         "purpose": "判断设备类型",
@@ -25,7 +46,28 @@
         "recipient": "仅本地显示",
         "thirdparty": "无",
         "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_CONTACTS",
+        "scene": "读取联系人",
+        "authorization": "运行时授权",
+        "purpose": "获取联系人手机号用于文件分享",
+        "impact": "无法从联系人列表选择接收人"
       },
+      {
+        "name": "ohos.permission.GET_NETWORK_INFO",
+        "scene": "获取网络信息",
+        "authorization": "预授权",
+        "purpose": "检查网络连接状态",
+        "impact": "无法检查网络连接"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "data": [
       {
         "scene": "加密分享",
         "purpose": "获取云账号信息用于文件分享",
@@ -37,7 +79,28 @@
         "recipient": "仅本地显示",
         "thirdparty": "无",
         "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_CONTACTS",
+        "scene": "读取联系人",
+        "authorization": "运行时授权",
+        "purpose": "获取联系人手机号用于文件分享",
+        "impact": "无法从联系人列表选择接收人"
       },
+      {
+        "name": "ohos.permission.GET_NETWORK_INFO",
+        "scene": "获取网络信息",
+        "authorization": "预授权",
+        "purpose": "检查网络连接状态",
+        "impact": "无法检查网络连接"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "data": [
       {
         "scene": "加密分享",
         "purpose": "检查网络连接状态",
@@ -49,7 +112,28 @@
         "recipient": "仅本地显示",
         "thirdparty": "无",
         "switchpath": "无（核心功能）"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.READ_CONTACTS",
+        "scene": "读取联系人",
+        "authorization": "运行时授权",
+        "purpose": "获取联系人手机号用于文件分享",
+        "impact": "无法从联系人列表选择接收人"
       },
+      {
+        "name": "ohos.permission.GET_NETWORK_INFO",
+        "scene": "获取网络信息",
+        "authorization": "预授权",
+        "purpose": "检查网络连接状态",
+        "impact": "无法检查网络连接"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "data": [
       {
         "scene": "加密分享",
         "purpose": "获取文件信息用于加密",

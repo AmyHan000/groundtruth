@@ -1,0 +1,9 @@
+导入系统凭证
+
+1 我们如何收集和使用您的个人信息：
+本功能用于从本地存储导入系统凭证。通过系统文件选择器（DocumentViewPicker），用户选择本地凭证文件（支持p12、pfx格式）。文件选择后，读取文件内容，需要用户输入凭证密码，然后调用证书管理API（CertManager）的installSystemAppCertificate接口进行安装。采集频率：仅在用户主动触发导入操作时执行。处理方式：本地读取、密码验证和安装，不涉及网络传输。密码输入时启用截图防护。
+
+2 设备权限调用：
+ohos.permission.ACCESS_CERT_MANAGER权限：用于访问证书管理服务，安装系统凭证。拒绝后将无法导入系统凭证。
+ohos.permission.ACCESS_SYSTEM_APP_CERT权限：用于访问系统应用证书存储，安装系统凭证。拒绝后无法导入系统凭证。
+ohos.permission.PRIVACY_WINDOW权限：用于在密码输入时启用截图防护，保护密码安全。拒绝后可能无法保护密码输入过程。
