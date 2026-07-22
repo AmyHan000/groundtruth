@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "查看照片详情",
+    "business_scenario": "用户在大图浏览界面点击查看照片详细信息，应用从照片EXIF中读取拍摄日期、设备型号、分辨率、文件大小、GPS坐标等元数据显示在详情面板中。对于包含GPS坐标的照片，调用geoLocationManager进行逆地理编码将坐标转换为可读地址。",
+    "data_types_info": "照片EXIF元数据（拍摄日期、设备信息、分辨率、文件大小）(一般), 照片GPS坐标(敏感), 逆地理编码地址信息(敏感)",
+    "processing_method": "仅本地展示（通过EXIF读取和geoLocationManager逆地理编码，数据仅在内存中处理用于展示）",
+    "permissions_info": "ohos.permission.MEDIA_LOCATION -- 读取照片中的位置元数据（用户主动点击查看详情时触发）"
+  }
+]

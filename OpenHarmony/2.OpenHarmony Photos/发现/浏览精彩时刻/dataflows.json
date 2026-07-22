@@ -1,0 +1,66 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_HIGHLIGHTS_LOAD_ALBUMS",
+      "data_type": "精彩时刻相册列表（封面URI、相册名称、highlight_status标记）",
+      "description": "用户点击\"发现\"页签，应用通过photoAccessHelper查询标记为精彩时刻(h highlight_status=1)的相册，展示为精选时刻卡片。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "IndexPage → SideBar onSideBarItemClick → show highlight view",
+          "file": "product/phone/src/main/ets/MainAbility/view/index.ets",
+          "line": 305,
+          "code": "onSideBarItemClick: (sideBarIndex: number) => { if (sideBarIndex === SideBarType.HIGHLIGHT) { this.isShowHighlightView = true; } }",
+          "details": "用户点击\"发现\"页签或侧边栏中的精选入口，切换至精彩时刻视图。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "UserFileManagerAccess.getHighlightAlbum → photoAccessHelper.getAlbums",
+          "file": "common/src/main/ets/default/access/UserFileManagerAccess.ets",
+          "line": 2616,
+          "code": "public async getHighlightAlbum(albumName: string): Promise<PhotoAlbum[]> { ... predicates.equalTo('highlight_status', '1'); predicates.contains('album_name', albumName); fetchResult = await this.photoAccessHelper.getAlbums(PORTRAIT_QUERY_TYPE, HIGHLIGHT_QUERY_SUB_TYPE, fetchOptions); albums = await fetchResult.getAllObjects(); }",
+          "details": "通过photoAccessHelper.getAlbums查询highlight_status=1的相册，即标记为精彩时刻的精选相册。包含封面URI用于展示。"
+        },
+        {
+          "step": "Data Display",
+          "function": "IrregularView → 精彩时刻卡片",
+          "file": "feature/timeline/src/main/ets/albumgrid/view/IrregularElement.ets",
+          "line": 1,
+          "code": "@Component struct IrregularElement { ... }",
+          "details": "精彩时刻以不规则卡片布局在发现页展示，每个时刻相册显示封面和标题。"
+        }
+      ]
+    },
+    {
+      "id": "FLOW_HIGHLIGHTS_LOAD_HIGHLIGHT_COVER",
+      "data_type": "精彩时刻相册封面缩略图PixelMap",
+      "description": "精彩时刻卡片加载其封面照片的LCD缩略图用于展示。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "CoverSelectComponent → ImageUtil.getHighlightCoverLcdUri",
+          "file": "common/src/main/ets/default/view/CoverSelectAndPreviewComponent.ets",
+          "line": 350,
+          "code": "Image(ImageUtil.getHighlightCoverLcdUri(this.coverItem, { width: -1, height: -1, }))",
+          "details": "精彩时刻卡片渲染时加载封面照片的缩略图URI。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "ImageUtil.getHighlightCoverLcdUri",
+          "file": "common/src/main/ets/default/utils/ImageUtil.ets",
+          "line": 470,
+          "code": "public static getHighlightCoverLcdUri(item: MediaItem, size?: image.Size, ...): string { ... }",
+          "details": "根据封面照片的MediaItem生成LCD缩略图URI，从媒体库缩略图缓存中读取。"
+        },
+        {
+          "step": "Data Display",
+          "function": "Image → 封面渲染",
+          "file": "common/src/main/ets/default/view/CoverSelectAndPreviewComponent.ets",
+          "line": 350,
+          "code": "Image(ImageUtil.getHighlightCoverLcdUri(...))",
+          "details": "在精彩时刻卡片上渲染封面照片。"
+        }
+      ]
+    }
+  ]
+}

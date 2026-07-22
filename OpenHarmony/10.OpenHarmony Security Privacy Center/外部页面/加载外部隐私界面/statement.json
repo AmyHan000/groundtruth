@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "加载外部隐私界面",
+    "business_scenario": "用户在隐私中心点击某项应用隐私入口后，隐私中心通过UIExtensionComponent根据目标应用的bundleName和abilityName加载该应用注册的隐私界面。外部应用的UI在隐私中心内嵌显示但运行在独立进程中，隐私中心不处理外部应用的数据，仅作为UI容器。",
+    "data_types_info": "外部应用的路由参数（bundleName、abilityName）(一般)",
+    "processing_method": "仅本地展示（通过UIExtensionComponent加载外部应用的UI，不收集或处理外部应用数据）",
+    "permissions_info": "ohos.permission.ACCESS_SECURITY_PRIVACY_CENTER -- 访问安全隐私中心（用于跨应用加载UIExtension）"
+  }
+]

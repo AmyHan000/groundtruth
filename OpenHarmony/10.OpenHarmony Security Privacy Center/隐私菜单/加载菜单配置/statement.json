@@ -1,0 +1,16 @@
+[
+  {
+    "business_function": "缓存菜单配置",
+    "business_scenario": "隐私菜单ViewModel启动时先从本地RDB数据库（auto_menu_table表，安全级别S1）读取缓存的菜单配置数据，用于快速加载页面和离线展示。同时将从BMS获取的最新菜单配置写入本地缓存替换过期数据。",
+    "data_types_info": "隐私菜单配置数据（businessId、bundleName、dstAbilityName、title资源、icon资源等）(一般)",
+    "processing_method": "本地加密存储（通过@ohos.data.relationalStore写入本地SQLite数据库，安全级别S1）",
+    "permissions_info": "无（操作本地数据库不需要额外权限）"
+  },
+  {
+    "business_function": "验证URI配置",
+    "business_scenario": "验证每个隐私菜单配置中的showControlAbilityUri字段，通过DataShare IPC跨应用查询目标应用的URI，读取SHOW_RESULT字段判断该应用是否支持在当前设备状态下显示，只有验证通过（返回0x55）的应用才展示在隐私列表中。",
+    "data_types_info": "DataShare URI查询结果（0x55=支持显示/0xaa=不支持显示）(一般)",
+    "processing_method": "本地处理（通过DataShare IPC跨应用查询URI状态，不存储查询结果）",
+    "permissions_info": "依赖ohos.permission.ACCESS_SECURITY_PRIVACY_CENTER（前序已授权）"
+  }
+]

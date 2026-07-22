@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "监听位置状态",
+    "business_scenario": "应用在位置服务页面初始化时通过@ohos.geoLocationManager.on('locationEnabledChange')注册系统级监听器，当用户通过系统设置或其他方式改变位置服务状态时，监听器回调触发调用isLocationEnabled获取最新状态，通过@StorageLink状态变量实时更新UI上的Toggle开关显示。",
+    "data_types_info": "设备位置服务状态变化事件（开启/关闭）(一般)",
+    "processing_method": "本地处理（通过@ohos.geoLocationManager注册系统监听器获取状态变化通知）",
+    "permissions_info": "无（监听位置服务开关变化为系统级回调，不需要额外权限）"
+  }
+]

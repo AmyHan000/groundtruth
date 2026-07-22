@@ -1,0 +1,66 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_MENU_RDB_CACHE_READ",
+      "data_type": "缓存的隐私菜单配置数据（MenuConfig：businessId、bundleName、dstAbilityName、dstAbilityMode、title资源、icon资源、displayedMode等）",
+      "description": "隐私菜单ViewModel启动时先从本地关系型数据库（RDB）缓存读取菜单配置，用于快速加载页面和离线展示。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "AutoMenuModel.refresh → check cache",
+          "file": "entry/src/main/ets/main/auto_menu/AutoMenuModel.ets",
+          "line": 1,
+          "code": "export class AutoMenuModel extends BaseModel { ... public async refresh(context: Context): Promise<MenuInfo[]> { ... } }",
+          "details": "AutoMenuModel刷新时首先检查RDB缓存中是否有数据。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "RdbManager.queryData → RdbStore.query",
+          "file": "entry/src/main/ets/common/utils/RdbManager.ets",
+          "line": 1,
+          "code": "export class RdbManager { ... public static async queryData(predicates: DataSharePredicates): Promise<DataShareResultSet> { ... } }",
+          "details": "从本地SQLite数据库（access.db中的auto_menu_table表）查询缓存的菜单配置数据。数据库安全级别为S1，仅本应用可访问。"
+        },
+        {
+          "step": "Storage",
+          "function": "RdbManager.insertData → RdbStore.insert",
+          "file": "entry/src/main/ets/common/utils/RdbManager.ets",
+          "line": 1,
+          "code": "public static async insertData(menuConfigList: MenuConfig[]): Promise<void> { ... }",
+          "details": "将从BMS获取的最新菜单配置写入本地RDB缓存，替换过期数据。通过@ohos.data.relationalStore进行关系型数据库操作。"
+        }
+      ]
+    },
+    {
+      "id": "FLOW_MENU_URI_VERIFICATION_QUERY",
+      "data_type": "DataShare URI查询结果（SHOW_RESULT字段'0x55'=支持/'0xaa'=不支持）",
+      "description": "验证菜单配置中的showControlAbilityUri，通过DataShare IPC跨应用查询目标URI，确认该应用是否支持在当前设备状态下显示。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "AutoMenuManager._verificationUri",
+          "file": "entry/src/main/ets/common/utils/AutoMenuManager.ets",
+          "line": 271,
+          "code": "private async _verificationUri(context: Context, uri: string): Promise<string> { let data = await dataShare.createDataShareHelper(context, uri, { isProxy: false }); }",
+          "details": "对每个菜单配置中的showControlAbilityUri进行验证查询。"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "dataShare.createDataShareHelper → data.query",
+          "file": "entry/src/main/ets/common/utils/AutoMenuManager.ets",
+          "line": 273,
+          "code": "let resultSet = await data.query(uri, this._predicates, this._shareArray); resultSet.goToFirstRow(); let showResult = resultSet.getString(resultSet.getColumnIndex('SHOW_RESULT'));",
+          "details": "通过DataShare IPC跨应用查询目标应用的URI，读取SHOW_RESULT字段。0x55表示支持显示，0xaa表示不支持。需要目标应用已声明的DataShare权限。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "AutoMenuManager → filter by verification result",
+          "file": "entry/src/main/ets/common/utils/AutoMenuManager.ets",
+          "line": 90,
+          "code": "let verifiedPkgConfigList: MenuConfig[] = []; for (...) { let isVerifyPass = await this._verifyMenuConfig(context, menuConfig, userId); if (isVerifyPass) { verifiedPkgConfigList.push(menuConfig); } }",
+          "details": "根据验证结果过滤菜单配置，只有验证通过（返回0x55）的应用才显示在隐私列表中。"
+        }
+      ]
+    }
+  ]
+}

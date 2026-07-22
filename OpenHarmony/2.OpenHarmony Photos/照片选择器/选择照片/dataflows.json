@@ -1,0 +1,51 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_PICKER_LOAD_AND_GRANT",
+      "data_type": "设备中全部照片/视频列表（URI、缩略图、日期），用户选中照片的URI列表",
+      "description": "第三方应用通过ohos.want.action.photoPicker拉起系统PhotoPicker，Picker加载全部照片供用户选择，选中后将URI列表临时授权给第三方应用。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "PickerUIExtensionAbility → PickerSheetPage",
+          "file": "product/phone/src/main/ets/pickerability/PickerUIExtensionAbility.ets",
+          "line": 1,
+          "code": "export default class PickerUIExtensionAbility extends UIAbility { ... }",
+          "details": "第三方App通过ohos.want.action.photoPicker拉起系统PhotoPicker，启动PickerExtension。"
+        },
+        {
+          "step": "Data Display",
+          "function": "PickerBasePage → PickerSheetContent / ThirdSelectPhotoGridPage",
+          "file": "product/phone/src/main/ets/pickerability/view/PickerBasePage.ets",
+          "line": 1,
+          "code": "@Component struct PickerBasePage { ... }",
+          "details": "Picker加载设备中的所有照片和相册，以网格形式供用户浏览选择。支持单选/多选模式。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "ThirdSelectPhotoGridPage → photoAccessHelper.getAssets",
+          "file": "product/phone/src/main/ets/pickerability/view/ThirdSelectPhotoGridPage.ets",
+          "line": 1,
+          "code": "@Component struct ThirdSelectPhotoGridPage { ... }",
+          "details": "通过photoAccessHelper.getAssets读取设备全部照片列表，包含URI、缩略图等信息。需要通过READ_IMAGEVIDEO权限。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "GrantPhotoUrisPage → grantPhotoUriPermission",
+          "file": "product/phone/src/main/ets/pickerability/view/GrantPhotoUrisPage.ets",
+          "line": 1,
+          "code": "@Component struct GrantPhotoUrisPage { ... }",
+          "details": "用户点击确认选择后，系统将所选照片URI的临时授权授予第三方应用的accessToken。第三方应用通过PROXY_AUTHORIZATION_URI权限访问这些URI。"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "PhotoAccessHelperAccess.grantPermissionForUri",
+          "file": "common/src/main/ets/default/access/PhotoAccessHelperAccess.ets",
+          "line": 1047,
+          "code": "public static async grantPermissionForUri(context: common.Context, tokenId: number, uri: string, ...): Promise<number | undefined> { helper.grantPhotoUriPermission(tokenId, uri, photoAccessHelper.PhotoPermissionType.PERSISTENT_READ_IMAGEVIDEO, ...); }",
+          "details": "通过photoAccessHelper.grantPhotoUriPermission将所选照片URI的持久化读取权限授予第三方应用。权限包含HideSensitiveType设置以保护敏感信息。"
+        }
+      ]
+    }
+  ]
+}

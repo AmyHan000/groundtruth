@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "浏览精彩时刻",
+    "business_scenario": "用户点击\"发现\"页签或侧边栏中的精选入口，应用通过photoAccessHelper查询标记为精彩时刻（highlight_status=1）的相册列表，获取封面URI和相册名称，以不规则卡片布局展示精选时刻。",
+    "data_types_info": "精彩时刻相册元数据（封面URI、相册名称、highlight标记）(一般), 精彩时刻封面缩略图PixelMap(一般)",
+    "processing_method": "本地读取与展示（通过photoAccessHelper查询精彩时刻相册并加载封面缩略图）",
+    "permissions_info": "依赖ohos.permission.READ_IMAGEVIDEO（前序已授权）"
+  }
+]

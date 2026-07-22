@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_BROWSER_VIEW_PHOTO",
+      "data_type": "单张照片/视频完整数据（原图PixelMap、高清缩略图、文件位置类型LOCAL/CLOUD）",
+      "description": "用户在时间线或相册中点击照片缩略图进入大图浏览模式，加载原图或高清图数据以供滑动切换、缩放查看。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "PhotoGridPage → initPhotoBrowserController → browserController.showBrowser",
+          "file": "product/phone/src/main/ets/MainAbility/view/PhotoGridPage.ets",
+          "line": 33,
+          "code": "import { initPhotoBrowserController, PhotosHmBrowserController } from '@ohos/browserlibrary';",
+          "details": "用户点击照片缩略图，触发大图浏览模式，初始化照片浏览器控制器。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "MediaItem → getThumbnailSafe",
+          "file": "common/src/main/ets/default/model/browser/photo/MediaItem.ets",
+          "line": 1,
+          "code": "export class MediaItem { ... getThumbnailSafe(size: Size): PixelMap | undefined { ... } }",
+          "details": "根据显示尺寸获取照片的高清缩略图PixelMap，从系统媒体库读取或从缩略图缓存加载。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "PhotoBrowserComponent → check cloud position",
+          "file": "product/phone/src/main/ets/MainAbility/view/PhotoBrowserComponent.ets",
+          "line": 3497,
+          "code": "if (filePosition === UserFileManagerAccess.FILE_LOCATION_CLOUD) { ... }",
+          "details": "检查照片的文件位置类型，如果是云端照片（CLOUD），则需先下载到本地再展示。"
+        },
+        {
+          "step": "Data Display",
+          "function": "PhotoSwiper → PhotoItem",
+          "file": "browserCommon/src/main/ets/default/view/PhotoSwiper.ets",
+          "line": 1,
+          "code": "@Component struct PhotoSwiper { ... PhotoItem({ item: this.curItem }) }",
+          "details": "大图以滑动切换方式展示，支持缩放、平移手势。PhotoItem渲染照片的PixelMap到屏幕。"
+        }
+      ]
+    }
+  ]
+}

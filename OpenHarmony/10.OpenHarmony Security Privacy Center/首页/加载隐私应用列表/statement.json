@@ -1,0 +1,16 @@
+[
+  {
+    "business_function": "加载隐私应用列表",
+    "business_scenario": "用户打开安全隐私中心首页，应用从BundleManagerService查询所有已安装应用的ExtensionAbility和UIAbility信息，通过abilityAccessCtrl校验每个应用的accessToken是否拥有ACCESS_SECURITY_PRIVACY_CENTER权限，读取声明了隐私入口元数据的应用的JSON配置（businessId、dstAbilityName、标题资源、图标资源等），经过合法性验证后以列表形式展示可通过隐私中心访问的应用入口。",
+    "data_types_info": "所有已安装应用的扩展能力信息(ExtensionAbilityInfo)(敏感), 应用accessToken权限状态(敏感), 应用元数据配置（业务ID、目标Ability名称、标题资源）(一般)",
+    "processing_method": "本地处理（通过BundleManagerService查询应用信息，通过abilityAccessCtrl校验权限Token，通过DataShare查询验证URI）",
+    "permissions_info": "ohos.permission.GET_INSTALLED_BUNDLE_LIST -- 获取所有已安装应用列表（页面加载时触发）; ohos.permission.GET_BUNDLE_INFO -- 读取应用详细信息（页面加载时触发）; ohos.permission.ACCESS_SECURITY_PRIVACY_CENTER -- 校验其他应用是否有权注册隐私入口（页面加载时触发）"
+  },
+  {
+    "business_function": "查询应用信息",
+    "business_scenario": "隐私中心首页加载时获取所有已安装应用的BundleInfo，遍历过滤掉无图标的空白应用后，将有效应用的ApplicationInfo列表存入AppStorage供展示。",
+    "data_types_info": "所有已安装应用的BundleInfo（包名、应用名称、图标资源ID、accessTokenId）(敏感)",
+    "processing_method": "本地处理（通过bundleManager系统API查询，仅临时存储于AppStorage内存中）",
+    "permissions_info": "依赖ohos.permission.GET_INSTALLED_BUNDLE_LIST和ohos.permission.GET_BUNDLE_INFO（前序已授权）"
+  }
+]

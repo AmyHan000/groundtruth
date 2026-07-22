@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "加载位置服务入口",
+    "business_scenario": "用户在隐私中心首页点击\"位置信息\"行，应用通过HiSysEvent上报用户点击行为事件（事件域SECU_PRIV、事件名SECU_PRIV_ENTRANCE，仅含行为标识不包含个人身份信息），随后通过页面路由跳转到位置服务管理页面。",
+    "data_types_info": "用户点击行为事件（仅含行为标识，无个人身份信息）(一般)",
+    "processing_method": "本地处理（通过HiSysEvent写入系统事件日志，仅用于产品使用分析）",
+    "permissions_info": "无（HiSysEvent为系统级分析服务，调用不需要额外权限）"
+  }
+]

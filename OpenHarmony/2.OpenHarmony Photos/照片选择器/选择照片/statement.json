@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "选择照片",
+    "business_scenario": "第三方应用通过系统PhotoPicker（ohos.want.action.photoPicker）拉起系统照片选择器，Picker加载设备中所有照片和相册供用户浏览选择（支持单选/多选），用户选择确认后，系统通过grantPhotoUriPermission将所选照片URI的临时或持久化读取权限授予第三方应用的accessToken，第三方应用凭授权URI读取照片内容。",
+    "data_types_info": "设备中全部照片/视频列表（URI、缩略图）(敏感), 用户选中的照片/视频URI(敏感)",
+    "processing_method": "本地处理与授权（通过photoAccessHelper读取照片列表供展示；选中后通过grantPhotoUriPermission临时授权URI给第三方应用）",
+    "permissions_info": "ohos.permission.READ_IMAGEVIDEO -- 读取照片列表供展示（Picker启动时触发）；ohos.permission.PROXY_AUTHORIZATION_URI -- 授权URI给第三方应用访问（用户确认选择时触发）"
+  }
+]

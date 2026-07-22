@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SETTINGS_STORAGE_CLEANUP",
+      "data_type": "缓存文件信息（缩略图缓存大小、编辑缓存大小）、截图相册照片信息",
+      "description": "用户从系统设置或图库内进入存储清理页面，应用扫描可清理的缓存文件（缩略图缓存、编辑备份等）和截图等临时文件，用户确认后清理。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "GalleryCleanupPage → aboutToAppear",
+          "file": "product/phone/src/main/ets/galleryCleanupAbility/view/GalleryCleanupPage.ets",
+          "line": 1,
+          "code": "@Component struct GalleryCleanupPage { ... }",
+          "details": "用户从系统设置或图库清理入口进入存储清理页面。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "UserFileManagerAccess.getAllLocalScreenshotSize",
+          "file": "common/src/main/ets/default/access/UserFileManagerAccess.ets",
+          "line": 440,
+          "code": "public async getAllLocalScreenshotSize(): Promise<number> { let photoAlbums = await UserFileManagerAccess.getInstance().getSystemSourceAlbums(Constants.LPATH_SCREEN_SHOT); ... return localScreenshotSize; }",
+          "details": "读取截图相册中的照片数量，用于展示可清理的截图文件信息。通过photoAccessHelper查询指定路径的截图相册。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "RecomendClearingCard → SettingCardAccess",
+          "file": "product/phone/src/main/ets/SettingCardDataShareAbility/RecomendClearingCard.ets",
+          "line": 1,
+          "code": "export class RecomendClearingCard { ... }",
+          "details": "通过SettingCardDataShareAbility与系统设置通信，在系统设置中展示图库推荐清理的缓存空间大小。需要ohos.permission.STORAGE_MANAGER权限。"
+        },
+        {
+          "step": "Data Display",
+          "function": "GridCleanupPage / VideoCleanupPage → 分类清理列表",
+          "file": "product/phone/src/main/ets/galleryCleanupAbility/view/GridCleanupPage.ets",
+          "line": 1,
+          "code": "@Component struct GridCleanupPage { ... }",
+          "details": "按照片/视频分类展示可清理的文件预览列表，用户勾选后执行批量清理。"
+        }
+      ]
+    }
+  ]
+}

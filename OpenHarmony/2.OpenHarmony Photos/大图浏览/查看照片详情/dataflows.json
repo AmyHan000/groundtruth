@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_BROWSER_PHOTO_DETAIL_EXIF",
+      "data_type": "照片EXIF元数据（拍摄日期、设备信息、分辨率、文件大小、GPS坐标）",
+      "description": "用户在大图浏览界面查看照片详细信息，应用读取照片的EXIF元数据显示拍摄参数，并从GPS坐标逆地理编码获取地址。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "PhotoBrowserComponent → ActionBar → 详情按钮 onClick",
+          "file": "product/phone/src/main/ets/MainAbility/view/PhotoBrowserComponent.ets",
+          "line": 1,
+          "code": "@Component struct PhotoBrowserComponent { ... }",
+          "details": "用户在大图浏览界面点击详情/信息按钮，触发照片详情面板显示。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "ExifUtil → read EXIF data",
+          "file": "browserCommon/src/main/ets/default/utils/ExifUtil.ets",
+          "line": 1,
+          "code": "export class ExifUtil { ... }",
+          "details": "从照片文件中读取EXIF元数据，包括拍摄日期、设备型号、GPS坐标、ISO、光圈、快门速度等。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "BaseEditor → geoLocationManager.getAddressesFromLocation",
+          "file": "imageEditor/common/src/main/ets/service/BaseEditor.ets",
+          "line": 1205,
+          "code": "let reverseGeocodeRequest: geoLocationManager.ReverseGeoCodeRequest = { ... }; geoLocationManager.getAddressesFromLocation(reverseGeocodeRequest, (err, data) => { ... });",
+          "details": "如果照片包含GPS坐标，调用geoLocationManager进行逆地理编码，将坐标转换为可读地址。需要ohos.permission.MEDIA_LOCATION权限读取照片中的位置信息。"
+        },
+        {
+          "step": "Data Display",
+          "function": "PhotoPropertiesComponent / PhotoPropertiesAsync",
+          "file": "browserCommon/src/main/ets/default/view/PhotoPropertiesComponent.ets",
+          "line": 1,
+          "code": "@Component struct PhotoPropertiesComponent { ... }",
+          "details": "在详情面板中展示拍摄日期、设备、分辨率、文件大小、地址等EXIF信息。"
+        }
+      ]
+    }
+  ]
+}

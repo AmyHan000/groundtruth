@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_BROWSER_DELETE_PHOTO",
+      "data_type": "被删除照片的URI、PhotoAsset对象",
+      "description": "用户在大图浏览或选择模式下删除照片/视频，系统弹出删除确认对话框，确认后将照片移入回收站。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "PhotoBrowserComponent → 删除按钮 onClick",
+          "file": "product/phone/src/main/ets/MainAbility/view/PhotoBrowserComponent.ets",
+          "line": 1,
+          "code": "@Component struct PhotoBrowserComponent { ... }",
+          "details": "用户在大图浏览界面点击删除按钮，或按键盘Delete键触发删除流程。"
+        },
+        {
+          "step": "UI Prompt",
+          "function": "DeleteUIExtensionPage → DeleteUIExtensionComponent",
+          "file": "product/phone/src/main/ets/DeleteAbility/view/DeleteUIExtensionPage.ets",
+          "line": 41,
+          "code": "DeleteUIExtensionComponent({ isPc: false, foregroundPhotoWidth: FOREGROUND_PHOTO_WIDTH, backgroundPhotoWidth: BACKGROUND_PHOTO_WIDTH, ... })",
+          "details": "弹出系统删除确认对话框UI Extension，显示待删除照片的预览图。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "CommonDeleteAbility → photoAccessHelper.deleteAssets",
+          "file": "feature/extensions/src/main/ets/default/CommonDeleteAbility.ets",
+          "line": 1,
+          "code": "export class CommonDeleteAbility { ... }",
+          "details": "用户确认删除后，调用photoAccessHelper.deleteAssets将照片移入系统回收站（非物理删除，30天后自动清理）。需要WRITE_IMAGEVIDEO权限。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "TimelineDataSource.updateDeleteNewItems",
+          "file": "feature/timeline/src/main/ets/model/TimelineDataSource.ets",
+          "line": 705,
+          "code": "private updateDeleteNewItems(originalPhotoAssets: Array<photoAccessHelper.SharedPhotoAsset>): void { ... }",
+          "details": "媒体库变化监听触发，更新时间线数据源从中移除已删除的照片项，UI自动刷新。"
+        }
+      ]
+    }
+  ]
+}

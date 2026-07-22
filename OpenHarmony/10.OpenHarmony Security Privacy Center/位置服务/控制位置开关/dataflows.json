@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_LOCATION_TOGGLE_ENABLE_DISABLE",
+      "data_type": "设备位置服务开关状态（已开启/已关闭）、开关操作事件日志",
+      "description": "用户在位置服务页面通过Toggle开关开启或关闭设备位置服务，应用调用geoLocationManager系统API修改全局位置服务状态，并上报开关事件到HiSysEvent。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "LocationServices struct → Toggle.onChange",
+          "file": "entry/src/main/ets/pages/locationServices.ets",
+          "line": 54,
+          "code": ".onChange((isOn: boolean) => { if (isOn) { ViewModel.enableLocation(); HiSysEventUtil.reportLocationFlagClick(1) } else { ViewModel.disableLocation(); HiSysEventUtil.reportLocationFlagClick(0) } });",
+          "details": "用户操作Toggle开关，触发enableLocation或disableLocation，并上报开关状态变更事件。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "LocationViewModel.enableLocation → LocationService.enableLocation",
+          "file": "entry/src/main/ets/model/locationServicesImpl/LocationService.ets",
+          "line": 57,
+          "code": "enableLocation() { try { geolocation.enableLocation().then((res): void => Logger.info(TAG, 'enable location, result:' + JSON.stringify(res))).catch((error) => ...); } catch (err) { ... } }",
+          "details": "调用@ohos.geoLocationManager.enableLocation()开启设备位置服务。需要ohos.permission.CONTROL_LOCATION_SWITCH权限。此操作会影响所有应用的位置访问能力。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "LocationViewModel.disableLocation → LocationService.disableLocation",
+          "file": "entry/src/main/ets/model/locationServicesImpl/LocationService.ets",
+          "line": 69,
+          "code": "disableLocation() { try { geolocation.disableLocation(); } catch (err) { Logger.info(TAG, 'disenable location, result:' + err); } }",
+          "details": "调用@ohos.geoLocationManager.disableLocation()关闭设备位置服务。需要ohos.permission.CONTROL_LOCATION_SWITCH权限。关闭后所有应用均无法获取设备位置。"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "HiSysEventUtil.reportLocationFlagClick",
+          "file": "entry/src/main/ets/common/utils/HiSysEventUtil.ets",
+          "line": 1,
+          "code": "public static reportLocationFlagClick(flag: number) { ... hiSysEvent.write({ domain: 'SECU_PRIV', name: 'MAIN_PERMISSION_LIST', eventType: hiSysEvent.EventType.BEHAVIOR, params: { PERMISSION_PAGE_LOCATION: flag } }); ... }",
+          "details": "上报位置开关变更事件（flag=1开启/flag=0关闭）到HiSysEvent系统分析服务，用于产品行为分析。"
+        }
+      ]
+    }
+  ]
+}

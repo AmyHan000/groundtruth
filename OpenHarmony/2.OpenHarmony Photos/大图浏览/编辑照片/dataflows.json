@@ -1,0 +1,59 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_BROWSER_EDIT_PHOTO",
+      "data_type": "照片原图数据（PixelMap）、编辑参数、编辑后PixelMap数据、照片拍摄日期元数据",
+      "description": "用户在大图浏览中进入编辑模式，编辑器SDK读取照片原图进行裁剪/滤镜/美颜等处理，将编辑结果保存到媒体库。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "EditorPage → BaseEditor.edit",
+          "file": "imageEditor/product/editor_phone/src/main/ets/component/enter/EditorPage.ets",
+          "line": 454,
+          "code": "this.params.position = Constants.FILE_LOCATION_LOCAL as number;",
+          "details": "用户点击编辑按钮进入图片编辑器，获取照片位置类型（本地/云端）决定编辑策略。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "EditorController.getAssetPosition",
+          "file": "browserCommonPhone/src/main/ets/controller/EditorController.ets",
+          "line": 297,
+          "code": "private getAssetPosition(asset: photoAccessHelper.PhotoAsset): photoAccessHelper.PositionType { let assetPosition = photoAccessHelper.PositionType.LOCAL; assetPosition = asset.get(photoAccessHelper.PhotoKeys.POSITION) as photoAccessHelper.PositionType; }",
+          "details": "读取照片asset的位置类型（LOCAL本地/CLOUD云端），如果是云端照片需先下载到本地再编辑。读取PhotoKeys.POSITION属性。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "EditorController.getDateTaken → asset.get(PhotoKeys.DATE_TAKEN)",
+          "file": "browserCommonPhone/src/main/ets/controller/EditorController.ets",
+          "line": 362,
+          "code": "private getDateTaken(asset: PhotoAsset): number { ... dateTaken = asset.get(photoAccessHelper.PhotoKeys.DATE_TAKEN) as number; ... }",
+          "details": "读取照片的拍摄日期，用于编辑版本管理和文件名生成。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "EditorController → asset.get(PhotoKeys.MOVING_PHOTO_EFFECT_MODE)",
+          "file": "browserCommonPhone/src/main/ets/controller/EditorController.ets",
+          "line": 390,
+          "code": "const effectMode: number = Number(item.data?.get(photoAccessHelper.PhotoKeys.MOVING_PHOTO_EFFECT_MODE));",
+          "details": "读取动态照片的动效模式，判断是否为动态照片/实况照片。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "BaseEditor → ImageEditor SDK edit pipeline",
+          "file": "imageEditor/common/src/main/ets/service/BaseEditor.ets",
+          "line": 1,
+          "code": "export class BaseEditor { ... }",
+          "details": "编辑器SDK处理编辑流水线：解码原图→应用编辑参数（裁剪/旋转/滤镜/美颜）→编码生成编辑后PixelMap。"
+        },
+        {
+          "step": "Data Storage",
+          "function": "EditorController → save to media library",
+          "file": "browserCommonPhone/src/main/ets/controller/EditorController.ets",
+          "line": 462,
+          "code": "let photoAsset: PhotoAsset | undefined = item.data; let editData: photoAccessHelper.MediaAssetEditData;",
+          "details": "将编辑结果写入媒体库，生成新的照片版本或覆盖原图。需要WRITE_IMAGEVIDEO权限。"
+        }
+      ]
+    }
+  ]
+}

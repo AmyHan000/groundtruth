@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SAVE_EXTERNAL_PHOTO",
+      "data_type": "外部传入的照片/视频URI（wantParam中的URI列表）",
+      "description": "其他应用通过系统SaveDialog将照片/视频保存到图库，SaveUIExtensionAbility接收传入的URI，将媒体文件写入设备媒体库。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "SaveUIExtensionAbility.onCreate → SaveUIExtensionPage",
+          "file": "product/phone/src/main/ets/SaveAbility/SaveUIExtensionAbility.ets",
+          "line": 1,
+          "code": "export default class SaveUIExtensionAbility extends UIAbility { ... }",
+          "details": "外部应用通过系统SaveDialog调用图库保存能力，传入待保存文件的URI。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "SaveUIExtensionPage → wantParam",
+          "file": "product/phone/src/main/ets/SaveAbility/view/SaveUIExtensionPage.ets",
+          "line": 25,
+          "code": "private wantParam: Record<string, Object> = storage?.get(Constants.APP_KEY_WANT_PARAM) as Record<string, Object>;",
+          "details": "接收外部应用传入的wantParam，包含待保存文件的URI和其他参数。"
+        },
+        {
+          "step": "UI Prompt",
+          "function": "SaveUIExtensionComponent",
+          "file": "feature/extensions/src/main/ets/view/SaveUIExtensionComponent.ets",
+          "line": 1,
+          "code": "export struct SaveUIExtensionComponent { ... }",
+          "details": "展示保存确认界面，用户可预览待保存的文件并确认保存。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "SaveUIExtensionComponent → photoAccessHelper写入媒体库",
+          "file": "feature/extensions/src/main/ets/view/SaveUIExtensionComponent.ets",
+          "line": 1,
+          "code": "export struct SaveUIExtensionComponent { ... }",
+          "details": "用户确认后，将外部传入的URI对应的媒体文件写入设备媒体库。需要WRITE_IMAGEVIDEO权限。文件写入后可通过图库访问。"
+        }
+      ]
+    }
+  ]
+}

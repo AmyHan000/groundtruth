@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_ALBUM_LOAD_ALBUM_PHOTOS",
+      "data_type": "指定相册内的照片/视频列表（URI、缩略图、拍摄日期、媒体类型、方向、文件位置）",
+      "description": "用户点击相册项进入相册内照片网格，应用通过album.getAssets获取该相册内所有照片/视频数据并展示。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "AlbumPhotoGridView.onClick → router.push album detail",
+          "file": "feature/timeline/src/main/ets/albumgrid/view/AlbumPhotoGridView.ets",
+          "line": 1,
+          "code": "@Component struct AlbumPhotoGridView { ... }",
+          "details": "用户点击相册列表中的某个相册项，进入该相册的照片网格页。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "GroupAlbumDataSource → album.getAssets",
+          "file": "common/src/main/ets/default/model/browser/album/GroupAlbumDataSource.ets",
+          "line": 189,
+          "code": "let fetchResult: photoAccessHelper.FetchResult<PhotoAsset> | undefined = undefined; let fetchOpt: photoAccessHelper.FetchOptions = { ... }; fetchResult = await album.getAssets(fetchOpt);",
+          "details": "调用指定相册对象的getAssets方法，获取该相册内的所有PhotoAsset对象。查询条件包含fetchColumns（URI、缩略图、日期、媒体类型、方向、位置类型等）。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "AlbumDataSource.onAccurateNotify",
+          "file": "common/src/main/ets/default/model/AlbumDataSource.ets",
+          "line": 735,
+          "code": "public onAccurateNotify(type: string, nfyInfo: photoAccessHelper.PhotoAssetChangeInfos) { ... if (albumInfo.subType === photoAccessHelper.AlbumSubtype.IMAGE) { ... } }",
+          "details": "注册媒体库变化监听，当相册内有照片增删时自动刷新数据。按相册子类型（IMAGE/VIDEO/FAVORITE/TRASH等）进行不同处理。"
+        },
+        {
+          "step": "Data Display",
+          "function": "AlbumPhotoGridView → ForEach",
+          "file": "feature/timeline/src/main/ets/albumgrid/view/AlbumPhotoGridView.ets",
+          "line": 1,
+          "code": "@BuilderParam content: () => void; ...",
+          "details": "相册内照片以网格形式展示，每张照片显示缩略图，支持多选操作。"
+        }
+      ]
+    }
+  ]
+}
