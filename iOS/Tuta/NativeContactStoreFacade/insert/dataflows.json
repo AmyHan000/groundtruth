@@ -1,0 +1,27 @@
+[
+  {
+    "id": 13,
+    "dataflow": [
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 132,
+        "code": "func insert(contacts: [NativeMutableContact], toGroup group: CNGroup) throws {"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 134,
+        "code": "let store = CNContactStore()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 135,
+        "code": "let saveRequest = CNSaveRequest()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 142,
+        "code": "do { try store.execute(saveRequest) } catch { throw ContactStoreError(message: \"Could not insert contacts\", underlyingError: error) }"
+      }
+    ]
+  }
+]

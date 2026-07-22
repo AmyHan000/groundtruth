@@ -1,0 +1,42 @@
+[
+  {
+    "id": 8,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 146,
+        "code": "async sendMsgWithDeliveryReports(params: LooseObject, callback: Function) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 153,
+        "code": "let smsc = await MessageUtil.getSmscNumberFromPref(Number(params.slotId));"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 158,
+        "code": "sms.sendShortMessage({"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 161,
+        "code": "destinationHost: params.destinationHost,"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 162,
+        "code": "content: params.content,"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 164,
+        "code": "sendCallback: (err, value) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/SendMsgService.ets",
+        "line": 184,
+        "code": "deliveryCallback: (err, value) => {"
+      }
+    ]
+  }
+]

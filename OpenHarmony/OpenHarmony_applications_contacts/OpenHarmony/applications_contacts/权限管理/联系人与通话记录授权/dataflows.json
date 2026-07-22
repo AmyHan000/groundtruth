@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/index.ets",
+        "line": 1291,
+        "code": "this.mPermissionManager.initPermissions();"
+      },
+      {
+        "filePath": "common/src/main/ets/permission/PermissionManager.ets",
+        "line": 49,
+        "code": "atManager.requestPermissionsFromUser(ContactsGlobalThisHelper.GetGlobalThis().getDefaultUIContext(),"
+      }
+    ]
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "id": 6,
+    "data": [
+      {
+        "scene": "用户选择扫描文档并拍摄页面时",
+        "purpose": "生成可预览并后续上传的扫描图片",
+        "source": "设备相机和用户扫描的文档",
+        "item": "文档图像",
+        "frequency": "每次完成一次文档扫描时",
+        "processing": "使用 VisionKit 获取扫描页并写入应用扫描目录",
+        "storage": "扫描图片暂存在应用本地目录，后续由用户决定上传或删除",
+        "recipient": "Nextcloud 应用本地；上传时发送到用户服务器",
+        "thirdparty": "未上传前不向第三方共享",
+        "switchpath": "新建 > 扫描文档；可取消或删除扫描结果"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "相机",
+        "scene": "用户打开文档扫描器",
+        "authorization": "动态授权/系统相机界面",
+        "purpose": "拍摄文档图像",
+        "impact": "无法使用文档扫描功能"
+      }
+    ]
+  }
+]

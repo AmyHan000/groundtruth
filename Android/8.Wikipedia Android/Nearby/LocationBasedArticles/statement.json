@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "附近地点文章",
+    "business_scenario": "用户打开附近页面查看周边的Wikipedia文章，应用请求GPS定位权限并获取设备经纬度坐标，坐标作为查询参数发送至Wikipedia GeoSearch API以搜索半径范围内的附近文章，位置信息不存储于服务器端。",
+    "data_types_info": "GPS精确位置(敏感), 经纬度坐标(敏感), 搜索半径(一般)",
+    "processing_method": "上传云端",
+    "permissions_info": "ACCESS_FINE_LOCATION(首次打开附近页面时); ACCESS_COARSE_LOCATION(首次打开附近页面时)"
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": 24,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1270,
+        "code": "async saveVideoToAlbums(sandBoxPath: string) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1274,
+        "code": "let phAccessHelper = photoAccessHelper.default.getPhotoAccessHelper(context);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1277,
+        "code": "let fileSandbox = await fs.open(sandBoxPath, fs.OpenMode.READ_ONLY);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1278,
+        "code": "let size = fs.statSync(fileSandbox.fd).size;"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1279,
+        "code": "let fileSandboxBuffer = new ArrayBuffer(size);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1282,
+        "code": "let uri = await phAccessHelper.createAsset(photoAccessHelper.default.PhotoType.VIDEO, 'mp4');"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1283,
+        "code": "let fileAlbums = await fs.open(uri, fs.OpenMode.READ_WRITE);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/favoritepage/favoriteController.ets",
+        "line": 1285,
+        "code": "await fs.write(fileAlbums.fd, fileSandboxBuffer);"
+      }
+    ]
+  }
+]

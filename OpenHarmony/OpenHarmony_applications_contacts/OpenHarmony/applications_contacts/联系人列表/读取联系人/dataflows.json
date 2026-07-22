@@ -1,0 +1,32 @@
+[
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/contacts/ContactList.ets",
+        "line": 364,
+        "code": "this.mContactPresenter.aboutToAppear(this.autoMergeDialogController);"
+      },
+      {
+        "filePath": "entry/src/main/ets/presenter/contact/ContactListPresenter.ets",
+        "line": 898,
+        "code": "new LimitRefreshDataUtil<PageLimit, ContactVo[]>('getAllContact',"
+      },
+      {
+        "filePath": "feature/contact/src/main/ets/repo/ContactRepository.ets",
+        "line": 817,
+        "code": "dataAbilityHelper.query(Contacts.CONTACT_URI, conditionArgs, resultColumns)"
+      },
+      {
+        "filePath": "entry/src/main/ets/model/ContactAbilityModel.ets",
+        "line": 805,
+        "code": "jsonObj.displayName = jsonObj.emptyNameData;"
+      },
+      {
+        "filePath": "entry/src/main/ets/presenter/contact/ContactListPresenter.ets",
+        "line": 909,
+        "code": "this.contactListDataSource.refresh(ArrayUtil.getOffsetForSession(page), result, isEnd);"
+      }
+    ]
+  }
+]

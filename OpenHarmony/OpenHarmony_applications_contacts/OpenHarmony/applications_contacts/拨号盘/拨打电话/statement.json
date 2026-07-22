@@ -1,0 +1,28 @@
+[
+  {
+    "id": 9,
+    "data": [
+      {
+        "scene": "用户输入或选择电话号码并点击拨号时",
+        "purpose": "发起系统电话呼叫",
+        "source": "用户输入、联系人记录或通话记录",
+        "item": "电话号码",
+        "frequency": "每次点击拨号时",
+        "processing": "将电话号码交给 HarmonyOS 电话服务发起呼叫",
+        "storage": "应用不存储；由系统电话服务处理",
+        "recipient": "HarmonyOS 电话服务",
+        "thirdparty": "不向第三方共享；通信运营商按电话业务处理",
+        "switchpath": "联系人/拨号 > 输入或选择号码 > 拨号"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "拨打电话能力",
+        "scene": "用户点击拨号",
+        "authorization": "系统级电话能力调用",
+        "purpose": "发起电话呼叫",
+        "impact": "无法拨打该电话"
+      }
+    ]
+  }
+]

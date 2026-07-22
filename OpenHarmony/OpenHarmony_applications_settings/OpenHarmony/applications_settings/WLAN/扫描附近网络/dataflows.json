@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "feature/wifi/src/main/ets/WifiUtils.ets",
+        "line": 819,
+        "code": "wifiManager.startScan();"
+      },
+      {
+        "filePath": "feature/wifi/src/main/ets/WifiUtils.ets",
+        "line": 695,
+        "code": "return wifiManager.getScanInfoList();"
+      },
+      {
+        "filePath": "feature/wifi/src/main/ets/model/WifiModel.ets",
+        "line": 74,
+        "code": "this.ssid = param.ssid as string;"
+      },
+      {
+        "filePath": "feature/wifi/src/main/ets/model/WifiModel.ets",
+        "line": 75,
+        "code": "this.bssid = param.bssid as string;"
+      }
+    ]
+  }
+]

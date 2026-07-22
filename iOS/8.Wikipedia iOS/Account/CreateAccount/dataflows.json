@@ -1,0 +1,167 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "CREATE_ACCOUNT_API",
+      "data_type": "用户名、密码、确认密码、邮箱地址和验证码数据",
+      "description": "用户创建账户时，用户名、密码、确认密码、可选邮箱地址和验证码通过API POST请求发送到MediaWiki服务器进行createaccount认证",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "createAccount",
+          "file": "Wikipedia/Code/WMFAccountCreator.swift",
+          "line": 162,
+          "code": "public func createAccount(username: String, password: String, retypePassword: String, email: String?, classicCaptchaID: String?, classicCaptchaWord: String?, hCaptchaToken: String?, siteURL: URL, success: @escaping WMFAccountCreatorResultBlock, failure: @escaping WMFErrorHandler)",
+          "details": "账户创建流程触发，接收用户名、密码、确认密码和可选邮箱"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "createAccount",
+          "file": "Wikipedia/Code/WMFAccountCreator.swift",
+          "line": 164,
+          "code": "var parameters: [String: String] = [\n    \"action\": \"createaccount\",\n    \"username\": username,\n    \"password\": password,\n    \"retype\": retypePassword,\n    \"createreturnurl\": \"https://www.wikipedia.org\",\n    \"createmessageformat\": \"html\",\n    \"format\": \"json\"\n]",
+          "details": "将用户名、密码、确认密码等组装到API请求参数中"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "createAccount",
+          "file": "Wikipedia/Code/WMFAccountCreator.swift",
+          "line": 173,
+          "code": "if let email = email {\n    parameters[\"email\"] = email\n}",
+          "details": "可选邮箱地址被添加到请求参数中"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "createAccount",
+          "file": "Wikipedia/Code/WMFAccountCreator.swift",
+          "line": 185,
+          "code": "performTokenizedMediaWikiAPIPOST(tokenType: .createAccount, to: siteURL, with: parameters) { (result, response, error) in",
+          "details": "用户名、密码、确认密码、邮箱和验证码通过HTTPS POST发送到Wiki服务器（如en.wikipedia.org）的API端点进行createaccount操作"
+        },
+        {
+          "step": "Data Display",
+          "function": "createAccount",
+          "file": "Wikipedia/Code/WMFAccountCreator.swift",
+          "line": 232,
+          "code": "let normalizedUsername = createaccount[\"username\"] as? String ?? username\nsuccess(WMFAccountCreatorResult.init(status: status, username: normalizedUsername, message: message?.text ?? \"\"))",
+          "details": "API返回创建结果，包含标准化用户名，结果回调给UI层展示"
+        }
+      ]
+    },
+    {
+      "id": "CREATE_ACCOUNT_CHECK_USERNAME",
+      "data_type": "用户名查询字符串",
+      "description": "创建账户前检查用户名是否可用，用户名通过API GET请求发送到MediaWiki服务器",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "checkUsername",
+          "file": "Wikipedia/Code/WMFAccountCreator.swift",
+          "line": 133,
+          "code": "public func checkUsername(\n    _ username: String,\n    siteURL: URL,\n    success: @escaping (Bool) -> Void,\n    failure: @escaping WMFErrorHandler\n)",
+          "details": "检查用户名可用性流程触发"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "checkUsername",
+          "file": "Wikipedia/Code/WMFAccountCreator.swift",
+          "line": 139,
+          "code": "let parameters: [String: String] = [\n    \"action\": \"query\",\n    \"list\": \"users\",\n    \"ususers\": username,\n    \"usprop\": \"cancreate\",\n    \"formatversion\": \"2\",\n    \"format\": \"json\"\n]",
+          "details": "将用户名组装到查询参数中"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "checkUsername",
+          "file": "Wikipedia/Code/WMFAccountCreator.swift",
+          "line": 148,
+          "code": "performDecodableMediaWikiAPIGET(\n    for: siteURL,\n    with: parameters\n) { (result: Result<CheckUsernameAPIResponse, Error>) in",
+          "details": "用户名通过GET请求发送到MediaWiki API的query+users端点，查询用户是否可创建"
+        }
+      ]
+    },
+    {
+      "id": "CREATE_ACCOUNT_AUTO_LOGIN",
+      "data_type": "用户名和密码（从创建账户流程传递到登录流程）",
+      "description": "账户创建成功后，自动使用刚注册的用户名和密码进行登录",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "createAccount",
+          "file": "Wikipedia/Code/WMFAccountCreationViewController.swift",
+          "line": 377,
+          "code": "dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, emailAuthCode: nil, captchaID: nil, captchaWord: nil) {",
+          "details": "账户创建成功后自动触发登录，传入刚注册的用户名和密码"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "login",
+          "file": "Wikipedia/Code/WMFAccountLoginLogoutFetcher.swift",
+          "line": 134,
+          "code": "performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: parameters, reattemptLoginOn401Response: reattemptOn401Response)",
+          "details": "用户名和密码通过API POST发送到MediaWiki进行clientlogin认证"
+        },
+        {
+          "step": "Storage",
+          "function": "login",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 200,
+          "code": "KeychainCredentialsManager.shared.username = username\nKeychainCredentialsManager.shared.password = password",
+          "details": "登录成功后用户名和密码被存储到iOS Keychain"
+        }
+      ]
+    },
+    {
+      "id": "CREATE_ACCOUNT_AUTH_MANAGER_INFO",
+      "data_type": "认证管理器配置信息（验证码要求等）",
+      "description": "创建账户前获取服务器端的认证管理器信息以确定是否需要验证码",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "viewDidLoad",
+          "file": "Wikipedia/Code/WMFAccountCreationViewController.swift",
+          "line": 249,
+          "code": "accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { info in",
+          "details": "页面加载时获取账户创建信息"
+        },
+        {
+          "step": "Data Reception",
+          "function": "fetchAccountCreationInfoForSiteURL",
+          "file": "Wikipedia/Code/WMFAuthAccountCreationInfoFetcher.swift",
+          "line": "-",
+          "code": "// Fetches captcha requirements and account creation configuration from MediaWiki API",
+          "details": "从MediaWiki API获取验证码要求等账户创建配置（仅接收不发送个人数据）"
+        }
+      ]
+    },
+    {
+      "id": "CREATE_ACCOUNT_ANALYTICS",
+      "data_type": "账户创建分析事件（action、category、measure_time）",
+      "description": "账户创建过程中记录开始和成功事件到EventPlatformClient",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "logCreateAccountAttempt",
+          "file": "Wikipedia/Code/LoginFunnel.swift",
+          "line": 48,
+          "code": "public func logCreateAccountAttempt(category: EventCategoryMEP?) {\n    logEvent(category: category ?? .login, label: nil, action: .createAccountStart)",
+          "details": "用户开始创建账户时触发分析事件"
+        },
+        {
+          "step": "Trigger",
+          "function": "logCreateAccountSuccess",
+          "file": "Wikipedia/Code/LoginFunnel.swift",
+          "line": 52,
+          "code": "public func logCreateAccountSuccess(category: EventCategoryMEP?, timeElapsed: Double?) {\n    logEvent(category: category ?? .login, label: nil, action: .createAccountSuccess, measure: timeElapsed)",
+          "details": "账户创建成功时触发分析事件，包含耗时数据"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "logEvent",
+          "file": "Wikipedia/Code/LoginFunnel.swift",
+          "line": 29,
+          "code": "EventPlatformClient.shared.submit(stream: .login, event: event)",
+          "details": "创建账户事件通过EventPlatformClient提交到ios.login_action流"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/activity/PassCodeActivity.kt",
+        "line": 243,
+        "code": "private fun processFullPassCode() {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/activity/PassCodeActivity.kt",
+        "line": 269,
+        "code": "} else if (ACTION_REQUEST_WITH_RESULT == intent.action) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/activity/PassCodeActivity.kt",
+        "line": 273,
+        "code": "} else if (confirmPassCode()) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/activity/PassCodeActivity.kt",
+        "line": 275,
+        "code": "savePassCodeAndExit()"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/activity/PassCodeActivity.kt",
+        "line": 352,
+        "code": "private fun savePassCodeAndExit() {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/activity/PassCodeActivity.kt",
+        "line": 354,
+        "code": "resultIntent.putExtra("
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/activity/PassCodeActivity.kt",
+        "line": 356,
+        "code": "passCodeDigits[0] + passCodeDigits[1] + passCodeDigits[2] + passCodeDigits[3]"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/activity/PassCodeActivity.kt",
+        "line": 358,
+        "code": "setResult(RESULT_OK, resultIntent)"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/activity/SettingsActivity.java",
+        "line": 1028,
+        "code": "protected void onActivityResult(int requestCode, int resultCode, Intent data) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/activity/SettingsActivity.java",
+        "line": 1034,
+        "code": "String passcode = data.getStringExtra(PassCodeActivity.KEY_PASSCODE);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/activity/SettingsActivity.java",
+        "line": 1035,
+        "code": "if (passcode != null && passcode.length() == 4) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/activity/SettingsActivity.java",
+        "line": 1040,
+        "code": "appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i - 1, i));"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/activity/SettingsActivity.java",
+        "line": 1042,
+        "code": "appPrefs.apply();"
+      }
+    ]
+  }
+]

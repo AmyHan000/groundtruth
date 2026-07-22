@@ -1,0 +1,47 @@
+[
+  {
+    "id": 10,
+    "dataflow": [
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 73,
+        "code": "func deleteCNGroup(forGroup group: CNGroup) throws {"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 76,
+        "code": "let store = CNContactStore()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 77,
+        "code": "let fetch = self.makeContactFetchRequest(forKeys: [CNContactIdentifierKey] as [any CNKeyDescriptor])"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 79,
+        "code": "fetch.predicate = CNContact.predicateForContactsInGroup(withIdentifier: group.identifier)"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 80,
+        "code": "let save = CNSaveRequest()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 82,
+        "code": "try self.enumerateContactsInContactStore(store, with: fetch) { contact, _ in save.delete(contact.mutableCopy() as! CNMutableContact) }"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 84,
+        "code": "try store.execute(save)"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 87,
+        "code": "let saveRequest = CNSaveRequest()"
+      }
+    ]
+  }
+]

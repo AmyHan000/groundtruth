@@ -1,0 +1,62 @@
+[
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 47,
+        "code": "@MainActor public func open(withAnchorRect anchorRect: CGRect, isFileOnly: Bool) async throws -> [String] {"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 60,
+        "code": "case .camera: self.openCamera()"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 121,
+        "code": "private func openCamera() {"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 122,
+        "code": "self.imagePickerController.sourceType = .camera"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 127,
+        "code": "self.sourceController.present(self.imagePickerController, animated: true, completion: nil)"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 138,
+        "code": "public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 149,
+        "code": "if self.imagePickerController.sourceType == .camera {"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 154,
+        "code": "let imageToSave: UIImage = editedImage ?? originalImage!"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 157,
+        "code": "guard let imageData = imageToSave.jpegData(compressionQuality: 0.9) else {"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 161,
+        "code": "do { try imageData.write(to: filePath, options: .atomic) } catch {"
+      },
+      {
+        "filePath": "app-ios/TutanotaSharedFramework/Files/FileChooser.swift",
+        "line": 165,
+        "code": "self.sendResult(filePath: filePath.path)"
+      }
+    ]
+  }
+]

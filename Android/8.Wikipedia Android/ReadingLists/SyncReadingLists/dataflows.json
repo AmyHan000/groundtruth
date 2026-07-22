@@ -1,0 +1,59 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_READING_LIST_SYNC",
+      "data_type": "Reading List Data (Page Titles, Descriptions, Thumbnails)",
+      "description": "Reading list sync uses ReadingListClient to synchronize locally stored reading lists with MediaWiki server via custom API. Supports two-way sync with conflict resolution.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "ReadingListSyncAdapter.manualSyncWithForce",
+          "file": "app/src/main/java/org/wikipedia/readinglist/sync/ReadingListSyncAdapter.kt",
+          "line": 1,
+          "code": "fun manualSyncWithForce() { ... }",
+          "details": "Sync triggered on login, manual refresh, or periodic WorkManager schedule. Can force full resync."
+        },
+        {
+          "step": "Token Acquisition",
+          "function": "CsrfTokenClient.getToken",
+          "file": "app/src/main/java/org/wikipedia/readinglist/sync/ReadingListSyncAdapter.kt",
+          "line": 79,
+          "code": "val csrfToken = CsrfTokenClient.getToken(wiki)",
+          "details": "CSRF token acquired for authenticated API requests."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "ReadingListClient",
+          "file": "app/src/main/java/org/wikipedia/readinglist/sync/ReadingListClient.kt",
+          "line": 1,
+          "code": "class ReadingListClient(val wiki: WikiSite)",
+          "details": "Synchronizes reading lists between local Room database and server. Sends page titles, descriptions, thumbnails, and list metadata."
+        },
+        {
+          "step": "Data Storage (Local)",
+          "function": "AppDatabase.readingListDao",
+          "file": "app/src/main/java/org/wikipedia/database/AppDatabase.kt",
+          "line": 1,
+          "code": "class AppDatabase : RoomDatabase() { abstract fun readingListDao(): ReadingListDao }",
+          "details": "Reading lists persisted locally via Room database. Stores list names, page IDs, descriptions, thumbnails, and sync state."
+        },
+        {
+          "step": "Data Processing",
+          "function": "ReadingListSyncAdapter.doWork",
+          "file": "app/src/main/java/org/wikipedia/readinglist/sync/ReadingListSyncAdapter.kt",
+          "line": 43,
+          "code": "override suspend fun doWork(): Result { ... val client = ReadingListClient(wiki) ... }",
+          "details": "Sync loop processes: local changes pushed to server, remote changes pulled to local, deletions propagated. Conflict resolution via last-write-wins with timestamp comparison."
+        },
+        {
+          "step": "Post-Sync Event",
+          "function": "SavedPageSyncService.sendSyncEvent",
+          "file": "app/src/main/java/org/wikipedia/readinglist/sync/ReadingListSyncAdapter.kt",
+          "line": 50,
+          "code": "if (extras.containsKey(SYNC_EXTRAS_REFRESHING)) { SavedPageSyncService.sendSyncEvent() }",
+          "details": "After reading list sync, triggers saved pages sync to update offline cache."
+        }
+      ]
+    }
+  ]
+}

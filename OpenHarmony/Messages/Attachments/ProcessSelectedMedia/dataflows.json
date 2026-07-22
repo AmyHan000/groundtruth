@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 353,
+        "code": "async handlePhotoSelectResult(context: Context, fromReplace?: boolean) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 354,
+        "code": "if (this.photoSelectRes) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 356,
+        "code": "JSON.stringify(this.photoSelectRes.photoUris));"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 357,
+        "code": "AppStorage.setOrCreate('selectPicFromGalleryDone', this.photoSelectRes.photoUris.length > 0);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 359,
+        "code": "await this.photoSelectResult(context, this.photoSelectRes, toastArr, fromReplace);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 383,
+        "code": "public async photoSelectResult(context: Context, photoSelectResult: photoAccessHelper.PhotoSelectResult,"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 385,
+        "code": "for (let i = 0; i < photoSelectResult.photoUris.length; i++) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 387,
+        "code": "let isAdd: boolean = await this.isAddImageFromCheckImageWidthAndHeight(context, photoSelectResult.photoUris[i]);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMPictureController.ets",
+        "line": 389,
+        "code": "let item = this.savePictureToSandBoxWithUrl(context, photoSelectResult.photoUris[i])"
+      }
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "id": 6,
+    "dataflow": [
+      {
+        "filePath": "iOSClient/Scan document/NCDocumentCamera.swift",
+        "line": 40,
+        "code": "let controller = VNDocumentCameraViewController()"
+      },
+      {
+        "filePath": "iOSClient/Scan document/NCDocumentCamera.swift",
+        "line": 50,
+        "code": "let image = scan.imageOfPage(at: pageNumber)"
+      },
+      {
+        "filePath": "iOSClient/Scan document/NCDocumentCamera.swift",
+        "line": 52,
+        "code": "try image.pngData()?.write(to: NSURL.fileURL(withPath: fileNamePath))"
+      },
+      {
+        "filePath": "iOSClient/Scan document/NCDocumentCamera.swift",
+        "line": 58,
+        "code": "viewController.loadImage()"
+      }
+    ]
+  }
+]

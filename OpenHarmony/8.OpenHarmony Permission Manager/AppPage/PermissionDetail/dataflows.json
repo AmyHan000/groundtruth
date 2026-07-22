@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_APP_PERMISSION_DETAIL_LOAD",
+      "data_type": "单个应用的详细信息（包名、应用名称、图标、accessTokenId、所有权限声明）、每个权限的授予状态（verifyAccessTokenSync结果）、权限标记位、位置权限精确/模糊/后台状态",
+      "description": "查看特定应用的权限详情页，展示该应用声明的所有权限及当前授予状态。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "mediaDocumentPage.aboutToAppear",
+          "file": "permissionmanager/src/main/ets/pages/application-tertiary.ets",
+          "line": 46,
+          "code": "aboutToAppear(): void { ... }",
+          "details": "用户从应用列表点击某个应用，进入该应用的权限详情页。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "mediaDocumentPage.aboutToAppear",
+          "file": "permissionmanager/src/main/ets/pages/application-tertiary.ets",
+          "line": 303,
+          "code": "aboutToAppear() { bundleManager.getBundleInfo(this.bundleName, bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION).then(res => { accessTokenId = res.appInfo.accessTokenId; ... }) }",
+          "details": "读取应用的BundleInfo获取accessTokenId，然后对每个权限调用系统API查询授予状态。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "verifyAccessTokenSync",
+          "file": "permissionmanager/src/main/ets/pages/application-tertiary.ets",
+          "line": 106,
+          "code": "let res = atManager.verifyAccessTokenSync(this.tokenId, permission);",
+          "details": "对每个权限调用verifyAccessTokenSync查询授予状态。对位置权限额外查询精确/模糊/后台三个粒度。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "revokePermissionWithResult",
+          "file": "permissionmanager/src/main/ets/pages/application-tertiary.ets",
+          "line": 444,
+          "code": "PermissionUtils.revokePermissionWithResult(permission, Constants.PERMISSION_FLAG, accessTokenId);",
+          "details": "用户可撤销或授予该应用的特定权限，调用系统API修改权限标记位。"
+        }
+      ]
+    }
+  ]
+}

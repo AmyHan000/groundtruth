@@ -1,0 +1,30 @@
+[
+  {
+    "business_function": "浏览历史记录",
+    "business_scenario": "文章加载完成后触发页面浏览记录持久化，最终在WMFArticle实体上设置viewedDate为当前日期",
+    "data_types_info": "文章浏览记录（标题、项目ID、命名空间ID、时间戳、浏览时长）(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "浏览历史记录",
+    "business_scenario": "从遗留Core Data读取一年内的浏览记录，转换为WMFLegacyPageView对象（包含标题、项目、浏览日期），最终遗留浏览数据导入到新的CDPage和CDPageView Core Data实体",
+    "data_types_info": "遗留浏览数据迁移（标题、项目、浏览日期(一般)、可选经纬度坐标）(敏感)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "浏览历史记录",
+    "business_scenario": "用户停留在文章页面30秒以上时触发，最终wasSignificantlyViewed = true存储到WMFArticle Core Data实体",
+    "data_types_info": "显著浏览标记(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "浏览历史记录",
+    "business_scenario": "系统定期清理超过一年的页面浏览记录和关联的空页面，最终删除超过一年且无关联页面视图、标签页或保存信息的页面记录",
+    "data_types_info": "页面浏览记录自动清理(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  }
+]

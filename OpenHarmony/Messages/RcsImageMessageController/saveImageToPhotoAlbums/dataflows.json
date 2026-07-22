@@ -1,0 +1,47 @@
+[
+  {
+    "id": 22,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/RcsImageMessageController.ets",
+        "line": 109,
+        "code": "public async saveImageToPhotoAlbums(sandBoxPath: string) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/RcsImageMessageController.ets",
+        "line": 113,
+        "code": "let phAccessHelper = photoAccessHelper.default.getPhotoAccessHelper(context);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/RcsImageMessageController.ets",
+        "line": 116,
+        "code": "let fileSandbox = await fs.open(sandBoxPath, fs.OpenMode.READ_ONLY);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/RcsImageMessageController.ets",
+        "line": 117,
+        "code": "let size = fs.statSync(fileSandbox.fd).size;"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/RcsImageMessageController.ets",
+        "line": 118,
+        "code": "let fileSandboxBuffer = new ArrayBuffer(size);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/RcsImageMessageController.ets",
+        "line": 121,
+        "code": "let uri = await phAccessHelper.createAsset(photoAccessHelper.default.PhotoType.IMAGE,"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/RcsImageMessageController.ets",
+        "line": 123,
+        "code": "let file = await fs.open(uri, fs.OpenMode.READ_WRITE);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/RcsImageMessageController.ets",
+        "line": 124,
+        "code": "await fs.write(file.fd, fileSandboxBuffer);"
+      }
+    ]
+  }
+]

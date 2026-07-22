@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "清理存储空间",
+    "business_scenario": "用户从系统设置或图库内进入存储清理页面，应用扫描截图相册中的照片数量和可清理的缓存文件信息（缩略图缓存、编辑缓存等），按照片/视频分类展示可清理项列表，用户选择后执行缓存清理操作。",
+    "data_types_info": "截图相册照片数量(一般), 缓存文件大小信息(一般), 可清理项列表(一般)",
+    "processing_method": "本地处理（通过系统存储管理接口清理缩略图缓存和编辑临时文件）",
+    "permissions_info": "ohos.permission.STORAGE_MANAGER -- 存储管理（执行清理操作时触发）; ohos.permission.ACCESS_SYSTEM_SETTINGS -- 访问系统设置（读写清理推荐卡片数据时触发）"
+  }
+]

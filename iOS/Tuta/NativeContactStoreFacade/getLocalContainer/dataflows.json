@@ -1,0 +1,37 @@
+[
+  {
+    "id": 12,
+    "dataflow": [
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 18,
+        "code": "func getLocalContainer() -> String {"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 19,
+        "code": "let store = CNContactStore()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 20,
+        "code": "let defaultContainer = store.defaultContainerIdentifier()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 23,
+        "code": "let containers = try store.containers(matching: nil)"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 27,
+        "code": "let localContainer = containers.first(where: { $0.type == CNContainerType.local })"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 29,
+        "code": "return localContainer?.identifier ?? defaultContainer"
+      }
+    ]
+  }
+]

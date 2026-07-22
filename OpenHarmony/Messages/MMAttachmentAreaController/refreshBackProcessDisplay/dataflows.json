@@ -1,0 +1,47 @@
+[
+  {
+    "id": 12,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMAttachmentAreaController.ets",
+        "line": 857,
+        "code": "async refreshBackProcessDisplay() {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMAttachmentAreaController.ets",
+        "line": 860,
+        "code": "let mPhotoAccessHelper = photoAccessHelper.default.getPhotoAccessHelper(context);"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMAttachmentAreaController.ets",
+        "line": 863,
+        "code": "let predicates = new dataSharePredicates.DataSharePredicates();"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMAttachmentAreaController.ets",
+        "line": 864,
+        "code": "let fetchResult = await mPhotoAccessHelper.getAssets({"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMAttachmentAreaController.ets",
+        "line": 868,
+        "code": "let photoAssetList = await fetchResult.getAllObjects();"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMAttachmentAreaController.ets",
+        "line": 869,
+        "code": "let existArr: Array<Mms> = [];"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMAttachmentAreaController.ets",
+        "line": 870,
+        "code": "if (photoAssetList && photoAssetList.length >= 0 && this.mmDisplaySource.length > 0) {"
+      },
+      {
+        "filePath": "entry/src/main/ets/views/AttachmentArea/MMAttachmentAreaController.ets",
+        "line": 871,
+        "code": "this.mmDisplaySource.forEach((ele, index) => {"
+      }
+    ]
+  }
+]

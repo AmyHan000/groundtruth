@@ -1,0 +1,27 @@
+[
+  {
+    "id": 9,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/ContactManager.kt",
+        "line": 114,
+        "code": "private fun getContactIds(displayName: String): List<Long> {"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/ContactManager.kt",
+        "line": 121,
+        "code": "ContactsContract.Contacts.CONTENT_URI,"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/ContactManager.kt",
+        "line": 129,
+        "code": "val idIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/ContactManager.kt",
+        "line": 131,
+        "code": "val id = cursor.getLong(idIndex)"
+      }
+    ]
+  }
+]

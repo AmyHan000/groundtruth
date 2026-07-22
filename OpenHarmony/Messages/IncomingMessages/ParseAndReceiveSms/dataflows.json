@@ -1,0 +1,72 @@
+[
+  {
+    "id": 10,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/StaticSubscriber/ReceiveService.ets",
+        "line": 1199,
+        "code": "public async handleSmsReceive(data: DataParameters, context: Context): Promise<void> {"
+      },
+      {
+        "filePath": "entry/src/main/ets/StaticSubscriber/ReceiveService.ets",
+        "line": 1204,
+        "code": "data.parameters.pdus.forEach(pdu => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/StaticSubscriber/ReceiveService.ets",
+        "line": 1205,
+        "code": "let promise = telSim.createMessage(this.convertStrArray(pdu), netType);"
+      },
+      {
+        "filePath": "entry/src/main/ets/StaticSubscriber/ReceiveService.ets",
+        "line": 1214,
+        "code": "result.telephone = shortMsgList[0].visibleRawAddress;"
+      },
+      {
+        "filePath": "entry/src/main/ets/StaticSubscriber/ReceiveService.ets",
+        "line": 1218,
+        "code": "result.content += shortMessage.visibleMessageBody;"
+      },
+      {
+        "filePath": "entry/src/main/ets/StaticSubscriber/ReceiveService.ets",
+        "line": 1233,
+        "code": "actionData.starttime = result.startTime;"
+      },
+      {
+        "filePath": "entry/src/main/ets/StaticSubscriber/ReceiveService.ets",
+        "line": 1237,
+        "code": "actionData.telephone = result.telephone;"
+      },
+      {
+        "filePath": "entry/src/main/ets/StaticSubscriber/ReceiveService.ets",
+        "line": 1238,
+        "code": "actionData.content = result.content;"
+      },
+      {
+        "filePath": "entry/src/main/ets/StaticSubscriber/ReceiveService.ets",
+        "line": 1245,
+        "code": "let flagResult = await BlockedUtil.getFlag(actionData.telephone, context);"
+      },
+      {
+        "filePath": "entry/src/main/ets/StaticSubscriber/ReceiveService.ets",
+        "line": 1374,
+        "code": "this.insertMessageDetailBy(actionData, (res: sessionResult) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/StaticSubscriber/ReceiveService.ets",
+        "line": 1594,
+        "code": "sendResult.telephone = param.telephone;"
+      },
+      {
+        "filePath": "entry/src/main/ets/StaticSubscriber/ReceiveService.ets",
+        "line": 1601,
+        "code": "sendResult.content = param.content;"
+      },
+      {
+        "filePath": "entry/src/main/ets/StaticSubscriber/ReceiveService.ets",
+        "line": 1637,
+        "code": "}] : [await this.queryContactByPhone(context, param.telephone, param.contactName)];"
+      }
+    ]
+  }
+]

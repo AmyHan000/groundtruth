@@ -1,0 +1,37 @@
+[
+  {
+    "id": 14,
+    "dataflow": [
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/CredentialsEncryptionFromAPI30.kt",
+        "line": 124,
+        "code": "private fun getAuthenticatedCipherForDecryptionModelWithFallback("
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/CredentialsEncryptionFromAPI30.kt",
+        "line": 129,
+        "code": "keyStoreFacade.getCipherForDecryptionMode(encryptionMode, dataToDecrypt)"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/CredentialsEncryptionFromAPI30.kt",
+        "line": 131,
+        "code": "// If the key was created with the old Android version then we need to use old mechanism"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/CredentialsEncryptionFromAPI30.kt",
+        "line": 132,
+        "code": "return if (e.cause is UserNotAuthenticatedException) {"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/CredentialsEncryptionFromAPI30.kt",
+        "line": 133,
+        "code": "val message ="
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/CredentialsEncryptionFromAPI30.kt",
+        "line": 137,
+        "code": "keyStoreFacade.getCipherForDecryptionMode(encryptionMode, dataToDecrypt)"
+      }
+    ]
+  }
+]

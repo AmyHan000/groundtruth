@@ -1,0 +1,17 @@
+[
+  {
+    "id": 9,
+    "dataflow": [
+      {
+        "filePath": "feature/phonenumber/src/main/ets/PhoneNumber.ets",
+        "line": 84,
+        "code": "TelecomService.getInstance().dial(phoneNumber, options as call.DialOptions, (data: number) => {"
+      },
+      {
+        "filePath": "feature/phonenumber/src/main/ets/TelecomService.ets",
+        "line": 59,
+        "code": "call.dialCall(num, options, (err: BusinessError<void>, value: void) => {"
+      }
+    ]
+  }
+]

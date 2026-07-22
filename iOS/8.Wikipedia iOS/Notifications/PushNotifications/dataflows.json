@@ -1,0 +1,198 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "PUSH_NOTIFICATION_RECEIVE_PROCESS",
+      "data_type": "推送通知负载内容和用户语言偏好（primaryLanguageCode）",
+      "description": "通知服务扩展收到推送后，从共享缓存读取用户语言设置，从MediaWiki API获取未读推送通知并缓存到本地共享容器",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "didReceive",
+          "file": "NotificationServiceExtension/NotificationService.swift",
+          "line": 20,
+          "code": "override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void)",
+          "details": "系统推送到达时触发通知服务扩展"
+        },
+        {
+          "step": "Data Processing",
+          "function": "didReceive",
+          "file": "NotificationServiceExtension/NotificationService.swift",
+          "line": 30,
+          "code": "guard bestAttemptContent.body == EchoModelVersion.current else {",
+          "details": "检查推送body是否为当前Echo模型版本（checkEchoV1）"
+        },
+        {
+          "step": "Data Processing",
+          "function": "didReceive",
+          "file": "NotificationServiceExtension/NotificationService.swift",
+          "line": 36,
+          "code": "let cache = sharedCache.loadCache() ?? PushNotificationsCache(settings: .default, notifications: [])",
+          "details": "从共享容器缓存加载推送通知设置（包含primaryLanguageCode）和已缓存的通知"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "getUnreadPushNotifications",
+          "file": "NotificationServiceExtension/NotificationService.swift",
+          "line": 41,
+          "code": "apiController.getUnreadPushNotifications(from: project) { [weak self] fetchedNotifications, error in",
+          "details": "从MediaWiki API获取未读推送通知，使用用户的主语言项目"
+        },
+        {
+          "step": "Storage",
+          "function": "didReceive",
+          "file": "NotificationServiceExtension/NotificationService.swift",
+          "line": 57,
+          "code": "self.sharedCache.saveCache(newCache)",
+          "details": "更新后的通知列表和未读数保存到共享容器缓存"
+        }
+      ]
+    },
+    {
+      "id": "REMOTE_NOTIFICATION_FETCH_ALL",
+      "data_type": "通知查询参数（wiki标识符、过滤条件、分页令牌、通知类型筛选器）和完整通知数据",
+      "description": "从MediaWiki API Echo系统获取所有通知，包括跨Wiki摘要",
+      "flow_steps": [
+        {
+          "step": "Data Assembly",
+          "function": "queryParameters",
+          "file": "WMF Framework/Remote Notifications/RemoteNotificationsAPIController.swift",
+          "line": 408,
+          "code": "static func getAllNotifications(project: WikimediaProject, filter: String?, continueId: String?, needsCrossWikiSummary: Bool) -> Parameters?",
+          "details": "组装通知查询参数，包含过滤器、分页、跨wiki摘要和wiki标识符"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "request",
+          "file": "WMF Framework/Remote Notifications/RemoteNotificationsAPIController.swift",
+          "line": 356,
+          "code": "func request(project: WikimediaProject?, queryParameters: Parameters?, method: Session.Request.Method = .get, bodyParameters: Parameters? = nil, completion: @escaping (Result<[String: Any]?, Error>) -> Void)",
+          "details": "认证请求发送到MediaWiki API的Echo通知端点"
+        },
+        {
+          "step": "Data Reception",
+          "function": "recursivelyFetchAndSaveNotifications",
+          "file": "WMF Framework/Remote Notifications/Operations/RemoteNotificationsPagingOperation.swift",
+          "line": 69,
+          "code": "func recursivelyFetchAndSaveNotifications(continueId: String?) {\n    self.apiController.getAllNotifications(from: project, filter: filter, continueId: continueId) { result in",
+          "details": "递归获取所有通知页面的完整数据"
+        },
+        {
+          "step": "Storage",
+          "function": "createNewNotification",
+          "file": "WMF Framework/Remote Notifications/Model/RemoteNotificationsModelController.swift",
+          "line": 362,
+          "code": "moc.wmf_create(entityNamed: \"RemoteNotification\",\n    withKeysAndValues: [\n        \"wiki\": notification.wiki,\n        \"id\": notification.id,\n        \"key\": notification.key,\n        \"typeString\": notification.type,\n        \"categoryString\": notification.category,\n        \"section\": notification.section,\n        \"date\": date,\n        \"titleFull\": notification.title?.full,\n        \"titleText\": notification.title?.text,\n        \"agentId\": notification.agent?.id,\n        \"agentName\": notification.agent?.name,\n        \"isRead\": isRead,\n        \"revisionID\": notification.revisionID,\n        \"messageHeader\": notification.message?.header,\n        \"messageBody\": notification.message?.body,\n        \"messageLinks\": notification.message?.links,\n        // ...])",
+          "details": "完整通知数据（wiki、id、类型、类别、节、时间戳、标题、agent信息、读状态、修订ID、消息头和正文、链接）持久化到本地Core Data的RemoteNotification实体"
+        }
+      ]
+    },
+    {
+      "id": "REMOTE_NOTIFICATION_MARK_READ",
+      "data_type": "通知ID列表和Wiki标识符",
+      "description": "将通知标记为已读时，通知ID通过API POST请求发送到MediaWiki Echo系统",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "markAllAsRead",
+          "file": "WMF Framework/Remote Notifications/RemoteNotificationsAPIController.swift",
+          "line": 294,
+          "code": "static func markAllAsRead(project: WikimediaProject) -> Parameters? {\n    return [\"action\": \"echomarkread\", \"all\": \"true\", \"wikis\": project.notificationsApiWikiIdentifier]",
+          "details": "标记所有通知为已读，发送wiki标识符到服务器"
+        },
+        {
+          "step": "Trigger",
+          "function": "markAsReadOrUnread",
+          "file": "WMF Framework/Remote Notifications/RemoteNotificationsAPIController.swift",
+          "line": 318,
+          "code": "static func markAsReadOrUnread(project: WikimediaProject, identifierGroups: [(id: String, wiki: String)], shouldMarkRead: Bool) -> [Parameters]",
+          "details": "逐条标记通知为已读/未读，按50条一组分批发送通知ID列表"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "markAsReadOrUnread",
+          "file": "WMF Framework/Remote Notifications/RemoteNotificationsAPIController.swift",
+          "line": 340,
+          "code": "// POST request to echomarkread/echomarkunread with notification IDs",
+          "details": "通知ID和wiki标识符通过POST请求发送到MediaWiki API"
+        }
+      ]
+    },
+    {
+      "id": "REMOTE_NOTIFICATION_INTERACTION_ANALYTICS",
+      "data_type": "通知交互分析事件（notification_id、notification_wiki、notification_type、action、device_level_enabled）",
+      "description": "用户与通知交互时（点击、标记已读、标记未读等）记录分析事件",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "logNotificationInteraction",
+          "file": "Wikipedia/Code/RemoteNotificationsFunnel.swift",
+          "line": 39,
+          "code": "func logNotificationInteraction(with action: NotificationAction, notification: RemoteNotification, selectionToken: String?)",
+          "details": "用户交互通知时触发分析事件"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "logEvent",
+          "file": "Wikipedia/Code/RemoteNotificationsFunnel.swift",
+          "line": 31,
+          "code": "let event = Event(notification_id: notificationId, notification_wiki: notificationWiki, notification_type: notificationType, action: action.stringValue, selection_token: selectionToken, device_level_enabled: authStatus)",
+          "details": "组装通知交互事件，包含通知ID、wiki、类型、动作、选择令牌和设备推送权限状态"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "logEvent",
+          "file": "Wikipedia/Code/RemoteNotificationsFunnel.swift",
+          "line": 33,
+          "code": "EventPlatformClient.shared.submit(stream: .remoteNotificationsInteraction, event: event)",
+          "details": "通知交互事件通过EventPlatformClient提交到ios.notification_interaction流"
+        }
+      ]
+    },
+    {
+      "id": "PUSH_DEVICE_REGISTRATION",
+      "data_type": "设备推送令牌和Echo通知订阅",
+      "description": "用户启用推送通知时，注册远程通知并将设备令牌订阅到Echo通知系统",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "requestPushPermissionsAndSilentlySubscribeToEchoNotifications",
+          "file": "Wikipedia/Code/NotificationsCenterViewController.swift",
+          "line": 1031,
+          "code": "func requestPushPermissionsAndSilentlySubscribeToEchoNotifications() {\n    viewModel.notificationsController.requestPermissionsIfNecessary { ... }\n    UIApplication.shared.registerForRemoteNotifications()",
+          "details": "请求推送权限并注册远程通知获取设备令牌"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "subscribeToEchoNotifications",
+          "file": "Wikipedia/Code/NotificationsCenterViewController.swift",
+          "line": 1043,
+          "code": "self?.viewModel.notificationsController.subscribeToEchoNotifications()",
+          "details": "设备令牌订阅到Echo通知系统，将设备与用户账户关联"
+        }
+      ]
+    },
+    {
+      "id": "NOTIFICATION_AUTH_LOGOUT_CLEANUP",
+      "data_type": "全部通知数据的删除",
+      "description": "用户登出时，所有本地通知数据被清除",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "authManagerDidLogOut",
+          "file": "WMF Framework/Remote Notifications/RemoteNotificationsController.swift",
+          "line": 110,
+          "code": "@objc private func authManagerDidLogOut() {\n    filterState = RemoteNotificationsFilterState(readStatus: .all, offTypes: [], offProjects: [])\n    allInboxProjects = []\n    modelController?.resetDatabaseAndSharedCache()",
+          "details": "用户登出时触发通知数据清理"
+        },
+        {
+          "step": "Data Deletion",
+          "function": "resetDatabaseAndSharedCache",
+          "file": "WMF Framework/Remote Notifications/Model/RemoteNotificationsModelController.swift",
+          "line": 117,
+          "code": "func resetDatabaseAndSharedCache() {\n    // Batch deletes all RemoteNotification and WMFKeyValue entities from Core Data\n    // Clears shared cache notifications and sets currentUnreadCount to 0",
+          "details": "从Core Data批量删除所有通知实体和键值对，清空共享缓存"
+        }
+      ]
+    }
+  ]
+}

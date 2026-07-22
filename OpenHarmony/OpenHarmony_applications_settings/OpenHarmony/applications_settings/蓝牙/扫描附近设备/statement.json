@@ -1,0 +1,28 @@
+[
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "用户进入蓝牙页面并开始发现设备时",
+        "purpose": "展示附近可用蓝牙设备",
+        "source": "HarmonyOS 蓝牙发现服务",
+        "item": "附近蓝牙设备标识、设备名称和信号信息",
+        "frequency": "进入页面及发现事件返回时",
+        "processing": "本地调用蓝牙发现接口并更新设备列表",
+        "storage": "仅在运行期缓存附近设备列表",
+        "recipient": "设置应用和 HarmonyOS 蓝牙服务",
+        "thirdparty": "不向第三方共享",
+        "switchpath": "设置 > 蓝牙 > 关闭蓝牙或停止扫描"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "蓝牙扫描/附近设备能力",
+        "scene": "进入蓝牙页面发现设备",
+        "authorization": "系统应用预授权或系统能力授权",
+        "purpose": "发现附近蓝牙设备",
+        "impact": "无法显示可配对设备"
+      }
+    ]
+  }
+]

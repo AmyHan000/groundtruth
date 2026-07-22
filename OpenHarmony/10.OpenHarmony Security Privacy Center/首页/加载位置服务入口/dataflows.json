@@ -1,0 +1,35 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_HOME_LOCATION_ENTRY_CLICK",
+      "data_type": "用户点击位置服务入口的行为事件（HiSysEvent系统事件日志）",
+      "description": "用户在隐私中心首页点击\"位置信息\"行，应用上报点击事件到系统分析服务HiSysEvent，然后跳转到位置服务开关页面。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "Index → Row.onClick → router.pushUrl",
+          "file": "entry/src/main/ets/pages/Index.ets",
+          "line": 141,
+          "code": ".onClick(async () => { HiSysEventUtil.reportLocationClick('LOCATION'); router.pushUrl({ url: 'pages/locationServices' }, router.RouterMode.Standard).then(() => { ... }) })",
+          "details": "用户点击\"位置信息\"行，先上报点击事件，再跳转到位置服务管理页面。"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "HiSysEventUtil.reportLocationClick → hiSysEvent.write",
+          "file": "entry/src/main/ets/common/utils/HiSysEventUtil.ets",
+          "line": 1,
+          "code": "export class HiSysEventUtil { ... public static reportLocationClick(event: string) { ... hiSysEvent.write({ domain: 'SECU_PRIV', name: 'SECU_PRIV_ENTRANCE', eventType: hiSysEvent.EventType.BEHAVIOR, params: { ... } }); ... } }",
+          "details": "通过@ohos.hiSysEvent将用户点击隐私入口的行为事件写入系统事件日志。事件包含事件域(SECU_PRIV)、事件名(SECU_PRIV_ENTRANCE)、入口URL等。不包含个人身份信息。"
+        },
+        {
+          "step": "Navigation",
+          "function": "Router.pushUrl → locationServices page",
+          "file": "entry/src/main/ets/pages/Index.ets",
+          "line": 145,
+          "code": "router.pushUrl({ url: 'pages/locationServices' }, router.RouterMode.Standard).then(() => { ... }).catch((err: BusinessError) => { ... })",
+          "details": "页面路由跳转到位置服务管理页面（locationServices.ets），用户可在此管理设备位置服务开关。"
+        }
+      ]
+    }
+  ]
+}

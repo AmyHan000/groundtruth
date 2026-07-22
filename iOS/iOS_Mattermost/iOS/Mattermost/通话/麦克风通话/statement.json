@@ -1,0 +1,28 @@
+[
+  {
+    "id": 6,
+    "data": [
+      {
+        "scene": "用户加入 Mattermost Calls 并启用麦克风时",
+        "purpose": "采集语音并参与实时通话",
+        "source": "设备麦克风",
+        "item": "实时音频",
+        "frequency": "通话期间持续采集，静音或退出后停止",
+        "processing": "由通话组件实时编码并传输到 Mattermost Calls 服务",
+        "storage": "通常不作为本地音频文件保存；服务器处理遵循部署配置",
+        "recipient": "通话中的其他参与者及用户配置的 Calls 服务",
+        "thirdparty": "向通话参与者传输，不向无关第三方共享",
+        "switchpath": "通话界面 > 静音/退出；系统设置 > Mattermost > 麦克风"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "麦克风（iOS）",
+        "scene": "首次加入或启用通话麦克风",
+        "authorization": "动态授权",
+        "purpose": "采集并传输实时语音",
+        "impact": "只能旁听或无法参与语音通话"
+      }
+    ]
+  }
+]

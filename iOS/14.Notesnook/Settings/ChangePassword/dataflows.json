@@ -1,0 +1,27 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SETTINGS_CHANGE_PASSWORD",
+      "data_type": "Current Password + New Password",
+      "description": "User changes account password. Automatic backup triggered before changing password. Both passwords transmitted to auth server.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "ChangePassword.changePassword",
+          "file": "apps/mobile/app/components/auth/change-password.tsx",
+          "line": 54,
+          "code": "const result = await BackupService.run(false, \"change-password-dialog\", \"partial\");",
+          "details": "Automatic backup of all data triggered before password change as safety measure."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "ChangePassword.changePassword",
+          "file": "apps/mobile/app/components/auth/change-password.tsx",
+          "line": 79,
+          "code": "const passwordChanged = await db.user.changePassword(values.oldPassword, values.password);",
+          "details": "Both old and new passwords sent to auth.streetwriters.co over HTTPS."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "引导相机位置授权",
+    "business_scenario": "应用在时间线和照片浏览页面检查相机应用是否已获得APPROXIMATELY_LOCATION权限，通过读取系统设置中相机位置开关状态以及用户之前取消授权引导卡片的次数和间隔时间，综合判断是否展示引导卡片，引导用户为相机应用开启地理位置授权以在拍照时记录位置信息。",
+    "data_types_info": "相机应用的权限授权状态（是否有APPROXIMATELY_LOCATION授权）(敏感), 相机位置开关设置(一般), 用户取消引导卡片的操作记录（次数、时间）(一般)",
+    "processing_method": "本地处理（通过abilityAccessCtrl检查相机权限状态；通过settings读写系统设置）",
+    "permissions_info": "ohos.permission.GET_BUNDLE_INFO -- 读取相机应用信息以检查其权限状态（页面加载时触发）"
+  }
+]

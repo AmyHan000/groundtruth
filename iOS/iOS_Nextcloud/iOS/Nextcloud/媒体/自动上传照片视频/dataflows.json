@@ -1,0 +1,27 @@
+[
+  {
+    "id": 5,
+    "dataflow": [
+      {
+        "filePath": "iOSClient/Networking/NCAutoUpload.swift",
+        "line": 29,
+        "code": "let assetCollections = PHAssetCollection.allAlbums.filter({albumIds.contains($0.localIdentifier)})"
+      },
+      {
+        "filePath": "iOSClient/Networking/NCAutoUpload.swift",
+        "line": 30,
+        "code": "let result = await getCameraRollAssets(controller: nil, assetCollections: assetCollections, tblAccount: tableAccount(value: tblAccount))"
+      },
+      {
+        "filePath": "iOSClient/Networking/NCAutoUpload.swift",
+        "line": 130,
+        "code": "metadata.assetLocalIdentifier = asset.localIdentifier"
+      },
+      {
+        "filePath": "iOSClient/Networking/NCAutoUpload.swift",
+        "line": 134,
+        "code": "metadata.status = NCGlobal.shared.metadataStatusWaitUpload"
+      }
+    ]
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "app/screens/login/form.tsx",
+        "line": 122,
+        "code": "const [loginId, setLoginId] = useState<string>('');"
+      },
+      {
+        "filePath": "app/screens/login/form.tsx",
+        "line": 123,
+        "code": "const [password, setPassword] = useState<string>('');"
+      },
+      {
+        "filePath": "app/screens/login/form.tsx",
+        "line": 194,
+        "code": "const result: LoginActionResponse = await login(serverUrl!, {serverDisplayName, loginId: loginId.toLowerCase(), password, config, license});"
+      },
+      {
+        "filePath": "app/actions/remote/session.ts",
+        "line": 131,
+        "code": "user = await client.login("
+      },
+      {
+        "filePath": "app/client/rest/users.ts",
+        "line": 126,
+        "code": "login_id: loginId,"
+      },
+      {
+        "filePath": "app/client/rest/users.ts",
+        "line": 136,
+        "code": "`${this.getUsersRoute()}/login`,"
+      }
+    ]
+  }
+]

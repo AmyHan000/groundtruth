@@ -1,0 +1,160 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "LOGIN_CREDENTIALS_TRANSMISSION",
+      "data_type": "用户名和密码凭据",
+      "description": "用户登录时，用户名和密码通过API POST请求发送到MediaWiki服务器进行clientlogin认证，成功后凭据被存储到iOS Keychain",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "login",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 184,
+          "code": "public func login(username: String, password: String, retypePassword: String?, oathToken: String?, emailAuthCode: String?, captchaID: String?, captchaWord: String?, hCaptchaToken: String? = nil, reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void)",
+          "details": "登录流程触发，接收用户输入的用户名和密码"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "login",
+          "file": "Wikipedia/Code/WMFAccountLoginLogoutFetcher.swift",
+          "line": 93,
+          "code": "var parameters = [\"action\": \"clientlogin\", \"username\": username, \"password\": password, \"loginreturnurl\": \"https://www.wikipedia.org\", \"rememberMe\": \"1\", \"format\": \"json\"]",
+          "details": "将用户名和密码组装到API请求参数中"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "login",
+          "file": "Wikipedia/Code/WMFAccountLoginLogoutFetcher.swift",
+          "line": 134,
+          "code": "performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: parameters, reattemptLoginOn401Response: reattemptOn401Response) { [weak self] (result, response, error) in",
+          "details": "用户名和密码通过HTTPS POST发送到wiki服务器（如en.wikipedia.org）的API端点进行clientlogin认证"
+        },
+        {
+          "step": "Storage",
+          "function": "login",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 200,
+          "code": "KeychainCredentialsManager.shared.username = username\nKeychainCredentialsManager.shared.password = password",
+          "details": "登录成功后，用户名和密码被存储到iOS Keychain中用于后续自动登录"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "cloneCentralAuthCookies",
+          "file": "Wikipedia/Code/Session.swift",
+          "line": 116,
+          "code": "public func cloneCentralAuthCookies() {\n    defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix(\"centralauth_\", for: configuration.centralAuthCookieSourceDomain, to: configuration.centralAuthCookieTargetDomains)",
+          "details": "登录成功后，centralauth_ cookies被复制到其他目标域，用于跨域认证"
+        }
+      ]
+    },
+    {
+      "id": "LOGIN_WITH_SAVED_CREDENTIALS",
+      "data_type": "用户名和密码凭据（从Keychain读取）",
+      "description": "应用启动或会话过期时，从Keychain读取保存的凭据进行自动登录",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "loginWithSavedCredentials",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 225,
+          "code": "public func loginWithSavedCredentials(reattemptOn401Response: Bool = false, emailToken: String? = nil, oathToken: String? = nil, backgroundAuthInstrument: WMFTestKitchen.InstrumentImpl? = nil, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void)",
+          "details": "自动登录流程触发，从Keychain读取保存的凭据"
+        },
+        {
+          "step": "Data Processing",
+          "function": "loginWithSavedCredentials",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 232,
+          "code": "guard hasKeychainCredentials, let userName = KeychainCredentialsManager.shared.username, let password = KeychainCredentialsManager.shared.password",
+          "details": "从KeychainCredentialsManager读取Keychain中保存的用户名和密码"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "loginWithSavedCredentials",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 254,
+          "code": "self.login(username: userName, password: password, retypePassword: nil, oathToken: oathToken, emailAuthCode: emailToken, captchaID: nil, captchaWord: nil, reattemptOn401Response: reattemptOn401Response, completion: { (loginResult) in",
+          "details": "从Keychain读取的用户名和密码通过API POST发送到MediaWiki服务器进行认证"
+        }
+      ]
+    },
+    {
+      "id": "LOGIN_ANALYTICS",
+      "data_type": "登录分析事件（action、category、measure_time）",
+      "description": "用户登录过程中触发多个分析事件，记录登录操作、类别和耗时",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "logSuccess",
+          "file": "Wikipedia/Code/LoginFunnel.swift",
+          "line": 44,
+          "code": "public func logSuccess(category: EventCategoryMEP?, timeElapsed: Double?) {\n    logEvent(category: category ?? .login, label: nil, action: .loginSuccess, measure: timeElapsed)",
+          "details": "登录成功时触发分析事件记录"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "logEvent",
+          "file": "Wikipedia/Code/LoginFunnel.swift",
+          "line": 28,
+          "code": "let event = LoginFunnel.Event(measure_time: measureTime, action: action, label: label, category: category)",
+          "details": "组装包含measure_time、action、label和category的事件数据"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "submit",
+          "file": "Wikipedia/Code/LoginFunnel.swift",
+          "line": 29,
+          "code": "EventPlatformClient.shared.submit(stream: .login, event: event)",
+          "details": "登录事件通过EventPlatformClient提交到ios.login_action流，最终由StorageManager持久化并通过HTTP POST发送到 https://intake-analytics.wikimedia.org/v1/events"
+        },
+        {
+          "step": "Storage",
+          "function": "push",
+          "file": "WMF Framework/Event Platform/StorageManager.swift",
+          "line": 57,
+          "code": "func push(data: Data, stream: EventPlatformClient.Stream) {\n    let now = Date()\n    perform { moc in\n        if let record = NSEntityDescription.insertNewObject(forEntityName: \"WMFEPEventRecord\", into: moc) as? EPEventRecord {\n            record.data = data\n            record.stream = stream.rawValue\n            record.recorded = now",
+          "details": "事件数据被持久化存储到本地Core Data数据库(EventPlatformEvents.sqlite)中等待上传"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "flushStoredEvents",
+          "file": "WMF Framework/Event Platform/EventPlatformClient.swift",
+          "line": 403,
+          "code": "public func flushStoredEvents(completion: (() -> Void)? = nil) {\n    guard let storageManager = self.storageManager else { ... }\n    let events = storageManager.popAll()\n    ...\n    var uri = EventPlatformClient.analyticsEventIntakeURI // https://intake-analytics.wikimedia.org/v1/events",
+          "details": "存储的事件通过HTTP POST发送到事件接入服务"
+        }
+      ]
+    },
+    {
+      "id": "LOGIN_SESSION_COOKIE",
+      "data_type": "会话Cookie（centralauth_User、centralauth_Token等）",
+      "description": "登录成功后，服务器设置会话Cookie用于维持认证状态",
+      "flow_steps": [
+        {
+          "step": "Data Reception",
+          "function": "login",
+          "file": "Wikipedia/Code/WMFAccountLoginLogoutFetcher.swift",
+          "line": 134,
+          "code": "performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: parameters, reattemptLoginOn401Response: reattemptOn401Response) { [weak self] (result, response, error) in",
+          "details": "登录API调用成功后，服务器返回包含Set-Cookie头的响应，设置centralauth_系列Cookie"
+        },
+        {
+          "step": "Storage",
+          "function": "cloneCentralAuthCookies",
+          "file": "Wikipedia/Code/Session.swift",
+          "line": 116,
+          "code": "defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix(\"centralauth_\", for: configuration.centralAuthCookieSourceDomain, to: configuration.centralAuthCookieTargetDomains)",
+          "details": "centralauth_ cookies被存储到HTTPCookieStorage并复制到多个目标域（如en.wikipedia.org, meta.wikimedia.org等）"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "request",
+          "file": "Wikipedia/Code/Session.swift",
+          "line": 230,
+          "code": "public func request(with requestURL: URL, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyData: Data? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], cachePolicy: URLRequest.CachePolicy? = nil) -> URLRequest",
+          "details": "后续API请求自动附带保存在HTTPCookieStorage中的认证Cookie，实现会话维持"
+        }
+      ]
+    }
+  ]
+}

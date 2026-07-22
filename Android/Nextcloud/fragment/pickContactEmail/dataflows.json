@@ -1,0 +1,17 @@
+[
+  {
+    "id": 24,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/fragment/FileDetailSharingFragment.kt",
+        "line": 549,
+        "code": "private fun pickContactEmail() {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/fragment/FileDetailSharingFragment.kt",
+        "line": 550,
+        "code": "val intent = Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Email.CONTENT_URI)"
+      }
+    ]
+  }
+]

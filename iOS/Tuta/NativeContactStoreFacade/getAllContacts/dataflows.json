@@ -1,0 +1,42 @@
+[
+  {
+    "id": 11,
+    "dataflow": [
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 93,
+        "code": "func getAllContacts(inGroup group: CNGroup?, withSorting sorting: CNContactSortOrder?) throws -> [CNContact] {"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 94,
+        "code": "let store = CNContactStore()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 95,
+        "code": "let fetch = makeContactFetchRequest()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 96,
+        "code": "if let group { fetch.predicate = CNContact.predicateForContactsInGroup(withIdentifier: group.identifier) }"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 97,
+        "code": "if let sorting { fetch.sortOrder = sorting }"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 100,
+        "code": "try self.enumerateContactsInContactStore(store, with: fetch) { contact, _ in contacts.append(contact) }"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 102,
+        "code": "return contacts"
+      }
+    ]
+  }
+]

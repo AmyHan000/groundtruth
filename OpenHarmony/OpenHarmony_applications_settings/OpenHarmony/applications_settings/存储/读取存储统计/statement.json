@@ -1,0 +1,28 @@
+[
+  {
+    "id": 8,
+    "data": [
+      {
+        "scene": "用户进入存储页面时",
+        "purpose": "展示设备存储总量、可用空间和分类占用",
+        "source": "HarmonyOS 存储统计服务",
+        "item": "设备存储总量、可用空间及应用、图片、视频、音频、文件分类占用量",
+        "frequency": "每次进入或刷新存储页面时",
+        "processing": "本地读取系统聚合统计并计算展示比例",
+        "storage": "不由设置应用新增存储",
+        "recipient": "设置应用界面",
+        "thirdparty": "不向第三方共享",
+        "switchpath": "设置 > 存储"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "读取存储统计能力",
+        "scene": "进入存储页面",
+        "authorization": "系统应用预授权",
+        "purpose": "读取设备存储统计",
+        "impact": "无法显示存储用量"
+      }
+    ]
+  }
+]

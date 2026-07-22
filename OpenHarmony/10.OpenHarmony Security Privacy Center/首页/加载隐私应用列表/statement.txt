@@ -1,0 +1,11 @@
+1 我们如何收集和使用您的个人信息：
+
+[1] 加载隐私应用列表，当您打开安全隐私中心时，为了展示可在隐私中心进行设置的应用列表，我们会通过BundleManagerService查询设备中所有已安装应用的扩展能力信息（ExtensionAbilityInfo），校验每个应用是否拥有ACCESS_SECURITY_PRIVACY_CENTER权限，并读取其声明的隐私入口配置。采集频率：每次打开隐私中心页面时。处理方式说明：本地处理。数据仅在设备本地通过系统API读取，不上传云端。
+
+[2] 查询应用信息，隐私中心加载时会获取所有已安装应用的BundleInfo信息（包名、应用名称、图标资源ID等），过滤掉无图标的空白应用后存入AppStorage供页面展示。采集频率：页面加载时。处理方式说明：本地处理。信息仅暂存于AppStorage内存中，用于页面渲染，不持久化存储。
+
+2 设备权限调用：
+
+- ohos.permission.GET_INSTALLED_BUNDLE_LIST -- 获取所有已安装应用列表（页面加载时触发）
+- ohos.permission.GET_BUNDLE_INFO -- 读取应用详细信息（页面加载时触发）
+- ohos.permission.ACCESS_SECURITY_PRIVACY_CENTER -- 校验其他应用是否有权注册隐私入口（页面加载时触发）

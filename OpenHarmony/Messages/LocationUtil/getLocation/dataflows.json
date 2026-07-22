@@ -1,0 +1,22 @@
+[
+  {
+    "id": 11,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/utils/LocationUtil.ets",
+        "line": 58,
+        "code": "public getLocation(): Promise<LocationType> {"
+      },
+      {
+        "filePath": "entry/src/main/ets/utils/LocationUtil.ets",
+        "line": 66,
+        "code": "await geoLocationManager.getCurrentLocation(requestInfo).then((result) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/utils/LocationUtil.ets",
+        "line": 67,
+        "code": "let location: LocationType = {"
+      }
+    ]
+  }
+]

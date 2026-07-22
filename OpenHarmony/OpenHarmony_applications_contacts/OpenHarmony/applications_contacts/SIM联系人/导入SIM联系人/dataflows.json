@@ -1,0 +1,32 @@
+[
+  {
+    "id": 10,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/feature/sim/SimIccDiallingNumbers.ets",
+        "line": 157,
+        "code": "sim.queryIccDiallingNumbers(slotId, sim.ContactType.GENERAL_CONTACT)"
+      },
+      {
+        "filePath": "entry/src/main/ets/feature/sim/SimIccDiallingNumbers.ets",
+        "line": 258,
+        "code": "temp.display_name = data[index].alphaTag;"
+      },
+      {
+        "filePath": "entry/src/main/ets/feature/sim/SimIccDiallingNumbers.ets",
+        "line": 263,
+        "code": "phoneNumBean.num = number;"
+      },
+      {
+        "filePath": "entry/src/main/ets/feature/sim/SimIccDiallingNumbers.ets",
+        "line": 272,
+        "code": ".getValue<WorkerWrapper>(ContactsGlobalThisHelper.DataWorkerName).sendRequest('addContact',"
+      },
+      {
+        "filePath": "entry/src/main/ets/model/ContactAbilityModel.ets",
+        "line": 356,
+        "code": "let batchInsertFlag: number = await daHelper.batchInsert(uri, contactDataArr);"
+      }
+    ]
+  }
+]

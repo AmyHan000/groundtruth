@@ -1,0 +1,105 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_ANALYTICS_EVENT_SUBMIT",
+      "data_type": "Event Data (event name, schema version, app install ID, app session ID, timestamp, user language, anonymous/temp status, domain, event-specific payload fields)",
+      "description": "Event Platform Client (EPC) collects and submits analytics events to the Wikimedia event intake service. Events are batched in an input buffer and periodically bursted via HTTP POST.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "EventPlatformClient.submit",
+          "file": "WMF Framework/Event Platform/EventPlatformClient.swift",
+          "line": 681,
+          "code": "public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil, needsMinimal: Bool = false, completion: (() -> Void)? = nil) { let date = Date(); encodeQueue.async { self._submit(stream: stream, event: event, date: date, domain: domain, needsMinimal: needsMinimal); completion?() } }",
+          "details": "Various app components call EventPlatformClient.submit() to log events (e.g., LoginFunnel, DonateFunnel, NavigationEventsFunnel, SessionsFunnel, etc.). Each event is tagged with a stream name and schema version."
+        },
+        {
+          "step": "Data Assembly",
+          "function": "EventPlatformClient._submit",
+          "file": "WMF Framework/Event Platform/EventPlatformClient.swift",
+          "line": 695,
+          "code": "private func _submit<E: EventInterface>(...) { let meta = Meta(stream: stream, id: UUID(), domain: domain); let eventPayload = EventBody<E>(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, dt: date, event: event, isAnon: isAnon, isTemp: isTemp, primaryLanguage: primaryLanguage); let data = try encoder.encode(eventPayload) }",
+          "details": "Each event is wrapped with metadata including: appInstallID (from cross-process UserDefaults), sessionID, timestamp, anonymous status, temporary account status, and primary language."
+        },
+        {
+          "step": "Storage",
+          "function": "EventPlatformClient inputBuffer",
+          "file": "WMF Framework/Event Platform/EventPlatformClient.swift",
+          "line": 1,
+          "code": "Events are appended to an input buffer array before being bursted to the remote endpoint",
+          "details": "Events are first queued in an in-memory input buffer, then periodically flushed to the server via HTTP POST."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "EventPlatformClient burst events to endpoint",
+          "file": "WMF Framework/Event Platform/EventPlatformClient.swift",
+          "line": 1,
+          "code": "Periodic HTTP POST to remote intake endpoint with batched events",
+          "details": "Buffered events are sent in batches to the Wikimedia event intake service endpoint via HTTPS POST."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_ANALYTICS_LOGIN_FUNNEL",
+      "data_type": "Login Funnel Events (action: impression/login_start/logout/login_success/createaccount_start/createaccount_success, category, label, timestamp)",
+      "description": "Login funnel tracks user progression through the login and account creation flow for analytics.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "LoginFunnel.logEvent",
+          "file": "Wikipedia/Code/LoginFunnel.swift",
+          "line": 29,
+          "code": "private func logEvent(category: EventCategoryMEP, label: EventLabelMEP?, action: Action, measure: Double? = nil) { let event = LoginFunnel.Event(measure_time: measureTime, action: action, label: label, category: category); EventPlatformClient.shared.submit(stream: .login, event: event) }",
+          "details": "Login-related user actions (impression, login start, success, logout, create account) are logged as analytics events via the EventPlatformClient."
+        },
+        {
+          "step": "Data Assembly",
+          "function": "EventPlatformClient._submit (login stream)",
+          "file": "WMF Framework/Event Platform/EventPlatformClient.swift",
+          "line": 695,
+          "code": "EventPlatformClient._submit packages the login event with appInstallID, sessionID, timestamp, and metadata before transmission",
+          "details": "The login funnel event is packaged with standard metadata (appInstallID, sessionID, dt, isAnon, primaryLanguage) and encoded as JSON."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "EventPlatformClient flush (login stream)",
+          "file": "WMF Framework/Event Platform/EventPlatformClient.swift",
+          "line": 1,
+          "code": "Batched login events are sent via HTTP POST to the Wikimedia event intake service endpoint",
+          "details": "Login funnel events are batched with other analytics events and periodically sent to the remote intake service via HTTPS."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_ANALYTICS_SESSION",
+      "data_type": "Session Data (session ID, session length, timestamp, user interactions, scroll depth, page views, navigation events)",
+      "description": "Session tracking via SessionsFunnel and NavigationEventsFunnel monitors user navigation patterns and session activity.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "SessionsFunnel / NavigationEventsFunnel log methods",
+          "file": "Wikipedia/Code/SessionsFunnel.swift",
+          "line": 1,
+          "code": "Various session events logged: session_start, session_end, navigation events, scroll events",
+          "details": "App session lifecycle events (start, end) and user navigation events (page view, scroll, tab switch) are tracked throughout the app session."
+        },
+        {
+          "step": "Data Assembly",
+          "function": "EventPlatformClient._submit (session/navigation streams)",
+          "file": "WMF Framework/Event Platform/EventPlatformClient.swift",
+          "line": 695,
+          "code": "Session events packaged with appInstallID, sessionID, dt, and event-specific payload fields",
+          "details": "Session and navigation events are assembled with metadata and queued for transmission."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "EventPlatformClient network request",
+          "file": "WMF Framework/Event Platform/EventPlatformClient.swift",
+          "line": 1,
+          "code": "Events flushed from buffer to remote endpoint",
+          "details": "Session events are batched and sent to the event intake endpoint via HTTPS POST."
+        }
+      ]
+    }
+  ]
+}

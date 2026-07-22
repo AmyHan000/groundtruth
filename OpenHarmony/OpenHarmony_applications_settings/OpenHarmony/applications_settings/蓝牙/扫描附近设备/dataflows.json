@@ -1,0 +1,27 @@
+[
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "feature/bluetooth/src/main/ets/BluetoothAdapter.ets",
+        "line": 2206,
+        "code": "let result = bluetooth.startBluetoothDiscovery();"
+      },
+      {
+        "filePath": "feature/bluetooth/src/main/ets/BluetoothAdapter.ets",
+        "line": 1492,
+        "code": "public onBluetoothDeviceFind = (devices: Array<connection.DiscoveryResult>) => {"
+      },
+      {
+        "filePath": "feature/bluetooth/src/main/ets/BluetoothAdapter.ets",
+        "line": 1500,
+        "code": "let deviceId: string = devices[0].deviceId;"
+      },
+      {
+        "filePath": "feature/bluetooth/src/main/ets/BluetoothAdapter.ets",
+        "line": 1513,
+        "code": "this.bluetoothDevices = devices;"
+      }
+    ]
+  }
+]

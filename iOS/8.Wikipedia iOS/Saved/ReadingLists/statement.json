@@ -1,0 +1,44 @@
+[
+  {
+    "business_function": "阅读列表同步",
+    "business_scenario": "用户创建新阅读列表时触发，最终列表名称和描述通过POST请求发送到reading list API (data/lists/)",
+    "data_types_info": "阅读列表名称和描述(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "阅读列表同步",
+    "business_scenario": "用户添加文章到阅读列表时触发，最终文章项目URL和标题通过POST请求发送到reading list API",
+    "data_types_info": "文章项目URL和文章标题(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "阅读列表同步",
+    "business_scenario": "触发完整同步，从服务器获取所有阅读列表，最终远程条目数据合并到本地Core Data（包含id、项目URL、标题、创建/更新时间）",
+    "data_types_info": "阅读列表和条目的完整同步（列表名称、描述、ID、创建/更新时间、文章项目URL和标题）(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "阅读列表同步",
+    "business_scenario": "用户删除阅读列表时触发，最终列表ID通过DELETE请求发送到reading list API",
+    "data_types_info": "列表ID和条目ID(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "阅读列表同步",
+    "business_scenario": "用户在文章中保存到阅读列表时触发，最终阅读列表事件通过EventPlatformClient提交到ios.reading_lists流",
+    "data_types_info": "阅读列表分析事件（action、category、label、measure、wiki_id）(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "阅读列表同步",
+    "business_scenario": "阅读列表元数据持久化到本地Core Data SQLite，最终阅读列表条目元数据持久化到本地Core Data SQLite",
+    "data_types_info": "阅读列表Core Data实体（名称、描述、ID、创建/更新时间、排序、颜色、图标、首选项）(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  }
+]

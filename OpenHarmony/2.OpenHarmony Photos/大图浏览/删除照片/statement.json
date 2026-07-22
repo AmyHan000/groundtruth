@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "删除照片",
+    "business_scenario": "用户在大图浏览或选择模式下点击删除按钮，弹出系统删除确认对话框显示待删除照片预览，用户确认后应用通过photoAccessHelper.deleteAssets将照片移入系统回收站（非立即物理删除），媒体库监听触发自动刷新UI移除已删除项。",
+    "data_types_info": "被删除照片的URI(一般)",
+    "processing_method": "本地处理（通过photoAccessHelper.deleteAssets将照片移入系统回收站，30天后自动清理）",
+    "permissions_info": "ohos.permission.WRITE_IMAGEVIDEO -- 删除照片（用户确认删除时触发）"
+  }
+]

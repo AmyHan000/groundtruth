@@ -1,0 +1,90 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_HOME_LOAD_PRIVACY_APP_LIST",
+      "data_type": "所有已安装应用的ExtensionAbilityInfo/AbilityInfo（含metadata元数据）、应用的accessToken权限状态",
+      "description": "用户打开安全隐私中心首页，应用从BundleManagerService查询所有已安装应用的ExtensionAbility和UIAbility信息，校验各应用是否有ACCESS_SECURITY_PRIVACY_CENTER权限，筛选出声明了隐私入口的应用，展示为可点击的菜单列表。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "Index.onPageShow → AutoMenuRefreshIntent",
+          "file": "entry/src/main/ets/pages/Index.ets",
+          "line": 56,
+          "code": "onPageShow() { this.startTime = new Date().getTime(); autoMenuViewModel.processIntent(new AutoMenuRefreshIntent(this.context)); }",
+          "details": "用户打开或切换回隐私中心首页时，触发菜单数据刷新。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "AutoMenuManager._readConfigFromBms → BundleInfoModel.queryExtensionAbilityInfoOther / queryAbilityInfoOther",
+          "file": "entry/src/main/ets/common/utils/AutoMenuManager.ets",
+          "line": 175,
+          "code": "private async _readConfigFromBms(context: Context): Promise<MenuConfig[]> { let abilityInfoList = await BundleInfoModel.queryExtensionAbilityInfoOther(); let uiAbilityInfoList = await BundleInfoModel.queryAbilityInfoOther(); }",
+          "details": "通过BundleInfoModel调用bundleManager系统API，查询所有已安装应用的ExtensionAbility和UIAbility信息。需要ohos.permission.GET_INSTALLED_BUNDLE_LIST权限。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "AutoMenuManager → atManage.checkAccessToken",
+          "file": "entry/src/main/ets/common/utils/AutoMenuManager.ets",
+          "line": 193,
+          "code": "let atManage = abilityAccessCtrl.createAtManager(); let data = await atManage.checkAccessToken(abilityInfo.applicationInfo.accessTokenId, CHECK_ACCESS_TOKEN_PERMISSION);",
+          "details": "遍历所有应用的能力信息，对每个应用的accessToken校验是否拥有ohos.permission.ACCESS_SECURITY_PRIVACY_CENTER权限。只有已授予此权限的应用才会被纳入隐私菜单。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "AutoMenuManager._readConfigFromSingleAbilityInfo",
+          "file": "entry/src/main/ets/common/utils/AutoMenuManager.ets",
+          "line": 228,
+          "code": "private async _readConfigFromSingleAbilityInfo(context: Context, abilityInfo): Promise<MenuConfig[]> { ... if (metaData.name !== PRIVACY_CENTER) { continue; } let menuConfig = JSON.parse(content); ... }",
+          "details": "读取每个应用中名为'metadata.access.privacy.center'的元数据，解析其JSON配置，提取businessId、dstBundleName、dstAbilityName、title资源、图标资源等菜单配置。"
+        },
+        {
+          "step": "Data Verification",
+          "function": "AutoMenuManager._verifyMenuConfig → _verificationListContent",
+          "file": "entry/src/main/ets/common/utils/AutoMenuManager.ets",
+          "line": 258,
+          "code": "private async _verifyMenuConfig(context: Context, menuConfig: MenuConfig, userId: number): Promise<boolean> { ... return await this._verificationListContent(context, userId, menuConfig); }",
+          "details": "验证菜单配置合法性：检查dstBundleName和dstAbilityName是否有效、标题资源是否存在、主/子用户配置是否正确、showControlAbilityUri查询是否返回0x55。只有验证通过的配置才显示。"
+        },
+        {
+          "step": "Data Display",
+          "function": "PrivacyProtectionListView",
+          "file": "entry/src/main/ets/view/privacy/PrivacyProtectionListView.ets",
+          "line": 1,
+          "code": "@Component struct PrivacyProtectionListView { ... }",
+          "details": "在首页以列表形式展示所有通过验证的隐私应用入口，每个条目显示应用图标、标题和箭头指示。用户点击可跳转到对应应用的隐私设置页。"
+        }
+      ]
+    },
+    {
+      "id": "FLOW_HOME_LOAD_BUNDLE_INFO",
+      "data_type": "所有已安装应用的BundleInfo（包名、ApplicationInfo、accessTokenId、图标资源ID）",
+      "description": "隐私中心首页加载时获取所有已安装应用的BundleInfo列表，过滤掉无图标的空白应用，将有效应用信息存入AppStorage供展示使用。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "Index.onPageShow → Index.getBundleInfo",
+          "file": "entry/src/main/ets/pages/Index.ets",
+          "line": 59,
+          "code": "this.getBundleInfo();",
+          "details": "隐私中心首页每次显示时触发获取所有应用信息。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "BundleInfoModel.getAllBundleInfoByFunctionAccess",
+          "file": "entry/src/main/ets/model/bundleInfo/BundleInfoModel.ets",
+          "line": 1,
+          "code": "export default class BundleInfoModel { ... public static async getAllBundleInfoByFunctionAccess(): Promise<bundleManager.BundleInfo[]> { ... } }",
+          "details": "调用bundleManager系统API获取所有已安装应用的BundleInfo，包含包名、应用名称、图标、accessTokenId等信息。需要ohos.permission.GET_BUNDLE_INFO和GET_INSTALLED_BUNDLE_LIST权限。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "Index.getBundleInfo → filter blank apps",
+          "file": "entry/src/main/ets/pages/Index.ets",
+          "line": 70,
+          "code": "for (let i = 0; i < data.length; i++) { let info = data[i]; if (StringUtil.isNotEmpty(info.appInfo.icon)) { initAppInfoList = initAppInfoList.concat(info.appInfo); } }",
+          "details": "遍历所有应用，过滤掉没有有效图标的空白应用，将有效应用的ApplicationInfo列表存入AppStorage。"
+        }
+      ]
+    }
+  ]
+}

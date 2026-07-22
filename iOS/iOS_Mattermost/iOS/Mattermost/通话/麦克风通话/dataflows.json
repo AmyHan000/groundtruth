@@ -1,0 +1,32 @@
+[
+  {
+    "id": 6,
+    "dataflow": [
+      {
+        "filePath": "app/products/calls/actions/permissions.ts",
+        "line": 34,
+        "code": "const hasMicrophone = await Permissions.check(microphone);"
+      },
+      {
+        "filePath": "app/products/calls/actions/permissions.ts",
+        "line": 39,
+        "code": "const permissionRequest = await Permissions.request(microphone);"
+      },
+      {
+        "filePath": "app/init/calls_native.ts",
+        "line": 150,
+        "code": "const hasMic = await hasMicrophonePermission();"
+      },
+      {
+        "filePath": "app/init/calls_native.ts",
+        "line": 154,
+        "code": "const res = await joinCall(serverUrl, channelId, user.id, hasMic, intl, undefined, threadId);"
+      },
+      {
+        "filePath": "app/products/calls/actions/calls.ts",
+        "line": 255,
+        "code": "connection = await newConnection(serverUrl, channelId, (err?: Error) => {"
+      }
+    ]
+  }
+]

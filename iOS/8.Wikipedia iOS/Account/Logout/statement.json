@@ -1,0 +1,23 @@
+[
+  {
+    "business_function": "退出登录",
+    "business_scenario": "登出流程触发，由用户、应用或服务器发起，最终重置UserDefaults中的阅读列表同步提示标志",
+    "data_types_info": "登出请求和本地清除的认证凭据、Cookie和UserDefaults数据(敏感)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "退出登录",
+    "business_scenario": "服务器返回401状态码后，根据设置决定尝试重新登录或直接清除认证状态，最终取消认证状态，清除Keychain凭据、Cookie和缓存",
+    "data_types_info": "HTTP 401响应触发自动登出(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "退出登录",
+    "business_scenario": "用户在设置页面点击登出时触发登出分析事件，最终登出事件通过EventPlatformClient提交到ios.login_action流，最终发送到https://intake-analytics.wikimedia.org/v1/events",
+    "data_types_info": "登出分析事件（action、category、label）(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  }
+]

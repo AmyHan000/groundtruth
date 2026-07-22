@@ -1,0 +1,112 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "VIEW_HISTORY_PAGE_VIEWS_TRACKING",
+      "data_type": "文章浏览记录（标题、项目ID、命名空间ID、时间戳、浏览时长）",
+      "description": "每次查看文章时，浏览记录持久化到WMFData Core Data存储，包含文章标识和浏览时长",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "persistPageViewsForWikipediaInReview",
+          "file": "Wikipedia/Code/ArticleViewController+YearInReview.swift",
+          "line": 10,
+          "code": "let pageViewsDataController = try WMFPageViewsDataController()\nlet objectID = try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject, previousPageViewObjectID: previousPageViewObjectID, timestamp: timestamp)",
+          "details": "文章加载完成后触发页面浏览记录持久化"
+        },
+        {
+          "step": "Storage",
+          "function": "addPageView",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/WMFPageViewsDataController.swift",
+          "line": 120,
+          "code": "public func addPageView(title: String, namespaceID: Int16, project: WMFProject, previousPageViewObjectID: NSManagedObjectID?, timestamp: Date? = nil) async throws -> NSManagedObjectID?",
+          "details": "创建CDPage（标题、项目ID、命名空间ID、时间戳）和CDPageView（时间戳、前一个页面视图关联）Core Data对象"
+        },
+        {
+          "step": "Storage",
+          "function": "addPageViewSeconds",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/WMFPageViewsDataController.swift",
+          "line": 152,
+          "code": "public func addPageViewSeconds(pageViewManagedObjectID: NSManagedObjectID, numberOfSeconds: Double) async throws {\n    ...\n    pageView.numberOfSeconds += Int64(numberOfSeconds)",
+          "details": "浏览时长（秒数）累加到CDPageView.numberOfSeconds字段"
+        },
+        {
+          "step": "Storage",
+          "function": "addToReadHistory",
+          "file": "WMF Framework/NSManagedObjectContext+History.swift",
+          "line": 38,
+          "code": "public func addToReadHistory() throws {\n    viewedDate = Date()\n    updateViewedDateWithoutTime()\n    try managedObjectContext?.save()",
+          "details": "在WMFArticle实体上设置viewedDate为当前日期"
+        }
+      ]
+    },
+    {
+      "id": "VIEW_HISTORY_LEGACY_MIGRATION",
+      "data_type": "遗留浏览数据迁移（标题、项目、浏览日期，可选经纬度坐标）",
+      "description": "将遗留WMFArticle存储中的一年内浏览记录和位置数据迁移到新的WMFData Core Data存储",
+      "flow_steps": [
+        {
+          "step": "Data Processing",
+          "function": "importViewedArticlesIntoWMFData",
+          "file": "WMF Framework/MWKDataStore+LegacyPageViews.swift",
+          "line": 6,
+          "code": "let articleRequest = WMFArticle.fetchRequest()\narticleRequest.predicate = NSPredicate(format: \"viewedDate >= %@\", oneYearAgoDate as CVarArg)\nlet importRequests: [WMFLegacyPageView] = articles.compactMap { article in\n    guard let key = article.key, let viewedDate = article.viewedDate else { return nil }\n    let url = URL(string: key)\n    let languageCode = url?.wmf_languageCode\n    let title = url?.wmf_title\n    let language = WMFLanguage(languageCode: languageCode, languageVariantCode: article.variant)\n    let project = WMFProject.wikipedia(language)\n    return WMFLegacyPageView(title: title, project: project, viewedDate: viewedDate)\n}",
+          "details": "从遗留Core Data读取一年内的浏览记录，转换为WMFLegacyPageView对象（包含标题、项目、浏览日期）"
+        },
+        {
+          "step": "Storage",
+          "function": "importPageViews",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Shared/WMFPageViewsDataController.swift",
+          "line": 202,
+          "code": "public func importPageViews(requests: [WMFLegacyPageView]) async throws {\n    for request in requests {\n        let coreDataTitle = request.title.normalizedForCoreData\n        let predicate = NSPredicate(format: \"projectID == %@ && namespaceID == %@ && title == %@\", argumentArray: [request.project.id, 0, coreDataTitle])\n        let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)\n        page?.title = coreDataTitle\n        page?.projectID = request.project.id\n        page?.timestamp = request.viewedDate\n        let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)\n        viewedPage.page = page\n        viewedPage.timestamp = request.viewedDate",
+          "details": "遗留浏览数据导入到新的CDPage和CDPageView Core Data实体"
+        }
+      ]
+    },
+    {
+      "id": "VIEW_HISTORY_SIGNIFICANTLY_VIEWED",
+      "data_type": "显著浏览标记",
+      "description": "用户浏览文章超过30秒时在WMFArticle Core Data实体上标记为显著浏览",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "startSignificantlyViewedTimer",
+          "file": "Wikipedia/Code/ArticleViewController.swift",
+          "line": 959,
+          "code": "significantlyViewedTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { [weak self] (timer) in\n    self.article.wasSignificantlyViewed = true",
+          "details": "用户停留在文章页面30秒以上时触发"
+        },
+        {
+          "step": "Storage",
+          "function": "startSignificantlyViewedTimer",
+          "file": "Wikipedia/Code/ArticleViewController.swift",
+          "line": 961,
+          "code": "self.article.wasSignificantlyViewed = true",
+          "details": "wasSignificantlyViewed = true存储到WMFArticle Core Data实体"
+        }
+      ]
+    },
+    {
+      "id": "VIEW_HISTORY_HOUSEKEEPING",
+      "data_type": "页面浏览记录自动清理",
+      "description": "系统会自动删除超过一年的页面浏览记录和关联的空页面",
+      "flow_steps": [
+        {
+          "step": "Data Deletion",
+          "function": "performDatabaseHousekeeping",
+          "file": "WMFData/Sources/WMFData/Store/WMFCoreDataStore.swift",
+          "line": 156,
+          "code": "let timestamp = NSPredicate(format: \"timestamp < %@\", argumentArray: [oneYearAgoDate])\nguard let pageViewsToDelete = try self.fetch(entityType: CDPageView.self, predicate: timestamp, fetchLimit: 2000, in: backgroundContext)",
+          "details": "系统定期清理超过一年的页面浏览记录和关联的空页面"
+        },
+        {
+          "step": "Data Deletion",
+          "function": "performDatabaseHousekeeping",
+          "file": "WMFData/Sources/WMFData/Store/WMFCoreDataStore.swift",
+          "line": 174,
+          "code": "let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timestamp, emptyPageViewsPredicate, emptyArticleTabItemsPredicate, savedPageInfoPredicate])\nguard let pagesToDelete = try self.fetch(entityType: CDPage.self, predicate: compoundPredicate, fetchLimit: 2000, in: backgroundContext)",
+          "details": "删除超过一年且无关联页面视图、标签页或保存信息的页面记录"
+        }
+      ]
+    }
+  ]
+}

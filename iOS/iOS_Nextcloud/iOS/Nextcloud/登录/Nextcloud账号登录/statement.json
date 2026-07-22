@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "用户通过 Nextcloud 登录流程授权应用访问服务器时",
+        "purpose": "建立账号会话并同步用户资料",
+        "source": "用户选择的 Nextcloud 服务器返回的登录授权结果",
+        "item": "服务器地址、用户名、用户标识和应用密码",
+        "frequency": "每次新增账号或重新登录时",
+        "processing": "通过 HTTPS 轮询登录结果，建立会话并写入账号数据库",
+        "storage": "账号配置保存在应用数据库/安全偏好中，应用密码用于后续服务器认证",
+        "recipient": "用户选择的 Nextcloud 服务器",
+        "thirdparty": "服务器运营方按其隐私政策处理",
+        "switchpath": "设置 > 账号 > 删除账号或退出登录"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "网络访问",
+        "scene": "用户登录 Nextcloud 账号",
+        "authorization": "应用基础网络能力",
+        "purpose": "与用户选择的服务器通信",
+        "impact": "无法登录或同步云文件"
+      }
+    ]
+  }
+]

@@ -1,0 +1,51 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SETTINGS_CLOUD_SYNC_CONFIG",
+      "data_type": "云同步配置（登录状态、云同步开关状态、用户ID信息）",
+      "description": "用户在图库设置中查看或管理云同步功能，应用读取登录账号状态和云同步配置，用户可开启/关闭云同步。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "GallerySettingsBasePage → aboutToAppear",
+          "file": "feature/privacy/src/main/ets/setting/GallerySettingsBasePage.ets",
+          "line": 1,
+          "code": "@Component struct GallerySettingsBasePage { ... }",
+          "details": "用户进入图库设置页面，触发云同步配置的加载。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "mainAbility → isEnterFullGuide",
+          "file": "product/phone/src/main/ets/MainAbility/view/index.ets",
+          "line": 1154,
+          "code": "private isEnterFullGuide(isAccessFullGuide: boolean, isCloudLogIn: boolean | undefined, isCloudSync: boolean | undefined): boolean { if (!isCloudLogIn) { return false; } if (isCloudLogIn && isCloudSync) { return false; } }",
+          "details": "在App启动时读取用户的登录状态(isLogIn)和云同步状态，用于判断是否展示云同步全屏引导页。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "MainAbility → preload cloud sync libs",
+          "file": "product/phone/src/main/ets/MainAbility/MainAbility.ets",
+          "line": 53,
+          "code": "await import('@ohos.file.cloudSync'); await import('@ohos.geoLocationManager'); await import('@ohos.wifiManager');",
+          "details": "预加载云端同步模块@ohos.file.cloudSync。当云同步开启后，照片/视频数据通过CLOUDFILE_SYNC权限同步到云端服务器。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "GallerySettingsBasePage → cloud sync toggle",
+          "file": "feature/privacy/src/main/ets/setting/GallerySettingsBasePage.ets",
+          "line": 1,
+          "code": "@Component struct GallerySettingsBasePage { ... }",
+          "details": "用户在设置页面切换云同步开关，修改云同步配置。需要ohos.permission.READ_CLOUD_SYNC_CONFIG和ohos.permission.MANAGE_CLOUD_SYNC_CONFIG权限。"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "CommonAbility → cloud sync service",
+          "file": "feature/extensions/src/main/ets/default/CommonAbility.ets",
+          "line": 1,
+          "code": "export class CommonAbility { ... }",
+          "details": "云同步服务在后台运行，将设备中的照片/视频通过HTTPS加密上传到云端。需要ohos.permission.INTERNET和ohos.permission.USE_CLOUD_COMMON_SERVICE权限。"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "购买订阅",
+    "business_scenario": "用户在应用内选择订阅计划（Notesnook Pro或Believer），通过Google Play结算对话框完成支付，购买令牌和收据发送至支付服务器验证，订阅状态缓存至本地MMKV",
+    "data_types_info": "购买令牌(一般), 订阅收据(一般), 用户标识(一般)",
+    "processing_method": "上传云端（购买收据发送至 payments.streetwriters.co 验证）",
+    "permissions_info": "com.android.vending.BILLING(进行应用内购买时)"
+  }
+]

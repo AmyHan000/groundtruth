@@ -1,0 +1,27 @@
+[
+  {
+    "id": 21,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/utils/UriUtils.kt",
+        "line": 70,
+        "code": "private fun getDisplayNameColumnForMimeType(mimeType: String?) = when {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/utils/UriUtils.kt",
+        "line": 72,
+        "code": "MediaStore.Images.ImageColumns.DISPLAY_NAME"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/utils/UriUtils.kt",
+        "line": 76,
+        "code": "MediaStore.Video.VideoColumns.DISPLAY_NAME"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/utils/UriUtils.kt",
+        "line": 80,
+        "code": "MediaStore.Audio.AudioColumns.DISPLAY_NAME"
+      }
+    ]
+  }
+]

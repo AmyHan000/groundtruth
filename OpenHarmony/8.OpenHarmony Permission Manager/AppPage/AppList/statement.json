@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "应用列表",
+    "business_scenario": "用户切换到\"按应用\"标签页，触发所有安装应用的权限数据加载。，最终每个应用以列表项展示，显示应用名称、图标和权限授予摘要（允许/禁止的权限数量）。按应用名排序。",
+    "data_types_info": "所有已安装应用信息（包名、应用名称、图标、accessTokenId、已授予权限列表、权限标记位、请求权限详情）(敏感)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "appNamePlusPage.aboutToAppear (Trigger：用户切换到\"按应用\"标签页，触发所有安装应用的权限数据加载。); bundleManager.getAllBundleInfoSync (Data Reception：系统读取所有已安装应用的BundleInfo，遍历每个应用的请求权限列表，通过getPermissi); appNamePlusPage ForEach "
+  }
+]

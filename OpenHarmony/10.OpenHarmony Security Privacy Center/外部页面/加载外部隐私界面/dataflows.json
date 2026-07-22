@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_EXTERNAL_UI_EXTENSION_LOAD",
+      "data_type": "外部隐私应用的bundleName和abilityName（路由参数）",
+      "description": "用户在隐私中心点击某项应用隐私入口后，隐私中心通过UiExtensionComponent加载该应用注册的隐私界面。如该应用的类型为sys/commonUI，则直接在隐私中心内嵌显示。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "PrivacyProtectionListView itemClick → AutoMenuClickIntent",
+          "file": "entry/src/main/ets/view/privacy/PrivacyProtectionListView.ets",
+          "line": 1,
+          "code": "@Component struct PrivacyProtectionListView { ... itemClickEvent((menuInfo: MenuInfo) => { autoMenuViewModel.processIntent(new AutoMenuClickIntent(menuInfo)); }) }",
+          "details": "用户点击隐私应用列表中的某个菜单项，触发跳转到目标应用隐私设置页。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "AutoMenuViewModel → processIntent",
+          "file": "entry/src/main/ets/main/auto_menu/AutoMenuViewModel.ets",
+          "line": 1,
+          "code": "export class AutoMenuViewModel extends BaseViewModel<MenuInfo> { ... }",
+          "details": "根据菜单配置的dstAbilityMode决定跳转方式：UIAbility模式直接启动外部Ability，Extension模式则通过UiExtensionPage内嵌加载。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "UiExtensionPage → router.getParams()",
+          "file": "entry/src/main/ets/pages/UiExtensionPage.ets",
+          "line": 25,
+          "code": "@State routerParma: Record<string, string> = router.getParams() as Record<string, string>; @State dstBundleName: string = this.routerParma['dstBundleName']; @State dstAbilityName: string = this.routerParma['dstAbilityName'];",
+          "details": "接收路由参数中的目标应用包名(bundleName)和能力名(abilityName)。"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "UiExtensionComponent → UIExtensionComponent parameters",
+          "file": "entry/src/main/ets/pages/UiExtensionPage.ets",
+          "line": 31,
+          "code": "UIExtensionComponent({ bundleName: this.dstBundleName, abilityName: this.dstAbilityName, parameters: { 'ability.want.params.uiExtensionType': 'sys/commonUI' } })",
+          "details": "通过UIExtensionComponent加载外部应用的隐私界面组件。外部应用的UI在隐私中心内嵌显示，但运行在独立进程中。双向通信通过onRemoteReady/onResult/onReceive回调。"
+        }
+      ]
+    }
+  ]
+}

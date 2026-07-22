@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "app-ios/tutanota/Sources/AppLockHandler.swift",
+        "line": 8,
+        "code": "private let context = LAContext()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/AppLockHandler.swift",
+        "line": 16,
+        "code": "evaluateResult = try await context.evaluatePolicy("
+      }
+    ]
+  }
+]

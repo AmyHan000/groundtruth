@@ -1,0 +1,32 @@
+[
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "app/hooks/handle_send_message.ts",
+        "line": 119,
+        "code": "message: value,"
+      },
+      {
+        "filePath": "app/hooks/handle_send_message.ts",
+        "line": 163,
+        "code": "createPost(serverUrl, post, postFiles).then(({post: createdPost}) => {"
+      },
+      {
+        "filePath": "app/actions/remote/post.ts",
+        "line": 133,
+        "code": "const emojisInMessage = matchEmoticons(newPost.message);"
+      },
+      {
+        "filePath": "app/actions/remote/post.ts",
+        "line": 139,
+        "code": "await operator.batchRecords(initialPostModels, 'createPost - initial');"
+      },
+      {
+        "filePath": "app/actions/remote/post.ts",
+        "line": 145,
+        "code": "created = await client.createPost({...newPost, create_at: 0});"
+      }
+    ]
+  }
+]

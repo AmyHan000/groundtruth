@@ -1,0 +1,12 @@
+1 我们如何收集和使用您的个人信息：
+
+[1] 权限详情，用户从二级页面点击某个权限进入详情页，系统加载拥有该权限的所有应用列表。，用户可切换应用的权限开关，调用系统API进行权限授予或撤销操作。。为提供此功能，我们会收集您的单个权限的详细信息（权限名称、授予状态、权限标记位、拥有该权限的所有应用列表及授予状态）(一般)。采集频率：用户设置时触发。处理方式说明：本地处理/本地加密存储。
+
+[2] 权限详情，用户从次级页面点击特定权限项进入单权限详情页。，用户点击授权/撤销按钮，通过系统API修改特定accessTokenId的权限标记位。。为提供此功能，我们会收集您的单个应用对特定权限的详细信息（权限名、授予状态、权限标记位、权限描述）(一般)。采集频率：用户触发时单次采集。处理方式说明：本地处理/本地加密存储。
+
+2 设备权限调用：
+
+- locationInfoPage.aboutToAppear (authority-tertiary-groups) (Trigger：用户从二级页面点击某个权限进入详情页，系统加载拥有该权限的所有应用列表。)
+- locationInfoPage verifyAccessTokenSync (Data Processing：对每个应用调用系统API verifyAccessTokenSync查询特
+- locationInfoPage.aboutToAppear (authority-tertiary) (Trigger：用户从次级页面点击特定权限项进入单权限详情页。)
+- grantUserGrantedPermission / revokeUserGrantedPermission (Data Processing：用户点击授权/撤销按钮，通过系统API修改特定accessTokenId的权限

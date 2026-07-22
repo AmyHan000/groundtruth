@@ -1,0 +1,59 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_IAP_SUBSCRIPTION",
+      "data_type": "Purchase Token, Subscription Receipt, User ID",
+      "description": "User subscribes to Notesnook Pro via Google Play in-app billing. Purchase receipt sent to payments.streetwriters.co for verification.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "PremiumService.setPremiumStatus",
+          "file": "apps/mobile/app/services/premium.ts",
+          "line": 35,
+          "code": "await RNIap.initConnection(); subs = await RNIap.getSubscriptions({ skus: itemSkus });",
+          "details": "Google Play Billing connection initialized. Available subscription products fetched."
+        },
+        {
+          "step": "Product Selection",
+          "function": "PremiumService subscriptions",
+          "file": "apps/mobile/app/services/premium.ts",
+          "line": 70,
+          "code": "skus: [\"notesnook.pro.5year\", \"notesnook.believer.5year\"]",
+          "details": "Available subscription SKUs: notesnook.pro.5year and notesnook.believer.5year."
+        },
+        {
+          "step": "Purchase Flow",
+          "function": "BuyPlan subscribe",
+          "file": "apps/mobile/app/components/sheets/buy-plan/index.tsx",
+          "line": 258,
+          "code": "pricingPlans.subscribe(pricingPlans.selectedProduct as RNIap.Subscription, offerToken);",
+          "details": "User selects plan and completes purchase via Google Play Billing dialog. Payment processed by Google."
+        },
+        {
+          "step": "Receipt Verification (iOS)",
+          "function": "PremiumService.subscriptions.verify",
+          "file": "apps/mobile/app/services/premium.ts",
+          "line": 197,
+          "code": "const result = await fetch(\"https://payments.streetwriters.co/apple/verify\", requestData);",
+          "details": "On iOS, purchase receipt and user ID sent to payments.streetwriters.co for server-side verification."
+        },
+        {
+          "step": "Subscription Cache",
+          "function": "PremiumService",
+          "file": "apps/mobile/app/services/premium.ts",
+          "line": 178,
+          "code": "MMKV.setString(\"subscriptionsIOS\", JSON.stringify(_subscriptions));",
+          "details": "Subscription status cached in MMKV for offline access."
+        },
+        {
+          "step": "Permission",
+          "function": "AndroidManifest",
+          "file": "apps/mobile/android/app/src/main/AndroidManifest.xml",
+          "line": 7,
+          "code": "<uses-permission android:name=\"com.android.vending.BILLING\" />",
+          "details": "Google Play Billing permission declared in manifest."
+        }
+      ]
+    }
+  ]
+}

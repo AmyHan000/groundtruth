@@ -1,0 +1,30 @@
+[
+  {
+    "business_function": "用户登录",
+    "business_scenario": "登录流程触发，接收用户输入的用户名和密码，最终登录成功后，centralauth_ cookies被复制到其他目标域，用于跨域认证",
+    "data_types_info": "用户名和密码凭据(敏感)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "用户登录",
+    "business_scenario": "自动登录流程触发，从Keychain读取保存的凭据，最终从Keychain读取的用户名和密码通过API POST发送到MediaWiki服务器进行认证",
+    "data_types_info": "用户名和密码凭据（从Keychain读取）(敏感)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "用户登录",
+    "business_scenario": "登录成功时触发分析事件记录，最终存储的事件通过HTTP POST发送到事件接入服务",
+    "data_types_info": "登录分析事件（action、category、measure_time）(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "用户登录",
+    "business_scenario": "登录API调用成功后，服务器返回包含Set-Cookie头的响应，设置centralauth_系列Cookie，最终后续API请求自动附带保存在HTTPCookieStorage中的认证Cookie，实现会话维持",
+    "data_types_info": "会话Cookie（centralauth_User、centralauth_Token等）(敏感)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  }
+]

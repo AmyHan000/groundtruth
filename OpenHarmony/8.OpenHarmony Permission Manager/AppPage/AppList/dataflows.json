@@ -1,0 +1,35 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_APP_LIST_LOAD_ALL",
+      "data_type": "所有已安装应用信息（包名、应用名称、图标、accessTokenId、已授予权限列表、权限标记位、请求权限详情）",
+      "description": "按应用tab页加载所有已安装应用及其权限授予状态，展示每个应用的权限摘要。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "appNamePlusPage.aboutToAppear",
+          "file": "permissionmanager/src/main/ets/pages/application-secondary.ets",
+          "line": 1,
+          "code": "@Entry struct appNamePlusPage { ... }",
+          "details": "用户切换到\"按应用\"标签页，触发所有安装应用的权限数据加载。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "bundleManager.getAllBundleInfoSync",
+          "file": "permissionmanager/src/main/ets/pages/application-secondary.ets",
+          "line": 104,
+          "code": "if (info.permissions.length > 0) { for (let j = 0; j < info.permissions.length; j++) { let permission = info.permissions[j] as Permission; let flag = await acManager.getPermissionFlags(info.tokenId, permission); ... } }",
+          "details": "系统读取所有已安装应用的BundleInfo，遍历每个应用的请求权限列表，通过getPermissionFlags和verifyAccessTokenSync查询权限状态。"
+        },
+        {
+          "step": "Data Display",
+          "function": "appNamePlusPage ForEach",
+          "file": "permissionmanager/src/main/ets/pages/application-secondary.ets",
+          "line": 69,
+          "code": "bundleName: this.applicationInfo.bundleName, permission: item.permission",
+          "details": "每个应用以列表项展示，显示应用名称、图标和权限授予摘要（允许/禁止的权限数量）。按应用名排序。"
+        }
+      ]
+    }
+  ]
+}

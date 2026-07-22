@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "app-android/app/src/main/java/de/tutao/tutanota/AndroidMobileContactsFacade.kt",
+        "line": 330,
+        "code": "private fun createSystemAccount(username: String) {"
+      },
+      {
+        "filePath": "app-android/app/src/main/java/de/tutao/tutanota/AndroidMobileContactsFacade.kt",
+        "line": 334,
+        "code": "if (!accountManager.addAccountExplicitly(tutaAccount, null, null)) {"
+      }
+    ]
+  }
+]

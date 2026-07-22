@@ -1,0 +1,27 @@
+[
+  {
+    "id": 13,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/third_parties/ezvcard_android/ContactOperations.java",
+        "line": 65,
+        "code": "public ContactOperations(Context context, String accountName, String accountType) {"
+      },
+      {
+        "filePath": "app/src/main/java/third_parties/ezvcard_android/ContactOperations.java",
+        "line": 102,
+        "code": "ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)"
+      },
+      {
+        "filePath": "app/src/main/java/third_parties/ezvcard_android/ContactOperations.java",
+        "line": 114,
+        "code": "ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)"
+      },
+      {
+        "filePath": "app/src/main/java/third_parties/ezvcard_android/ContactOperations.java",
+        "line": 165,
+        "code": "ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI)"
+      }
+    ]
+  }
+]

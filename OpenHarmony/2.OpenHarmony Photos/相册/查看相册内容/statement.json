@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "查看相册内容",
+    "business_scenario": "用户在相册列表中点击某个相册，应用通过调用指定相册的getAssets方法获取该相册内的所有照片和视频列表（包含URI、缩略图、拍摄日期、媒体类型等元数据），以网格形式展示。同时注册媒体库变化监听，当相册内容发生变化时自动刷新。",
+    "data_types_info": "指定相册内的照片/视频列表（URI、缩略图、拍摄日期、媒体类型、方向、文件位置）(敏感)",
+    "processing_method": "本地读取与展示（通过photoAccessHelper读取指定相册的照片列表）",
+    "permissions_info": "依赖ohos.permission.READ_IMAGEVIDEO（前序已授权）"
+  }
+]

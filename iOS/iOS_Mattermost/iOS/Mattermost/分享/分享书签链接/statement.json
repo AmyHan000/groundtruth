@@ -1,0 +1,28 @@
+[
+  {
+    "id": 9,
+    "data": [
+      {
+        "scene": "用户对频道书签链接选择系统分享时",
+        "purpose": "通过系统分享面板发送链接",
+        "source": "频道书签记录",
+        "item": "书签标题和链接地址",
+        "frequency": "每次用户主动点击分享时",
+        "processing": "将标题和链接交给系统分享面板",
+        "storage": "Mattermost 不新增持久化",
+        "recipient": "用户在系统分享面板选择的目标应用或联系人",
+        "thirdparty": "仅按用户选择共享给目标",
+        "switchpath": "频道书签 > 更多 > 分享"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "系统分享面板",
+        "scene": "用户点击分享",
+        "authorization": "用户逐次主动选择",
+        "purpose": "将书签发送到所选目标",
+        "impact": "取消后不会共享"
+      }
+    ]
+  }
+]

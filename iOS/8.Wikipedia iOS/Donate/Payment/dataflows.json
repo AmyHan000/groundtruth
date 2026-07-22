@@ -1,0 +1,74 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_DONATION_SUBMIT_PAYMENT",
+      "data_type": "Payment Information (amount, currency, country code, language, payment token, payment network, donor name components, donor email, donor postal address, email opt-in, transaction fee preference, metrics ID, app version, app install ID)",
+      "description": "User submits a donation via Apple Pay or web payment. Payment data is sent to the Wikimedia donation processing service.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "DonateCoordinator (various Source types)",
+          "file": "Wikipedia/Code/DonateCoordinator.swift",
+          "line": 1,
+          "code": "class DonateCoordinator: Coordinator { enum Source { case articleCampaignModal; case settingsProfile; case exploreProfile; case articleProfile; case yearInReview; case placesProfile; case savedProfile; case searchProfile; case activityTabProfile } }",
+          "details": "User initiates a donation from various entry points: article campaign modal, settings, explore, article, year in review, places, saved articles, search, or activity tab."
+        },
+        {
+          "step": "Data Assembly",
+          "function": "DonateCoordinator Payment Request",
+          "file": "Wikipedia/Code/DonateCoordinator.swift",
+          "line": 1,
+          "code": "PKPaymentRequest configured with amount, currency code, country code, and merchant identifier for Apple Pay",
+          "details": "Donation parameters (amount, currency, country) are used to configure an Apple Pay payment request or a web payment form."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "PKPaymentAuthorizationController (Apple Pay)",
+          "file": "Wikipedia/Code/DonateCoordinator.swift",
+          "line": 1,
+          "code": "Apple Pay system handles the user's payment authorization via Touch ID/Face ID",
+          "details": "For Apple Pay donations, the system handles biometric authentication and payment authorization. The app receives a payment token, not raw card details."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "WMFDonateDataController.submitPayment",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Donor Experience/WMFDonateDataController.swift",
+          "line": 172,
+          "code": "public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, metricsID: String?, appVersion: String?, appInstallID: String?, completion: @escaping (Result<Void, Error>) -> Void)",
+          "details": "Payment data (token, amount, currency, donor info, email opt-in) is submitted to the Wikimedia donation API endpoint via HTTPS POST for payment processing."
+        },
+        {
+          "step": "Data Processing",
+          "function": "DonateFunnel logEvent",
+          "file": "Wikipedia/Code/DonateFunnel.swift",
+          "line": 1,
+          "code": "DonateFunnel logs various donation events: donate_click, applepay_click, submission_error, success_toast, etc.",
+          "details": "Donation funnel events (impression, click, submission, success, error) are logged via EventPlatformClient for analytics."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_DONATION_FETCH_CONFIG",
+      "data_type": "Donation Configuration (payment methods, suggested amounts, currency, merchant ID, country-specific settings)",
+      "description": "App fetches donation configuration from the server for the user's country to configure payment options.",
+      "flow_steps": [
+        {
+          "step": "Data Retrieval",
+          "function": "WMFDonateDataController.fetchConfigsForCountryCode",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Donor Experience/WMFDonateDataController.swift",
+          "line": 70,
+          "code": "@objc public func fetchConfigsForCountryCode(_ countryCode: String, completion: @escaping (Error?) -> Void)",
+          "details": "The app fetches donation configuration (payment methods, amounts, currency) from the Wikimedia donation service based on the user's country code from locale settings."
+        },
+        {
+          "step": "Data Processing",
+          "function": "WMFDonateDataController.fetchConfigs",
+          "file": "WMFData/Sources/WMFData/Data Controllers/Donor Experience/WMFDonateDataController.swift",
+          "line": 81,
+          "code": "public func fetchConfigs(for countryCode: String, completion: @escaping (Result<Void, Error>) -> Void)",
+          "details": "Donation config response is parsed to determine available payment methods (Apple Pay, web) and suggested donation amounts."
+        }
+      ]
+    }
+  ]
+}

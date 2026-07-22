@@ -1,0 +1,32 @@
+[
+  {
+    "id": 11,
+    "dataflow": [
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/CredentialsEncryptionBeforeAPI30.kt",
+        "line": 29,
+        "code": "override suspend fun encryptUsingKeychain(data: ByteArray, encryptionMode: CredentialEncryptionMode): ByteArray {"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/CredentialsEncryptionBeforeAPI30.kt",
+        "line": 32,
+        "code": "cipher = keyStoreFacade.getCipherForEncryptionMode(encryptionMode)"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/CredentialsEncryptionBeforeAPI30.kt",
+        "line": 34,
+        "code": "val cryptoObject = BiometricPrompt.CryptoObject(cipher)"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/CredentialsEncryptionBeforeAPI30.kt",
+        "line": 42,
+        "code": "keyStoreFacade.getCipherForEncryptionMode(encryptionMode)"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/CredentialsEncryptionBeforeAPI30.kt",
+        "line": 47,
+        "code": "return keyStoreFacade.encryptData(data, cipher)"
+      }
+    ]
+  }
+]

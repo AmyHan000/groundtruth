@@ -1,0 +1,28 @@
+[
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "用户选择网络、输入认证信息并点击连接时",
+        "purpose": "保存网络配置并连接指定 Wi-Fi",
+        "source": "用户输入及扫描结果",
+        "item": "Wi-Fi 名称、认证方式和网络密码",
+        "frequency": "每次点击连接或重连时",
+        "processing": "将配置交给 HarmonyOS WLAN 服务保存并发起连接",
+        "storage": "由操作系统的 WLAN 配置存储管理",
+        "recipient": "HarmonyOS WLAN 服务",
+        "thirdparty": "不向第三方共享；连接后网络运营方可处理联网流量",
+        "switchpath": "设置 > WLAN > 目标网络 > 忘记网络/断开"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "WLAN 配置与连接能力",
+        "scene": "用户点击连接无线网络",
+        "authorization": "系统应用预授权或系统能力授权",
+        "purpose": "保存配置并建立 WLAN 连接",
+        "impact": "无法连接该无线网络"
+      }
+    ]
+  }
+]

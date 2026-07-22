@@ -1,0 +1,17 @@
+[
+  {
+    "id": 25,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/lowMemoryCamera/LowMemoryCamera.ets",
+        "line": 45,
+        "code": "build() {"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/lowMemoryCamera/LowMemoryCamera.ets",
+        "line": 52,
+        "code": "LowMemoryCameraController.openCamera(this.context);"
+      }
+    ]
+  }
+]

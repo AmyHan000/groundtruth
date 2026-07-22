@@ -1,0 +1,105 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "LOGOUT_API_AND_CLEANUP",
+      "data_type": "登出请求和本地清除的认证凭据、Cookie和UserDefaults数据",
+      "description": "用户登出时，先调用MediaWiki API发送logout请求，然后清除Keychain中的用户名密码、所有HTTP Cookie、UserDefaults中的同步设置",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "logout",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 397,
+          "code": "public func logout(initiatedBy logoutInitiator: LogoutInitiator, authInstrument: InstrumentImpl?, completion: @escaping () -> Void = {})",
+          "details": "登出流程触发，由用户、应用或服务器发起"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "logout",
+          "file": "Wikipedia/Code/WMFAccountLoginLogoutFetcher.swift",
+          "line": 283,
+          "code": "func logout(loginSiteURL: URL, reattemptOn401Response: Bool = false, completion: @escaping (Error?) -> Void) {\n    performTokenizedMediaWikiAPIPOST(to: loginSiteURL, with: [\"action\": \"logout\", \"format\": \"json\"], reattemptLoginOn401Response: reattemptOn401Response) { (result, response, error) in",
+          "details": "向MediaWiki API发送action=logout POST请求，使服务器端会话失效"
+        },
+        {
+          "step": "Data Deletion",
+          "function": "reset",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 537,
+          "code": "KeychainCredentialsManager.shared.username = nil\nKeychainCredentialsManager.shared.password = nil",
+          "details": "从iOS Keychain中删除保存的用户名和密码"
+        },
+        {
+          "step": "Data Deletion",
+          "function": "reset",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 539,
+          "code": "currentUserCache = [:]",
+          "details": "清空内存中的当前用户缓存字典"
+        },
+        {
+          "step": "Data Deletion",
+          "function": "removeAllCookies",
+          "file": "Wikipedia/Code/Session.swift",
+          "line": 125,
+          "code": "public func removeAllCookies() {\n    guard let storage = defaultURLSession.configuration.httpCookieStorage else { return }\n    storage.cookies?.forEach { cookie in\n        storage.deleteCookie(cookie)\n    }\n}",
+          "details": "从HTTPCookieStorage中删除所有HTTP Cookie（包括centralauth_认证Cookie）"
+        },
+        {
+          "step": "Data Deletion",
+          "function": "reset",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 546,
+          "code": "UserDefaults.standard.wmf_setDidShowEnableReadingListSyncPanel(false)\nUserDefaults.standard.wmf_setDidShowSyncEnabledPanel(false)",
+          "details": "重置UserDefaults中的阅读列表同步提示标志"
+        }
+      ]
+    },
+    {
+      "id": "LOGOUT_SERVER_INITIATED_401",
+      "data_type": "HTTP 401响应触发自动登出",
+      "description": "当API返回401未授权响应时，会话管理器自动触发重新认证或登出流程",
+      "flow_steps": [
+        {
+          "step": "Data Reception",
+          "function": "handleResponse",
+          "file": "Wikipedia/Code/Session.swift",
+          "line": 373,
+          "code": "private func handleResponse(_ response: URLResponse?, reattemptLoginOn401Response: Bool = true) {\n    guard let response = response, let httpResponse = response as? HTTPURLResponse else { return }\n    switch httpResponse.statusCode {\n    case 401:\n        if reattemptLoginOn401Response {\n            authenticationDelegate?.attemptReauthentication()\n        } else {\n            authenticationDelegate?.deauthenticate()\n        }",
+          "details": "服务器返回401状态码后，根据设置决定尝试重新登录或直接清除认证状态"
+        },
+        {
+          "step": "Data Deletion",
+          "function": "deauthenticate",
+          "file": "Wikipedia/Code/WMFAuthenticationManager.swift",
+          "line": 536,
+          "code": "private func reset() {\n    KeychainCredentialsManager.shared.username = nil\n    KeychainCredentialsManager.shared.password = nil\n    currentUserCache = [:]\n    session.removeAllCookies()",
+          "details": "取消认证状态，清除Keychain凭据、Cookie和缓存"
+        }
+      ]
+    },
+    {
+      "id": "LOGOUT_ANALYTICS",
+      "data_type": "登出分析事件（action、category、label）",
+      "description": "用户登出时记录分析事件到EventPlatformClient",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "logLogoutInSettings",
+          "file": "Wikipedia/Code/LoginFunnel.swift",
+          "line": 68,
+          "code": "@objc public func logLogoutInSettings() {\n    logEvent(category: .setting, label: .login, action: .logout)",
+          "details": "用户在设置页面点击登出时触发登出分析事件"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "logEvent",
+          "file": "Wikipedia/Code/LoginFunnel.swift",
+          "line": 29,
+          "code": "EventPlatformClient.shared.submit(stream: .login, event: event)",
+          "details": "登出事件通过EventPlatformClient提交到ios.login_action流，最终发送到https://intake-analytics.wikimedia.org/v1/events"
+        }
+      ]
+    }
+  ]
+}

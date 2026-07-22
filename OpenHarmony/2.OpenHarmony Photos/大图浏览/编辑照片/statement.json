@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "编辑照片",
+    "business_scenario": "用户在大图浏览中点击编辑按钮进入图片编辑器，编辑器SDK读取照片原图数据（PixelMap）和拍摄日期、动态照片模式等元数据，应用用户所做的裁剪、滤镜、美颜、旋转等编辑操作，最后将编辑后的照片数据写入媒体库保存。",
+    "data_types_info": "照片原图数据(PixelMap)(敏感), 编辑后照片数据(PixelMap)(敏感), 照片拍摄日期元数据(一般), 动态照片动效模式信息(一般)",
+    "processing_method": "本地处理（通过编辑器SDK处理PixelMap编辑流水线，编辑结果通过photoAccessHelper写入媒体库）",
+    "permissions_info": "ohos.permission.READ_IMAGEVIDEO -- 读取原图数据（进入编辑器时触发）; ohos.permission.WRITE_IMAGEVIDEO -- 保存编辑后的照片（用户确认保存时触发）"
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "business_function": "推送通知",
+    "business_scenario": "系统推送到达时触发通知服务扩展，最终更新后的通知列表和未读数保存到共享容器缓存",
+    "data_types_info": "推送通知负载内容和用户语言偏好（primaryLanguageCode）(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "didReceive (Trigger：系统推送到达时触发通知服务扩展)"
+  },
+  {
+    "business_function": "推送通知",
+    "business_scenario": "组装通知查询参数，包含过滤器、分页、跨wiki摘要和wiki标识符，最终完整通知数据（wiki、id、类型、类别、节、时间戳、标题、agent信息、读状态、修订ID、消息头和正文、链接）持久化到本地Core Data的RemoteNotification实体",
+    "data_types_info": "通知查询参数（wiki标识符、过滤条件、分页令牌、通知类型筛选器）和完整通知数据(敏感)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "推送通知",
+    "business_scenario": "标记所有通知为已读，发送wiki标识符到服务器，最终通知ID和wiki标识符通过POST请求发送到MediaWiki API",
+    "data_types_info": "通知ID列表和Wiki标识符(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "推送通知",
+    "business_scenario": "用户交互通知时触发分析事件，最终通知交互事件通过EventPlatformClient提交到ios.notification_interaction流",
+    "data_types_info": "通知交互分析事件（notification_id、notification_wiki、notification_type、action、device_level(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "推送通知",
+    "business_scenario": "请求推送权限并注册远程通知获取设备令牌，最终设备令牌订阅到Echo通知系统，将设备与用户账户关联",
+    "data_types_info": "设备推送令牌和Echo通知订阅(敏感)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "requestPushPermissionsAndSilentlySubscribeToEchoNotifications (Trigger：请求推送权限并注册远程通知获取设备令牌)"
+  },
+  {
+    "business_function": "推送通知",
+    "business_scenario": "用户登出时触发通知数据清理，最终从Core Data批量删除所有通知实体和键值对，清空共享缓存",
+    "data_types_info": "全部通知数据的删除(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "无"
+  }
+]

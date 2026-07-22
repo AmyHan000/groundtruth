@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_LOCATION_MONITOR_STATE_CHANGE",
+      "data_type": "设备位置服务状态变化事件（isLocationEnabled布尔值）",
+      "description": "应用注册位置服务开关状态变化监听器，当用户从系统设置或其他方式改变位置服务状态时，监听器回调获取最新状态并更新UI。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "LocationViewModel.initViewModel → LocationService.startService",
+          "file": "entry/src/main/ets/model/locationServicesImpl/LocationViewModel.ets",
+          "line": 1,
+          "code": "export class LocationViewModel { ... public initViewModel() { ... locationService.startService(); ... } }",
+          "details": "位置服务ViewModel初始化时，启动位置服务监听。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "LocationService.startService → geolocation.on('locationEnabledChange')",
+          "file": "entry/src/main/ets/model/locationServicesImpl/LocationService.ets",
+          "line": 28,
+          "code": "startService() { if (this.mIsStart) { return; } this.mIsStart = true; geolocation.on('locationEnabledChange', (isChanged: boolean) => { this.getServiceState(); }); }",
+          "details": "通过@ohos.geoLocationManager.on('locationEnabledChange')注册系统级位置服务开关监听器。当用户控制位置服务开启或关闭时触发回调。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "LocationService.getServiceState → geolocation.isLocationEnabled",
+          "file": "entry/src/main/ets/model/locationServicesImpl/LocationService.ets",
+          "line": 45,
+          "code": "async getServiceState(): Promise<void> { let state: boolean = await geolocation.isLocationEnabled(); this.mListener.updateServiceState(state); }",
+          "details": "位置状态变化时调用geolocation.isLocationEnabled()获取当前最新状态（开启/关闭），通过Listener回调通知ViewModel。"
+        },
+        {
+          "step": "Data Display",
+          "function": "LocationServices → @StorageLink('LocationServiceStatus')",
+          "file": "entry/src/main/ets/pages/locationServices.ets",
+          "line": 29,
+          "code": "@StorageLink('LocationServiceStatus') locationServiceStatus: boolean = false;",
+          "details": "通过@StorageLink状态变量绑定Toggle开关，实时反映设备位置服务的开启或关闭状态，无需用户手动刷新。"
+        }
+      ]
+    }
+  ]
+}

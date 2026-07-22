@@ -1,0 +1,27 @@
+[
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "app/utils/file/file_picker/index.ts",
+        "line": 269,
+        "code": "const hasCameraPermission = await this.hasPhotoPermission('camera');"
+      },
+      {
+        "filePath": "app/utils/file/file_picker/index.ts",
+        "line": 277,
+        "code": "launchCamera(options, async (response: ImagePickerResponse) => {"
+      },
+      {
+        "filePath": "app/utils/file/file_picker/index.ts",
+        "line": 284,
+        "code": "const files = await this.getFilesFromResponse(response);"
+      },
+      {
+        "filePath": "app/actions/remote/file.ts",
+        "line": 36,
+        "code": "return {cancel: client.uploadAttachment(file, channelId, onProgress, onComplete, onError, skipBytes, isBookmark)};"
+      }
+    ]
+  }
+]

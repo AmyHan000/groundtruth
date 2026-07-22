@@ -1,0 +1,51 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_CAMERA_LOCATION_AUTH_GUIDE",
+      "data_type": "相机应用的权限状态信息（accessToken、APPROXIMATELY_LOCATION授权状态）、相机位置开关设置、用户取消引导卡片的操作记录",
+      "description": "应用在时间线和照片浏览页面检查相机是否已有地理位置授权，根据授权状态和用户历史操作决定是否展示引导卡片，引导用户授权相机使用位置信息。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "CameraAuthLocationManager.getIsShowCameraAuthLocationCard",
+          "file": "common/src/main/ets/default/viewmodel/CameraAuthLocationManager.ets",
+          "line": 130,
+          "code": "public static async getIsShowCameraAuthLocationCard(context: Context, from: CameraAuthLocationFromEnum): Promise<boolean> { ... }",
+          "details": "在时间线或大图浏览页面触发检查，决定是否展示相机位置授权引导卡片。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "CameraAuthLocationManager.checkCameraAuth",
+          "file": "common/src/main/ets/default/viewmodel/CameraAuthLocationManager.ets",
+          "line": 39,
+          "code": "private static async checkCameraAuth(): Promise<boolean> { let tokenId = bundleManager.getApplicationInfoSync(cameraBundleName, ...).accessTokenId; const grantStatus = await abilityAccessCtrl.createAtManager().checkAccessTokenSync(tokenId, 'ohos.permission.APPROXIMATELY_LOCATION'); }",
+          "details": "通过bundleManager.getApplicationInfoSync获取相机应用的accessTokenId，再通过abilityAccessCtrl.checkAccessTokenSync检查相机是否有APPROXIMATELY_LOCATION权限。需要GET_BUNDLE_INFO权限。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "CameraAuthLocationManager.getCameraLocationSwich",
+          "file": "common/src/main/ets/default/viewmodel/CameraAuthLocationManager.ets",
+          "line": 55,
+          "code": "private static getCameraLocationSwich(context: Context): string { return settings.getValueSync(context, CAMERA_LOCATION_SWITCH, 'undefined'); }",
+          "details": "读取系统设置中'camera_location_switch'的值，该值为'undefined'表示相机从未请求过位置授权，'0'表示用户拒绝了授权，'1'表示用户已授权。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "CameraAuthLocationManager user action history",
+          "file": "common/src/main/ets/default/viewmodel/CameraAuthLocationManager.ets",
+          "line": 65,
+          "code": "private static async getCancelTime(context: Context, keyName: string): Promise<number> { ... settings.getValueSync(context, keyName, ''); }",
+          "details": "读取用户之前取消引导卡片的次数（最多3次）和最近取消时间（间隔需超过30天），决定是否再次展示引导。"
+        },
+        {
+          "step": "UI Display",
+          "function": "CameraAuthLocationCardView",
+          "file": "common/src/main/ets/default/view/CameraAuthLocationCardView.ets",
+          "line": 1,
+          "code": "@Component struct CameraAuthLocationCardView { ... }",
+          "details": "当条件满足时，在时间线或大图浏览界面展示引导卡片，引导用户授权相机使用地理位置。"
+        }
+      ]
+    }
+  ]
+}

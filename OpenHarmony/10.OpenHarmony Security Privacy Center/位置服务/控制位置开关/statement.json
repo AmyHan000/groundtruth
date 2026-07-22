@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "控制位置开关",
+    "business_scenario": "用户在位置服务页面通过Toggle开关开启或关闭设备位置服务，应用调用@ohos.geoLocationManager.enableLocation/disableLocation系统API修改全局位置服务状态，同时通过HiSysEvent上报开关变更事件（PERMISSION_PAGE_LOCATION字段标识开启/关闭）用于产品使用分析。",
+    "data_types_info": "设备位置服务开关状态（开启/关闭）(一般)",
+    "processing_method": "系统级控制（通过@ohos.geoLocationManager控制设备位置服务的全局开关）",
+    "permissions_info": "ohos.permission.CONTROL_LOCATION_SWITCH -- 控制设备位置服务开关（用户操作Toggle开关时触发）"
+  }
+]

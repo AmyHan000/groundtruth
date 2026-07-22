@@ -1,0 +1,28 @@
+[
+  {
+    "id": 2,
+    "data": [
+      {
+        "scene": "用户完成 Nextcloud 登录后，应用根据服务器地址和登录名创建 Android 系统账号，并将 Web 登录返回的凭证保存到 AccountManager。",
+        "purpose": "创建账号并保存登录凭证",
+        "source": "用户登录输入和 Nextcloud 服务器认证结果",
+        "item": "账号名称、登录名、服务器地址和访问凭证",
+        "frequency": "每次新增 Nextcloud 账号时",
+        "processing": "通过 Android AccountManager 在本地建立账号并保存凭证",
+        "storage": "存入 Android 系统账号存储；默认账号名称另存于应用偏好",
+        "recipient": "本应用、Android AccountManager 和用户配置的 Nextcloud 服务器",
+        "thirdparty": "凭证用于连接用户配置的 Nextcloud 服务器，不向无关第三方共享",
+        "switchpath": "可在应用账号管理中删除账号；删除后无法访问该账号的云端文件"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "账号管理能力",
+        "scene": "用户完成登录并确认添加账号时",
+        "authorization": "用户主动登录/系统账号能力",
+        "purpose": "创建系统账号并安全保存会话凭证",
+        "impact": "不提供凭证或删除账号后无法登录该 Nextcloud 账号"
+      }
+    ]
+  }
+]

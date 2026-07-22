@@ -1,0 +1,16 @@
+[
+  {
+    "business_function": "浏览照片",
+    "business_scenario": "用户打开图库App进入照片时间线页面，应用向系统申请读取照片/视频权限后，通过photoAccessHelper查询设备中所有照片和视频的元数据列表，按拍摄日期分组以时间线网格形式展示缩略图。",
+    "data_types_info": "照片/视频元数据（URI、缩略图、拍摄日期、收藏状态、文件位置类型）(敏感), 照片缩略图PixelMap数据(一般)",
+    "processing_method": "本地读取与展示（通过photoAccessHelper从系统媒体库读取）",
+    "permissions_info": "ohos.permission.READ_IMAGEVIDEO -- 读取设备照片和视频（用户打开App时触发申请）; ohos.permission.WRITE_IMAGEVIDEO -- 写入设备照片和视频（用户打开App时触发申请）"
+  },
+  {
+    "business_function": "照片缩略图加载",
+    "business_scenario": "时间线网格滚动时，应用对每个进入视图的照片项从系统媒体库缓存中读取LCD尺寸的缩略图PixelMap数据，在网格中渲染显示。",
+    "data_types_info": "照片缩略图LCD数据(一般)",
+    "processing_method": "仅本地展示（从系统缩略图缓存读取并渲染，不持久化存储）",
+    "permissions_info": "依赖ohos.permission.READ_IMAGEVIDEO（前序已授权）"
+  }
+]

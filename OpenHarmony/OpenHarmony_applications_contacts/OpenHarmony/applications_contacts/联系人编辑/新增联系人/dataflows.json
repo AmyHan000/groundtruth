@@ -1,0 +1,27 @@
+[
+  {
+    "id": 5,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/contacts/accountants/Accountants.ets",
+        "line": 233,
+        "code": "this.mPresenter.saveContact(this.uiExtentionSession);"
+      },
+      {
+        "filePath": "entry/src/main/ets/presenter/contact/accountants/AccountantsPresenter.ets",
+        "line": 1582,
+        "code": ".sendRequest('addContact',"
+      },
+      {
+        "filePath": "entry/src/main/ets/workers/DataWorkerTask.ets",
+        "line": 238,
+        "code": "case DataWorkerConstant[DataWorkerConstant.addContact]:"
+      },
+      {
+        "filePath": "entry/src/main/ets/model/ContactAbilityModel.ets",
+        "line": 356,
+        "code": "let batchInsertFlag: number = await daHelper.batchInsert(uri, contactDataArr);"
+      }
+    ]
+  }
+]

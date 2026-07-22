@@ -1,0 +1,22 @@
+[
+  {
+    "id": 7,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/CalendarEventManager.kt",
+        "line": 24,
+        "code": "fun openCalendarEvent(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/CalendarEventManager.kt",
+        "line": 42,
+        "code": "val uri: Uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/utils/CalendarEventManager.kt",
+        "line": 43,
+        "code": "val intent = Intent(Intent.ACTION_VIEW).setData(uri)"
+      }
+    ]
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 16,
+    "dataflow": [
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 106,
+        "code": "func queryContactSuggestions(query: String, upTo: Int) throws -> [ContactSuggestion] {"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 107,
+        "code": "let contactsStore = CNContactStore()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 108,
+        "code": "let keysToFetch: [any CNKeyDescriptor] = ["
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 112,
+        "code": "let request = makeContactFetchRequest(forKeys: keysToFetch)"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 116,
+        "code": "// Alternatively we could query for email and query for name separately and then combine the results"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 117,
+        "code": "try self.enumerateContactsInContactStore(contactsStore, with: request) { contact, stopPointer in"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 118,
+        "code": "let name: String = CNContactFormatter.string(from: contact, style: .fullName) ?? \"\""
+      }
+    ]
+  }
+]

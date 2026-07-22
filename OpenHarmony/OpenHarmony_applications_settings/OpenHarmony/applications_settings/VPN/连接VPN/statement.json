@@ -1,0 +1,28 @@
+[
+  {
+    "id": 10,
+    "data": [
+      {
+        "scene": "用户选择 VPN 配置并点击连接时",
+        "purpose": "使用配置的凭据建立 VPN 隧道",
+        "source": "用户输入及已保存的 VPN 配置",
+        "item": "VPN 服务器地址、用户名和密码",
+        "frequency": "每次发起 VPN 连接时",
+        "processing": "将配置交给系统 VPN 连接对象建立隧道",
+        "storage": "凭据是否保存由用户选择及系统 VPN 配置管理",
+        "recipient": "HarmonyOS VPN 服务和用户配置的 VPN 服务器",
+        "thirdparty": "VPN 服务提供方会接收建立连接所需信息",
+        "switchpath": "设置 > 更多连接 > VPN > 断开连接"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "VPN 连接能力",
+        "scene": "用户点击连接 VPN",
+        "authorization": "系统应用预授权或系统确认",
+        "purpose": "建立 VPN 隧道",
+        "impact": "无法连接该 VPN"
+      }
+    ]
+  }
+]

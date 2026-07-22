@@ -1,0 +1,17 @@
+[
+  {
+    "id": 16,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/datamodel/FileDataStorageManager.java",
+        "line": 2079,
+        "code": "ContentResolver contentResolver = getContentResolver();"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/datamodel/FileDataStorageManager.java",
+        "line": 2084,
+        "code": "contentResolver.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"
+      }
+    ]
+  }
+]

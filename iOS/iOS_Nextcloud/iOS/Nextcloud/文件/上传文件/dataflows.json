@@ -1,0 +1,27 @@
+[
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "iOSClient/Networking/NCNetworking+Upload.swift",
+        "line": 14,
+        "code": "func uploadFile(account: String,"
+      },
+      {
+        "filePath": "iOSClient/Networking/NCNetworking+Upload.swift",
+        "line": 31,
+        "code": "let results = await NextcloudKit.shared.uploadAsync(serverUrlFileName: serverUrlFileName,"
+      },
+      {
+        "filePath": "iOSClient/Networking/NCNetworking+Upload.swift",
+        "line": 42,
+        "code": "path: serverUrlFileName,"
+      },
+      {
+        "filePath": "iOSClient/Networking/NCNetworking+Upload.swift",
+        "line": 48,
+        "code": "progressHandler(progress.completedUnitCount, progress.totalUnitCount, progress.fractionCompleted)"
+      }
+    ]
+  }
+]

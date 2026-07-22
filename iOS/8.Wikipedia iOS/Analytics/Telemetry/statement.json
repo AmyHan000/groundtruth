@@ -1,0 +1,23 @@
+[
+  {
+    "business_function": "统计分析",
+    "business_scenario": "Various app components call EventPlatformClient.submit() to log events (e.g., LoginFunnel, DonateFun，最终Buffered events are sent in batches to the Wikimedia event intake service endpoint via HTTPS POST",
+    "data_types_info": "Event Data (event name(一般)、schema version(一般)、app install ID(一般)、app session ID(一般)、timestamp(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "统计分析",
+    "business_scenario": "Login-related user actions (impression, login start, success, logout, create account) are logged as ，最终Login funnel events are batched with other analytics events and periodically sent to the remote i",
+    "data_types_info": "Login Funnel Events (action: impression/login_start/logout/login_success/createa(一般)、category(一般)、label(一般)、timestamp)(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "统计分析",
+    "business_scenario": "App session lifecycle events (start, end) and user navigation events (page view, scroll, tab switch)，最终Session events are batched and sent to the event intake endpoint via HTTPS POST.",
+    "data_types_info": "Session Data (session ID(一般)、session length(一般)、timestamp(一般)、user interactions(一般)、scroll depth(一般)",
+    "processing_method": "上传云端 (通过HTTPS加密传输)",
+    "permissions_info": "无"
+  }
+]

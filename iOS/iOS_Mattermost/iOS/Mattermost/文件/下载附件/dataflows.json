@@ -1,0 +1,17 @@
+[
+  {
+    "id": 10,
+    "dataflow": [
+      {
+        "filePath": "app/actions/remote/file.ts",
+        "line": 16,
+        "code": "return client.apiClient.download(client.getFileRoute(fileId), desitnation.replace('file://', ''), {timeoutInterval: DOWNLOAD_TIMEOUT});"
+      },
+      {
+        "filePath": "app/screens/gallery/footer/download_with_action/index.tsx",
+        "line": 196,
+        "code": "Share.open({"
+      }
+    ]
+  }
+]

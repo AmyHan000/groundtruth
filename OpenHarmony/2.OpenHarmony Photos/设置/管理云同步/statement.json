@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "管理云同步",
+    "business_scenario": "用户在图库设置中查看或开启/关闭云同步功能，应用读取用户登录账号状态和云同步配置，根据用户操作修改云同步设置。开启云同步后，照片/视频数据通过CLOUDFILE_SYNC模块经HTTPS加密传输同步到云端服务器。",
+    "data_types_info": "云同步配置状态（登录状态、同步开关）(一般), 同步到云端的照片/视频数据(敏感)",
+    "processing_method": "上传云端（通过CLOUDFILE_SYNC权限将照片/视频经HTTPS加密传输至云端服务器）",
+    "permissions_info": "ohos.permission.READ_CLOUD_SYNC_CONFIG -- 读取云同步配置（打开设置页面时触发）; ohos.permission.MANAGE_CLOUD_SYNC_CONFIG -- 管理云同步设置（用户修改云同步开关时触发）; ohos.permission.CLOUDFILE_SYNC -- 开启云文件同步（云同步功能启用时触发）; ohos.permission.INTERNET -- 网络访问（云同步数据传输时触发）; ohos.permission.USE_CLOUD_COMMON_SERVICE -- 使用云通用服务"
+  }
+]

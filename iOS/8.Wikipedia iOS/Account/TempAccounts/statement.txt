@@ -1,0 +1,13 @@
+1 我们如何收集和使用您的个人信息：
+
+[1] 临时账号管理，通过MediaWiki API查询siteinfo中是否启用了临时账户功能，API查询发送到Wikipedia MediaWiki API，检查autocreatetempuser属性。为提供此功能，我们会收集您的Wiki域名/语言代码(一般)。采集频率：用户主动查询时采集。处理方式说明：上传云端 (通过HTTPS加密传输)。数据传输使用HTTPS协议加密。
+
+[2] 临时账号管理，从HTTP Cookie存储中读取centralauth_User Cookie值作为临时账户用户名，临时账户用户名用于导航到用户的讨论页面，用户名会发送到Wikipedia服务器以加载讨论页。为提供此功能，我们会收集您的**临时账户用户名（从centralauth_User Cookie读取）**(敏感)。采集频率：用户触发时单次采集。处理方式说明：本地处理/本地加密存储。数据仅本地处理，使用硬件加密存储。
+
+[3] 临时账号管理，用户点击结束临时账户会话时触发登出，从HTTPCookieStorage中删除所有Cookie，包括centralauth_User。为提供此功能，我们会收集您的临时账户登出触发（清除Keychain凭据、**Cookie和缓存）**(敏感)。采集频率：用户触发时单次采集。处理方式说明：本地处理/本地加密存储。数据仅本地处理，使用硬件加密存储。
+
+[4] 临时账号管理，通过检查centralauth_User Cookie存在且Keychain中无凭据来判断是否为临时账户，从HTTPCookieStorage读取centralauth_User Cookie判断是否存在。为提供此功能，我们会收集您的**认证状态检测（Cookie存在性 + Keychain为空）**(敏感)。采集频率：用户触发时单次采集。处理方式说明：本地处理/本地加密存储。数据仅本地处理，使用硬件加密存储。
+
+2 设备权限调用：
+
+无

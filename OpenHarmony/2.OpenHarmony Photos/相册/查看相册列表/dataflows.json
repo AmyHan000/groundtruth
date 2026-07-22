@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_ALBUMS_LOAD_ALBUM_LIST",
+      "data_type": "相册列表（相册名称、相册类型、相册封面URI、照片数量、相册子类型）",
+      "description": "用户切换到相册页签，应用通过photoAccessHelper查询所有系统相册（图片/视频/收藏/隐藏/回收站等）和用户创建相册，在相册网格中展示封面和数量。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "IndexPage.onTabChanged → loadTabPage(ALBUM_PAGE_INDEX)",
+          "file": "product/phone/src/main/ets/MainAbility/view/index.ets",
+          "line": 1105,
+          "code": "if (index === Constants.ALBUM_PAGE_INDEX) { ... let obj = await import('./TabContentComponent'); ... }",
+          "details": "用户切换到相册页签或从其他路径进入相册页，触发相册列表加载。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "AlbumSetDataSource.loadData → photoAccessHelper.getAlbums",
+          "file": "common/src/main/ets/default/model/browser/album/AlbumSetDataSource.ets",
+          "line": 940,
+          "code": "if (Number(album?.subType) === Number(photoAccessHelper.AlbumSubtype.USER_GENERIC)) { ... }",
+          "details": "通过photoAccessHelper.getAlbums获取所有相册，遍历每个相册的类型（系统相册/用户相册）、子类型（图片/视频/收藏/隐藏/回收站/地理位置等）和封面信息。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "UserFileManagerAccess.getAllSortedAlbumsFetchOption / getNormalAlbumsFetchOption",
+          "file": "common/src/main/ets/default/access/UserFileManagerAccess.ets",
+          "line": 1,
+          "code": "import { getSortedSystemAlbumsFetchOption, getSortedMyAlbumsFetchOption, ... } from './AlbumSortFetchOptions';",
+          "details": "使用预定义的查询选项从媒体库获取按规则排序的系统相册和用户相册列表。"
+        },
+        {
+          "step": "Data Display",
+          "function": "TabContentComponent → AlbumPhotoView Switch",
+          "file": "product/phone/src/main/ets/MainAbility/view/TabContentComponent.ets",
+          "line": 1,
+          "code": "@Component struct TabContentComponent { ... }",
+          "details": "相册以网格列表展示，每个相册显示封面缩略图、相册名称和照片/视频数量。"
+        }
+      ]
+    }
+  ]
+}

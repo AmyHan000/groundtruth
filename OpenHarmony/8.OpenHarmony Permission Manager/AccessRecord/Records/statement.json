@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "权限使用记录",
+    "business_scenario": "用户进入权限使用记录页，有两个Tab：按权限查看和按应用查看。，最终通过两个Tab展示：'权限'Tab按权限类型分组，'应用'Tab按应用分组。每条记录包括权限名、应用名、访问次数和最近访问时间。",
+    "data_types_info": "权限使用记录（包名、应用名称、权限名、权限组、访问次数、最近访问时间戳、是否受保护）、应用信息(一般)",
+    "processing_method": "本地处理/本地加密存储",
+    "permissions_info": "permissionRecordPage.aboutToAppear (Trigger：用户进入权限使用记录页，有两个Tab：按权限查看和按应用查看。); privacyManager.getPermissionUsedRecords (Data Reception：调用privacyManager系统API查询权限使用记录。); permissionRecordPage.buildAppReco"
+  }
+]

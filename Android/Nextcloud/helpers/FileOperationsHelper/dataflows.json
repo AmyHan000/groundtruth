@@ -1,0 +1,17 @@
+[
+  {
+    "id": 26,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/helpers/FileOperationsHelper.java",
+        "line": 1091,
+        "code": "if (isVideo) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/ui/helpers/FileOperationsHelper.java",
+        "line": 1096,
+        "code": "intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);"
+      }
+    ]
+  }
+]

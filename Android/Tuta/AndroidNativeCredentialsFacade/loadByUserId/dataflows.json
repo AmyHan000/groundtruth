@@ -1,0 +1,32 @@
+[
+  {
+    "id": 6,
+    "dataflow": [
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/AndroidNativeCredentialsFacade.kt",
+        "line": 49,
+        "code": "override suspend fun loadByUserId(id: String): UnencryptedCredentials? {"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/AndroidNativeCredentialsFacade.kt",
+        "line": 57,
+        "code": "this.keychainEncryption.encryptUsingKeychain(credentialsKey, CredentialEncryptionMode.DEVICE_LOCK)"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/AndroidNativeCredentialsFacade.kt",
+        "line": 58,
+        "code": "db.keyBinaryDao().put(CREDENTIALS_ENCRYPTION_KEY_KEY, encryptedKey)"
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/AndroidNativeCredentialsFacade.kt",
+        "line": 62,
+        "code": "val encryptedCredentials ="
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/AndroidNativeCredentialsFacade.kt",
+        "line": 64,
+        "code": "return if (encryptedCredentials != null) this.decryptCredentials("
+      }
+    ]
+  }
+]

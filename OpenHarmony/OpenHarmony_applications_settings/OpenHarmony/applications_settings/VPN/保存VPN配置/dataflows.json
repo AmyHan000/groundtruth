@@ -1,0 +1,27 @@
+[
+  {
+    "id": 9,
+    "dataflow": [
+      {
+        "filePath": "feature/vpn/src/main/ets/OpenVpnEdit.ets",
+        "line": 315,
+        "code": "this.vpnConfig.userName = value.trim();"
+      },
+      {
+        "filePath": "feature/vpn/src/main/ets/OpenVpnEdit.ets",
+        "line": 327,
+        "code": "this.vpnConfig.password = value.trim();"
+      },
+      {
+        "filePath": "feature/vpn/src/main/ets/VpnEditView.ets",
+        "line": 245,
+        "code": "this.onSaveClick();"
+      },
+      {
+        "filePath": "feature/vpn/src/main/ets/VpnEditView.ets",
+        "line": 111,
+        "code": "await vpn.addSysVpnConfig(this.vpnConfig);"
+      }
+    ]
+  }
+]

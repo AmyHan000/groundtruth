@@ -1,0 +1,28 @@
+[
+  {
+    "id": 8,
+    "data": [
+      {
+        "scene": "用户开启生物识别解锁且应用需要解锁时",
+        "purpose": "验证设备持有人并解锁本地账号内容",
+        "source": "iOS LocalAuthentication 返回结果",
+        "item": "生物识别认证成功或失败状态",
+        "frequency": "每次应用锁触发时",
+        "processing": "调用系统 Face ID/Touch ID；应用不读取生物特征模板",
+        "storage": "仅保存是否启用以及认证结果状态",
+        "recipient": "iOS 生物识别框架和 Nextcloud 应用",
+        "thirdparty": "不向服务器或第三方上传生物特征",
+        "switchpath": "设置 > 密码/Face ID；系统设置可关闭生物识别"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Face ID/Touch ID",
+        "scene": "用户启用或使用生物识别解锁",
+        "authorization": "系统认证弹窗",
+        "purpose": "解锁受保护的本地应用内容",
+        "impact": "需改用应用密码/设备凭据，或无法解锁"
+      }
+    ]
+  }
+]

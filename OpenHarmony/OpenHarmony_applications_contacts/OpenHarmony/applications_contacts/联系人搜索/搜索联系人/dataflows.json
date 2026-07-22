@@ -1,0 +1,52 @@
+[
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/contacts/ContactList.ets",
+        "line": 772,
+        "code": "this.presenter.inputKeyword = value;"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/contacts/ContactList.ets",
+        "line": 774,
+        "code": "this.presenter.getSearchContactResultFromDb(this.presenter.inputKeyword);"
+      },
+      {
+        "filePath": "entry/src/main/ets/presenter/contact/ContactListPresenter.ets",
+        "line": 1567,
+        "code": "this.inputKeyword = searchkey;"
+      },
+      {
+        "filePath": "feature/contact/src/main/ets/repo/ContactRepository.ets",
+        "line": 2272,
+        "code": "let searchValue: string = actionData.value;"
+      },
+      {
+        "filePath": "feature/contact/src/main/ets/repo/ContactRepository.ets",
+        "line": 2325,
+        "code": "dataAbilityHelper.query(SearchContacts.CONTENT_URI, conditionArgs, SearchContactListItem.COLUMNS)"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "feature/contact/src/main/ets/repo/ContactRepository.ets",
+        "line": 2338,
+        "code": "rst.push(new SearchContactListItem(resultSet));"
+      },
+      {
+        "filePath": "entry/src/main/ets/presenter/contact/ContactListPresenter.ets",
+        "line": 1629,
+        "code": "this.contactSearchList = this.contactSearchList.concat(searchResults);"
+      },
+      {
+        "filePath": "entry/src/main/ets/presenter/contact/ContactListPresenter.ets",
+        "line": 1630,
+        "code": "this.searchContactsSource.refresh(this.contactSearchList);"
+      }
+    ]
+  }
+]

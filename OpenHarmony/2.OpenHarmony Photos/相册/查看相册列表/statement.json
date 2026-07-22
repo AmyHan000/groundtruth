@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "查看相册列表",
+    "business_scenario": "用户切换到相册页签，应用通过photoAccessHelper查询系统媒体库中所有相册（包含系统相册和用户创建相册），获取每个相册的名称、封面缩略图URI和照片数量，在相册网格中展示。",
+    "data_types_info": "相册元数据（相册名称、相册类型、封面URI、照片数量、相册子类型）(一般)",
+    "processing_method": "本地读取与展示（通过photoAccessHelper从系统媒体库查询相册信息）",
+    "permissions_info": "依赖ohos.permission.READ_IMAGEVIDEO（前序已授权）"
+  }
+]

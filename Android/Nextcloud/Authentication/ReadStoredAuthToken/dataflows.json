@@ -1,0 +1,52 @@
+[
+  {
+    "id": 3,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AccountAuthenticator.java",
+        "line": 140,
+        "code": "public Bundle getAuthToken(AccountAuthenticatorResponse response,"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AccountAuthenticator.java",
+        "line": 152,
+        "code": "final AccountManager am = AccountManager.get(mContext);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AccountAuthenticator.java",
+        "line": 154,
+        "code": "if (authTokenType.equals(AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType(mContext)))) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AccountAuthenticator.java",
+        "line": 155,
+        "code": "accessToken = am.getPassword(account);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AccountAuthenticator.java",
+        "line": 157,
+        "code": "accessToken = am.peekAuthToken(account, authTokenType);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AccountAuthenticator.java",
+        "line": 159,
+        "code": "if (accessToken != null) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AccountAuthenticator.java",
+        "line": 161,
+        "code": "result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AccountAuthenticator.java",
+        "line": 163,
+        "code": "result.putString(AccountManager.KEY_AUTHTOKEN, accessToken);"
+      },
+      {
+        "filePath": "app/src/main/java/com/owncloud/android/authentication/AccountAuthenticator.java",
+        "line": 164,
+        "code": "return result;"
+      }
+    ]
+  }
+]

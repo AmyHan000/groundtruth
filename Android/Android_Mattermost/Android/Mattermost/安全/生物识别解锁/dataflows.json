@@ -1,0 +1,22 @@
+[
+  {
+    "id": 8,
+    "dataflow": [
+      {
+        "filePath": "app/managers/security_manager/index.ts",
+        "line": 746,
+        "code": "return this.authenticateWithBiometrics(server);"
+      },
+      {
+        "filePath": "app/managers/security_manager/index.ts",
+        "line": 790,
+        "code": "const auth = await Emm.authenticate({"
+      },
+      {
+        "filePath": "app/managers/security_manager/index.ts",
+        "line": 798,
+        "code": "config.authenticated = auth;"
+      }
+    ]
+  }
+]

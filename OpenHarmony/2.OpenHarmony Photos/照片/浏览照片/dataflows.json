@@ -1,0 +1,106 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_TIMELINE_LOAD_PHOTO_LIST",
+      "data_type": "照片/视频列表（URI、缩略图数据、拍摄日期、收藏状态、文件位置类型）",
+      "description": "用户进入图库照片页，应用通过photoAccessHelper读取设备中所有照片和视频的元数据列表，按日期分组在时间线网格中展示。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "IndexPage.aboutToAppear",
+          "file": "product/phone/src/main/ets/MainAbility/view/index.ets",
+          "line": 902,
+          "code": "aboutToAppear(): void { ... this.requestPermissions(); ... }",
+          "details": "用户打开图库App，Index页面初始化，触发权限请求和照片数据加载。"
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "IndexPage.requestPermissions",
+          "file": "product/phone/src/main/ets/MainAbility/view/index.ets",
+          "line": 2010,
+          "code": "private async requestPermissions(): Promise<void> { let permissionList: Permissions[] = ['ohos.permission.READ_IMAGEVIDEO', 'ohos.permission.WRITE_IMAGEVIDEO']; atManager.requestPermissionsFromUser(context, permissionList); }",
+          "details": "向用户动态申请READ_IMAGEVIDEO和WRITE_IMAGEVIDEO权限，这是访问设备照片/视频的必要权限。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "UserFileManagerAccess.onCreate → photoAccessHelper.getPhotoAccessHelper",
+          "file": "common/src/main/ets/default/access/UserFileManagerAccess.ets",
+          "line": 514,
+          "code": "this.photoAccessHelper = photoAccessHelper.getPhotoAccessHelper(context);",
+          "details": "获取photoAccessHelper实例，建立与系统媒体库的连接，这是所有媒体读写操作的基础。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "PhotoAccessHelperAccess.getAssets → helper.getAssets",
+          "file": "common/src/main/ets/default/access/PhotoAccessHelperAccess.ets",
+          "line": 1012,
+          "code": "public static async getAssets(context: common.Context, fetchOpt: photoAccessHelper.FetchOptions): Promise<(PhotoAsset | undefined)[]> { helper = photoAccessHelper.getPhotoAccessHelper(context); fetchResult = await helper.getAssets(fetchOpt); result = await fetchResult.getAllObjects(); }",
+          "details": "通过photoAccessHelper.getAssets查询媒体库，获取所有照片/视频asset列表，包含URI、缩略图、拍摄日期等元数据。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "TimelineDataSource constructor → registerTimelineObserver",
+          "file": "feature/timeline/src/main/ets/model/TimelineDataSourceManager.ets",
+          "line": 31,
+          "code": "private constructor() { this.dataSource = new TimelineDataSource(Constants.DEFAULT_SLIDING_WIN_SIZE, this.broadCast); this.dataSource.registerTimelineObserver(); }",
+          "details": "创建TimelineDataSource并注册媒体库观察者，监听照片/视频的增删变化，实现实时更新。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "UnionAlbumDataSource loadData",
+          "file": "common/src/main/ets/default/model/UnionAlbumDataSource.ets",
+          "line": 72,
+          "code": "predicates.orderByDesc(photoAccessHelper.PhotoKeys.DATE_TAKEN_MS); predicates.groupBy([String(photoAccessHelper.PhotoKeys.DATE_DAY)]);",
+          "details": "按拍摄日期降序排列照片，按天分组，用于时间线按日展示。"
+        },
+        {
+          "step": "Data Display",
+          "function": "DayGridView → PhotoGridView",
+          "file": "feature/timeline/src/main/ets/photogrid/view/DayGridView.ets",
+          "line": 1,
+          "code": "@Component struct DayGridView { ... }",
+          "details": "照片以日期分组网格形式在时间线页面展示，每个文件项显示缩略图。"
+        }
+      ]
+    },
+    {
+      "id": "FLOW_TIMELINE_LOAD_THUMBNAIL",
+      "data_type": "照片缩略图PixelMap数据（LCD尺寸缩略图）",
+      "description": "时间线网格滚动时，对每个可见照片项加载LCD缩略图PixelMap数据用于渲染显示。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "LazyForEach onItemAppear → PhotoGridView",
+          "file": "feature/timeline/src/main/ets/photogrid/view/PhotoGridView.ets",
+          "line": 1,
+          "code": "@Component struct PhotoGridView { ... LazyForEach(this.dataSource, (item: MediaItem) => { ... }) }",
+          "details": "时间线网格滚动时，可见项进入视图触发缩略图加载。"
+        },
+        {
+          "step": "Data Reception",
+          "function": "PhotoAccessHelperAccess.getLcdSize",
+          "file": "common/src/main/ets/default/access/PhotoAccessHelperAccess.ets",
+          "line": 1,
+          "code": "public static getLcdSize(asset: photoAccessHelper.PhotoAsset): Size | undefined { ... }",
+          "details": "获取照片的LCD缩略图尺寸，确定加载多大的缩略图以优化显示效果和性能。"
+        },
+        {
+          "step": "Data Processing",
+          "function": "ImageUtil.getLCDUri",
+          "file": "common/src/main/ets/default/utils/ImageUtil.ets",
+          "line": 1,
+          "code": "export function getLCDUri(uri: string, path: string, dateModified: number, ...): string { ... }",
+          "details": "构建LCD缩略图URI，指向系统媒体库中该照片的缩略图缓存。"
+        },
+        {
+          "step": "Data Display",
+          "function": "mImage → Image component",
+          "file": "feature/timeline/src/main/ets/view/mImage.ets",
+          "line": 1,
+          "code": "@Component struct mImage { ... }",
+          "details": "使用ArkUI Image组件渲染缩略图，显示在时间线网格中。"
+        }
+      ]
+    }
+  ]
+}

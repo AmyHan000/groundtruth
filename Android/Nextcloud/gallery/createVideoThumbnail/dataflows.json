@@ -1,0 +1,17 @@
+[
+  {
+    "id": 25,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/gallery/GalleryImageGenerationJob.kt",
+        "line": 166,
+        "code": "private fun createVideoThumbnail(storagePath: String): Bitmap? {"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/gallery/GalleryImageGenerationJob.kt",
+        "line": 178,
+        "code": "ThumbnailUtils.createVideoThumbnail(storagePath, MediaStore.Images.Thumbnails.MINI_KIND)"
+      }
+    ]
+  }
+]

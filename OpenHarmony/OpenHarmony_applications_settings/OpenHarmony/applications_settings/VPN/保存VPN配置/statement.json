@@ -1,0 +1,28 @@
+[
+  {
+    "id": 9,
+    "data": [
+      {
+        "scene": "用户填写 VPN 配置并点击保存时",
+        "purpose": "保存 VPN 连接参数供后续连接",
+        "source": "用户主动输入或导入的 VPN 配置",
+        "item": "VPN 名称、服务器地址、用户名、密码及认证配置",
+        "frequency": "每次点击保存时",
+        "processing": "将配置交给 HarmonyOS 系统 VPN 服务",
+        "storage": "由操作系统 VPN 配置存储管理",
+        "recipient": "HarmonyOS VPN 服务",
+        "thirdparty": "不向第三方共享；连接时配置的 VPN 服务提供方会处理连接信息",
+        "switchpath": "设置 > 更多连接 > VPN > 对应配置 > 删除/编辑"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "VPN 配置管理能力",
+        "scene": "用户保存 VPN 配置",
+        "authorization": "系统应用预授权或系统确认",
+        "purpose": "保存系统 VPN 配置",
+        "impact": "无法保存或使用该 VPN 配置"
+      }
+    ]
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "用户在登录页输入账号和密码并点击登录时",
+        "purpose": "验证身份并建立 Mattermost 会话",
+        "source": "用户主动输入",
+        "item": "登录标识（用户名或邮箱）和密码",
+        "frequency": "每次提交登录时",
+        "processing": "通过 HTTPS 请求发送到用户配置的 Mattermost 服务器并接收用户资料",
+        "storage": "服务器会话凭据由应用安全组件和本地数据库管理；明文密码不作为普通业务记录保存",
+        "recipient": "用户配置的 Mattermost 服务器",
+        "thirdparty": "服务器运营方按其隐私政策处理；应用不额外共享给广告第三方",
+        "switchpath": "登录页；可在设置中退出登录并清除本地会话"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "网络访问",
+        "scene": "用户点击登录",
+        "authorization": "应用基础网络能力",
+        "purpose": "连接用户配置的 Mattermost 服务器",
+        "impact": "无法登录或同步数据"
+      }
+    ]
+  }
+]

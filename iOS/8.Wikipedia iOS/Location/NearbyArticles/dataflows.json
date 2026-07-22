@@ -1,0 +1,74 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_LOCATION_NEARBY_SEARCH",
+      "data_type": "Location Data (CLLocation: latitude, longitude for nearby article search), User Location Authorization Status (CLAuthorizationStatus)",
+      "description": "User's device location is used to search for Wikipedia articles about nearby places. Location data is sent to the MediaWiki API for geospatial article search.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "PlaceSearchService.performSearch",
+          "file": "Wikipedia/Code/PlaceSearchService.swift",
+          "line": 46,
+          "code": "public func performSearch(_ search: PlaceSearch, defaultSiteURL: URL, region: MKCoordinateRegion, completion: @escaping (PlaceSearchResult) -> Void) { locationSearchFetcher.search(...) }",
+          "details": "User opens the Places tab or performs a nearby article search. The app searches for Wikipedia articles near the user's current location."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "LocationManager.startMonitoringLocation",
+          "file": "WMF Framework/LocationManager.swift",
+          "line": 60,
+          "code": "public func startMonitoringLocation() { guard authorizationStatus.isAuthorized else { ... return }; locationManager.startUpdatingLocation(); startUpdatingHeading(); isUpdating = true }",
+          "details": "LocationManager requests the device's current location from CoreLocation. The app must have already received location authorization from the user."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "WMFLocationSearchFetcher (geospatial API call)",
+          "file": "Wikipedia/Code/WMFLocationSearchFetcher.swift",
+          "line": 1,
+          "code": "Coordinates are sent to the MediaWiki API 'query' with 'list=geosearch' to find nearby articles",
+          "details": "The user's latitude and longitude are sent to the Wikipedia MediaWiki API as query parameters (list=geosearch) to find articles about places near the user's location."
+        },
+        {
+          "step": "Data Display",
+          "function": "ArticleLocationCollectionViewController",
+          "file": "Wikipedia/Code/ArticleLocationCollectionViewController.swift",
+          "line": 1,
+          "code": "UICollectionView displays nearby article results on a map and list",
+          "details": "Nearby article results are displayed on a map and in a list, showing the distance from the user's location to each article."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_LOCATION_PERMISSION_REQUEST",
+      "data_type": "Location Authorization Status (CLAuthorizationStatus: notDetermined, restricted, denied, authorizedAlways, authorizedWhenInUse)",
+      "description": "The app requests location permission when the user first accesses the Places tab for nearby article discovery.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "LocationManager Authorize",
+          "file": "WMF Framework/LocationManager.swift",
+          "line": 67,
+          "code": "authorize(success: startMonitoringLocation)",
+          "details": "When location monitoring is requested but authorization status is .notDetermined, LocationManager triggers the system location permission dialog."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "CLLocationManager.requestWhenInUseAuthorization (iOS System)",
+          "file": "WMF Framework/LocationManager.swift",
+          "line": 1,
+          "code": "iOS shows the system location permission dialog to the user",
+          "details": "The user is prompted to grant 'When In Use' location permission. The result is stored by iOS."
+        },
+        {
+          "step": "Data Display",
+          "function": "ArticleLocationAuthorizationCollectionViewCell",
+          "file": "Wikipedia/Code/ArticleLocationAuthorizationCollectionViewCell.swift",
+          "line": 1,
+          "code": "Cell displaying location authorization request UI when permission hasn't been granted",
+          "details": "If location permission is denied, a banner cell is shown in the Places tab inviting the user to enable location access in Settings."
+        }
+      ]
+    }
+  ]
+}

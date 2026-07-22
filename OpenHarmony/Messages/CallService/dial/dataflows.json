@@ -1,0 +1,22 @@
+[
+  {
+    "id": 4,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/service/CallService.ets",
+        "line": 62,
+        "code": "public async dial(options?: call.DialOptions, callback?: Function): Promise<void> {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/CallService.ets",
+        "line": 86,
+        "code": "call.dial(this.number, options, (error, value) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/service/CallService.ets",
+        "line": 93,
+        "code": "let result: LooseObject = {};"
+      }
+    ]
+  }
+]

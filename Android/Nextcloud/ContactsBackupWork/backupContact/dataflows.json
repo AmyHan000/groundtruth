@@ -1,0 +1,27 @@
+[
+  {
+    "id": 14,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/ContactsBackupWork.kt",
+        "line": 114,
+        "code": "private fun backupContact(user: User, backupFolder: String) {"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/ContactsBackupWork.kt",
+        "line": 117,
+        "code": "ContactsContract.Contacts.CONTENT_URI,"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/ContactsBackupWork.kt",
+        "line": 152,
+        "code": "val request = UploadRequest.Builder(user, file.absolutePath, backupFolder + file.name)"
+      },
+      {
+        "filePath": "app/src/main/java/com/nextcloud/client/jobs/ContactsBackupWork.kt",
+        "line": 163,
+        "code": "connection.enqueue(request)"
+      }
+    ]
+  }
+]

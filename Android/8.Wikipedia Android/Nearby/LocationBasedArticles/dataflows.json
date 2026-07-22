@@ -1,0 +1,67 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_NEARBY_GET_LOCATION",
+      "data_type": "Device GPS Location (Fine + Coarse)",
+      "description": "Places feature requests device location via MapLibre LocationComponent. GPS coordinates used to fetch nearby Wikipedia articles via GeoSearch API. Location is not stored on server but sent as query parameter.",
+      "flow_steps": [
+        {
+          "step": "Permission Request",
+          "function": "PlacesFragment.onCreateView",
+          "file": "app/src/main/java/org/wikipedia/places/PlacesFragment.kt",
+          "line": 395,
+          "code": "if (!haveLocationPermissions()) { locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) }",
+          "details": "On first launch, requests ACCESS_FINE_LOCATION and ACCESS_COARSE_LOCATION permissions from user."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "PlacesFragment.startLocationTracking",
+          "file": "app/src/main/java/org/wikipedia/places/PlacesFragment.kt",
+          "line": 644,
+          "code": "@SuppressLint(\"MissingPermission\") private fun startLocationTracking() { mapboxMap?.let { it.locationComponent.activateLocationComponent(LocationComponentActivationOptions.builder(requireContext(), it.style!!).build()); it.locationComponent.isLocationComponentEnabled = true } }",
+          "details": "MapLibre LocationComponent activated to receive GPS location updates. Camera mode set to NONE (manual control)."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "PlacesFragment.getLastKnownUserLocation",
+          "file": "app/src/main/java/org/wikipedia/places/PlacesFragment.kt",
+          "line": 639,
+          "code": "private fun getLastKnownUserLocation(): Location? { return if (mapboxMap?.locationComponent?.isLocationComponentActivated == true) mapboxMap?.locationComponent?.lastKnownLocation else null }",
+          "details": "Retrieves last known device location from MapLibre's location component."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "PlacesFragmentViewModel.fetchNearbyPages",
+          "file": "app/src/main/java/org/wikipedia/places/PlacesFragmentViewModel.kt",
+          "line": 27,
+          "code": "fun fetchNearbyPages(latitude: Double, longitude: Double, radius: Int, maxResults: Int) { ... val response = ServiceFactory.get(wikiSite).getGeoSearch(\"$latitude|$longitude\", radius, maxResults, maxResults) }",
+          "details": "GPS coordinates formatted as \"latitude|longitude\" string and sent to Wikipedia GeoSearch API with configurable radius."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "Service.getGeoSearch",
+          "file": "app/src/main/java/org/wikipedia/dataclient/Service.kt",
+          "line": 277,
+          "code": "@GET(MW_API_PREFIX + \"action=query&generator=geosearch&prop=coordinates|description|pageimages|info\") suspend fun getGeoSearch(@Query(\"ggscoord\", encoded = true) coordinates: String, @Query(\"ggsradius\") radius: Int, @Query(\"ggslimit\") ggsLimit: Int, @Query(\"colimit\") coLimit: Int)",
+          "details": "Coordinates sent to MediaWiki geosearch API. Server returns nearby Wikipedia articles with their coordinates and descriptions."
+        },
+        {
+          "step": "User Action",
+          "function": "PlacesFragment.binding.myLocationButton.setOnClickListener",
+          "file": "app/src/main/java/org/wikipedia/places/PlacesFragment.kt",
+          "line": 253,
+          "code": "binding.myLocationButton.setOnClickListener { if (haveLocationPermissions()) { goToLocation() } else { locationPermissionRequest.launch(...) } }",
+          "details": "User can manually trigger location acquisition by tapping the 'my location' button."
+        },
+        {
+          "step": "Data Processing (Local Only)",
+          "function": "PlacesFragment.updateMapMarkers",
+          "file": "app/src/main/java/org/wikipedia/places/PlacesFragment.kt",
+          "line": 1,
+          "code": "private fun updateMapMarkers(pages: List<NearbyPage>) { ... }",
+          "details": "Returned article locations rendered as markers on MapLibre map. User location shown on map but not persisted to server."
+        }
+      ]
+    }
+  ]
+}

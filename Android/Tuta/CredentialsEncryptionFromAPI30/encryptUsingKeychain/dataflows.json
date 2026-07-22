@@ -1,0 +1,17 @@
+[
+  {
+    "id": 13,
+    "dataflow": [
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/CredentialsEncryptionFromAPI30.kt",
+        "line": 33,
+        "code": "override suspend fun encryptUsingKeychain("
+      },
+      {
+        "filePath": "app-android/tutashared/src/main/java/de/tutao/tutashared/credentials/CredentialsEncryptionFromAPI30.kt",
+        "line": 38,
+        "code": "return keyStoreFacade.encryptData(data, cipher)"
+      }
+    ]
+  }
+]

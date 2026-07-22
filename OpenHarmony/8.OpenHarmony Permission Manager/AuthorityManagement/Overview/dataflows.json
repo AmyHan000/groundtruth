@@ -1,0 +1,66 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_AM_OVERVIEW_LOAD_GROUPS",
+      "data_type": "已安装应用列表（包名、应用名称、图标、请求的权限列表、权限声明详情）、权限组配置信息、权限授予状态",
+      "description": "用户打开权限管理主页，系统读取所有已安装应用的权限信息，按权限组分类展示。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "authorityManagementPage.aboutToAppear",
+          "file": "permissionmanager/src/main/ets/pages/authority-management.ets",
+          "line": 367,
+          "code": "aboutToAppear() { this.getAllGroupPermission() }",
+          "details": "用户进入权限管理主页，触发数据加载。"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "authorityManagementPage.getAllGroupPermission",
+          "file": "permissionmanager/src/main/ets/pages/authority-management.ets",
+          "line": 267,
+          "code": "getAllBundleInfo(info: bundleManager.BundleInfo, reqUserPermissions: Permission[]) { ... this.allPermissionApplications.push({ bundleName: info.name, uid: info.appInfo.accessTokenId, permission: []; }) }",
+          "details": "遍历所有已安装应用，读取每个应用的权限声明信息和权限授予状态，构建按权限组分类的展示数据。"
+        },
+        {
+          "step": "Data Display",
+          "function": "authorityManagementPage.ListItemLayout",
+          "file": "permissionmanager/src/main/ets/pages/authority-management.ets",
+          "line": 50,
+          "code": "@Builder ListItemLayout(item: GroupPermission) { build() { Row { Image(item.icon); Text(item.groupName) } } }",
+          "details": "每个权限组以列表项形式展示，显示权限组图标、名称、关联应用数量。用户可点击进入二级页面。"
+        }
+      ]
+    },
+    {
+      "id": "FLOW_AM_OVERVIEW_GLOBAL_SWITCH",
+      "data_type": "全局开关状态（麦克风静音状态、相机禁用状态）",
+      "description": "权限管理主页顶部展示全局开关，读取麦克风和相机的全局禁用状态。",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "authorityManagementPage.ListItemLayout (global switch tap)",
+          "file": "permissionmanager/src/main/ets/pages/authority-management.ets",
+          "line": 92,
+          "code": "GlobalDialogModel.getInstance().getMuteStateAndGoto(this.context, this.globalState, item, router)",
+          "details": "点击全局开关项，触发当前麦克风/相机全局状态读取和页面跳转。"
+        },
+        {
+          "step": "Data Retrieval",
+          "function": "GlobalDialogModel.getMuteState",
+          "file": "permissionmanager/src/main/ets/GlobalExtAbility/GlobalDialogModel.ets",
+          "line": 1,
+          "code": "读取系统全局麦克风静音和相机禁用状态",
+          "details": "GlobalDialogModel通过系统API查询当前麦克风静音状态和相机禁用状态。"
+        },
+        {
+          "step": "Data Display",
+          "function": "authorityManagementPage global switch indicator",
+          "file": "permissionmanager/src/main/ets/pages/authority-management.ets",
+          "line": 1,
+          "code": "主页顶部显示全局开关快捷入口，图标颜色反映当前开关状态",
+          "details": "权限管理主页顶部展示全局开关状态的视觉指示（颜色/图标变化），点击后跳转到全局开关详情页。"
+        }
+      ]
+    }
+  ]
+}

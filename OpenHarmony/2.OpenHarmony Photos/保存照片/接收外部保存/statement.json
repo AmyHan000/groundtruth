@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "接收外部保存",
+    "business_scenario": "其他应用通过系统SaveDialog将照片/视频保存到图库，SaveUIExtensionAbility接收传入的wantParam（包含待保存文件的URI），展示保存确认界面供用户预览确认，用户确认后将外部传入的文件通过photoAccessHelper写入设备媒体库。",
+    "data_types_info": "外部应用传入的照片/视频URI(敏感), 写入媒体库的照片/视频数据(敏感)",
+    "processing_method": "本地存储（通过photoAccessHelper将外部文件写入系统媒体库）",
+    "permissions_info": "ohos.permission.WRITE_IMAGEVIDEO -- 将外部文件写入设备媒体库（用户确认保存时触发）"
+  }
+]

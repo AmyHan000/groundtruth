@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "查看照片",
+    "business_scenario": "用户在时间线或相册中点击某张照片/视频缩略图，进入大图浏览模式，应用从系统媒体库加载原图或高清缩略图PixelMap数据，以滑动切换方式全屏展示，支持缩放和平移手势。对于存储在云端的照片，先检查文件位置类型后从云端下载再展示。",
+    "data_types_info": "单张照片/视频完整数据（原图PixelMap、高清缩略图）(敏感)",
+    "processing_method": "仅本地展示（从系统媒体库读取原图或高清缩略图并渲染显示，不持久化存储额外副本）",
+    "permissions_info": "依赖ohos.permission.READ_IMAGEVIDEO（前序已授权）"
+  }
+]

@@ -1,0 +1,190 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "READING_LIST_CREATE_SYNC",
+      "data_type": "阅读列表名称和描述",
+      "description": "创建阅读列表时，列表名称和描述通过API POST请求同步到服务器",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "createList",
+          "file": "WMF Framework/ReadingListsAPIController.swift",
+          "line": 228,
+          "code": "func createList(name: String, description: String?, completion: @escaping (_ listID: Int64?,_ error: Error?) -> Swift.Void )",
+          "details": "用户创建新阅读列表时触发"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "createList",
+          "file": "WMF Framework/ReadingListsAPIController.swift",
+          "line": 229,
+          "code": "let bodyParams = [\"name\": name.precomposedStringWithCanonicalMapping, \"description\": description ?? \"\"]",
+          "details": "列表名称（规范化Unicode编码）和描述组装到请求体中"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "post",
+          "file": "WMF Framework/ReadingListsAPIController.swift",
+          "line": 231,
+          "code": "post(path: [\"\"], bodyParameters: bodyParams) { (result, response, error) in",
+          "details": "列表名称和描述通过POST请求发送到reading list API (data/lists/)"
+        }
+      ]
+    },
+    {
+      "id": "READING_LIST_ADD_ENTRY",
+      "data_type": "文章项目URL和文章标题",
+      "description": "添加文章到阅读列表时，文章的源项目URL和标题通过API POST请求发送到服务器",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "addEntryToList",
+          "file": "WMF Framework/ReadingListsAPIController.swift",
+          "line": 308,
+          "code": "func addEntryToList(withListID listID: Int64, project: String, title: String, completion: @escaping (_ entryID: Int64?,_ error: Error?) -> Swift.Void )",
+          "details": "用户添加文章到阅读列表时触发"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "addEntryToList",
+          "file": "WMF Framework/ReadingListsAPIController.swift",
+          "line": 309,
+          "code": "let title = title.precomposedStringWithCanonicalMapping\nlet project = project.precomposedStringWithCanonicalMapping\nlet bodyParams = [\"project\": project, \"title\": title]",
+          "details": "文章标题和项目URL（如https://en.wikipedia.org）规范化后组装到请求体中"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "addEntryToList",
+          "file": "WMF Framework/ReadingListsAPIController.swift",
+          "line": 313,
+          "code": "post(path: [\"\\(listID)\", \"entries\", \"\"], bodyParameters: bodyParams) { (result, response, error) in",
+          "details": "文章项目URL和标题通过POST请求发送到reading list API"
+        }
+      ]
+    },
+    {
+      "id": "READING_LIST_FULL_SYNC",
+      "data_type": "阅读列表和条目的完整同步（列表名称、描述、ID、创建/更新时间、文章项目URL和标题）",
+      "description": "阅读列表与服务器进行完整双向同步，上传本地变更并下载远程变更",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "executeFullSync",
+          "file": "WMF Framework/ReadingListsSyncOperation.swift",
+          "line": 254,
+          "code": "func executeFullSync(on moc: NSManagedObjectContext) throws {\n    readingListsController.apiController.getAllReadingLists { (readingLists, since, error) in",
+          "details": "触发完整同步，从服务器获取所有阅读列表"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "getAllReadingLists",
+          "file": "WMF Framework/ReadingListsAPIController.swift",
+          "line": 517,
+          "code": "public func getAllReadingLists(next: String? = nil, nextSince: String? = nil, lists: [APIReadingList] = [], completion: @escaping ([APIReadingList], String?, Error?) -> Swift.Void )",
+          "details": "从服务器获取所有阅读列表（含分页）"
+        },
+        {
+          "step": "Data Processing",
+          "function": "getAllEntriesForReadingListWithID",
+          "file": "WMF Framework/ReadingListsAPIController.swift",
+          "line": 539,
+          "code": "public func getAllEntriesForReadingListWithID(next: String? = nil, entries: [APIReadingListEntry] = [], readingListID: Int64, completion: @escaping ([APIReadingListEntry], Error?) -> Swift.Void )",
+          "details": "对每个列表从服务器获取所有条目（含分页）"
+        },
+        {
+          "step": "Data Reception",
+          "function": "createOrUpdate",
+          "file": "WMF Framework/ReadingListsSyncOperation.swift",
+          "line": 914,
+          "code": "func createOrUpdate(remoteReadingLists: [APIReadingList]) throws {\n    // Merges remote list data (id, name, description, created, updated, isDefault) into local Core Data",
+          "details": "远程列表数据合并到本地Core Data（包含id、名称、描述、创建/更新时间、默认状态）"
+        },
+        {
+          "step": "Data Reception",
+          "function": "createOrUpdate",
+          "file": "WMF Framework/ReadingListsSyncOperation.swift",
+          "line": 1010,
+          "code": "func createOrUpdate(remoteReadingListEntries: [APIReadingListEntry]) throws {\n    // Merges remote entry data (id, project URL, title, created, updated) into local Core Data",
+          "details": "远程条目数据合并到本地Core Data（包含id、项目URL、标题、创建/更新时间）"
+        }
+      ]
+    },
+    {
+      "id": "READING_LIST_DELETE_SYNC",
+      "data_type": "列表ID和条目ID",
+      "description": "删除阅读列表或条目时，通过API DELETE请求同步到服务器",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "deleteList",
+          "file": "WMF Framework/ReadingListsAPIController.swift",
+          "line": 434,
+          "code": "func deleteList(withListID listID: Int64, completion: @escaping (_ error: Error?) -> Swift.Void )",
+          "details": "用户删除阅读列表时触发"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "delete",
+          "file": "WMF Framework/ReadingListsAPIController.swift",
+          "line": 435,
+          "code": "delete(path: [\"\\(listID)\"]) { (result, response, error) in",
+          "details": "列表ID通过DELETE请求发送到reading list API"
+        }
+      ]
+    },
+    {
+      "id": "READING_LIST_ANALYTICS",
+      "data_type": "阅读列表分析事件（action、category、label、measure、wiki_id）",
+      "description": "阅读列表的保存、取消保存、创建、删除等操作记录分析事件到EventPlatformClient",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "logArticleSaveInCurrentArticle",
+          "file": "Wikipedia/Code/ReadingListsFunnel.swift",
+          "line": 38,
+          "code": "@objc public func logArticleSaveInCurrentArticle(_ articleURL: URL) {\n    logSave(category: .article, label: .default, articleURL: articleURL)",
+          "details": "用户在文章中保存到阅读列表时触发"
+        },
+        {
+          "step": "Data Assembly",
+          "function": "logEvent",
+          "file": "Wikipedia/Code/ReadingListsFunnel.swift",
+          "line": 31,
+          "code": "let event = ReadingListsFunnel.Event(action: action, category: category, label: label, measure: measure, measure_position: measurePosition, measure_age: measureAge, wiki_id: wiki_id)",
+          "details": "组装阅读列表事件，包含动作、类别、标签、计数、位置和文章语言代码"
+        },
+        {
+          "step": "Data Transmission",
+          "function": "logEvent",
+          "file": "Wikipedia/Code/ReadingListsFunnel.swift",
+          "line": 33,
+          "code": "EventPlatformClient.shared.submit(stream: .readingLists, event: event)",
+          "details": "阅读列表事件通过EventPlatformClient提交到ios.reading_lists流"
+        }
+      ]
+    },
+    {
+      "id": "READING_LIST_LOCAL_PERSISTENCE",
+      "data_type": "阅读列表Core Data实体（名称、描述、ID、创建/更新时间、排序、颜色、图标、首选项）",
+      "description": "阅读列表和条目的所有元数据持久化到本地Core Data",
+      "flow_steps": [
+        {
+          "step": "Storage",
+          "function": "ReadingList Core Data Properties",
+          "file": "WMF Framework/ReadingList+CoreDataProperties.swift",
+          "line": "-",
+          "code": "// Attributes: canonicalName, color, countOfEntries, createdDate, errorCode, iconName, imageName, isDefault, isDeletedLocally, isUpdatedLocally, readingListDescription, readingListID, updatedDate, sortOrder",
+          "details": "阅读列表元数据持久化到本地Core Data SQLite"
+        },
+        {
+          "step": "Storage",
+          "function": "ReadingListEntry Core Data Properties",
+          "file": "WMF Framework/ReadingListEntry+CoreDataProperties.swift",
+          "line": "-",
+          "code": "// Attributes: readingListEntryID, createdDate, updatedDate, displayTitle, articleKey, variant, isDeletedLocally, isUpdatedLocally, errorCode",
+          "details": "阅读列表条目元数据持久化到本地Core Data SQLite"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "id": 15,
+    "dataflow": [
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 66,
+        "code": "func loadCNGroup(withIdentifier: String) throws -> CNGroup? {"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 67,
+        "code": "let store = CNContactStore()"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 68,
+        "code": "let groups = try store.groups(matching: CNGroup.predicateForGroups(withIdentifiers: [withIdentifier]))"
+      },
+      {
+        "filePath": "app-ios/tutanota/Sources/Contacts/NativeContactStoreFacade.swift",
+        "line": 69,
+        "code": "return groups.first"
+      }
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "id": 10,
+    "dataflow": [
+      {
+        "filePath": "File Provider Extension/FileProviderExtension.swift",
+        "line": 116,
+        "code": "override func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void)) {"
+      },
+      {
+        "filePath": "File Provider Extension/FileProviderExtension.swift",
+        "line": 124,
+        "code": "guard let metadata = await NCManageDatabase.shared.getMetadataFromOcIdAndocIdTransferAsync(itemIdentifier.rawValue) else {"
+      },
+      {
+        "filePath": "File Provider Extension/FileProviderExtension.swift",
+        "line": 149,
+        "code": "let (task, error) = backgroundSession.download(serverUrlFileName: serverUrlFileName,"
+      },
+      {
+        "filePath": "File Provider Extension/FileProviderExtension.swift",
+        "line": 178,
+        "code": "task.resume()"
+      }
+    ]
+  }
+]

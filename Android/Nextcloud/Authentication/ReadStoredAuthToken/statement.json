@@ -1,0 +1,28 @@
+[
+  {
+    "id": 3,
+    "data": [
+      {
+        "scene": "Android 系统或本应用请求账号令牌时，认证器从 AccountManager 读取已保存的密码或认证令牌，并返回账号认证结果。",
+        "purpose": "读取账号认证令牌",
+        "source": "Android AccountManager",
+        "item": "账号名称、账号类型和访问令牌",
+        "frequency": "每次系统或应用为账号请求认证令牌时",
+        "processing": "仅在本地从系统账号存储读取并返回给认证调用方",
+        "storage": "不新增存储，读取已有系统账号凭证",
+        "recipient": "本应用和 Android 系统账号认证框架",
+        "thirdparty": "令牌用于用户配置的 Nextcloud 服务器认证，不向无关第三方共享",
+        "switchpath": "删除账号或退出登录后不再读取；届时无法访问该账号"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "账号认证能力",
+        "scene": "应用需要为 Nextcloud 请求认证令牌时",
+        "authorization": "系统账号能力",
+        "purpose": "读取已保存令牌以建立认证会话",
+        "impact": "凭证不存在时需要重新登录"
+      }
+    ]
+  }
+]

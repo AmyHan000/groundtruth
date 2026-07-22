@@ -1,0 +1,27 @@
+[
+  {
+    "id": 7,
+    "dataflow": [
+      {
+        "filePath": "app/init/push_notifications.ts",
+        "line": 83,
+        "code": "await requestNotifications(['alert', 'sound', 'badge']);"
+      },
+      {
+        "filePath": "app/init/push_notifications.ts",
+        "line": 85,
+        "code": "Notifications.registerRemoteNotifications();"
+      },
+      {
+        "filePath": "app/init/push_notifications.ts",
+        "line": 299,
+        "code": "const {deviceToken} = event;"
+      },
+      {
+        "filePath": "app/init/push_notifications.ts",
+        "line": 312,
+        "code": "storeDeviceToken(token);"
+      }
+    ]
+  }
+]
