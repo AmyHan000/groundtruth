@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/location/TrackRecordingService.java",
+        "line": 3,
+        "code": "import static android.Manifest.permission.ACCESS_FINE_LOCATION;"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/location/TrackRecordingService.java",
+        "line": 53,
+        "code": "@RequiresPermission(value = ACCESS_FINE_LOCATION)"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/location/TrackRecordingService.java",
+        "line": 57,
+        "code": "TrackRecorder.nativeStartTrackRecording();"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/location/TrackRecordingService.java",
+        "line": 165,
+        "code": "Logger.w(TAG, \"Permission ACCESS_FINE_LOCATION is not granted, skipping TrackRecordingService\");"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/location/TrackRecordingService.java",
+        "line": 245,
+        "code": "public void onLocationUpdated(@NonNull Location location)"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/widget/placepage/PlacePageView.java",
+        "line": 1220,
+        "code": ".nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(), mMapObject.getLon(), location.getLatitude(),"
+      }
+    ]
+  }
+]

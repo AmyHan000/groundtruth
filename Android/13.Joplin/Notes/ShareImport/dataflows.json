@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "packages/app-mobile/android/app/src/main/java/net/cozic/joplin/share/SharePackage.java",
+        "line": 63,
+        "code": "if (intent == null || !(Intent.ACTION_SEND.equals(intent.getAction())"
+      },
+      {
+        "filePath": "packages/app-mobile/android/app/src/main/java/net/cozic/joplin/share/SharePackage.java",
+        "line": 109,
+        "code": "map.putString(\"text\", receivedShareIntent.getStringExtra(Intent.EXTRA_TEXT));"
+      },
+      {
+        "filePath": "packages/app-mobile/android/app/src/main/java/net/cozic/joplin/share/SharePackage.java",
+        "line": 115,
+        "code": "resources.pushMap(getFileData(receivedShareIntent.getParcelableExtra(Intent.EXTRA_STREAM)));"
+      },
+      {
+        "filePath": "packages/app-mobile/android/app/src/main/java/net/cozic/joplin/share/SharePackage.java",
+        "line": 146,
+        "code": "ContentResolver contentResolver = getCurrentActivity().getContentResolver();"
+      },
+      {
+        "filePath": "packages/app-mobile/android/app/src/main/java/net/cozic/joplin/share/SharePackage.java",
+        "line": 167,
+        "code": "Cursor cursor = contentResolver.query(uri, null, null, null, null);"
+      },
+      {
+        "filePath": "packages/app-mobile/root.tsx",
+        "line": 609,
+        "code": "const sharedData = await ShareExtension.data();"
+      },
+      {
+        "filePath": "packages/app-mobile/root.tsx",
+        "line": 617,
+        "code": "await handleShared(sharedData, activeFolder.id, this.props.dispatch);"
+      }
+    ]
+  }
+]

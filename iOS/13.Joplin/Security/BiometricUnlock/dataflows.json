@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "packages/app-mobile/components/biometrics/BiometricPopup.tsx",
+        "line": 42,
+        "code": "await biometricAuthenticate();"
+      },
+      {
+        "filePath": "packages/app-mobile/components/biometrics/biometricAuthenticate.ts",
+        "line": 9,
+        "code": "const result = await authenticateAsync({ promptMessage: _('Verify your identity') });"
+      },
+      {
+        "filePath": "packages/app-mobile/components/biometrics/biometricAuthenticate.ts",
+        "line": 11,
+        "code": "if (result.success === false) {"
+      },
+      {
+        "filePath": "packages/app-mobile/components/biometrics/biometricAuthenticate.ts",
+        "line": 13,
+        "code": "if (errorName === 'not_enrolled' || errorName === 'not_available') {"
+      },
+      {
+        "filePath": "packages/app-mobile/components/biometrics/BiometricPopup.tsx",
+        "line": 43,
+        "code": "setDisplay(false);"
+      },
+      {
+        "filePath": "packages/app-mobile/components/biometrics/BiometricPopup.tsx",
+        "line": 66,
+        "code": "Setting.setValue('security.biometricsEnabled', enableBiometrics);"
+      },
+      {
+        "filePath": "packages/app-mobile/components/biometrics/BiometricPopup.tsx",
+        "line": 75,
+        "code": "type: 'BIOMETRICS_DONE_SET',"
+      }
+    ]
+  }
+]

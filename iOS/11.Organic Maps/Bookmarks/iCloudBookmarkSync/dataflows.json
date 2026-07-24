@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "iphone/Maps/Core/iCloud/SynchronizaionManager.swift",
+        "line": 176,
+        "code": "guard settings.iCLoudSynchronizationEnabled() else { return }"
+      },
+      {
+        "filePath": "iphone/Maps/Core/iCloud/SynchronizaionManager.swift",
+        "line": 112,
+        "code": "cloudDirectoryMonitor.start { [weak self] result in"
+      },
+      {
+        "filePath": "iphone/Maps/Core/iCloud/SynchronizaionManager.swift",
+        "line": 118,
+        "code": "self.localDirectoryMonitor.start { result in"
+      },
+      {
+        "filePath": "iphone/Maps/Core/iCloud/SynchronizaionManager.swift",
+        "line": 124,
+        "code": "self.fileWriter = SynchronizationFileWriter(fileManager: self.fileManager,"
+      },
+      {
+        "filePath": "iphone/Maps/Core/iCloud/SynchronizationFileWriter.swift",
+        "line": 84,
+        "code": "try fileManager.replaceFileSafe(at: writingUrl, with: readingUrl)"
+      },
+      {
+        "filePath": "iphone/Maps/Core/iCloud/SynchronizationFileWriter.swift",
+        "line": 127,
+        "code": "try fileManager.replaceFileSafe(at: writingUrl, with: readingUrl)"
+      },
+      {
+        "filePath": "iphone/Maps/Core/iCloud/SynchronizaionManager.swift",
+        "line": 255,
+        "code": "urls.forEach { self.bookmarksManager.reloadCategory(atFilePath: $0.path) }"
+      }
+    ]
+  }
+]

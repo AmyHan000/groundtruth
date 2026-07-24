@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "iphone/Maps/Core/Search/MWMSearch.mm",
+        "line": 176,
+        "code": "+ (void)searchQuery:(SearchQuery *)query"
+      },
+      {
+        "filePath": "iphone/Maps/Core/Search/MWMSearch.mm",
+        "line": 187,
+        "code": "manager->m_query = query.text.UTF8String;"
+      },
+      {
+        "filePath": "iphone/Maps/Core/Search/MWMSearch.mm",
+        "line": 85,
+        "code": "search::EverywhereSearchParams params{"
+      },
+      {
+        "filePath": "iphone/Maps/Core/Search/MWMSearch.mm",
+        "line": 108,
+        "code": "GetFramework().GetSearchAPI().SearchEverywhere(std::move(params));"
+      },
+      {
+        "filePath": "iphone/Maps/Core/Search/MWMSearch.mm",
+        "line": 114,
+        "code": "search::ViewportSearchParams params{m_query,"
+      },
+      {
+        "filePath": "iphone/Maps/Core/Search/MWMSearch.mm",
+        "line": 129,
+        "code": "GetFramework().GetSearchAPI().SearchInViewport(std::move(params));"
+      },
+      {
+        "filePath": "iphone/Maps/Core/Search/SearchResult.mm",
+        "line": 52,
+        "code": "CLLocation * lastLocation = [MWMLocationManager lastLocation];"
+      }
+    ]
+  }
+]

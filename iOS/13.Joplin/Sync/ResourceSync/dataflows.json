@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "packages/lib/Synchronizer.ts",
+        "line": 626,
+        "code": "const result = await BaseItem.itemsThatNeedSync(syncTargetId);"
+      },
+      {
+        "filePath": "packages/lib/Synchronizer.ts",
+        "line": 791,
+        "code": "await this.apiCall('put', remoteContentPath, null, { path: localResourceContentPath, source: 'file', shareId: resource.share_id });"
+      },
+      {
+        "filePath": "packages/lib/Synchronizer.ts",
+        "line": 906,
+        "code": "const listResult: PaginatedList = await this.apiCall('delta', '', {"
+      },
+      {
+        "filePath": "packages/lib/Synchronizer.ts",
+        "line": 961,
+        "code": "return this.apiCall('get', remote.path);"
+      },
+      {
+        "filePath": "packages/lib/file-api-driver-webdav.js",
+        "line": 168,
+        "code": "const response = await this.api().exec('GET', path, null, null, options);"
+      },
+      {
+        "filePath": "packages/lib/file-api-driver-webdav.js",
+        "line": 205,
+        "code": "return await this.api().exec('PUT', path, content, null, options);"
+      }
+    ]
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/attachments/AttachmentUploadUtil.kt",
+        "line": 65,
+        "code": "fun buildSignalServiceAttachmentStream("
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/attachments/AttachmentUploadUtil.kt",
+        "line": 71,
+        "code": "val inputStream = PartAuthority.getAttachmentStream(context, attachment.uri!!)"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/jobs/AttachmentUploadJob.kt",
+        "line": 195,
+        "code": "PartAuthority.getAttachmentStream(context, databaseAttachment.uri!!).use { stream ->"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/jobs/AttachmentUploadJob.kt",
+        "line": 204,
+        "code": "val uploadResult: AttachmentUploadResult = SignalNetwork.attachments.uploadAttachmentV4("
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/jobs/AttachmentUploadJob.kt",
+        "line": 337,
+        "code": "AttachmentUploadUtil.buildSignalServiceAttachmentStream("
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/jobs/UploadAttachmentToArchiveJob.kt",
+        "line": 318,
+        "code": "val result = SignalNetwork.attachments.uploadAttachmentV4("
+      }
+    ]
+  }
+]

@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "iCloud 书签同步",
+        "purpose": "在本机书签目录和 iCloud 文档目录之间同步书签分类文件。",
+        "source": "用户在 Organic Maps 中保存的书签、轨迹和 iCloud 同步开关。",
+        "item": "书签分类文件、书签名称、坐标、描述、轨迹文件路径和云端文件状态。",
+        "frequency": "用户开启 iCloud 同步后，书签文件变更或云端目录变更时处理。",
+        "processing": "监听本地和 iCloud 目录变化，将文件复制到本地或云端，并在本地重新加载书签分类。",
+        "storage": "数据保存在本机书签目录和用户 iCloud 容器中。",
+        "recipient": "Apple iCloud 和本机 Organic Maps 书签管理器。",
+        "thirdparty": "Apple iCloud 是用户选择的云同步服务。",
+        "switchpath": "用户可关闭 iCloud 同步或在 iCloud 设置中停用应用云文档。"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "iCloud Documents",
+        "purpose": "在用户启用后访问应用 iCloud 文档容器同步书签文件。"
+      }
+    ]
+  }
+]

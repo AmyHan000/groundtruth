@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "手机号注册和验证码校验",
+        "purpose": "验证用户输入的手机号，向 Signal 服务端创建注册会话并完成账号注册。",
+        "source": "用户在注册界面输入手机号和验证码；系统通过 SMS Retriever 读取一次性验证码短信。",
+        "item": "手机号、验证码、注册会话标识、FCM 推送令牌、注册密码和设备注册密钥。",
+        "frequency": "用户首次注册、重新注册或更换号码时处理。",
+        "processing": "本地格式化和校验手机号，向服务端请求短信验证码并提交验证码，注册成功后保存账号标识和服务密码。",
+        "storage": "注册成功后在本机账号存储中保存 E164 手机号、FCM 令牌和服务密码。",
+        "recipient": "Signal 注册服务端；推送令牌由 Firebase Cloud Messaging 提供。",
+        "thirdparty": "可能涉及 Google Firebase Cloud Messaging 获取推送令牌。",
+        "switchpath": "用户可停止注册流程或不提交验证码；注册完成后可在账号设置中注销或更换号码。"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "INTERNET",
+        "purpose": "连接 Signal 服务端创建注册会话、请求验证码并提交注册信息。"
+      },
+      {
+        "name": "SmsRetriever.SEND_PERMISSION",
+        "purpose": "通过 Google SMS Retriever 接收验证码广播，不直接读取短信收件箱。"
+      }
+    ]
+  }
+]

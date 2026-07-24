@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "Signal/Registration/RegistrationCoordinatorImpl.swift",
+        "line": 135,
+        "code": "public func submitE164(_ e164: E164) -> Guarantee<RegistrationStep> {"
+      },
+      {
+        "filePath": "Signal/Registration/RegistrationCoordinatorImpl.swift",
+        "line": 152,
+        "code": "$0.e164 = e164"
+      },
+      {
+        "filePath": "Signal/Registration/RegistrationCoordinatorImpl.swift",
+        "line": 1748,
+        "code": "return await startSession(e164: e164, failureCount: 0)"
+      },
+      {
+        "filePath": "Signal/Registration/RegistrationCoordinatorImpl.swift",
+        "line": 2873,
+        "code": "let result = await self.deps.sessionManager.requestVerificationCode("
+      },
+      {
+        "filePath": "Signal/Registration/UserInterface/RegistrationVerificationViewController.swift",
+        "line": 556,
+        "code": "presenter?.submitVerificationCode(verificationCodeView.verificationCode)"
+      },
+      {
+        "filePath": "Signal/Registration/RegistrationCoordinatorImpl.swift",
+        "line": 3299,
+        "code": "let result = await deps.sessionManager.submitVerificationCode("
+      },
+      {
+        "filePath": "Signal/Registration/RegistrationCoordinatorImpl.swift",
+        "line": 664,
+        "code": "localIdentifiers: identity.localIdentifiers,"
+      },
+      {
+        "filePath": "Signal/Registration/RegistrationCoordinatorImpl.swift",
+        "line": 1428,
+        "code": "e164: accountIdentity.e164,"
+      }
+    ]
+  }
+]
