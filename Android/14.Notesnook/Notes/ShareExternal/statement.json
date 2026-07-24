@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "从外部应用分享",
-    "business_scenario": "用户从其他Android应用通过系统分享菜单将文本、图片、视频或文件分享到Notesnook，接收的内容经端到端加密后保存为笔记或附件",
-    "data_types_info": "外部文本内容(一般), 外部图片/视频/文件(一般)",
-    "processing_method": "仅本地展示（通过Intent接收后本地libsodium加密存储）",
-    "permissions_info": "无"
-  }
-]

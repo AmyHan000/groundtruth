@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "搜索笔记",
-    "business_scenario": "用户在搜索栏输入关键词在笔记中搜索，搜索查询在本地执行的加密SQLite数据库中全文检索，所有搜索处理在设备本地完成，不向外部服务器发送任何搜索数据",
-    "data_types_info": "搜索关键词(一般)",
-    "processing_method": "仅本地展示（在本地加密SQLite数据库中全文检索，结果在内存中解密）",
-    "permissions_info": "无"
-  }
-]

@@ -1,9 +1,0 @@
-[
-  {
-    "business_function": "创建提醒",
-    "business_scenario": "用户创建或编辑提醒（含标题、描述、日期时间、重复规则和优先级），提醒通过notifee库调度本地通知，提醒数据在加密数据库中存储并通过SharedPreferences暴露给Android桌面小部件",
-    "data_types_info": "提醒标题(一般), 提醒描述(一般), 提醒时间(一般)",
-    "processing_method": "本地加密存储（加密数据库存储，小部件数据通过SharedPreferences传递）",
-    "permissions_info": "POST_NOTIFICATIONS(创建提醒时); VIBRATE(提醒通知震动时); FOREGROUND_SERVICE_SPECIAL_USE(设备重启后恢复通知时)"
-  }
-]
