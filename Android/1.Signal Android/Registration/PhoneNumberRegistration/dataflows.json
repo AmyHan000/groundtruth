@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/registration/viewmodel/NumberViewState.java",
+        "line": 108,
+        "code": "public String getE164Number() {"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/registration/data/RegistrationRepository.kt",
+        "line": 327,
+        "code": "val fcmToken: String? = FcmUtil.getToken(context).orElse(null)"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/registration/data/RegistrationRepository.kt",
+        "line": 332,
+        "code": "api.createRegistrationSession(null, mcc, mnc)"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/registration/data/RegistrationRepository.kt",
+        "line": 386,
+        "code": "val codeRequestResult = api.requestSmsVerificationCode(sessionId, Locale.getDefault(), mode.isSmsRetrieverSupported, mode.transport)"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/registration/sms/SmsRetrieverReceiver.java",
+        "line": 61,
+        "code": "Optional<String> code = VerificationCodeParser.parse((String) extras.get(SmsRetriever.EXTRA_SMS_MESSAGE));"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/registration/data/RegistrationRepository.kt",
+        "line": 463,
+        "code": "val result: NetworkResult<AccountRegistrationResult> = api.registerAccount(sessionId, registrationData.recoveryPassword, accountAttributes, aciPreKeyCollection, pniPreKeyCollection, registrationData.fcmToken, true)"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/registration/data/RegistrationRepository.kt",
+        "line": 219,
+        "code": "SignalStore.account.setE164(data.e164)"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/registration/data/RegistrationRepository.kt",
+        "line": 237,
+        "code": "SignalStore.account.setServicePassword(data.servicePassword)"
+      }
+    ]
+  }
+]

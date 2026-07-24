@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "身份认证弹窗或全屏认证页面初始化",
+        "purpose": "读取系统身份认证框架传入的认证上下文，决定展示 PIN、人脸或指纹认证界面。",
+        "source": "OpenHarmony 身份认证框架通过 UIExtension Want 传入",
+        "item": "widgetContextId、authType、pinSubType、windowModeType、cmd 等认证会话参数",
+        "frequency": "每次启动 Authentication Widget 时读取一次",
+        "processing": "在本机解析参数并写入 AppStorage，供认证页面组件读取和渲染",
+        "storage": "运行期内存 AppStorage；源码未见主动持久化到文件或数据库",
+        "recipient": "本应用认证页面和 OpenHarmony 身份认证框架",
+        "thirdparty": "不涉及第三方共享",
+        "switchpath": "由系统发起认证时自动进入；用户可取消认证或关闭认证窗口"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.SUPPORT_USER_AUTH",
+        "purpose": "支持系统身份认证组件获取并处理认证会话"
+      },
+      {
+        "name": "ohos.permission.PRIVACY_WINDOW",
+        "purpose": "认证窗口启用隐私保护显示"
+      }
+    ]
+  }
+]

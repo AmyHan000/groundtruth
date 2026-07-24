@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/ContactSelectionListFragment.java",
+        "line": 440,
+        "code": ".request(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS)"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/ContactSelectionListFragment.java",
+        "line": 546,
+        "code": "ContactDiscovery.refreshAll(context, false);"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/contacts/sync/ContactDiscovery.kt",
+        "line": 49,
+        "code": "fun refreshAll(context: Context, notifyOfNewUsers: Boolean) {"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/contacts/sync/ContactDiscovery.kt",
+        "line": 74,
+        "code": "ContactDiscoveryRefreshV2.refreshAll(context)"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/contacts/ContactsSyncAdapter.java",
+        "line": 52,
+        "code": "ContactDiscovery.syncRecipientInfoWithSystemContacts(context);"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/contacts/sync/ContactDiscovery.kt",
+        "line": 133,
+        "code": "fun syncRecipientInfoWithSystemContacts(context: Context) {"
+      },
+      {
+        "filePath": "app/src/main/java/org/thoughtcrime/securesms/contacts/sync/ContactDiscovery.kt",
+        "line": 231,
+        "code": "return Permissions.hasAll(context, Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS)"
+      }
+    ]
+  }
+]

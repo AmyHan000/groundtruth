@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "消息附件处理",
+        "purpose": "读取用户粘贴或选择的媒体内容，创建 Signal 消息附件并安排上传或备份。",
+        "source": "用户粘贴板、照片或文件选择产生的媒体数据。",
+        "item": "图片、视频、音频或文件数据，文件类型、临时文件路径、附件记录和上传队列状态。",
+        "frequency": "用户发送或粘贴附件时处理。",
+        "processing": "从粘贴板或文件数据构建 DataSourcePath，生成预览附件，创建附件流并写入附件存储，必要时加入上传队列。",
+        "storage": "附件临时文件和附件记录保存在本机 Signal 存储中；发送时加密上传到 Signal 附件服务。",
+        "recipient": "本机 Signal 附件模块和 Signal 附件服务。",
+        "thirdparty": "不涉及第三方共享。",
+        "switchpath": "用户可取消粘贴、取消发送或删除附件。"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Photos / Files picker",
+        "purpose": "读取用户主动选择或粘贴的媒体和文件内容。"
+      }
+    ]
+  }
+]

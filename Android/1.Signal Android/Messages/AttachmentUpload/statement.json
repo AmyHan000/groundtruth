@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "消息附件上传",
+        "purpose": "发送图片、视频、音频或文件附件，并将附件上传到 Signal 附件服务。",
+        "source": "用户在会话中选择、拍摄或粘贴的媒体和文件 URI。",
+        "item": "附件文件内容、文件类型、大小、缩略图和上传状态。",
+        "frequency": "每次用户发送带附件的消息或备份附件需要上传时处理。",
+        "processing": "从本地附件 URI 打开输入流，构建加密附件流，再调用 Signal 网络接口上传。",
+        "storage": "附件原始文件和上传状态保存在本机附件数据库；加密后的附件副本存放在 Signal 附件服务。",
+        "recipient": "Signal 附件上传服务。",
+        "thirdparty": "不涉及第三方共享。",
+        "switchpath": "用户可取消发送、删除草稿附件或删除消息附件。"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "READ_MEDIA_IMAGES / READ_MEDIA_VIDEO / READ_MEDIA_AUDIO",
+        "purpose": "在 Android 13 及以上读取用户选择的媒体附件。"
+      },
+      {
+        "name": "Storage Access Framework",
+        "purpose": "通过用户选择的内容 URI 读取文件附件。"
+      }
+    ]
+  }
+]

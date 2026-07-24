@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 170,
+        "code": "handleAuthStart(): void {"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 173,
+        "code": "userAuthWidgetMgr = userAuth.getUserAuthWidgetMgr(Constants.userAuthWidgetMgrVersion);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 175,
+        "code": "userAuthWidgetMgr.on('command', {"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 178,
+        "code": "const cmdDataObj: WidgetCommand = JSON.parse(result || '{}');"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 179,
+        "code": "this.skipLockedBiometricAuth = cmdDataObj?.skipLockedBiometricAuth ?? false"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 180,
+        "code": "this.handleCmdDataObjItems(cmdDataObj);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 188,
+        "code": "this.handleIsUnder(cmdDataObj?.cmd || []);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 204,
+        "code": "const fingerPosition: FingerPosition = JSON.parse(payload.sensorInfo);"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/utils/AuthUtils.ts",
+        "line": 35,
+        "code": "sendNotice(cmd: string, type: Array<string>, tipCode: TipCode = TipCode.NORMAL): void {"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/utils/AuthUtils.ts",
+        "line": 48,
+        "code": "userAuth.sendNotice(userAuth.NoticeType.WIDGET_NOTICE, jsonEventData);"
+      }
+    ]
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "Signal/Registration/RegistrationCoodinatorShims.swift",
+        "line": 79,
+        "code": "return CNContactStore.authorizationStatus(for: .contacts) == .notDetermined"
+      },
+      {
+        "filePath": "Signal/Registration/RegistrationCoodinatorShims.swift",
+        "line": 84,
+        "code": "CNContactStore().requestAccess(for: CNEntityType.contacts) { granted, error -> Void in"
+      },
+      {
+        "filePath": "SignalServiceKit/Contacts/SystemContactsFetcher.swift",
+        "line": 45,
+        "code": "let authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)"
+      },
+      {
+        "filePath": "SignalServiceKit/Contacts/SystemContact.swift",
+        "line": 33,
+        "code": "phoneNumbers.append(("
+      },
+      {
+        "filePath": "SignalServiceKit/Contacts/Discovery/ContactDiscoveryManager.swift",
+        "line": 126,
+        "code": "public func lookUp(phoneNumbers: Set<String>, mode: ContactDiscoveryMode) async throws -> [SignalRecipient] {"
+      },
+      {
+        "filePath": "SignalServiceKit/Contacts/Discovery/ContactDiscoveryManager.swift",
+        "line": 213,
+        "code": "let signalRecipients = try await contactDiscoveryTaskQueue.perform(for: fetchedPhoneNumbers, mode: mode)"
+      },
+      {
+        "filePath": "SignalServiceKit/Contacts/Discovery/ContactDiscoveryTask.swift",
+        "line": 47,
+        "code": "func perform(for phoneNumbers: Set<String>, mode: ContactDiscoveryMode) async throws -> [SignalRecipient] {"
+      }
+    ]
+  }
+]

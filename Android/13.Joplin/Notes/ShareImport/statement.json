@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "从其他应用分享内容到 Joplin",
+        "purpose": "接收其他应用通过 Android 分享发送的文本、标题和文件，并导入为笔记内容或资源。",
+        "source": "用户在其他应用中主动触发的 Android ACTION_SEND 或 ACTION_SEND_MULTIPLE Intent。",
+        "item": "分享标题、文本、文件 URI、文件名、MIME 类型和文件元数据。",
+        "frequency": "每次用户选择分享到 Joplin 时处理。",
+        "processing": "读取分享 Intent 中的文本和文件 URI，通过 ContentResolver 查询文件信息，再交给 Joplin 分享处理流程创建笔记或附件。",
+        "storage": "导入后的文本和附件保存在本机 Joplin 笔记数据库和资源目录。",
+        "recipient": "本机 Joplin 应用。",
+        "thirdparty": "不主动共享给第三方；若用户启用同步，导入内容会同步到配置的同步目标。",
+        "switchpath": "用户可取消系统分享或在导入后删除对应笔记和资源。"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Intent URI grant",
+        "purpose": "读取用户通过系统分享授予的文件 URI。"
+      }
+    ]
+  }
+]

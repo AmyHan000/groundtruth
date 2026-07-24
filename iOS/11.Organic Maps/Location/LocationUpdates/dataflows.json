@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "iphone/Maps/Core/Location/MWMLocationManager.mm",
+        "line": 541,
+        "code": "case kCLAuthorizationStatusNotDetermined: [manager requestWhenInUseAuthorization]; break;"
+      },
+      {
+        "filePath": "iphone/Maps/Core/Location/MWMLocationManager.mm",
+        "line": 595,
+        "code": "[manager startUpdatingLocation];"
+      },
+      {
+        "filePath": "iphone/Maps/Core/Location/MWMLocationManager.mm",
+        "line": 491,
+        "code": "- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations"
+      },
+      {
+        "filePath": "iphone/Maps/Core/Location/MWMLocationManager.mm",
+        "line": 520,
+        "code": "[self processLocationUpdate:location];"
+      },
+      {
+        "filePath": "iphone/Maps/Core/Location/MWMLocationManager.mm",
+        "line": 306,
+        "code": "location::GpsInfo const gpsInfo = location_util::gpsInfoFromLocation(locationInfo, source);"
+      },
+      {
+        "filePath": "iphone/Maps/Core/Location/MWMLocationManager.mm",
+        "line": 307,
+        "code": "GpsTracker::Instance().OnLocationUpdated(gpsInfo);"
+      },
+      {
+        "filePath": "iphone/Maps/Core/Location/MWMLocationManager.mm",
+        "line": 308,
+        "code": "GetFramework().OnLocationUpdate(gpsInfo);"
+      }
+    ]
+  }
+]

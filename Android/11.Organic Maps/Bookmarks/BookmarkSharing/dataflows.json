@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/bookmarks/BookmarksListFragment.java",
+        "line": 803,
+        "code": "BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), catId, fileType);"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/bookmarks/BookmarksSharingHelper.java",
+        "line": 29,
+        "code": "public void prepareBookmarkCategoryForSharing(@NonNull Activity context, long catId, FileType fileType)"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/bookmarks/BookmarksSharingHelper.java",
+        "line": 32,
+        "code": "BookmarkManager.INSTANCE.prepareCategoriesForSharing(new long[] {catId}, fileType);"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/bookmarks/BookmarksSharingHelper.java",
+        "line": 61,
+        "code": "SharingUtils.shareBookmarkFile(context, launcher, result.getSharingPath(), result.getMimeType());"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/widget/placepage/PlacePageView.java",
+        "line": 1245,
+        "code": "BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), trackId, fileType);"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/widget/placepage/PlacePageView.java",
+        "line": 1275,
+        "code": "BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), shareLauncher, result);"
+      }
+    ]
+  }
+]

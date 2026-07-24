@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "最近任务界面展示正在或曾经运行的应用",
+        "purpose": "显示最近任务卡片、应用名称图标和任务快照，并支持回到、锁定或清理任务。",
+        "source": "OpenHarmony missionManager 和 launcherBundleManager",
+        "item": "任务 missionId、应用 bundleName、abilityName、任务时间戳、任务快照图片 PixelMap、快照宽高",
+        "frequency": "进入最近任务界面或任务列表刷新时",
+        "processing": "在本机读取最近任务列表和快照，生成界面卡片；用户操作时调用系统任务管理接口",
+        "storage": "运行期内存中的任务卡片和 PixelMap；源码未见主动上传到外部服务",
+        "recipient": "本机最近任务界面和系统任务管理接口",
+        "thirdparty": "不涉及第三方共享",
+        "switchpath": "用户可从最近任务界面清理任务，或由系统任务管理策略更新列表"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.MANAGE_MISSIONS",
+        "purpose": "读取、展示和管理最近任务及其快照"
+      }
+    ]
+  }
+]

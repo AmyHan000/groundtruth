@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "地图定位和轨迹更新",
+        "purpose": "显示用户当前位置、支持地图跟随、导航和轨迹记录。",
+        "source": "iOS CoreLocation 定位服务。",
+        "item": "经纬度、速度、方向、海拔、定位精度和定位来源。",
+        "frequency": "用户开启定位、导航或轨迹记录时持续处理。",
+        "processing": "请求定位授权后启动位置更新，将 CLLocation 转换为 GpsInfo，并传递给轨迹记录器和地图框架。",
+        "storage": "当前位置主要在运行时处理；轨迹记录可能保存到本机轨迹数据。",
+        "recipient": "本机 Organic Maps 地图框架和轨迹记录模块。",
+        "thirdparty": "不涉及第三方共享。",
+        "switchpath": "用户可在系统设置中撤销定位权限，或在应用中停止定位和轨迹记录。"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Location When In Use",
+        "purpose": "在使用应用时获取当前位置用于地图显示、导航和轨迹记录。"
+      }
+    ]
+  }
+]

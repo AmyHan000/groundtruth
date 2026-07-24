@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/vm/customPSDViewModel.ts",
+        "line": 37,
+        "code": "onKeyPress(index: number, callback: Callback<void>) {"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/vm/customPSDViewModel.ts",
+        "line": 39,
+        "code": "let keyValue = this.numKeyboard[index].value;"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/vm/customPSDViewModel.ts",
+        "line": 42,
+        "code": "this.passwordArr.push(keyValue);"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/vm/customPSDViewModel.ts",
+        "line": 73,
+        "code": "service.authUser(AuthSubType.PIN_MIXED, this.passwordArr, (result, extraInfo) => {"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/screenLockService.ts",
+        "line": 303,
+        "code": "authUser(authSubType: AuthSubType, passwordData: number[] | string, callback): void {"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/screenLockService.ts",
+        "line": 309,
+        "code": "password = passwordData.join('');"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/screenLockService.ts",
+        "line": 311,
+        "code": "this.accountModel.registerPWDInputer(password).then(() => {"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 229,
+        "code": "registerPWDInputer(password: string): Promise<void> {"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 243,
+        "code": "result = this.pinAuthManager.registerInputer({"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 247,
+        "code": "let uint8PW = textEncoder.encode(password);"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 249,
+        "code": "inputData.onSetData(passType, uint8PW);"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 196,
+        "code": "this.userAuthManager.authUser(this.mCurrentUserId, challengeArray, authType, authLevel, {"
+      }
+    ]
+  }
+]

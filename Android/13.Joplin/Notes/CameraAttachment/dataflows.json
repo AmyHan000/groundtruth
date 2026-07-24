@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "packages/app-mobile/components/CameraView/Camera/index.tsx",
+        "line": 32,
+        "code": "const [hasPermission, requestPermission] = useCameraPermissions();"
+      },
+      {
+        "filePath": "packages/app-mobile/components/CameraView/Camera/index.tsx",
+        "line": 36,
+        "code": "await requestPermission();"
+      },
+      {
+        "filePath": "packages/app-mobile/components/CameraView/CameraView.tsx",
+        "line": 128,
+        "code": "const picture = await cameraRef.current.takePictureAsync();"
+      },
+      {
+        "filePath": "packages/app-mobile/components/CameraView/CameraView.tsx",
+        "line": 130,
+        "code": "props.onPhoto(picture);"
+      },
+      {
+        "filePath": "packages/app-mobile/components/screens/Note/Note.tsx",
+        "line": 1014,
+        "code": "await this.attachFile("
+      },
+      {
+        "filePath": "packages/app-mobile/components/screens/Note/Note.tsx",
+        "line": 964,
+        "code": "const targetPath = Resource.fullPath(resource);"
+      },
+      {
+        "filePath": "packages/app-mobile/components/screens/Note/Note.tsx",
+        "line": 996,
+        "code": "resource = await Resource.save(resource, { isNew: true });"
+      },
+      {
+        "filePath": "packages/app-mobile/components/screens/Note/Note.tsx",
+        "line": 999,
+        "code": "const newNote = await this.insertText(resourceTag, { newLine: true });"
+      }
+    ]
+  }
+]

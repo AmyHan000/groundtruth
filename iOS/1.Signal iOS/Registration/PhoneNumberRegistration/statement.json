@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "手机号注册和验证码校验",
+        "purpose": "验证用户手机号，创建 Signal 注册会话并完成账号注册。",
+        "source": "用户在注册界面输入的手机号和验证码。",
+        "item": "手机号、验证码、注册会话、账号本地标识和推送注册标识。",
+        "frequency": "用户首次注册、重新注册或更换号码时处理。",
+        "processing": "保存待注册手机号，向会话管理器请求验证码，提交验证码并写入注册后的本地账号标识。",
+        "storage": "注册成功后在本机账号数据库中保存本地标识和手机号。",
+        "recipient": "Signal 注册服务端和本机 Signal 账号模块。",
+        "thirdparty": "推送注册可能涉及 Apple Push Notification service。",
+        "switchpath": "用户可停止注册流程、不提交验证码或在注册后注销账号。"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Network access",
+        "purpose": "连接 Signal 注册服务请求和提交验证码。"
+      },
+      {
+        "name": "Push notification registration",
+        "purpose": "获取推送注册标识以支持消息通知。"
+      }
+    ]
+  }
+]

@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "笔记和资源同步",
+        "purpose": "将 iOS 端本机笔记、资源附件与用户配置的同步目标保持一致。",
+        "source": "本机 Joplin 笔记数据库、资源目录和用户配置的同步目标。",
+        "item": "笔记内容、标题、资源附件、资源路径、同步时间、分享 ID 和远端变更列表。",
+        "frequency": "用户手动同步、自动同步或编辑后触发部分同步时处理。",
+        "processing": "枚举需要同步的本地项目，上传资源文件，获取远端 delta 列表并下载远端项目。",
+        "storage": "数据保存在本机 Joplin 数据库和用户选择的同步目标中。",
+        "recipient": "用户配置的同步服务，例如 Joplin Server、Joplin Cloud、WebDAV、Nextcloud 或 Dropbox。",
+        "thirdparty": "取决于用户选择的同步目标服务。",
+        "switchpath": "用户可关闭同步、切换同步目标或删除远端配置。"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Network access",
+        "purpose": "连接用户配置的同步目标上传和下载笔记数据。"
+      }
+    ]
+  }
+]

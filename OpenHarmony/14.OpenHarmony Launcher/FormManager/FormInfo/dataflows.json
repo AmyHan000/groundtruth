@@ -1,0 +1,77 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "common/src/main/ets/default/manager/FormManager.ts",
+        "line": 56,
+        "code": "async getAllFormsInfo(): Promise<CardItemInfo[]> {"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/FormManager.ts",
+        "line": 57,
+        "code": "const formList = await formManagerAbility.getAllFormsInfo();"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/FormManager.ts",
+        "line": 61,
+        "code": "let description = await this.resourceManager.getAppNameSync(formItem.descriptionId, formItem.bundleName,"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/FormManager.ts",
+        "line": 63,
+        "code": "cardItemInfo.bundleName = formItem.bundleName;"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/FormManager.ts",
+        "line": 64,
+        "code": "cardItemInfo.abilityName = formItem.abilityName;"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/FormManager.ts",
+        "line": 69,
+        "code": "cardItemInfo.description = description;"
+      },
+      {
+        "filePath": "feature/form/src/main/ets/default/datapool/RecommendCardsDataPool.ts",
+        "line": 73,
+        "code": "let formInfoList: CardItemInfo[] = await this.mFormModel.getAllFormsInfo();"
+      },
+      {
+        "filePath": "feature/form/src/main/ets/default/datapool/RecommendCardsDataPool.ts",
+        "line": 76,
+        "code": "if (allFormMap.has(item.bundleName)) {"
+      },
+      {
+        "filePath": "feature/form/src/main/ets/default/datapool/RecommendCardsDataPool.ts",
+        "line": 80,
+        "code": "allFormMap.set(item.bundleName, forms);"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "common/src/main/ets/default/manager/FormManager.ts",
+        "line": 96,
+        "code": "async getFormsInfoByApp(bundle: string): Promise<CardItemInfo[]> {"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/FormManager.ts",
+        "line": 98,
+        "code": "const formList = await formManagerAbility.getFormsInfo(bundle);"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/FormManager.ts",
+        "line": 104,
+        "code": "cardItemInfo.bundleName = formItem.bundleName;"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/FormManager.ts",
+        "line": 105,
+        "code": "cardItemInfo.abilityName = formItem.abilityName;"
+      }
+    ]
+  }
+]

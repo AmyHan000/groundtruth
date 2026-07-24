@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "桌面或应用中心展示应用列表",
+        "purpose": "读取可启动应用信息，用于展示应用图标、名称并支持点击启动应用。",
+        "source": "OpenHarmony launcherBundleManager 和本机资源管理器",
+        "item": "应用 bundleName、abilityName、moduleName、appLabelId、appIconId、应用名称和图标资源",
+        "frequency": "进入桌面或应用中心、应用列表刷新时",
+        "processing": "在本机查询可启动应用能力，加载应用名称和图标，并在用户点击时携带 bundleName、abilityName、moduleName 启动应用",
+        "storage": "运行期缓存和本机应用资源缓存；源码未见上传到外部服务",
+        "recipient": "本机 Launcher 界面和系统 Ability 启动接口",
+        "thirdparty": "不涉及第三方共享",
+        "switchpath": "系统桌面基础功能；用户可卸载应用或从桌面移除快捷入口"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.GET_BUNDLE_INFO_PRIVILEGED",
+        "purpose": "读取已安装应用的包名、Ability、标签和图标等启动信息"
+      }
+    ]
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/search/SearchRequest.java",
+        "line": 23,
+        "code": "public SearchRequest(@Nullable String query, @Nullable String locale)"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/search/SearchFragment.java",
+        "line": 457,
+        "code": "private String getQuery()"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/search/SearchFragment.java",
+        "line": 459,
+        "code": "return mToolbarController.getQuery();"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/search/SearchFragment.java",
+        "line": 504,
+        "code": "SearchEngine.INSTANCE.setQuery(query);"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/search/SearchFragment.java",
+        "line": 572,
+        "code": "boolean started = SearchEngine.INSTANCE.searchInteractive(getQuery(), isCategory(), locale, System.nanoTime(),"
+      },
+      {
+        "filePath": "android/app/src/main/java/app/organicmaps/search/SearchFragment.java",
+        "line": 901,
+        "code": "SearchRecents.add(getQuery(), requireContext());"
+      }
+    ]
+  }
+]

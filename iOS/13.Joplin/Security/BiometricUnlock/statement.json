@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "生物识别解锁",
+        "purpose": "使用系统生物识别能力验证用户身份后进入 Joplin。",
+        "source": "iOS 本机 Face ID、Touch ID 或系统本地认证结果。",
+        "item": "认证成功或失败结果、错误类型、生物识别启用设置和解锁状态。",
+        "frequency": "用户开启生物识别保护后，每次启动或返回应用需要验证时处理。",
+        "processing": "调用系统本地认证接口获取结果，只处理成功、失败和错误类型，不读取或保存生物特征模板。",
+        "storage": "仅保存是否启用生物识别和认证完成状态；生物特征模板由系统保存。",
+        "recipient": "本机 iOS LocalAuthentication 和 Joplin 应用状态。",
+        "thirdparty": "不涉及第三方共享。",
+        "switchpath": "用户可关闭 Joplin 生物识别设置，或在系统中停用 Face ID/Touch ID。"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Face ID / Touch ID",
+        "purpose": "通过系统本地认证确认用户身份后解锁应用。"
+      }
+    ]
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "锁屏状态栏展示 Wi-Fi 和蜂窝网络状态",
+        "purpose": "在锁屏状态栏显示 Wi-Fi 连接强度、Wi-Fi 名称和蜂窝网络运营商、网络类型、信号强度。",
+        "source": "OpenHarmony Wi-Fi、SIM、Radio 和公共事件接口",
+        "item": "Wi-Fi SSID、RSSI/频段计算出的信号等级、Wi-Fi 连接状态、蜂窝网络状态 CUR_PLMN、网络制式 cfgTech、蜂窝信号等级",
+        "frequency": "锁屏状态栏初始化、Wi-Fi/蜂窝网络状态变化或信号强度变化时",
+        "processing": "在本机读取网络状态并写入 AppStorage，状态栏组件通过 StorageLink 显示图标和文本",
+        "storage": "运行期 AppStorage 状态；源码未见主动持久化或上传",
+        "recipient": "本机锁屏状态栏界面",
+        "thirdparty": "不涉及第三方共享",
+        "switchpath": "系统状态栏基础展示；用户可通过系统设置关闭或变更 Wi-Fi/蜂窝网络连接"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.GET_WIFI_INFO",
+        "purpose": "读取 Wi-Fi 连接信息和信号强度"
+      },
+      {
+        "name": "ohos.permission.GET_NETWORK_INFO",
+        "purpose": "读取蜂窝网络状态和信号信息"
+      }
+    ]
+  }
+]

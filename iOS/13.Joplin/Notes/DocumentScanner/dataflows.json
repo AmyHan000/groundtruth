@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "packages/app-mobile/components/CameraView/Camera/index.tsx",
+        "line": 32,
+        "code": "const [hasPermission, requestPermission] = useCameraPermissions();"
+      },
+      {
+        "filePath": "packages/app-mobile/components/CameraView/Camera/index.tsx",
+        "line": 36,
+        "code": "await requestPermission();"
+      },
+      {
+        "filePath": "packages/app-mobile/components/CameraView/CameraView.tsx",
+        "line": 128,
+        "code": "const picture = await cameraRef.current.takePictureAsync();"
+      },
+      {
+        "filePath": "packages/app-mobile/components/CameraView/CameraView.tsx",
+        "line": 130,
+        "code": "props.onPhoto(picture);"
+      },
+      {
+        "filePath": "packages/app-mobile/components/CameraView/CameraViewMultiPage.tsx",
+        "line": 61,
+        "code": "onSetPhotos([...photos, data]);"
+      },
+      {
+        "filePath": "packages/app-mobile/components/screens/DocumentScanner/DocumentScanner.tsx",
+        "line": 86,
+        "code": "resources.push(await shim.createResourceFromPath("
+      },
+      {
+        "filePath": "packages/app-mobile/components/screens/DocumentScanner/DocumentScanner.tsx",
+        "line": 102,
+        "code": "const note = await Note.save({"
+      }
+    ]
+  }
+]
