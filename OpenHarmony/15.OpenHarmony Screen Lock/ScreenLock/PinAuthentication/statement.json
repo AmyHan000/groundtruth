@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "用户在锁屏界面输入 PIN 或混合密码解锁",
+        "purpose": "校验用户输入的锁屏密码，完成本机账号身份认证并解锁。",
+        "source": "用户在锁屏数字键盘或密码输入界面主动输入",
+        "item": "PIN/密码输入序列、authSubType、当前本地账号 ID、认证结果 result 和 extraInfo",
+        "frequency": "用户每次提交锁屏密码时",
+        "processing": "在本机临时拼接密码，注册 PIN 输入器，将编码后的密码交给系统账号认证接口校验，并在回调后清空输入",
+        "storage": "运行期内存 passwordArr/password；源码显示认证后清空输入，未见主动持久化",
+        "recipient": "OpenHarmony osAccount/UserAuth/PINAuth 系统认证接口",
+        "thirdparty": "不涉及第三方共享",
+        "switchpath": "用户可删除输入、返回或改用其他可用认证方式"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.USE_USER_IDM",
+        "purpose": "使用用户身份管理能力"
+      },
+      {
+        "name": "ohos.permission.ACCESS_USER_AUTH_INTERNAL",
+        "purpose": "调用系统用户认证内部接口"
+      },
+      {
+        "name": "ohos.permission.ACCESS_PIN_AUTH",
+        "purpose": "处理 PIN/密码认证输入"
+      }
+    ]
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "common/src/main/ets/default/manager/AmsMissionManager.ts",
+        "line": 55,
+        "code": "let res = await missionManager.getMissionInfos('', AmsMissionManager.RECENT_MISSIONS_LIMIT_NUM);"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/AmsMissionManager.ts",
+        "line": 71,
+        "code": "async getRecentMissionsList(): Promise<Array<RecentMissionInfo>> {"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/AmsMissionManager.ts",
+        "line": 81,
+        "code": "recentMissionInfo.bundleName = recentItem.want.bundleName;"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/AmsMissionManager.ts",
+        "line": 82,
+        "code": "recentMissionInfo.abilityName = recentItem.want.abilityName;"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/AmsMissionManager.ts",
+        "line": 85,
+        "code": "recentMissionInfo.snapShotTime = recentItem.timestamp;"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/AmsMissionManager.ts",
+        "line": 86,
+        "code": "const appInfo = await launcherAbilityManager.getAppInfoByBundleName(recentMissionInfo.bundleName, recentMissionInfo.abilityName);"
+      },
+      {
+        "filePath": "feature/recents/src/main/ets/default/common/uicomponents/RecentMissionCard.ets",
+        "line": 82,
+        "code": "this.mRecentMissionsViewModel.getMissionSnapShot(this.missionId, this.recentMissionsSnapshotCallback);"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/AmsMissionManager.ts",
+        "line": 227,
+        "code": "missionSnapshot = await missionManager.getMissionSnapShot('', missionId);"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/AmsMissionManager.ts",
+        "line": 232,
+        "code": "snapShotInfo.snapShotImage = missionSnapshot.snapshot;"
+      },
+      {
+        "filePath": "feature/recents/src/main/ets/default/common/uicomponents/RecentMissionCard.ets",
+        "line": 108,
+        "code": "this.recentImage = snapShotInfo.snapShotImage;"
+      }
+    ]
+  }
+]

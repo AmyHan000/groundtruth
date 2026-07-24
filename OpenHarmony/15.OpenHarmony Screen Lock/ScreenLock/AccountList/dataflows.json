@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 145,
+        "code": "osAccount.getAccountManager().queryAllCreatedOsAccounts().then((list) => {"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 155,
+        "code": "let userData: UserData = {"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 156,
+        "code": "userId: user.localId,"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 157,
+        "code": "userName: user.localName,"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 160,
+        "code": "accountList.push(userData)"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 162,
+        "code": "osAccount.getAccountManager().getOsAccountProfilePhoto(user.localId).then((path) => {"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 164,
+        "code": "accountMap.get(user.localId).userIconPath = path;"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 167,
+        "code": "sEventManager.publish(obtainLocalEvent(ACCOUNTS_REFRESH_EVENT, accountList));"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/view/component/accounts.ets",
+        "line": 34,
+        "code": "this.accountList = data;"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/view/component/accounts.ets",
+        "line": 72,
+        "code": "Image(this.userItem?.userIconPath)"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/view/component/accounts.ets",
+        "line": 76,
+        "code": "Text(this.userItem?.userName)"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/view/component/accounts.ets",
+        "line": 82,
+        "code": "this.viewModel?.onUserClick(this.userItem?.userId);"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 186,
+        "code": "osAccount.getAccountManager().activateOsAccount(userId).then(() => {"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/model/accountsModel.ts",
+        "line": 187,
+        "code": "Log.showInfo(TAG, \"activateOsAccount : \" + userId);"
+      }
+    ]
+  }
+]

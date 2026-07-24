@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "桌面卡片管理和推荐卡片列表展示",
+        "purpose": "读取可添加的服务卡片信息，按应用包名聚合并展示卡片描述。",
+        "source": "OpenHarmony formHost / formManagerAbility 和本机资源管理器",
+        "item": "卡片所属应用 bundleName、abilityName、卡片描述、模块名、卡片名称等表单信息",
+        "frequency": "进入卡片管理、推荐卡片列表或按应用查看卡片时",
+        "processing": "在本机查询服务卡片信息，加载描述文本，并按 bundleName 分组供界面展示",
+        "storage": "运行期内存集合；部分已添加卡片信息可能保存在本机 RDB",
+        "recipient": "本机 Launcher 卡片管理界面和系统卡片管理接口",
+        "thirdparty": "不涉及第三方共享",
+        "switchpath": "用户可不添加卡片，或在卡片管理中删除已添加卡片"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.REQUIRE_FORM",
+        "purpose": "读取和管理系统服务卡片信息"
+      }
+    ]
+  }
+]

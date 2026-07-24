@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "common/src/main/ets/default/manager/LauncherAbilityManager.ts",
+        "line": 179,
+        "code": "async getLauncherAbilityList(): Promise<AppItemInfo[]> {"
+      },
+      {
+        "filePath": "common/src/main/ets/default/manager/LauncherAbilityManager.ts",
+        "line": 181,
+        "code": "await launcherBundleManager.getAllLauncherAbilityInfo(LauncherAbilityManager.CURRENT_USER_ID)"
+      },
+      {
+        "filePath": "feature/appcenter/src/main/ets/default/viewmodel/AppListViewModel.ts",
+        "line": 137,
+        "code": "let appList = await this.mAppModel.getAppList();"
+      },
+      {
+        "filePath": "feature/appcenter/src/main/ets/default/viewmodel/AppListViewModel.ts",
+        "line": 144,
+        "code": "let cacheKey = item.appLabelId + item.bundleName + item.moduleName;"
+      },
+      {
+        "filePath": "feature/appcenter/src/main/ets/default/viewmodel/AppListViewModel.ts",
+        "line": 150,
+        "code": "let loadAppName = await this.mResourceManager.getAppNameSync(item.appLabelId, item.bundleName,"
+      },
+      {
+        "filePath": "feature/appcenter/src/main/ets/default/layout/AppGridLayout.ets",
+        "line": 86,
+        "code": "this.mAppGridViewModel.getAppList();"
+      },
+      {
+        "filePath": "feature/appcenter/src/main/ets/default/layout/AppGridLayout.ets",
+        "line": 161,
+        "code": "if (appInfo.appLabelId && appInfo.bundleName && appInfo.moduleName) {"
+      },
+      {
+        "filePath": "feature/appcenter/src/main/ets/default/layout/AppGridLayout.ets",
+        "line": 189,
+        "code": "this.mAppGridViewModel.jumpTo(item.abilityName, item.bundleName, item.moduleName);"
+      },
+      {
+        "filePath": "feature/appcenter/src/main/ets/default/layout/AppGridLayout.ets",
+        "line": 226,
+        "code": "item.icon = ResourceManager.getInstance().getCachedAppIcon(item.appIconId, item.bundleName, item.moduleName);"
+      }
+    ]
+  }
+]

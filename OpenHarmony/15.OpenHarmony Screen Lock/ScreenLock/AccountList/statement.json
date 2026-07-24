@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "锁屏界面展示本机账号并支持切换用户",
+        "purpose": "展示本机已创建账号的头像和名称，并在用户点击时切换到对应本地账号。",
+        "source": "OpenHarmony osAccount 账号管理器",
+        "item": "本地账号 localId、localName、账号头像路径 userIconPath",
+        "frequency": "锁屏账号列表刷新或用户进入锁屏账号切换界面时",
+        "processing": "在本机查询账号列表和头像路径，通过本地事件分发给锁屏 UI；用户点击后调用系统账号切换接口",
+        "storage": "运行期内存中的 accountList 和 accountMap；源码未见主动上传到外部服务",
+        "recipient": "本机锁屏账号列表界面和系统账号管理接口",
+        "thirdparty": "不涉及第三方共享",
+        "switchpath": "用户可不切换账号；账号列表由系统账号设置管理"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.MANAGE_LOCAL_ACCOUNTS",
+        "purpose": "查询和管理本机本地账号"
+      },
+      {
+        "name": "ohos.permission.INTERACT_ACROSS_LOCAL_ACCOUNTS_EXTENSION",
+        "purpose": "支持锁屏场景跨本地账号交互"
+      }
+    ]
+  }
+]

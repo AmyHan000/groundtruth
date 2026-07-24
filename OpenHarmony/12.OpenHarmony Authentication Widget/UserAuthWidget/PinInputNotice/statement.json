@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "用户在认证组件中输入 PIN 或数字密码",
+        "purpose": "判断 PIN 认证类型已准备好，并将本次认证事件通知系统身份认证框架。",
+        "source": "用户在认证界面的 TextInput 或数字键盘中主动输入",
+        "item": "PIN/密码输入字符、本次认证上下文 widgetContextId、认证类型 noticeTypePin",
+        "frequency": "用户每次输入或更新 PIN 时",
+        "processing": "在本机组件状态中临时保存输入字符，过滤为数字后拼接，并向身份认证框架发送认证事件",
+        "storage": "运行期内存变量和 AppStorage；源码未见主动持久化",
+        "recipient": "OpenHarmony 身份认证框架",
+        "thirdparty": "不涉及第三方共享",
+        "switchpath": "用户可取消认证或删除已输入内容"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.ACCESS_PIN_AUTH",
+        "purpose": "处理 PIN 认证输入并接入系统 PIN 认证"
+      }
+    ]
+  }
+]

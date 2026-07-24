@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "features/wificomponent/src/main/ets/default/wifiModel.ts",
+        "line": 38,
+        "code": "mWifiInfo = AppStorage.SetAndLink(\"wifiInfo\", Constants.DEFAULT_WIFI_INFO);"
+      },
+      {
+        "filePath": "features/wificomponent/src/main/ets/default/wifiModel.ts",
+        "line": 40,
+        "code": "mWifiName = AppStorage.SetAndLink(\"wifiName\", Constants.DEFAULT_WIFI_NAME)"
+      },
+      {
+        "filePath": "features/wificomponent/src/main/ets/default/wifiModel.ts",
+        "line": 109,
+        "code": "getWifiConnectInfo() {"
+      },
+      {
+        "filePath": "features/wificomponent/src/main/ets/default/wifiModel.ts",
+        "line": 122,
+        "code": "wifi.getLinkedInfo((err, data) => {"
+      },
+      {
+        "filePath": "features/wificomponent/src/main/ets/default/wifiModel.ts",
+        "line": 125,
+        "code": "mWifiName.set(data.ssid);"
+      },
+      {
+        "filePath": "features/wificomponent/src/main/ets/default/wifiModel.ts",
+        "line": 126,
+        "code": "let signalLevel = wifi.getSignalLevel(data.rssi, data.band);"
+      },
+      {
+        "filePath": "features/wificomponent/src/main/ets/default/wifiModel.ts",
+        "line": 128,
+        "code": "mWifiInfo.set(signalLevel);"
+      },
+      {
+        "filePath": "features/wificomponent/src/main/ets/default/pages/wifiIcon.ets",
+        "line": 26,
+        "code": "@StorageLink('wifiInfo') wifiInfo: number = Constants.DEFAULT_WIFI_INFO"
+      },
+      {
+        "filePath": "features/wificomponent/src/main/ets/default/pages/wifiIcon.ets",
+        "line": 48,
+        "code": "Image(this.getImage(this.wifiInfo))"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/view/component/statusBar.ets",
+        "line": 44,
+        "code": "WifiIcon()"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "features/signalcomponent/src/main/ets/default/signalModel.ts",
+        "line": 34,
+        "code": "mLevelLink = AppStorage.SetAndLink(\"cellularLevel_screenLock\", Constants.CELLULAR_NO_SIM_CARD);"
+      },
+      {
+        "filePath": "features/signalcomponent/src/main/ets/default/signalModel.ts",
+        "line": 35,
+        "code": "mTypeLink = AppStorage.SetAndLink(\"cellularType_screenLock\", Constants.RADIO_TECHNOLOGY_UNKNOWN);"
+      },
+      {
+        "filePath": "features/signalcomponent/src/main/ets/default/signalModel.ts",
+        "line": 36,
+        "code": "mStateLink = AppStorage.SetAndLink(\"networkState_screenLock\", Constants.NET_NULL);"
+      },
+      {
+        "filePath": "features/signalcomponent/src/main/ets/default/signalModel.ts",
+        "line": 65,
+        "code": "mStateLink.set(data.parameters.CUR_PLMN);"
+      },
+      {
+        "filePath": "features/signalcomponent/src/main/ets/default/signalModel.ts",
+        "line": 83,
+        "code": "Sim.hasSimCard(slotId, (err, value) => {"
+      },
+      {
+        "filePath": "features/signalcomponent/src/main/ets/default/signalModel.ts",
+        "line": 85,
+        "code": "Radio.getNetworkState((err, value) => {"
+      },
+      {
+        "filePath": "features/signalcomponent/src/main/ets/default/signalModel.ts",
+        "line": 95,
+        "code": "mTypeLink.set(value.cfgTech);"
+      },
+      {
+        "filePath": "features/signalcomponent/src/main/ets/default/signalModel.ts",
+        "line": 100,
+        "code": "mLevelLink.set(value[0].signalLevel);"
+      },
+      {
+        "filePath": "features/signalcomponent/src/main/ets/default/pages/signalIcon.ets",
+        "line": 26,
+        "code": "@StorageLink('cellularLevel_screenLock') cellularLevel: number = Constants.CELLULAR_NO_SIM_CARD"
+      },
+      {
+        "filePath": "features/signalcomponent/src/main/ets/default/pages/signalIcon.ets",
+        "line": 57,
+        "code": "Text(this.updateNetworkState(this.networkState))"
+      },
+      {
+        "filePath": "features/signalcomponent/src/main/ets/default/pages/signalIcon.ets",
+        "line": 76,
+        "code": "Image(this.updateCellularImage(this.cellularLevel))"
+      },
+      {
+        "filePath": "features/screenlock/src/main/ets/com/ohos/view/component/statusBar.ets",
+        "line": 43,
+        "code": "SignalIcon()"
+      }
+    ]
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "data": [
+      {
+        "scene": "认证过程中接收系统认证命令",
+        "purpose": "根据系统认证命令更新认证状态、处理指纹传感器位置并向身份认证框架反馈认证类型状态。",
+        "source": "OpenHarmony userAuthWidgetMgr 的 command 回调",
+        "item": "认证命令 cmd、pinSubType、skipLockedBiometricAuth、指纹传感器 sensorInfo、认证结果提示码",
+        "frequency": "认证流程中系统身份认证框架下发命令时",
+        "processing": "在本机解析 JSON 命令，更新页面状态，并通过 userAuth.sendNotice 回传事件",
+        "storage": "运行期内存变量；源码未见主动持久化",
+        "recipient": "OpenHarmony 身份认证框架",
+        "thirdparty": "不涉及第三方共享",
+        "switchpath": "用户可结束或取消本次认证流程"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "ohos.permission.ACCESS_BIOMETRIC",
+        "purpose": "处理人脸或指纹等生物认证命令"
+      },
+      {
+        "name": "ohos.permission.SUPPORT_USER_AUTH",
+        "purpose": "与系统身份认证框架交互"
+      }
+    ]
+  }
+]

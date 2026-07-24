@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/extensionability/UserAuthAbility.ts",
+        "line": 48,
+        "code": "onSessionCreate(want: Want, session: UIExtensionContentSession): void {"
+      },
+      {
+        "filePath": "entry/src/main/ets/extensionability/UserAuthAbility.ts",
+        "line": 50,
+        "code": "AppStorage.setOrCreate('wantParams', want?.parameters?.useriamCmdData);"
+      },
+      {
+        "filePath": "entry/src/main/ets/extensionability/UserAuthAbility.ts",
+        "line": 52,
+        "code": "(session as UIExtensionContentSession)?.loadContent('pages/Index');"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 70,
+        "code": "this.getParams((AppStorage.get('wantParams') as WantParams));"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 235,
+        "code": "getParams(result: WantParams): void {"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 238,
+        "code": "this.pinSubType = resultInfo?.pinSubType;"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 250,
+        "code": "AppStorage.setOrCreate('widgetContextId', resultInfo?.widgetContextIdStr);"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 251,
+        "code": "this.authType = newType;"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 253,
+        "code": "this.windowModeType = resultInfo?.windowModeType;"
+      },
+      {
+        "filePath": "entry/src/main/ets/pages/Index.ets",
+        "line": 255,
+        "code": "this.cmdData = resultInfo?.cmd || [];"
+      }
+    ]
+  }
+]

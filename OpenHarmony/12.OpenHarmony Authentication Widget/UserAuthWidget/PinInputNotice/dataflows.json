@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/common/components/SixPassword.ets",
+        "line": 86,
+        "code": ".onChange(async (value: string) => {"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/components/SixPassword.ets",
+        "line": 87,
+        "code": "this.passwordArrayNumber = value.replace(new RegExp('[^\\\\d]', 'g'), '').split('');"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/components/SixPassword.ets",
+        "line": 88,
+        "code": "this.textValue = this.passwordArrayNumber?.join('');"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/components/SixPassword.ets",
+        "line": 90,
+        "code": "AuthUtils.getInstance().sendNotice('EVENT_AUTH_TYPE_READY', [Constants.noticeTypePin]);"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/utils/AuthUtils.ts",
+        "line": 37,
+        "code": "const eventData = {"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/utils/AuthUtils.ts",
+        "line": 38,
+        "code": "widgetContextId: this.widgetContextId,"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/utils/AuthUtils.ts",
+        "line": 46,
+        "code": "const jsonEventData = JSON.stringify(eventData);"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/utils/AuthUtils.ts",
+        "line": 48,
+        "code": "userAuth.sendNotice(userAuth.NoticeType.WIDGET_NOTICE, jsonEventData);"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dataflow": [
+      {
+        "filePath": "entry/src/main/ets/common/components/FullScreen.ets",
+        "line": 445,
+        "code": "TextInput({ placeholder: '', text: this.passwordArray?.join('') })"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/components/FullScreen.ets",
+        "line": 450,
+        "code": "this.passwordArray[index] = item;"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/components/FullScreen.ets",
+        "line": 454,
+        "code": "AuthUtils.getInstance().sendNotice('EVENT_AUTH_TYPE_READY', [Constants.noticeTypePin]);"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/components/FullScreen.ets",
+        "line": 561,
+        "code": "let keyValue = this.numKeyboard[index].value;"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/components/FullScreen.ets",
+        "line": 565,
+        "code": "this.passwordArray[index] = keyValue + '';"
+      },
+      {
+        "filePath": "entry/src/main/ets/common/components/FullScreen.ets",
+        "line": 575,
+        "code": "AuthUtils.getInstance().sendNotice('EVENT_AUTH_TYPE_READY', [Constants.noticeTypePin]);"
+      }
+    ]
+  }
+]
