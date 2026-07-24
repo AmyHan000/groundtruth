@@ -1,0 +1,23 @@
+[
+  {
+    "business_function": "应用锁-生物识别解锁",
+    "business_scenario": "用户开启应用锁后，当应用从后台切换回前台时触发生物识别验证，验证通过后从Android KeyStore中取出加密密钥以解密应用数据",
+    "data_types_info": "指纹/面部数据(敏感), 加密密钥(敏感)",
+    "processing_method": "本地处理（由设备硬件安全模块完成，数据不离开设备）",
+    "permissions_info": "USE_FINGERPRINT(设置生物识别解锁时); USE_BIOMETRIC(设置生物识别解锁时)"
+  },
+  {
+    "business_function": "应用锁-密码/PIN解锁",
+    "business_scenario": "用户设置应用锁密码或PIN，密码经libsodium加密后存储在MMKV中，每次解锁时通过解密验证密码正确性",
+    "data_types_info": "应用锁密码/PIN(敏感)",
+    "processing_method": "本地加密存储（libsodium加密后存入MMKV）",
+    "permissions_info": "无"
+  },
+  {
+    "business_function": "隐私屏幕保护",
+    "business_scenario": "用户在设置中开启隐私屏幕后，Android FLAG_SECURE被设置以防止截屏和应用切换时内容在最近任务列表中可见",
+    "data_types_info": "屏幕内容(一般)",
+    "processing_method": "仅本地展示（本地FLAG_SECURE标志设置，防止截屏和最近任务预览）",
+    "permissions_info": "无"
+  }
+]

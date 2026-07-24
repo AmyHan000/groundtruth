@@ -1,0 +1,51 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SETTINGS_EXPORT_NOTES",
+      "data_type": "Note Content + Tags + Attachment References",
+      "description": "User exports notes as PDF, Markdown, HTML, or Plain Text. Single note, multi-select, or all notes exported. Full export requires account password verification.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "SettingsData export-notes handler",
+          "file": "apps/mobile/app/screens/settings/settings-data.tsx",
+          "line": 320,
+          "code": "{ id: \"export-notes\", type: \"normal\", name: strings.exportNotes(), ... }",
+          "details": "User taps 'Export all notes' in Settings > Backup and Restore."
+        },
+        {
+          "step": "Format Selection",
+          "function": "exportNotes handleExportType",
+          "file": "apps/mobile/app/screens/settings/settings-data.tsx",
+          "line": 335,
+          "code": "const formats = ['md', 'html', 'txt', 'pdf']; const selected = await prompt(format);",
+          "details": "User selects export format: PDF, Markdown, HTML, or Plain Text."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "exportNotes verifyPassword",
+          "file": "apps/mobile/app/screens/settings/settings-data.tsx",
+          "line": 352,
+          "code": "const verified = await db.user?.verifyPassword(password);",
+          "details": "Account password required for exporting all notes. Authentication verified against server."
+        },
+        {
+          "step": "Data Processing",
+          "function": "db.notes.exportAll",
+          "file": "apps/mobile/app/common/database/notes.ts",
+          "line": 420,
+          "code": "await db.notes.exportAll(format, zip);",
+          "details": "All notes exported into selected format. Tags and internal links resolved. Attachments included."
+        },
+        {
+          "step": "Data Storage",
+          "function": "exportNotes saveToDevice",
+          "file": "apps/mobile/app/screens/settings/settings-data.tsx",
+          "line": 380,
+          "code": "await RNFS.copyFile(tempPath, `${notesnookDir}/exported/${filename}`);",
+          "details": "Exported file saved to Notesnook/exported folder on device local storage."
+        }
+      ]
+    }
+  ]
+}

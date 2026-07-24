@@ -1,0 +1,43 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_AUTH_BIOMETRIC",
+      "data_type": "Biometric Credentials (Fingerprint/Face ID)",
+      "description": "User authenticates using device biometrics (fingerprint/face). Biometric data never leaves device. Used to unlock app and retrieve stored encryption keys from secure storage.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "BiometricService.validateUser",
+          "file": "apps/mobile/app/services/biometrics.ts",
+          "line": 125,
+          "code": "await FingerprintScanner.authenticate(Platform.select({...}))",
+          "details": "Native fingerprint scanner invoked on Android. Biometric data processed by device hardware, never sent to server."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "BiometricService.validateUser",
+          "file": "apps/mobile/app/services/biometrics.ts",
+          "line": 56,
+          "code": "await Keychain.setInternetCredentials(\"nn_vault\", \"notesnookvault\", password, KeychainConfig);",
+          "details": "On successful biometric auth, retrieved decryption key from Android KeyStore/iOS Keychain."
+        },
+        {
+          "step": "Permission",
+          "function": "AndroidManifest",
+          "file": "apps/mobile/android/app/src/main/AndroidManifest.xml",
+          "line": 9,
+          "code": "<uses-permission android:name=\"android.permission.USE_FINGERPRINT\" />",
+          "details": "Android fingerprint permission declared in manifest."
+        },
+        {
+          "step": "Permission",
+          "function": "AndroidManifest",
+          "file": "apps/mobile/android/app/src/main/AndroidManifest.xml",
+          "line": 10,
+          "code": "<uses-permission android:name=\"android.permission.USE_BIOMETRIC\" />",
+          "details": "Android biometric permission declared in manifest."
+        }
+      ]
+    }
+  ]
+}

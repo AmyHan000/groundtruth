@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "个人资料管理",
+    "business_scenario": "用户在设置中查看和编辑个人资料信息，包括显示名称、用户名和邮箱地址，修改后的资料信息同步至认证服务器",
+    "data_types_info": "显示名称(一般), 用户名(一般), 邮箱地址(一般)",
+    "processing_method": "上传云端（发送至 auth.streetwriters.co）",
+    "permissions_info": "无"
+  }
+]

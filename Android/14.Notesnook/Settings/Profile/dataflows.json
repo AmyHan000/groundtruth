@@ -1,0 +1,35 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SETTINGS_PROFILE_VIEW",
+      "data_type": "Display Name, Username, Email Address",
+      "description": "User views and edits profile information including display name, username, and email address. Changes synced to auth server.",
+      "flow_steps": [
+        {
+          "step": "Display",
+          "function": "ProfileScreen useEffect fetchProfile",
+          "file": "apps/mobile/app/screens/settings/profile/index.tsx",
+          "line": 45,
+          "code": "const user = await db.user?.getUser(); setDisplayName(user?.displayName); setEmail(user?.email);",
+          "details": "User profile data fetched from local database and displayed on profile screen."
+        },
+        {
+          "step": "Trigger",
+          "function": "ProfileScreen onEditDisplayName",
+          "file": "apps/mobile/app/screens/settings/profile/index.tsx",
+          "line": 78,
+          "code": "Alert.prompt('Edit your full name', '', (name) => updateProfile(name));",
+          "details": "User taps edit icon next to display name to change it."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "db.user?.updateProfile",
+          "file": "apps/mobile/app/common/database/user.ts",
+          "line": 210,
+          "code": "await db.user?.updateProfile({ displayName: name });",
+          "details": "Updated display name sent to auth.streetwriters.co via HTTPS."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SETTINGS_2FA_ENABLE",
+      "data_type": "Password, 2FA Secret/Verification Code, Recovery Codes",
+      "description": "User enables two-factor authentication. Selects method (TOTP app, SMS, or email). Verifies password. Gets recovery codes.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "SettingsData two-factor-auth handler",
+          "file": "apps/mobile/app/screens/settings/settings-data.tsx",
+          "line": 450,
+          "code": "{ id: \"two-factor-auth\", type: \"normal\", name: strings.twoFactorAuth(), ... }",
+          "details": "User taps 'Two-factor authentication' in settings."
+        },
+        {
+          "step": "Method Selection",
+          "function": "TwoFactorSetupScreen selectMethod",
+          "file": "apps/mobile/app/screens/settings/two-factor-auth/index.tsx",
+          "line": 52,
+          "code": "const method = await prompt('Select method', ['Authenticator app', 'SMS', 'Email']);",
+          "details": "User selects 2FA method: Authenticator app (TOTP), SMS, or Email."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "TwoFactorSetupScreen verifyPassword",
+          "file": "apps/mobile/app/screens/settings/two-factor-auth/index.tsx",
+          "line": 78,
+          "code": "const verified = await db.user?.verifyPassword(password);",
+          "details": "Account password required before enabling 2FA."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "db.user?.enable2FA",
+          "file": "apps/mobile/app/common/database/user.ts",
+          "line": 310,
+          "code": "await db.user?.enable2FA({ method, secret });",
+          "details": "2FA setup data (selected method, encrypted secret) sent to auth server."
+        },
+        {
+          "step": "Verification",
+          "function": "TwoFactorSetupScreen verifyCode",
+          "file": "apps/mobile/app/screens/settings/two-factor-auth/index.tsx",
+          "line": 95,
+          "code": "const ok = await db.user?.verify2FACode(code);",
+          "details": "User enters verification code from chosen method to confirm setup."
+        },
+        {
+          "step": "Display",
+          "function": "TwoFactorSetupScreen showRecoveryCodes",
+          "file": "apps/mobile/app/screens/settings/two-factor-auth/index.tsx",
+          "line": 110,
+          "code": "Alert.show('Save your recovery codes', recoveryCodes.join('\\n'));",
+          "details": "Recovery codes displayed to user. Codes should be saved securely by user."
+        }
+      ]
+    },
+    {
+      "id": "FLOW_SETTINGS_2FA_DISABLE",
+      "data_type": "Password, 2FA Verification Code",
+      "description": "User disables two-factor authentication. Must verify password and current 2FA code.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "TwoFactorSetupScreen disable2FA",
+          "file": "apps/mobile/app/screens/settings/two-factor-auth/index.tsx",
+          "line": 145,
+          "code": "Alert.confirm('Disable 2FA?', 'Are you sure you want to disable two-factor authentication?');",
+          "details": "User confirms disabling 2FA in settings."
+        },
+        {
+          "step": "Sensitive Operation",
+          "function": "TwoFactorSetupScreen verifyPasswordAndCode",
+          "file": "apps/mobile/app/screens/settings/two-factor-auth/index.tsx",
+          "line": 160,
+          "code": "await db.user?.verifyPassword(password); await db.user?.verify2FACode(code);",
+          "details": "User must provide both account password and current 2FA code to disable."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "db.user?.disable2FA",
+          "file": "apps/mobile/app/common/database/user.ts",
+          "line": 350,
+          "code": "await db.user?.disable2FA();",
+          "details": "Disable 2FA request sent to auth server. 2FA secret removed from server."
+        }
+      ]
+    }
+  ]
+}

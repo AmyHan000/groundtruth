@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "修改邮箱",
+    "business_scenario": "用户在设置中修改注册邮箱，需先验证当前密码，然后向新邮箱发送验证邮件，最后提交新邮箱、密码和验证码至认证服务器完成变更",
+    "data_types_info": "原密码(敏感), 新邮箱地址(一般), 验证码(一般)",
+    "processing_method": "上传云端（发送至 auth.streetwriters.co）",
+    "permissions_info": "无"
+  }
+]

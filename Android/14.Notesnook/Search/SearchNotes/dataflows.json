@@ -1,0 +1,35 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SEARCH_NOTES",
+      "data_type": "Search Query (Local Only)",
+      "description": "User searches notes locally. Search queries are processed entirely on-device against the encrypted SQLite database. No search data sent to external servers.",
+      "flow_steps": [
+        {
+          "step": "Trigger",
+          "function": "Search.onSearch",
+          "file": "apps/mobile/app/screens/search/index.tsx",
+          "line": 53,
+          "code": "results = await db.lookup.notesWithHighlighting(query, route.params.items, groupOptions);",
+          "details": "User types search query. Query executed against local encrypted SQLite database."
+        },
+        {
+          "step": "Data Processing",
+          "function": "SearchBar onChangeText",
+          "file": "apps/mobile/app/screens/search/search-bar.tsx",
+          "line": 81,
+          "code": "onChangeText={_onChangeText}",
+          "details": "Search text input captured in local state. All processing is local."
+        },
+        {
+          "step": "Data Storage (Local)",
+          "function": "database encryption",
+          "file": "apps/mobile/app/common/database/index.ts",
+          "line": 38,
+          "code": "password: key",
+          "details": "Search results retrieved from locally encrypted SQLite database. Decrypted in-memory for display."
+        }
+      ]
+    }
+  ]
+}

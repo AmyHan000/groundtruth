@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "双重认证设置",
+    "business_scenario": "用户在设置中启用或关闭双重认证（2FA），可选择验证器应用（TOTP）、短信或邮箱作为认证方式，设置过程中需验证当前账户密码，开启后每次登录需输入对应验证码",
+    "data_types_info": "账户密码(敏感), 2FA密钥/验证码(敏感), 手机号码(敏感-短信认证时), 邮箱地址(一般-邮箱认证时), 恢复码(一般)",
+    "processing_method": "上传云端（发送至 auth.streetwriters.co）",
+    "permissions_info": "无"
+  }
+]

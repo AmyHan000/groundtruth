@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "导出笔记",
+    "business_scenario": "用户在设置中导出全部笔记或选中笔记，可选择PDF、Markdown、HTML或纯文本格式，导出大范围全部笔记时需要输入账户密码进行身份验证，导出文件保存到本地Notesnook/exported文件夹",
+    "data_types_info": "笔记内容(一般), 标签和分类信息(一般), 附件数据(一般), 账户密码(敏感-全部导出时验证)",
+    "processing_method": "本地处理（导出为文件保存到本地 Notesnook/exported 文件夹）",
+    "permissions_info": "无"
+  }
+]

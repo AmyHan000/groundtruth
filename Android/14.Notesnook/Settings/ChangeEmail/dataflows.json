@@ -1,0 +1,35 @@
+{
+  "project_privacy_data_flows": [
+    {
+      "id": "FLOW_SETTINGS_CHANGE_EMAIL",
+      "data_type": "New Email + Password + Verification Code",
+      "description": "User changes email address. First verifies password, then sends verification email to new address, finally submits new email with verification code.",
+      "flow_steps": [
+        {
+          "step": "Password Verification",
+          "function": "ChangeEmail.onSubmit (step: verify)",
+          "file": "apps/mobile/app/screens/settings/change-email/index.tsx",
+          "line": 64,
+          "code": "const verified = await db.user?.verifyPassword(password);",
+          "details": "Current password verified against auth server before allowing email change."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "ChangeEmail.onSubmit (step: sendVerification)",
+          "file": "apps/mobile/app/screens/settings/change-email/index.tsx",
+          "line": 66,
+          "code": "await db.user?.sendVerificationEmail(email);",
+          "details": "Verification email sent to new email address via auth server."
+        },
+        {
+          "step": "Data Transmission",
+          "function": "ChangeEmail.onSubmit (step: changeEmail)",
+          "file": "apps/mobile/app/screens/settings/change-email/index.tsx",
+          "line": 78,
+          "code": "await db.user?.changeEmail(email, password, code);",
+          "details": "New email, password, and verification code sent to auth.streetwriters.co to complete email change."
+        }
+      ]
+    }
+  ]
+}

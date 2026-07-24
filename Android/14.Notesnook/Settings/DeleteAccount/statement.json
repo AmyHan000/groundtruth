@@ -1,0 +1,9 @@
+[
+  {
+    "business_function": "删除账号",
+    "business_scenario": "用户在设置中触发删除账号操作，需输入密码进行身份验证，验证通过后账号所有远程数据被服务器永久删除，本地加密密钥和生物识别凭据一并清除",
+    "data_types_info": "密码(敏感), 所有账号数据(一般)",
+    "processing_method": "上传云端（密码发送至认证服务器验证，远程数据永久删除）",
+    "permissions_info": "无"
+  }
+]
